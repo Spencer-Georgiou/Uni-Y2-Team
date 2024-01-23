@@ -1,0 +1,278 @@
+
+
+/* black navigation start*/
+.black-nav{
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #FFFAF0;
+    position: relative;
+    z-index: 666;
+}
+
+.wrap{
+    width: 1226px;
+    margin: 0 auto; /*center*/
+}
+
+.nav-left{
+    float: left;
+}
+
+.black-nav li{
+    float: left;
+}
+
+.black-nav a{
+    font-size: 16px;
+}
+.black-nav span{
+    color: #424242;
+    font-size: 14px;
+    margin: 0 4.0px;
+}
+
+.black-nav a:hover{
+    color: #ff8e8e;
+}
+
+.nav-right{
+    float: right;
+}
+
+/* Download App*/
+.nav-left li{
+    position: relative;
+}
+
+.download{
+    width: 124px;
+    height: 0;
+    background-color: #fff;
+    /*row colomn ambiguity colour*/
+    box-shadow: 0 1px 5px #aaa;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    margin-left: -62px;
+    overflow: hidden;
+    transition: all .3s;
+}
+
+.nav-left li:hover>.download{
+    height: 148px;
+}
+
+.download>img{
+    width: 90px;
+    margin: 18px 0 12px;
+}
+
+.download>p{
+    color: #333;
+    font-size: 14px;
+    line-height: 14px;
+}
+/* black navigation end*/
+
+/*banner start*/
+.banner{
+    width: 100%;
+    height: 700px;
+}
+.banner-box{
+    width: 100%;
+    height: 500px;
+    background-image: url('../images/restaurant6.jpg');
+    background-size: 100%;
+}
+/*banner end*/
+/*swiper-click start*/
+.ad{
+    width: 100%;
+    height: 180px;
+    /*padding是控件的内容相对控件的边缘的边距．margin是控件边缘相对父空间的边距．*/
+    margin: 14px 0 26px;
+
+}
+
+.ad-box{
+    width: 30%;
+    height: 200px;
+    float: left;
+    margin-left: 30px;
+    transition: all .2s linear;
+    margin-bottom: 20px;
+}
+
+.ad-box img{
+    width: 100%;
+    height: 100%;
+}
+
+.ad-box:hover{
+    box-shadow: 0 15px 30px rgba(0, 0, 0, .1);
+}
+/*swiper-click end*/
+
+
+
+/*footer start*/
+.footer{
+    background-color: #fff;
+
+}
+
+.service{
+    padding: 27px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.service>ul{
+    height: 30px;
+}
+
+.service li{
+    float: center;
+    width: 100%;
+    font-size: 25px;
+    line-height: 30px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.service a{
+    color: #616161;
+    transition: all .2s;
+
+}
+
+.service a:hover{
+    color: #ff6700;
+}
+
+.service i{
+    font-size: 25px;
+    position: relative;
+    top: 3px;
+}
+
+.service>ul{
+    height: 30px;
+    color: #fff;
+}
+
+.link{
+    padding: 40px 0;
+    height: 300px;
+    width: 100%;
+}
+
+.link>ul{
+    float: left;
+    width: 25%;
+    height: 300px;
+    text-align: center;
+}
+
+.link li{
+    height: 30px;
+    margin-top: 10px;
+    line-height: 30px;
+
+}
+
+.link li:first-chid{
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 27px;
+    margin-top: -1px;
+}
+
+.link a{
+    color: #757575;
+    font-size: 16px;
+}
+
+.link li:first-child a{
+    color: #424242;
+    line-height: 30px;
+    font-size: 20px;
+}
+
+.link a:hover{
+    color: #ff6700;
+}
+
+.contact{
+    width: 300px;
+    height: 200px;
+    border-left: 1px solid #e0e0e0;
+    float: right;
+}
+
+.tel{
+    color: #ff6700;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.date{
+    font-size: 14px;
+    color: #616161;
+    margin-bottom: 6px;
+}
+
+.link .customer{
+    display: block;
+    width: 118px;
+    height: 28px;
+    border: 1px solid #ff6700;
+    margin: 0 auto;
+    color: #ff6700;
+    line-height: 28px;
+    transition: all .4s;
+
+}
+
+.link .customer:hover{
+    background-color: #ff6700;
+    color: #fff;
+}
+
+.footer-info{
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+.footer-info .copyRight{
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    padding: 10px 0 20px;
+}
+
+.copyRight li{
+    float: left;
+    width: 100%;
+    height: 35px;
+    line-height: 25px;
+}
+
+.copyRight a{
+    color: #b0b0b0;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10pxs;
+
+}
+
+.copyRight a:hover{
+    color: #fff;
+}
+
+.copyRight p{
+    color: #fff;
+}
+
+/*footer end*/
