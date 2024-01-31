@@ -1,0 +1,83 @@
+body,
+html {
+    height: 100%;
+    margin: 0px;
+}
+
+.background-img {
+    background-image: url("/images/staffLogin2K.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    margin: 0px;
+}
+
+
+.login-container {
+    height: 600px;
+    width: 600px;
+    background-color: rgb(255, 36, 75);
+    border-radius: 25px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+
+
+
+}
+
+.login-img {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    margin-top: 20px;
+
+}
+
+.login-img img {
+    width: 100%;
+
+}
+
+.login-text {
+    color: rgb(253, 187, 40);
+    font-size: 140%;
+    font-family: cursive;
+    text-align: center;
+    margin-top: 10px;
+
+}
+
+.spacer {
+
+    height: 25px;
+}
+
+.text-button {}
+
+.input-text {
+    margin: auto;
+    height: 60px;
+    width: 90%;
+    display: block;
+    border-radius: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-family: cursive;
+    font-size: 100%;
+    font-weight: bold;
+    border: 0px;
+    background-color: rgb(253, 187, 40);
+
+
+}
+
+.largerFont {
+    font-size: 25px;
+    height: 70px;
+    width: 35%;
+}
