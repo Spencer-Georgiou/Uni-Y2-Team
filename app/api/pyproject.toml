@@ -1,0 +1,4 @@
+[tool.pytest.ini_options]
+# ignore Deprecation warnings
+filterwarnings = ["ignore::DeprecationWarning"]
+addopts = ["--import-mode=importlib"]
