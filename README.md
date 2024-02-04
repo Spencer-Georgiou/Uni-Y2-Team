@@ -98,5 +98,5 @@ TeamProject27
 - Database: [sqlite](https://www.sqlite.org/index.html) + [py-sqlite3](https://docs.python.org/3.12/library/sqlite3.html)
 - Code Style: [PEP8](https://peps.python.org/pep-0008/)
 - Style checker: [Pylint](https://pylint.readthedocs.io/)
-- Testing tool: [pytest](https://docs.pytest.org/) + [pytest-flask](https://pytest-flask.readthedocs.io)
+- Testing tool: [pytest](https://docs.pytest.org/)
 - API Documentation Tool: [Flask-RESTX](https://flask-restx.readthedocs.io/)

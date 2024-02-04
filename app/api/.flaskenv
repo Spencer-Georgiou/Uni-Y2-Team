@@ -1,2 +1,3 @@
-FLASK_APP=src/app.py
+# Flask enviroment values used in python-dotenv
+FLASK_APP=src/api.py
 FLASK_ENV=development
