@@ -1,6 +1,9 @@
+/**
+ * The main component that contains logics of the React app.
+ */
 import React, { useState, useEffect } from 'react'
 
-/* The code provided below is just an example. Delete the body of App function after you understand how it works. */
+/* The code provided below is just an example. Delete the BODY of the App function once you understand how it works. */
 /* Please run the backend first and open 'http://127.0.0.1:5000/api' to view all the apis. */
 
 function App () {

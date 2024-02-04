@@ -67,7 +67,7 @@ TeamProject27
 │       ├── package.json
 │       ├── public
 │       ├── src
-│       └── test
+│           └── __test__
 ├── build
 └── doc
 ```
@@ -85,6 +85,7 @@ TeamProject27
   - `package.json`: metadata of the React package, i.e package name, version, brief requirement of dependencies
   - `public`: static files used in the websites, such as images or css styles
   - `src`: directory of react source codes
+    - `__test__`: directory consists of javascript test codes
 - `build`: directory for the product after build and to be hosted on a remote server
 - `doc` : directory to store our documentations, including sketch, meeting log, design materials, etc.
 ## Standard & Convention
