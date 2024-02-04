@@ -7,12 +7,18 @@ This is the repository for Team 27 taking the module CS2810 in academic year 202
 - [Configuration](#configuration)
   - [Manual Setup](#manual-setup)
   - [Running the Application in Development](#running-the-application-in-development)
+  - [Frontend](#frontend)
+    - [Running Tests](#running-tests)
+    - [Reading Flask API Documentation](#reading-flask-api-documentation)
+    - [Generating JSDoc](#generating-jsdoc)
+  - [Backend](#backend)
+    - [Running Tests](#running-tests-1)
 - [Project Layout](#project-layout)
   - [Structure](#structure)
   - [Description](#description)
 - [Standard \& Convention](#standard-convention)
-  - [Frontend](#frontend)
-  - [Backend](#backend)
+  - [Frontend](#frontend-1)
+  - [Backend](#backend-1)
 ## Configuration
 ### Manual Setup
 1. Open a terminal
@@ -50,6 +56,32 @@ This is the repository for Team 27 taking the module CS2810 in academic year 202
       1. `cd <your parent directory>/TeamProject27/app/ui`
       2. `npm start`
 5. Done
+### Frontend
+This section assumes you have the **backend server** running.
+#### Running Tests
+1. Open a terminal
+2. Go to the ui directory
+   1. `cd <your parent directory>/TeamProject27/app/ui`
+3. Run Jest tests
+   1. `npm test`
+#### Reading Flask API Documentation
+1. View all APIs on [localhost:5000/api](http://localhost:5000/api)
+#### Generating JSDoc
+1. Open a terminal
+2. Go to the ui directory
+   1. `cd <your parent directory>/TeamProject27/app/ui`
+3. Run JSdoc
+   1. `npm run docs`
+4. Open the JS doc websites
+   1. Open `./out/index.html` with your browser
+### Backend
+This section assumes you have activated the **python virtual enviroment**.
+#### Running Tests
+1. Open a terminal
+2. Go to the api directory
+   1. `cd <your parent directory>/TeamProject27/app/api`
+3. Run pytest tests
+   1. `python -m pytest test`
 ## Project Layout
 ### Structure
 ```
