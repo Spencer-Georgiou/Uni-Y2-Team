@@ -1,13 +1,15 @@
-/**
- * The root element of the React app which renders webpages provided by App component.
- */
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    {/*useing RouterProvider to make our router works */}
+   <RouterProvider router={router}/>
   </React.StrictMode>
-)
+);
+
