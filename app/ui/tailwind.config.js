@@ -5,6 +5,13 @@ module.exports = {
 ],
   theme: {
     extend: {},
+    colors:{
+      'cherry':'#ff244b',
+      'lemon':'#fdbb28',
+    },
+    fontFamily:{
+      'sans':['Noto Sans, sans-serif'],
+    }
   },
   plugins: [require('flowbite/plugin')],
 }
