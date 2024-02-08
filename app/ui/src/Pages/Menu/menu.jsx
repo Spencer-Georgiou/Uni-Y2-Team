@@ -2,6 +2,7 @@ import Navbar1 from "../../components/Menu/NavBar1"
 import Filter from "../../components/Menu/filter"
 import Starters from "../../components/Menu/Starters"
 import Mains from "../../components/Menu/Mains"
+import Desserts from "../../components/Menu/Desserts"
 
 const Menu= () =>{
     return (
@@ -11,6 +12,7 @@ const Menu= () =>{
       <Filter/>
       <Starters/>
       <Mains/>
+      <Desserts/>
       </div>
 
     )
