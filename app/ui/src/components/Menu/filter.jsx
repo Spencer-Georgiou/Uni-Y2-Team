@@ -29,8 +29,8 @@ const Filter = () => {
                                 <label for="default-checkbox" class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"><b>Non-Spicy</b></label>
                         </div>
                     </div>
-                    <div class="pl-2 text-cherry w-44 inline float-left">
-                        <span class="text-xl"><b>Show Me:</b></span>
+                    <div class="pl-2 text-cherry w-56 inline float-left">
+                        <span class="text-xl"><b>Does Not Contain:</b></span>
                         <div class="flex items-center my-5">
                             <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                                 <label for="default-checkbox" class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"><b>Gluten</b></label>

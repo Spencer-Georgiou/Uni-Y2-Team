@@ -3,6 +3,7 @@ import Filter from "../../components/Menu/filter"
 import Starters from "../../components/Menu/Starters"
 import Mains from "../../components/Menu/Mains"
 import Desserts from "../../components/Menu/Desserts"
+import Footer1 from "../../components/Menu/Footer1"
 
 const Menu= () =>{
     return (
@@ -13,6 +14,7 @@ const Menu= () =>{
       <Starters/>
       <Mains/>
       <Desserts/>
+      <Footer1/>
       </div>
 
     )
