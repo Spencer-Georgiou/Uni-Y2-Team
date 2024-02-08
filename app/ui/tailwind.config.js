@@ -4,10 +4,16 @@ module.exports = {
   'node_modules/flowbite-react/lib/esm/**/*.js'
 ],
   theme: {
-    extend: {},
+    extend: {
+      'height':{
+        '128':'32rem',
+        '90':'22rem',
+      }
+    },
     colors:{
       'cherry':'#ff244b',
       'lemon':'#fdbb28',
+      'juice':'#fe6100'
     },
     fontFamily:{
       'sans':['Noto Sans, sans-serif'],

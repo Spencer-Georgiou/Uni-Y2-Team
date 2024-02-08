@@ -1,5 +1,3 @@
-
-
 const Filter = () => {
     return (
         <div class="bg-cherry w-full h-96 border-gray-200 p-4 pl-48">

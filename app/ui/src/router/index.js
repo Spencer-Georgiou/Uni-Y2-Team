@@ -11,7 +11,7 @@ import Home from '../Pages/Home/home'
 const router = createBrowserRouter([
     {
         path:"/",
-        element:<Home/>
+        element:<Menu/>
     },
     {
         path:"/Login",
