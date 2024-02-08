@@ -27,64 +27,62 @@ const Mains = () => {
                             <tbody>
                                 <tr class="bg-cherry">
                                     <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                                        <b>Tacos</b>
-                                        <p class="text-gray-900">Crispy tacos filled with cheese</p>
-                                        <p class="text-gray-900 ml-3"> • Beef chilli</p>
-                                        <p class="text-gray-900 ml-3"> • Bean chilli(Vg)</p>
+                                        <b>Burrito</b>
+                                        <p class="text-gray-900">Rice, beans and cheese wrapped up in a flour tortilla(V)</p>
                                     </th>
                                     <td class="px-6 py-4 text-gray-900">
-                                        600 kcal
+                                        350 kcal
                                     </td>
                                     <td class="px-6 py-4 text-gray-900">
-                                        Spicy, Vegan
+                                    Vegetarian
                                     </td>
                                     <td class="px-6 py-4 text-gray-900">
-                                        <b>$5.00</b>
+                                        <b>￡6.00</b>
                                     </td>
                                 </tr>
                                 <tr class="bg-cherry">
                                     <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                                        <b>Jalapeno Poppers</b>
-                                        <p class="text-gray-900">With cream cheese(Vg)</p>
+                                        <b>Chorizo Quesadilla</b>
+                                        <p class="text-gray-900">Chorizo and cheese toasted in a flour tortilla</p>
                                     </th>
                                     <td class="px-6 py-4 text-gray-900">
-                                        450 kcal
+                                        400 kcal
                                     </td>
                                     <td class="px-6 py-4 text-gray-900">
-                                        Vegan
+                                    ------
                                     </td>
                                     <td class="px-6 py-4 text-gray-900">
-                                        <b>$3.50</b>
+                                        <b>￡7.50</b>
                                     </td>
                                 </tr>
                                 <tr class="bg-cherry">
                                     <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                                        <b>Patatas Bravas</b>
-                                        <p class="text-gray-900">Roasted potatoes in tomato dressing(V)</p>
+                                        <b>Bean Tostadas</b>
+                                        <p class="text-gray-900">chickpeas, beans and peas with tomato salsa(V)</p>
+                                    </th>
+                                    <td class="px-6 py-4 text-gray-900">
+                                        300 kcal
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-900">
+                                    Vegetarian
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-900">
+                                        <b>￡6.00</b>
+                                    </td>
+                                </tr>
+                                <tr class="bg-cherry">
+                                    <th scope="row" class="px-6 h-5 font-medium text-lemon">
+                                        <b>Halloumi Skewers</b>
+                                        <p class="text-gray-900">Roasted Halloumi cheese and vegetables(Vg)</p>
                                     </th>
                                     <td class="px-6 py-4 text-gray-900">
                                         500 kcal
                                     </td>
                                     <td class="px-6 py-4 text-gray-900">
-                                    Vegetarian
+                                    Vegan
                                     </td>
                                     <td class="px-6 py-4 text-gray-900">
-                                        <b>$3.00</b>
-                                    </td>
-                                </tr>
-                                <tr class="bg-cherry">
-                                    <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                                        <b>Crispy Cauliflower Bites</b>
-                                        <p class="text-gray-900">Roasted cauliflower in jalapeno dressing(V)</p>
-                                    </th>
-                                    <td class="px-6 py-4 text-gray-900">
-                                        200 kcal
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-900">
-                                    Vegetarian
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-900">
-                                        <b>$2.50</b>
+                                        <b>￡5.50</b>
                                     </td>
                                 </tr>
                             </tbody>

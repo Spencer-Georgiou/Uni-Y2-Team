@@ -27,7 +27,7 @@ const Starters = () => {
                             <tbody>
                                 <tr class="bg-juice">
                                     <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                                        <b>Tacos</b>
+                                        <b>TBurr</b>
                                         <p class="text-gray-900">Crispy tacos filled with cheese</p>
                                         <p class="text-gray-900 ml-3"> • Beef chilli</p>
                                         <p class="text-gray-900 ml-3"> • Bean chilli(Vg)</p>
@@ -39,7 +39,7 @@ const Starters = () => {
                                         Spicy, Vegan
                                     </td>
                                     <td class="px-6 py-4 text-gray-900">
-                                        <b>$5.00</b>
+                                        <b>￡5.00</b>
                                     </td>
                                 </tr>
                                 <tr class="bg-juice">
@@ -54,7 +54,7 @@ const Starters = () => {
                                         Vegan
                                     </td>
                                     <td class="px-6 py-4 text-gray-900">
-                                        <b>$3.50</b>
+                                        <b>￡3.50</b>
                                     </td>
                                 </tr>
                                 <tr class="bg-juice">
@@ -69,7 +69,7 @@ const Starters = () => {
                                     Vegetarian
                                     </td>
                                     <td class="px-6 py-4 text-gray-900">
-                                        <b>$3.00</b>
+                                        <b>￡3.00</b>
                                     </td>
                                 </tr>
                                 <tr class="bg-juice">
@@ -84,7 +84,7 @@ const Starters = () => {
                                     Vegetarian
                                     </td>
                                     <td class="px-6 py-4 text-gray-900">
-                                        <b>$2.50</b>
+                                        <b>￡2.50</b>
                                     </td>
                                 </tr>
                             </tbody>
