@@ -1,0 +1,15 @@
+the following command is to install the package for the ui server.
+Make sure that current location is at ui folder before installing it
+
+1. install all the dependencies in package.json
+npm install
+
+2.  tailwind
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+3. flowbite
+npm install flowbite flowbite-react
+
+4. react router
+npm i react-router-dom

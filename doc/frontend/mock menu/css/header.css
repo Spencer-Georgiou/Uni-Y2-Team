@@ -1,0 +1,272 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style:none;
+}
+
+.nav {
+    height: 80px;
+    background-color: #ed234e;
+    box-shadow: 0 1px 2px #666;
+}
+
+.left-nav{
+    height: 80px;
+}
+
+.blt{
+    float: left;
+    width: 100px;
+    line-height: 50px;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.left-nav a{
+    color: #f2bc27;
+    font-size: 20px;
+    display: block;
+    font-family: Noto Sans, sans-serif;
+
+}
+
+.left-nav a:hover{
+    color: #fff;
+}
+
+.droplist{
+    margin-top: 15px;
+    background:#f2bc27;
+    display: none;
+    position: absolute;
+}
+
+.droplist a{
+    color: #ed234e;
+}
+
+.blt:active .droplist{
+    display: block;
+}
+
+.blt:hover .droplist{
+    display: block;
+}
+
+.center-nav{
+    float: center;
+    padding-left: 680px;
+}
+
+.re-button{
+    background-color: #f2bc27;
+
+    height: 60px;
+    width: 100px;
+    position: absolute;
+    top: 10px;
+    margin-left: 1100px;
+    border-radius: 30px;
+}
+
+.re-button a{
+    color: #ed234e;
+    text-align: center;
+    padding-top: 17px;
+}
+
+.lo-button{
+    background-color: #f2bc27;
+
+    height: 60px;
+    width: 100px;
+    position: absolute;
+    top: 10px;
+    margin-left: 1220px;
+    border-radius: 30px;
+}
+
+.lo-button a{
+    color: #ed234e;
+    text-align: center;
+    padding-top: 17px;
+}
+
+/*banner start*/
+.banner{
+    width: 100%;
+    height: 300px;
+}
+.banner-box{
+    width: 100%;
+    height: 310px;
+    background-image: url('../images/background.png');
+    background-size: 100%;
+}
+/*banner end*/
+.order {
+    height: 350px;
+    background-color: #ed234e;
+    box-shadow: 0 1px 2px #666;
+}
+
+.filter{
+    font-size: 25px;
+    color: #f2bc27;
+    font-family: Noto Sans, sans-serif;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+    top: 30px;
+    left: 50px;
+}
+
+.innerbox{
+    height: 240px;
+    width: 80%;
+    background-color: #f2bc27;
+    top: 50px;
+    position: relative;
+    left:50px;
+    border-radius: 30px;
+}
+
+.text-line{
+    float: left;
+    height: 30px;
+    width: 100%;
+    padding-left: 20px;
+}
+
+.text{
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    color: #ed234e;
+    font-family: Noto Sans, sans-serif;
+    font-size: 25px;
+    width: 50%;
+    text-align: left;
+    padding-top: 10px;
+}
+
+.container-1{
+    top: 20px;
+    left:20px;
+    position: relative;
+}
+
+.container-1 label{
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.container-1 span{
+    font-size: 20px;
+    align-items: center;
+    color: #ed234e;
+    font-family: Noto Sans, sans-serif;
+    padding: 10px;
+}
+
+.firstbox-1{
+    margin-right: 500px;
+}
+
+.container-2{
+    top: 30px;
+    left:20px;
+    position: relative;
+}
+
+.container-2 label{
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.container-2 span{
+    font-size: 20px;
+    align-items: center;
+    color: #ed234e;
+    font-family: Noto Sans, sans-serif;
+    padding: 10px;
+}
+
+.firstbox-2{
+    margin-right: 538px;
+}
+
+.container-3{
+    top: 40px;
+    left:20px;
+    position: relative;
+}
+
+.container-3 label{
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.container-3 span{
+    font-size: 20px;
+    align-items: center;
+    color: #ed234e;
+    font-family: Noto Sans, sans-serif;
+    padding: 10px;
+}
+
+.firstbox-3{
+    margin-right: 550px;
+}
+
+.container-4{
+    top: 50px;
+    left:20px;
+    position: relative;
+}
+
+.container-4 label{
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.container-4 span{
+    font-size: 20px;
+    align-items: center;
+    color: #ed234e;
+    font-family: Noto Sans, sans-serif;
+    padding: 10px;
+}
+
+.firstbox-4{
+    margin-right: 547px;
+}
+
+.container-5{
+    top: 60px;
+    left:20px;
+    position: relative;
+}
+
+.container-5 label{
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.container-5 span{
+    font-size: 20px;
+    align-items: center;
+    color: #ed234e;
+    font-family: Noto Sans, sans-serif;
+    padding: 10px;
+}
+
+.firstbox-5{
+    margin-right: 504px;
+}
+
+
+
+
+
