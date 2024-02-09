@@ -5,7 +5,7 @@ The urls of api are prefixed with '/api' and return a json.
 """
 
 from . import flask_app
-from . import demo
+from . import demo, menu
 
 if __name__ == '__main__':
     flask_app.run(debug=True)
