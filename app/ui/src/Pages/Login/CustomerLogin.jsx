@@ -16,9 +16,7 @@ const CustomerLogin = () => {
                         <img className="w-40 h-40 mb-6" src="/images/OaxacaLogo.png" alt="picture" />
                     </div>
                     <div className="text-2xl text-cherry font-sans font-semibold text-center mb-4">Customer Login</div>
-
                     <Form_customer />
-
                 </div>
             </div>
         </div>
