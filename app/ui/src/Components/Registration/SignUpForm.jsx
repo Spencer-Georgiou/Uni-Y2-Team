@@ -2,8 +2,7 @@ import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
 const SignUpForm = () => {
   return (
-    <form className="flex max-w-md flex-col gap-4" class="bg-orange-500 text-center rounded max-w-sm">
-    <img src="images/OaxacaLogo.png" class="h-14 justify-center" alt="Oaxaca Logo" />
+    <form className="flex max-w-md flex-col gap-4 flex items-center">
       <div>
         <div className="mb-1 block">
           <Label htmlFor="email1" value="Your Email:" />
