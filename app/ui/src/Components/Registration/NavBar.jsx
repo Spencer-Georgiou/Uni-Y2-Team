@@ -1,7 +1,7 @@
 import { Navbar } from "flowbite-react"
 
 
-const Navbar1 = () => {
+const NavBar = () => {
     return (
         <nav class="bg-rose">
                 
@@ -41,4 +41,4 @@ const Navbar1 = () => {
 
 }
 
-export default Navbar1
+export default NavBar
