@@ -43,7 +43,8 @@ class Session(Base):
     user: Mapped["User"] = relationship(back_populates="session")
 
     def __repr__(self):
-        return f"Session(username={self.username!r}, token={self.token!r}, valid_until={self.valid_until!r})"
+        return (f"Session(username={self.username!r}, token={self.token!r}, valid_until="
+                f"{self.valid_until!r})")
 
 
 engine = create_engine("sqlite://", echo=True)
