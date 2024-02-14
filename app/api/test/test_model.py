@@ -30,3 +30,12 @@ class TestSession:
         session = Session(user=user, token="abcde")
         db.session.add(session)
         db.session.commit()
+
+    # A session can refer to its associated user.
+    def test_session_relationship_user(self, db):
+        user = User(username="Kate", password="123456")
+        session = Session(user=user, token="abcde")
+        db.session.add(user)
+        db.session.add(session)
+        db.session.commit()
+        assert session.user is user
