@@ -1,12 +1,16 @@
 """
 Module for Object-Relation models that maps objects to tables stored in a database.
 """
-from datetime import datetime, timedelta
+from datetime import datetime
+from datetime import timedelta
 from typing import Optional
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import CheckConstraint
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
+from sqlalchemy import Integer
+from sqlalchemy import Numeric
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
@@ -69,9 +73,31 @@ class Session(db.Model):
 class Allergen(db.Model):
     """
     An allergen model to represent food or drink allergens.
+
+    :cvar id: the identifier of the allergen
+    :cvar name: the name of the allergen
     """
 
     __tablename__ = "allergen"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String)
+
+
+class MenuItem(db.Model):
+    """
+    A data model for the object 'menu item', an item that can be displayed on a menu.
+
+    :cvar id: the identifier of the menu item
+    :cvar name: the name of the menu item
+    :cvar description: the description of the menu item, which can be more detailed than its name
+    :cvar calorie: the amount of energy the menu item contains in kcal.
+    :cvar price: the price of the menu item
+    """
+    pass
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String)
+    description: Mapped[str] = mapped_column(String)
+    calorie: Mapped[int] = mapped_column(Integer, CheckConstraint('calorie > 0'))
+    price: Mapped[int] = mapped_column(Numeric(scale=2), CheckConstraint('price > 0'))

@@ -2,6 +2,7 @@
 Testing data models.
 """
 from src.model import Allergen
+from src.model import MenuItem
 from src.model import User
 from src.model import Session
 from datetime import datetime
@@ -48,4 +49,13 @@ class TestAllergen:
     def test_create_allergen(self, db):
         allergen = Allergen(name="gluten")
         db.session.add(allergen)
+        db.session.commit()
+
+
+class TestMenuItem:
+    # An instance of a MenuItem can be created then stored to the database.
+    def test_create_menu_item(self, db):
+        menu_item = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
+                             calorie=600, price=5.00)
+        db.session.add(menu_item)
         db.session.commit()
