@@ -1,24 +1,39 @@
-
-.droplist{
-    margin-top: 20px;
-    background:#f2bc27;
-    display: none;
-    position: absolute;
-    width: 100px;
-    height: 90px;
+.nav {
+    display: flex;
+    align-items: center;
 }
 
-.droplist>li{
+.navlist {
+    display: flex;
+    margin-top: 0;
+    margin-left: 2rem;
+    flex-direction: row;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.droplist {
+    margin-top: 20px;
+    background: #f2bc27;
+    display: none;
+    position: absolute;
+    z-index: 10px;
+    width: 100px;
+    height: 90px;
+    transition: .3s;
+    box-shadow: 0 1px 2px #333;
+}
+
+
+
+.droplist>li {
     height: 30px;
     line-height: 30px;
     margin-bottom: 10px;
     margin-top: 10px;
 }
 
-.blt:active .droplist{
+.blt:hover .droplist {
     display: block;
-}
-
-.blt:hover .droplist{
-    display: block;
+    cursor: pointer;
 }
