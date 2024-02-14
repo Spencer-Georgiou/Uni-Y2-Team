@@ -85,6 +85,17 @@ class TestMenuItem:
         db.session.commit()
         assert allergen in menuitem.allergens
 
+    # A menu item can be associated with a menu group.
+    def test_relationship_menugroup(self, db):
+        menugroup = MenuGroup(type="Food", category="Starter")
+        menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
+                            calorie=600, price=5.00, menugroup=menugroup)
+        db.session.add(menuitem)
+        db.session.add(menugroup)
+        db.session.commit()
+
+        assert menuitem.menugroup is menugroup
+
 
 class TestMenuGroup:
     # An instance of menu group can be created and stored in the database.
