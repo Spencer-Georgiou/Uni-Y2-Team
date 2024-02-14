@@ -59,6 +59,7 @@ class TestAllergen:
         db.session.add(allergen)
         db.session.add(menu_item)
         db.session.commit()
+        assert menu_item in allergen.menu_items
 
 
 class TestMenuItem:
@@ -68,3 +69,14 @@ class TestMenuItem:
                              calorie=600, price=5.00)
         db.session.add(menu_item)
         db.session.commit()
+
+    # A menu item can have one allergen.
+    def test_relationship_allergen(self, db):
+        allergen = Allergen(name="gluten")
+        menu_item = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
+                             calorie=600, price=5.00)
+        menu_item.allergens.append(allergen)
+        db.session.add(allergen)
+        db.session.add(menu_item)
+        db.session.commit()
+        assert allergen in menu_item.allergens

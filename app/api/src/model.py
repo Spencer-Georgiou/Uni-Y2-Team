@@ -84,8 +84,8 @@ class Allergen(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String)
 
-    menu_items: Mapped[Optional[List["MenuItem"]]] = relationship(
-        secondary="menuitem_allergen")
+    menu_items: Mapped[Optional[List["MenuItem"]]] = relationship(back_populates="allergens",
+                                                                  secondary="menuitem_allergen")
 
 
 menuitem_allergen = db.Table(
@@ -112,3 +112,6 @@ class MenuItem(db.Model):
     description: Mapped[str] = mapped_column(String)
     calorie: Mapped[int] = mapped_column(Integer, CheckConstraint('calorie > 0'))
     price: Mapped[int] = mapped_column(Numeric(scale=2), CheckConstraint('price > 0'))
+
+    allergens: Mapped[Optional[List["Allergen"]]] = relationship(back_populates="menu_items",
+                                                                 secondary="menuitem_allergen")
