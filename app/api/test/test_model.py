@@ -16,7 +16,7 @@ class TestUser:
         db.session.commit()
 
     # A user can refer to its associated session.
-    def test_user_relationship_session(self, db):
+    def test_relationship_session(self, db):
         user = User(username="Kate", password="123456")
         session = Session(user=user, token="abcde")
         db.session.add(user)
@@ -27,21 +27,20 @@ class TestUser:
 
 class TestSession:
     # An instance of a session object can be created and stored in the database.
-    def test_create_user(self, db):
+    def test_create_session(self, db):
         user = User(username="Kate", password="123456")
         session = Session(user=user, token="abcde")
         db.session.add(session)
         db.session.commit()
 
     # A session can refer to its associated user.
-    def test_session_relationship_user(self, db):
+    def test_relationship_user(self, db):
         user = User(username="Kate", password="123456")
         session = Session(user=user, token="abcde")
         db.session.add(user)
         db.session.add(session)
         db.session.commit()
         assert session.user is user
-        print(session)
 
 
 class TestAllergen:
@@ -51,10 +50,20 @@ class TestAllergen:
         db.session.add(allergen)
         db.session.commit()
 
+    # An allergen can be associated with at least one menu item.
+    def test_relationship_menuitem(self, db):
+        allergen = Allergen(name="gluten")
+        menu_item = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
+                             calorie=600, price=5.00)
+        allergen.menu_items.append(menu_item)
+        db.session.add(allergen)
+        db.session.add(menu_item)
+        db.session.commit()
+
 
 class TestMenuItem:
     # An instance of a MenuItem can be created then stored to the database.
-    def test_create_menu_item(self, db):
+    def test_create_menuitem(self, db):
         menu_item = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
                              calorie=600, price=5.00)
         db.session.add(menu_item)

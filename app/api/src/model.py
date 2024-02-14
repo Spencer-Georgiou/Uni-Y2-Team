@@ -3,6 +3,7 @@ Module for Object-Relation models that maps objects to tables stored in a databa
 """
 from datetime import datetime
 from datetime import timedelta
+from typing import List
 from typing import Optional
 
 from flask_sqlalchemy import SQLAlchemy
@@ -83,6 +84,16 @@ class Allergen(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String)
 
+    menu_items: Mapped[Optional[List["MenuItem"]]] = relationship(
+        secondary="menuitem_allergen")
+
+
+menuitem_allergen = db.Table(
+    "menuitem_allergen",
+    db.Column('menuitem', ForeignKey("menuitem.id"), primary_key=True),
+    db.Column('allergen', ForeignKey("allergen.id"), primary_key=True)
+)
+
 
 class MenuItem(db.Model):
     """
@@ -94,7 +105,7 @@ class MenuItem(db.Model):
     :cvar calorie: the amount of energy the menu item contains in kcal.
     :cvar price: the price of the menu item
     """
-    pass
+    __tablename__ = "menuitem"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String)
