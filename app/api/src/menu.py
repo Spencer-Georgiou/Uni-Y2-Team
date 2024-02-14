@@ -1,6 +1,8 @@
-from flask import jsonify
 import sqlite3
+
+from flask import jsonify
 from flask_restx import Resource
+
 from .apidoc import apidoc
 
 

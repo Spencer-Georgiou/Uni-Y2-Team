@@ -1,16 +1,16 @@
 """
 Module for Object-Relation models that maps objects to tables stored in a database.
 """
-import datetime
+from datetime import datetime, timedelta
 
-from sqlalchemy import DateTime
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import DateTime, func
 from sqlalchemy import ForeignKey
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from flask_sqlalchemy import SQLAlchemy
 
 
 class Base(DeclarativeBase):
@@ -40,13 +40,16 @@ class User(db.Model):
 
 class Session(db.Model):
     __tablename__ = "session"
-    username: Mapped[str] = mapped_column(ForeignKey("user.username"), primary_key=True,
-                                          nullable=False)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(ForeignKey("user.username"))
     token: Mapped[str] = mapped_column(String(128))
-    valid_until: Mapped[datetime.datetime] = mapped_column((DateTime(timezone=True)))
+    expires: Mapped[datetime] = mapped_column((DateTime(timezone=True)),
+                                              default=datetime.now() + timedelta(days=1))
 
     user: Mapped["User"] = relationship(back_populates="session")
 
     def __repr__(self):
-        return (f"Session(username={self.username!r}, token={self.token!r}, valid_until="
-                f"{self.valid_until!r})")
+        return (
+            f"Session(id={self.id!r}, username={self.username!r}, token={self.token!r}, "
+            f"valid_until="
+            f"{self.valid_until!r})")

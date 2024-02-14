@@ -1,3 +1,3 @@
 """
-Package providing APIs for OAXACA resturant management system.
+Package providing APIs for OAXACA restaurant management system.
 """
