@@ -54,14 +54,14 @@ class Session(db.Model):
     A session model to record data of a session between the client and the server.
 
     :cvar id: the identifier of the session
-    :cvar username: the username of the associated user
+    :cvar user_username: the username of the associated user
     :cvar token: the secret key to authenticate the session
     :cvar expires: the time when the session is valid until
     :cvar user: the user the session belongs to
     """
     __tablename__ = "session"
     id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(ForeignKey("user.username"))
+    user_username: Mapped[str] = mapped_column(ForeignKey("user.username"))
     token: Mapped[str] = mapped_column(String(128))
     expires: Mapped[datetime] = mapped_column((DateTime(timezone=True)),
                                               default=datetime.now() + timedelta(days=1))
@@ -70,7 +70,7 @@ class Session(db.Model):
 
     def __repr__(self):
         return (
-            f"Session(id={self.id!r}, username={self.username!r}, token={self.token!r}, "
+            f"Session(id={self.id!r}, user_username={self.user_username!r}, token={self.token!r}, "
             f"expires="
             f"{self.expires!r})")
 
@@ -81,7 +81,7 @@ class Allergen(db.Model):
 
     :cvar id: the identifier of the allergen
     :cvar name: the name of the allergen
-    :cvar menu_items: the associated menu items that contains the allergen
+    :cvar menuitems: the associated menu items that contains the allergen
     """
 
     __tablename__ = "allergen"
@@ -89,8 +89,8 @@ class Allergen(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String)
 
-    menu_items: Mapped[Optional[List["MenuItem"]]] = relationship(back_populates="allergens",
-                                                                  secondary="menuitem_allergen")
+    menuitems: Mapped[Optional[List["MenuItem"]]] = relationship(back_populates="allergens",
+                                                                 secondary="menuitem_allergen")
 
 
 # the association table for the many-to-many relationship between menuitem and allergen
@@ -119,9 +119,11 @@ class MenuItem(db.Model):
     description: Mapped[str] = mapped_column(String)
     calorie: Mapped[int] = mapped_column(Integer, CheckConstraint('calorie > 0'))
     price: Mapped[int] = mapped_column(Numeric(scale=2), CheckConstraint('price > 0'))
+    menugroup_id: Mapped[int] = mapped_column(ForeignKey("menugroup.id"))
 
-    allergens: Mapped[Optional[List["Allergen"]]] = relationship(back_populates="menu_items",
+    allergens: Mapped[Optional[List["Allergen"]]] = relationship(back_populates="menuitems",
                                                                  secondary="menuitem_allergen")
+    menugroup: Mapped["MenuGroup"] = relationship(back_populates="menuitems")
 
 
 class MenuGroup(db.Model):
@@ -143,3 +145,5 @@ class MenuGroup(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     type: Mapped[str] = mapped_column(String)
     category: Mapped[str] = mapped_column(String)
+
+    menuitems: Mapped[Optional[List["MenuItem"]]] = relationship(back_populates="menugroup")
