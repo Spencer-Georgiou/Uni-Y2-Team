@@ -2,6 +2,7 @@
 Testing data models.
 """
 from src.model import Allergen
+from src.model import MenuGroup
 from src.model import MenuItem
 from src.model import User
 from src.model import Session
@@ -46,37 +47,43 @@ class TestSession:
 class TestAllergen:
     # An instance of an allergen object can be created and stored in the database.
     def test_create_allergen(self, db):
-        allergen = Allergen(name="gluten")
+        allergen = Allergen(name="Gluten")
         db.session.add(allergen)
         db.session.commit()
 
     # An allergen can be associated with at least one menu item.
     def test_relationship_menuitem(self, db):
-        allergen = Allergen(name="gluten")
-        menu_item = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
-                             calorie=600, price=5.00)
-        allergen.menu_items.append(menu_item)
+        allergen = Allergen(name="Gluten")
+        menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
+                            calorie=600, price=5.00)
+        allergen.menu_items.append(menuitem)
         db.session.add(allergen)
-        db.session.add(menu_item)
+        db.session.add(menuitem)
         db.session.commit()
-        assert menu_item in allergen.menu_items
+        assert menuitem in allergen.menu_items
 
 
 class TestMenuItem:
     # An instance of a MenuItem can be created then stored to the database.
     def test_create_menuitem(self, db):
-        menu_item = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
-                             calorie=600, price=5.00)
-        db.session.add(menu_item)
+        menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
+                            calorie=600, price=5.00)
+        db.session.add(menuitem)
         db.session.commit()
 
     # A menu item can have one allergen.
     def test_relationship_allergen(self, db):
-        allergen = Allergen(name="gluten")
-        menu_item = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
-                             calorie=600, price=5.00)
-        menu_item.allergens.append(allergen)
+        allergen = Allergen(name="Gluten")
+        menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
+                            calorie=600, price=5.00)
+        menuitem.allergens.append(allergen)
         db.session.add(allergen)
-        db.session.add(menu_item)
+        db.session.add(menuitem)
         db.session.commit()
-        assert allergen in menu_item.allergens
+        assert allergen in menuitem.allergens
+
+
+class TestMenuGroup:
+    # An instance of menu group can be created and stored in the database.
+    def test_create_menugroup(self, db):
+        menugroup = MenuGroup(type="Food", category="Starter")

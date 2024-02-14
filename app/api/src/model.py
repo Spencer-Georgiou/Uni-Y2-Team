@@ -13,6 +13,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy import Numeric
 from sqlalchemy import String
+from sqlalchemy import UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
@@ -20,6 +21,9 @@ from sqlalchemy.orm import relationship
 
 
 class Base(DeclarativeBase):
+    """
+    A basic data model that derives object models.
+    """
     pass
 
 
@@ -77,6 +81,7 @@ class Allergen(db.Model):
 
     :cvar id: the identifier of the allergen
     :cvar name: the name of the allergen
+    :cvar menu_items: the associated menu items that contains the allergen
     """
 
     __tablename__ = "allergen"
@@ -88,6 +93,7 @@ class Allergen(db.Model):
                                                                   secondary="menuitem_allergen")
 
 
+# the association table for the many-to-many relationship between menuitem and allergen
 menuitem_allergen = db.Table(
     "menuitem_allergen",
     db.Column('menuitem', ForeignKey("menuitem.id"), primary_key=True),
@@ -102,8 +108,9 @@ class MenuItem(db.Model):
     :cvar id: the identifier of the menu item
     :cvar name: the name of the menu item
     :cvar description: the description of the menu item, which can be more detailed than its name
-    :cvar calorie: the amount of energy the menu item contains in kcal.
+    :cvar calorie: the amount of energy the menu item contains in kcal
     :cvar price: the price of the menu item
+    :cvar allergens: the list of allergens the menu item contains
     """
     __tablename__ = "menuitem"
 
@@ -115,3 +122,24 @@ class MenuItem(db.Model):
 
     allergens: Mapped[Optional[List["Allergen"]]] = relationship(back_populates="menu_items",
                                                                  secondary="menuitem_allergen")
+
+
+class MenuGroup(db.Model):
+    """
+    A data model represents the groups of a menu, such as 'Starter' of 'Food' menu,
+    or 'Alcoholic' of 'Drink' menu
+
+    :cvar id: the identifier of the menu group
+    :cvar type: the type of the menu, such as 'Food' or 'Drink'
+    :cvar category: the category of a type, such as 'Main' for Food Menu and 'Non-Alcoholic' for
+    Drink Menu
+    """
+    __tablename__ = "menugroup"
+    __table_args__ = (
+        # A group that is a pair of type and category must be unique
+        UniqueConstraint('type', 'category'),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    type: Mapped[str] = mapped_column(String)
+    category: Mapped[str] = mapped_column(String)
