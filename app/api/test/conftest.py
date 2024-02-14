@@ -5,12 +5,14 @@ Module that provides the fixtures for pytest tests.
 import pytest
 import src.model
 from src.api import create_app
+from src.config import TestingConfig
 
 
 # the flask application instance
 @pytest.fixture
 def app():
-    return create_app()
+    # Create a flask app for testing
+    return create_app(config=TestingConfig)
 
 
 # the flask mock client

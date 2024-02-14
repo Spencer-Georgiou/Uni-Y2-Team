@@ -1,5 +1,5 @@
 """
-Module providing an example to show the use of flask and flask-restx
+Module providing an example to show flask and flask-restx
 """
 
 from flask_restx import Resource

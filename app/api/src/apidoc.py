@@ -1,3 +1,7 @@
+"""
+Module providing components regarding the api documentation tool.
+"""
+
 from flask import Blueprint
 from flask_restx import Api
 

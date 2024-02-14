@@ -5,23 +5,25 @@ The urls of api are prefixed with '/api' and return a json.
 """
 
 from flask import Flask
-from src.apidoc import apidoc_bp
+from .apidoc import apidoc_bp
+from .config import DeploymentConfig
+from .model import db
 
 
-def create_app(config_filename=None):
+def create_app(config=DeploymentConfig):
     """
-    Create a flask application with the given configurations.
+    Create a flask application with the given configurations. The default configuration is set
+    for Deployment environment.
 
     For example, the application can be used for development with a development config,
     or for deployment if a deployment config is given.
     """
     # initialize the flask application
     app = Flask(__name__)
-    # configure the flask application if provided
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite://"
-    app.config['SQLALCHEMY_ECHO'] = True
+    # configure the flask app with the given config
+    app.config.from_object(config)
 
-    from .model import db
+    # initialize the database and create all schemas
     db.init_app(app)
     with app.app_context():
         db.create_all()

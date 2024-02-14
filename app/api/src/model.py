@@ -1,3 +1,6 @@
+"""
+Module for Object-Relation models that maps objects to tables stored in a database.
+"""
 import datetime
 
 from sqlalchemy import DateTime
