@@ -64,3 +64,14 @@ class Session(db.Model):
             f"Session(id={self.id!r}, username={self.username!r}, token={self.token!r}, "
             f"expires="
             f"{self.expires!r})")
+
+
+class Allergen(db.Model):
+    """
+    An allergen model to represent food or drink allergens.
+    """
+
+    __tablename__ = "allergen"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String)
