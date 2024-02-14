@@ -1,9 +1,10 @@
 from flask import jsonify
 import sqlite3
 from flask_restx import Resource
-from . import flask_api
+from .apidoc import apidoc
 
-@flask_api.route("/api/menu")
+
+@apidoc.route("/api/menu")
 class Menu(Resource):
     def get(self):
         try:
