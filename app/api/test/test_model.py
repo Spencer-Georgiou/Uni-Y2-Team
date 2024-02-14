@@ -39,3 +39,4 @@ class TestSession:
         db.session.add(session)
         db.session.commit()
         assert session.user is user
+        print(session)
