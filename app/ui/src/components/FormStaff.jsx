@@ -1,6 +1,5 @@
-import { Forms } from "flowbite-react"
 
-const Form_customer = () => {
+const FormStaff = () => {
     return (
         <form className="px-6 mx-auto">
             <div className="mb-5">
@@ -19,4 +18,4 @@ const Form_customer = () => {
 
 }
 
-export default Form_customer
+export default FormStaff

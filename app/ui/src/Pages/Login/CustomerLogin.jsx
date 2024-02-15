@@ -1,12 +1,11 @@
-import Form_customer from "../../components/Form_customer"
-import Navbar_customer from "../../components/Navbar_customer"
-
-
+import FormCustomer from "../../components/FormCustomer"
+import NavBarCustomer from "../../components/NavBarCustomer"
 
 const CustomerLogin = () => {
+
     return (
         <div>
-            <Navbar_customer />
+            <NavBarCustomer />
             <div
                 className="w-full h-screen bg-no-repeat bg-cover bg-center flex justify-center items-center relative"
                 style={{ backgroundImage: "url('/images/CustomerLoginBackground.png')" }}
@@ -16,7 +15,7 @@ const CustomerLogin = () => {
                         <img className="w-40 h-40 mb-6" src="/images/OaxacaLogo.png" alt="picture" />
                     </div>
                     <div className="text-2xl text-cherry font-sans font-semibold text-center mb-4">Customer Login</div>
-                    <Form_customer />
+                    <FormCustomer />
                 </div>
             </div>
         </div>

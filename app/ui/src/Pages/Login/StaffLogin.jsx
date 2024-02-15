@@ -1,11 +1,11 @@
-import Form_staff from "../../components/Form_staff"
-import Navbar_staff from "../../components/Navbar_staff"
+import FormStaff from "../../components/FormStaff"
+import NavBarStaff from "../../components/NavBarStaff"
 
 
 const StaffLogin = () => {
     return (
         <div>
-            <Navbar_staff />
+            <NavBarStaff />
             <div
                 className="w-full h-screen bg-no-repeat bg-cover bg-center flex justify-center items-center relative"
                 style={{ backgroundImage: "url('/images/staffLogin2k.jpg')" }}
@@ -15,7 +15,7 @@ const StaffLogin = () => {
                         <img className="w-40 h-40 mb-6" src="/images/OaxacaLogo.png" alt="picture" />
                     </div>
                     <div className="text-2xl text-orangy font-sans font-semibold text-center mb-4">Staff Login</div>
-                    <Form_staff />
+                    <FormStaff />
                 </div>
             </div>
         </div>
