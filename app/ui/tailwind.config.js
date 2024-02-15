@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     colors: {
       'amber': '#ea580c',
-      'yellow': '#facc15',
+      'sunflower': '#facc15',
       rose: '#e11d48',
     },
     extend: {},

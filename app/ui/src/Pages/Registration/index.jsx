@@ -6,15 +6,15 @@ import SignUpForm from "../../Components/Registration/SignUpForm"
 const Registration= () => {
     return (
         <div>
-            <Navbar fluid>
+            <Navbar fluid className="bg-rose">
 
             <Navbar.Collapse>
-                <Navbar.Link href="#" active>
+                <Navbar.Link href="#" className="text-sunflower md:hover:text-amber">
                 Home
                 </Navbar.Link>
-                <Navbar.Link href="#">Menus</Navbar.Link>
-                <Navbar.Link href="#">Order</Navbar.Link>
-                <Navbar.Link href="#">Contact</Navbar.Link>
+                <Navbar.Link href="#" className="text-sunflower md:hover:text-amber">Menus</Navbar.Link>
+                <Navbar.Link href="#" className="text-sunflower md:hover:text-amber">Order</Navbar.Link>
+                <Navbar.Link href="#" className="text-sunflower md:hover:text-amber">Contact</Navbar.Link>
             </Navbar.Collapse>
 
             <Navbar.Brand href="https://flowbite-react.com">
@@ -22,8 +22,8 @@ const Registration= () => {
             </Navbar.Brand>
 
             <div className="flex md:order-2">
-                <Button>Register</Button>
-                <Button>Log In</Button>
+                <Button className="text-rose bg-sunflower">Register</Button>
+                <Button className="text-rose bg-sunflower">Log In</Button>
                 <Navbar.Toggle />
             </div>
             
