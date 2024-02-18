@@ -92,6 +92,9 @@ class Allergen(db.Model):
     menuitems: Mapped[Optional[List["MenuItem"]]] = relationship(back_populates="allergens",
                                                                  secondary="menuitem_allergen")
 
+    def __repr__(self):
+        return f'Allergen(id={self.id!r}, name={self.name!r})'
+
 
 # the association table for the many-to-many relationship between menuitem and allergen
 menuitem_allergen = db.Table(
@@ -125,6 +128,11 @@ class MenuItem(db.Model):
                                                                  secondary="menuitem_allergen")
     menugroup: Mapped["MenuGroup"] = relationship(back_populates="menuitems")
 
+    def __repr__(self):
+        return (f"MenuItem(id={self.id!r}, name={self.name!r}, description={self.description!r}, "
+                f"calorie={self.calorie!r}, price={self.price!r}, menugroup_id="
+                f"{self.menugroup_id!r})")
+
 
 class MenuGroup(db.Model):
     """
@@ -147,3 +155,6 @@ class MenuGroup(db.Model):
     category: Mapped[str] = mapped_column(String)
 
     menuitems: Mapped[Optional[List["MenuItem"]]] = relationship(back_populates="menugroup")
+
+    def __repr__(self):
+        return f"MenuGroup(id={self.id!r}, type={self.type!r}, category={self.category!r})"
