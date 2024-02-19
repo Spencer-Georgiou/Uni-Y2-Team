@@ -27,3 +27,4 @@ class MenuItemSchema(SQLAlchemyAutoSchema):
         exclude = ["id"]
 
     menugroup = Nested(MenuGroupSchema, exclude=("menuitems",))
+    allergens = Nested(AllergenSchema(many=True), exclude=("menuitems",))
