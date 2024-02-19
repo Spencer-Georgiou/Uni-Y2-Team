@@ -1,4 +1,4 @@
-import { Navbar, Button } from "flowbite-react";
+import { Navbar, Dropdown } from "flowbite-react";
 import "./NavBar1.css";
 
 // this is the navbar of food menu
@@ -18,22 +18,15 @@ const Navbar1 = () => {
                 Home
               </a>
             </li>
-            <li class="blt">
-              <a href="#" class="text-lemon-900 hover:underline ">
-                Menu
-              </a>
-              <ul class="droplist">
-                <li>
-                  <a href="#" class="text-cherry">
-                    food menu
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="text-cherry">
-                    drink menu
-                  </a>
-                </li>
-              </ul>
+            <li>
+              <Dropdown class="text-xl" label="Menu" inline>
+                <Dropdown.Item href="#" class="bg-lemon text-cherry">
+                  Food Menu
+                </Dropdown.Item>
+                <Dropdown.Item href="#" class="bg-lemon text-cherry">
+                  Drink Menu
+                </Dropdown.Item>
+              </Dropdown>
             </li>
             <li>
               <a
@@ -53,10 +46,7 @@ const Navbar1 = () => {
             </li>
           </ul>
         </div>
-        <a
-          href="https://flowbite.com"
-          class="flex items-center space-x-3 rtl:space-x-reverse"
-        >
+        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="/images/OaxacaLogo.png" class="h-8" alt="Flowbite Logo" />
           <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             OAXACA
