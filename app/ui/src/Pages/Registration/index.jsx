@@ -32,23 +32,24 @@ const Registration= () => {
             <div class="w-full h-screen bg-fixed bg-center bg-cover flex justify-center items-center relative" style={{ backgroundImage: "url('/images/CustomerLoginBackground.png')" }}>
                 
                 <div class="h-[500px] w-[400px] bg-amber rounded m-auto">
-                <img className="w-40 h-40 m-auto" src="/images/OaxacaLogo.png" alt="Oaxaca Logo" />
+                <img className="w-40 h-40 m-auto mb-2" src="/images/OaxacaLogo.png" alt="Oaxaca Logo" />
                     <div class="flex justify-center">
+
                     <form className="flex max-w-md flex-col gap-4">
                         <div className="text-2xl font-sans font-semibold text-center">Customer Sign Up</div>
                         <div>
                             <div className="mb-2 block">
                             <Label htmlFor="email1" value="Your email" />
                             </div>
-                            <TextInput id="email1" type="email" placeholder="name@flowbite.com" required />
+                            <TextInput id="email1" type="email" placeholder="Email" required />
                         </div>
                         <div>
                             <div className="mb-2 block">
                             <Label htmlFor="password1" value="Your password" />
                             </div>
-                            <TextInput id="password1" type="password" required />
+                            <TextInput id="password1" type="password" placeholder="Password" required />
                         </div>
-                        <Button type="submit" className="bg-sunflower text-rose">Submit</Button>
+                        <Button type="submit" className="bg-sunflower text-rose">Sign Up</Button>
                         </form>
     
                     </div>

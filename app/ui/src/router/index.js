@@ -11,7 +11,7 @@ import Menu from '../Pages/Menu'
 const router = createBrowserRouter([
     {
         path:"/",
-        element:<Registration/>
+        element:<Menu/>
     },
     {
         path:"/Login",
