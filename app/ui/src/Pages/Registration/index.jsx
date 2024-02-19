@@ -1,7 +1,7 @@
 //Registration Page
 import { Button, Navbar, Checkbox, Label, TextInput } from 'flowbite-react'
 //import NavBar from "../../Components/Registration/NavBar"
-import SignUpForm from "../../Components/Registration/SignUpForm"
+//import SignUpForm from "../../Components/Registration/SignUpForm"
 
 const Registration= () => {
     return (
