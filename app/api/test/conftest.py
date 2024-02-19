@@ -3,19 +3,34 @@ Module that provides the fixtures for pytest tests.
 """
 
 import pytest
-from src import flask_app
+import src.model
+from src.api import create_app
+from src.config import TestingConfig
+
 
 # the flask application instance
 @pytest.fixture
 def app():
-    yield flask_app
+    # Create a flask app for testing
+    return create_app(config=TestingConfig)
 
-# the mock client
+
+# the flask mock client
 @pytest.fixture
 def client(app):
     return app.test_client()
 
-# the cli runner
+
+# the flask cli runner
 @pytest.fixture()
 def runner(app):
     return app.test_cli_runner()
+
+
+# the database descriptor
+@pytest.fixture()
+def db(app):
+    with app.app_context():
+        db = src.model.db
+        yield db
+        db.session.rollback()
