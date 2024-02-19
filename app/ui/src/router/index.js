@@ -3,7 +3,7 @@ import {createBrowserRouter} from 'react-router-dom'
 
 //import pages
 import Login from '../Pages/Login'
-import Menu from '../Pages/Menu'
+import Menu from '../Pages/Menu/menu'
 
 
 //Configure routing instance
