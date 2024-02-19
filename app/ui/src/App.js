@@ -1,31 +1,24 @@
-/**
- * The main component that contains logics of the React app.
- */
-import React, { useState, useEffect } from 'react'
+import React from 'react';
+import './index.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import CustomerLogin from './Pages/Login/CustomerLogin';
+import StaffLogin from './Pages/Login/StaffLogin';
 
-/* The code provided below is just an example. Delete the BODY of the App function once you understand how it works. */
-/* Please run the backend first and open 'http://127.0.0.1:5000/api' to view all the apis. */
 
-function App () {
-  const [message, setCurrentMessage] = useState('')
-
-  useEffect(() => {
-    // fetch a response from '/api/demo', then convert it to a json,
-    // then extract the vaule with key 'message' in the json and set it to the variable message
-    fetch('api/demo')
-      .then((res) => res.json())
-      .then((data) => {
-        setCurrentMessage(data.message)
-        console.log(data.message)
-      })
-  }, [])
-
+function App() {
   return (
+    //add in the other paths to the other pages
     <div className="App">
-      <h1>Hello</h1>
-      <p>{message}</p>
+      <Router>
+        <Routes>
+          <Route path="/" element={<div>home</div>} />
+          <Route path="/CustomerLogin" element={<CustomerLogin />} />
+          <Route path="/StaffLogin" element={<StaffLogin />} />
+        </Routes>
+      </Router>
     </div>
   )
-}
+};
+
 
 export default App
