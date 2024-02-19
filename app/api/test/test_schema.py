@@ -1,3 +1,6 @@
+"""
+Testing Schemas that can parse Data Model to json.
+"""
 from src.model import Allergen
 from src.model import MenuGroup
 from src.model import MenuItem

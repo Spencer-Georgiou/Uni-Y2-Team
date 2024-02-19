@@ -6,7 +6,7 @@ from flask_restx import Resource
 from .apidoc import apidoc
 
 
-@apidoc.route("/api/demo")
+@apidoc.route("/demo")
 class Demo(Resource):
     """
     A sample class.

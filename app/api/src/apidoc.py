@@ -9,4 +9,4 @@ from flask_restx import Api
 apidoc_bp = Blueprint('apidoc', __name__)
 # a flask-restx API instance that is a wrapper of a Flask app, or a blueprint to generate
 # documentations
-apidoc = Api(apidoc_bp)
+apidoc = Api(apidoc_bp, prefix='/api')

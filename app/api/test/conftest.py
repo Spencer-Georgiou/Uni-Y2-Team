@@ -27,7 +27,10 @@ def runner(app):
     return app.test_cli_runner()
 
 
+# the database descriptor
 @pytest.fixture()
 def db(app):
     with app.app_context():
-        yield src.model.db
+        db = src.model.db
+        yield db
+        db.session.rollback()
