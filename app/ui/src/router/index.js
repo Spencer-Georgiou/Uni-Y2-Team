@@ -2,8 +2,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 
 //import pages
-import Login from '../Pages/Login'
-import Menu from '../Pages/Menu'
+import Login from '../pages/Login'
+import Menu from '../pages/Menu'
 
 
 //Configure routing instance
@@ -20,7 +20,6 @@ const router = createBrowserRouter([
         path: "/Registration",
         element: <Registration />
     },
-
 ])
 
 //export router
