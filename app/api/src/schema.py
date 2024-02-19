@@ -43,7 +43,7 @@ class MenuItemSchema(SQLAlchemyAutoSchema):
         include_relationships = True
         exclude = ["id"]
 
-    # Convert Decimal.Decimal to float type since the previous one cannot be parsed to json
+    # Convert python Decimal.Decimal() to float type since the previous one cannot be parsed to json
     price = fields.Float()
     menugroup = Nested(MenuGroupSchema, exclude=("menuitems",))
     allergens = Nested(AllergenSchema(many=True), exclude=("menuitems",))
