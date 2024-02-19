@@ -1,7 +1,7 @@
 'use client';
 
 import { Navbar } from 'flowbite-react';
-//import DropDownMenu from './DropDownMenu';
+
 
 function NavBarCustomer() {
     return (

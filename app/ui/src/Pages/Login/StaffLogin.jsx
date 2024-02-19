@@ -1,5 +1,5 @@
-import FormStaff from "../../components/FormStaff"
-import NavBarStaff from "../../components/NavBarStaff"
+import FormStaff from "../../Components/Login/FormStaff"
+import NavBarStaff from "../../Components/Login/NavBarStaff"
 
 
 const StaffLogin = () => {

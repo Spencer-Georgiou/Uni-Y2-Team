@@ -20,7 +20,7 @@ module.exports = {
     colors: {
       'cherry': '#ff244b',
       'lemon': '#fdbb28',
-      'juice': '#fe6100'
+      'juice': '#fe6100',
     },
     fontFamily: {
       'sans': ['Noto Sans, sans-serif'],
