@@ -1,25 +1,24 @@
 // router configuration
-import {createBrowserRouter} from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 
 //import pages
 import Login from '../Pages/Login'
-import Registration from '../Pages/Registration'
 import Menu from '../Pages/Menu'
 
 
 //Configure routing instance
 const router = createBrowserRouter([
     {
-        path:"/",
-        element:<Menu/>
+        path: "/",
+        element: <Menu />
     },
     {
-        path:"/Login",
-        element:<Login/>
+        path: "/Login",
+        element: <Login />
     },
     {
-        path:"/Registration",
-        element:<Registration/>
+        path: "/Registration",
+        element: <Registration />
     },
 
 ])
