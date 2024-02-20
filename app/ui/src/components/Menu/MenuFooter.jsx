@@ -2,7 +2,7 @@ import { Footer } from "flowbite-react";
 
 // This is the footer of food menu
 
-const Footer1 = () => {
+const MenuFooter = () => {
   return (
     <footer class="bg-cherry rounded-lg shadow m-4 dark:bg-gray-800">
       <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
@@ -40,4 +40,4 @@ const Footer1 = () => {
   );
 };
 
-export default Footer1;
+export default MenuFooter;

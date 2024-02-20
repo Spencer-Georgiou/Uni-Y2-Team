@@ -7,28 +7,15 @@ module.exports = {
   ],
   theme: {
     colors: {
-      'amber': '#ea580c',
-      'sunflower': '#facc15',
-      rose: '#e11d48',
+      'cherry': '#ff244b',
+      'lemon': '#fdbb28',
+      'amber': '#f97316'
     },
     extend: {
       'height': {
         '128': '32rem',
         '90': '22rem',
       }
-    },
-    colors: {
-      'cherry': '#ff244b',
-      'lemon': '#fdbb28',
-      'juice': '#fe6100'
-    },
-    fontFamily: {
-      'sans': ['Noto Sans, sans-serif'],
-    }
-    colors: {
-      'cherry': '#ff244b',
-      'lemon': '#fdbb28',
-      'orangy': '#fd8d0a',
     },
     fontFamily: {
       'sans': ['Noto Sans, sans-serif'],
