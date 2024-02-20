@@ -24,7 +24,7 @@ module.exports = {
     },
     fontFamily: {
       'sans': ['Noto Sans, sans-serif'],
-    }
+    },
     colors: {
       'cherry': '#ff244b',
       'lemon': '#fdbb28',

@@ -1,5 +1,5 @@
-import FormCustomer from "../../Components/Login/FormCustomer"
-import NavBarCustomer from "../../Components/Login/NavBarCustomer"
+import FormCustomer from "../../components/Login/FormCustomer"
+import NavBarCustomer from "../../components/Login/NavBarCustomer"
 
 const CustomerLogin = () => {
 

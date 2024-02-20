@@ -2,6 +2,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 
 //import pages
+import Homepage from '../Pages/Homepage/Homepage'
 import Login from '../Pages/Login'
 import Menu from '../Pages/Menu'
 
@@ -10,6 +11,10 @@ import Menu from '../Pages/Menu'
 const router = createBrowserRouter([
     {
         path: "/",
+        element: <Homepage />
+    },
+    {
+        path: "/Menu",
         element: <Menu />
     },
     {
