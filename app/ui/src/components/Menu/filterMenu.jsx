@@ -186,10 +186,10 @@ const FilterMenu = () => {
             alt="picture"
             class="w-1/2 h-20 ml-80 mt-7"
           />
-          <div class="w-10/12 h-90 bg-juice ml-24">
+          <div class="w-10/12 h-90 bg-amber ml-24">
             <div class="relative overflow-x-auto">
               <table class="w-full text-lg text-left text-lemon">
-                <thead class="text-xl text-lemon uppercase bg-juice">
+                <thead class="text-xl text-lemon uppercase bg-amber">
                   <tr>
                     <th scope="col" class="px-6 py-3">
                       Name
@@ -206,7 +206,7 @@ const FilterMenu = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="bg-juice">
+                  <tr class="bg-amber">
                     <th scope="row" class="px-6 h-5 font-medium text-lemon">
                       <b>Taco</b>
                       <p class="text-gray-900">
@@ -228,7 +228,7 @@ const FilterMenu = () => {
                       <b>￡5.00</b>
                     </td>
                   </tr>
-                  <tr class="bg-juice">
+                  <tr class="bg-amber">
                     <th scope="row" class="px-6 h-5 font-medium text-lemon">
                       <b>Jalapeno Poppers</b>
                       {allergy.spicy && allergy.dairy && (
@@ -241,7 +241,7 @@ const FilterMenu = () => {
                       <b>￡3.50</b>
                     </td>
                   </tr>
-                  <tr class="bg-juice">
+                  <tr class="bg-amber">
                     <th scope="row" class="px-6 h-5 font-medium text-lemon">
                       <b>Patatas Bravas</b>
                       {allergy.vegetarian && (
@@ -256,7 +256,7 @@ const FilterMenu = () => {
                       <b>￡3.00</b>
                     </td>
                   </tr>
-                  <tr class="bg-juice">
+                  <tr class="bg-amber">
                     <th scope="row" class="px-6 h-5 font-medium text-lemon">
                       <b>Crispy Cauliflower Bites</b>
                       {allergy.spicy && allergy.vegetarian && (
@@ -382,7 +382,7 @@ const FilterMenu = () => {
             <div class="relative overflow-x-auto">
               {/* the menu table */}
               <table class="w-full text-lg text-left text-lemon">
-                <thead class="text-xl text-lemon uppercase bg-juice">
+                <thead class="text-xl text-lemon uppercase bg-amber">
                   <tr>
                     <th scope="col" class="px-6 py-3">
                       Name
@@ -399,7 +399,7 @@ const FilterMenu = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="bg-juice">
+                  <tr class="bg-amber">
                     <th scope="row" class="px-6 h-5 font-medium text-lemon">
                       <b> Churros</b>
                       {allergy.fried && (
@@ -414,7 +414,7 @@ const FilterMenu = () => {
                       <b>￡4.00</b>
                     </td>
                   </tr>
-                  <tr class="bg-juice">
+                  <tr class="bg-amber">
                     <th scope="row" class="px-6 h-5 font-medium text-lemon">
                       <b>Sweet Fried Plantains</b>
                       {allergy.fried && (
@@ -430,7 +430,7 @@ const FilterMenu = () => {
                     </td>
                   </tr>
                   {allergy.dairy && (
-                    <tr class="bg-juice">
+                    <tr class="bg-amber">
                       <th scope="row" class="px-6 h-5 font-medium text-lemon">
                         <b>Ice cream</b>
 

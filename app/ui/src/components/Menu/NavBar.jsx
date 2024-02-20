@@ -1,9 +1,8 @@
 import { Navbar, Dropdown } from "flowbite-react";
-import "./NavBar1.css";
 
 // this is the navbar of food menu
 
-const Navbar1 = () => {
+const NavBar = () => {
   return (
     <nav class="bg-cherry border-gray-200 dark:bg-gray-900">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
@@ -12,7 +11,7 @@ const Navbar1 = () => {
             <li>
               <a
                 href="#"
-                class="text-lemon-900 dark:text-white hover:underline"
+                class="text-lemon dark:text-white hover:underline"
                 aria-current="page"
               >
                 Home
@@ -31,7 +30,7 @@ const Navbar1 = () => {
             <li>
               <a
                 href="#"
-                class="text-lemon-900 dark:text-white hover:underline"
+                class="text-lemon dark:text-white hover:underline"
               >
                 Find Us
               </a>
@@ -39,7 +38,7 @@ const Navbar1 = () => {
             <li>
               <a
                 href="#"
-                class="text-lemon-900 dark:text-white hover:underline"
+                class="text-lemon dark:text-white hover:underline"
               >
                 Contact Us
               </a>
@@ -47,21 +46,18 @@ const Navbar1 = () => {
           </ul>
         </div>
         <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="/images/OaxacaLogo.png" class="h-8" alt="Flowbite Logo" />
-          <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            OAXACA
-          </span>
+          <img src="/images/OaxacaLogo.png" class="h-8" alt="Oaxaca Logo" />
         </a>
         <div class="flex items-center space-x-6 rtl:space-x-reverse">
           <a
             href="#"
-            class="text-xl  text-lemon-600 dark:text-blue-500 hover:underline"
+            class="text-xl text-lemon dark:text-blue-500 hover:underline"
           >
             Login
           </a>
           <a
             href="#"
-            class="text-xl  text-lemon-600 dark:text-blue-500 hover:underline"
+            class="text-xl  text-lemon dark:text-blue-500 hover:underline"
           >
             Register
           </a>
@@ -71,4 +67,4 @@ const Navbar1 = () => {
   );
 };
 
-export default Navbar1;
+export default NavBar;

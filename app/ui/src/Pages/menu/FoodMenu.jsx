@@ -1,5 +1,5 @@
-import Navbar1 from "../../components/menu/NavBar1";
-import Footer1 from "../../components/menu/Footer1";
+import Navbar from "../../components/menu/NavBar";
+import MenuFooter from "../../components/menu/MenuFooter";
 import FilterMenu from "../../components/menu/FilterMenu";
 
 //this is the menu page which combine all the components
@@ -7,7 +7,7 @@ import FilterMenu from "../../components/menu/FilterMenu";
 const Menu = () => {
   return (
     <div>
-      <Navbar1 />
+      <Navbar />
       <img
         src="/menu/FoodMenubackground.png"
         alt="picture"
@@ -15,7 +15,7 @@ const Menu = () => {
       />
       <div class="bg-lemon">
         <FilterMenu />
-        <Footer1 />
+        <MenuFooter />
       </div>
     </div>
   );
