@@ -9,7 +9,7 @@ const DrinkMenu = () => {
         <div>
             <Navbar />
             <img
-                src="/menu/drinkMenuBG.png"
+                src="/menu/drinkMenuBanner.png"
                 alt="picture"
                 class="background-size:cover w-full"
             />

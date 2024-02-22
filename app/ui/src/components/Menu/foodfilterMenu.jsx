@@ -7,14 +7,10 @@ const FilterMenu = () => {
   //the state of allery list
   const [allergy, setAllergy] = useState({
     //if the state of nonspicy changed to be false, the spicy food won't show out
-    spicy: true,
-    vegan: true,
-    nonspicy: true,
-    vegetarian: true,
+    alcoholic: true,
     gluten: true,
-    dairy: true,
-    nuts: true,
-    fried: true,
+    nonAlcoholic: true,
+    fruit: true,
   });
 
   // the function to set the state to control menu display
@@ -56,7 +52,7 @@ const FilterMenu = () => {
                 <input
                   id="default-checkbox"
                   type="checkbox"
-                  value="vegetarian"
+                  value="fruit"
                   onChange={handleAllergy}
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 ></input>
@@ -64,14 +60,14 @@ const FilterMenu = () => {
                   for="default-checkbox"
                   class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
                 >
-                  <b>Vegetarian</b>
+                  <b>Fruit</b>
                 </label>
               </div>
               <div class="flex items-center mb-5">
                 <input
                   id="default-checkbox"
                   type="checkbox"
-                  value="vegan"
+                  value="alcoholic"
                   onChange={handleAllergy}
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 ></input>
@@ -79,14 +75,14 @@ const FilterMenu = () => {
                   for="default-checkbox"
                   class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
                 >
-                  <b>Vegan</b>
+                  <b>Alcoholic</b>
                 </label>
               </div>
               <div class="flex items-center mb-5">
                 <input
                   id="default-checkbox"
                   type="checkbox"
-                  value="spicy"
+                  value="nonAlcoholic"
                   onChange={handleAllergy}
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 ></input>
@@ -94,14 +90,14 @@ const FilterMenu = () => {
                   for="default-checkbox"
                   class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
                 >
-                  <b>Spicy</b>
+                  <b>Non-Alcoholic</b>
                 </label>
               </div>
               <div class="flex items-center mb-5">
                 <input
                   id="default-checkbox"
                   type="checkbox"
-                  value="nonspicy"
+                  value="gluten"
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   // once the checkbox is changed, run the function
                   onChange={handleAllergy}
@@ -110,69 +106,7 @@ const FilterMenu = () => {
                   for="default-checkbox"
                   class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
                 >
-                  <b>Non-Spicy</b>
-                </label>
-              </div>
-            </div>
-            <div class="pl-2 text-cherry w-56 inline float-left">
-              <div class="flex items-center my-5 mt-11">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="gluten"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
                   <b>Gluten</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="dairy"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Dairy</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="nuts"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Nuts</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="fried"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Fried</b>
                 </label>
               </div>
             </div>
