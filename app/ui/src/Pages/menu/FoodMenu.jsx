@@ -7,7 +7,6 @@ import FilterMenu from "../../components/menu/foodfilterMenu";
 const Menu = () => {
   return (
     <div>
-      <Navbar />
       <img
         src="/menu/FoodMenubackground.png"
         alt="picture"
