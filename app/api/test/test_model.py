@@ -4,6 +4,7 @@ Testing data models.
 from src.model import Allergen
 from src.model import MenuGroup
 from src.model import MenuItem
+from src.model import Order
 from src.model import Table
 from src.model import User
 from src.model import Session
@@ -122,4 +123,12 @@ class TestTable:
     def test_create_table(self, db):
         table = Table(number=10)
         db.session.add(table)
+        db.session.commit()
+
+
+class TestOrder:
+    # An instance of order can be created and stored in the database.
+    def test_create_order(self, db):
+        order = Order()
+        db.session.add(order)
         db.session.commit()

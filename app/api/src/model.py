@@ -13,6 +13,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy import Numeric
 from sqlalchemy import String
+from sqlalchemy import Boolean
 from sqlalchemy import UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
@@ -168,3 +169,22 @@ class Table(db.Model):
     """
     __tablename__ = "table"
     number: Mapped[int] = mapped_column(CheckConstraint('number > 0'), primary_key=True)
+
+
+class Order(db.Model):
+    """
+    A data model represents an order that is made by a table.
+
+    :cvar id: the identifier of the order
+    :cvar status: the state of the order, including "Ordering", "Preparing", "Delivering",
+    "Delivered" and "Finished"; defaults to "Ordering"
+    :cvar confirmed_waiter: an indicator that whether the order is confirmed by a waiter
+    :cvar confirmed_kitchen: an indicator that whether the order is confirmed by a kitchen staff
+    """
+
+    __tablename__ = "order"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    status: Mapped[str] = mapped_column(String, default="Ordering")
+    confirmed_waiter: Mapped[bool] = mapped_column(Boolean, default=False)
+    confirmed_kitchen: Mapped[bool] = mapped_column(Boolean, default=False)
