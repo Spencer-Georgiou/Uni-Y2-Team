@@ -5,12 +5,12 @@ from src.model import Allergen
 from src.model import MenuGroup
 from src.model import MenuItem
 from src.schema import MenuItemSchema
+from .fixture_model import menugroup
 
 
 class TestMenu:
     # Test if the get response to the menu api returns a list of menu items.
-    def test_get(self, client, db):
-        menugroup = MenuGroup(type="Food", category="Starter")
+    def test_get(self, client, db, menugroup):
         allergen = Allergen(name="Gluten")
         menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
                             calorie=600, price=5.00, menugroup=menugroup, allergens=[allergen])

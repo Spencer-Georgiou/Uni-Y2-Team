@@ -1,0 +1,41 @@
+from src.enum import MenuType
+from src.enum import MenuCategory
+from src.model import Allergen
+from src.model import MenuGroup
+from src.model import MenuItem
+from src.model import Order
+from src.model import Table
+from src.model import User
+from src.model import Session
+import pytest
+
+
+# a User instance
+@pytest.fixture
+def user():
+    return User(username="Kate", password="123456")
+
+
+# a Session instance
+@pytest.fixture
+def session(user):
+    return Session(user=user, token="abcde")
+
+
+# a MenuGroup instance
+@pytest.fixture
+def menugroup():
+    return MenuGroup(type=MenuType.FOOD, category=MenuCategory.STARTER)
+
+
+# a Allergen instance
+@pytest.fixture
+def allergen():
+    return Allergen(name="Gluten")
+
+
+# a MenuItem instance
+@pytest.fixture
+def menuitem(menugroup):
+    return MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
+                    calorie=600, price=5.00, menugroup=menugroup)

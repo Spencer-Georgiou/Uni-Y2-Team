@@ -8,6 +8,7 @@ from typing import Optional
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import CheckConstraint
+from sqlalchemy import Enum
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
@@ -19,6 +20,10 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
+
+from src.enum import MenuCategory
+from src.enum import MenuType
+from src.enum import OrderStatus
 
 
 class Base(DeclarativeBase):
@@ -152,8 +157,8 @@ class MenuGroup(db.Model):
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    type: Mapped[str] = mapped_column(String)
-    category: Mapped[str] = mapped_column(String)
+    type: Mapped[MenuType] = mapped_column(Enum(MenuType))
+    category: Mapped[MenuCategory] = mapped_column(Enum(MenuCategory))
 
     menuitems: Mapped[Optional[List["MenuItem"]]] = relationship(back_populates="menugroup")
 
@@ -185,6 +190,7 @@ class Order(db.Model):
     __tablename__ = "order"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    status: Mapped[str] = mapped_column(String, default="Ordering")
+    status: Mapped[OrderStatus] = mapped_column(Enum(OrderStatus),
+                                                default=OrderStatus.ORDERING)
     confirmed_waiter: Mapped[bool] = mapped_column(Boolean, default=False)
     confirmed_kitchen: Mapped[bool] = mapped_column(Boolean, default=False)

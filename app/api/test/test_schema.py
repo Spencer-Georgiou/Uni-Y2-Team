@@ -8,14 +8,14 @@ from src.schema import AllergenSchema
 from src.schema import MenuGroupSchema
 from src.schema import MenuItemSchema
 from decimal import Decimal
+from .fixture_model import menugroup
 
 
 class TestMenuGroupSchema:
     # A menu group with no menuitem returned by a query is serializable.
-    def test_serialize_menugroup_no_menuitem(self, db):
+    def test_serialize_menugroup_no_menuitem(self, db, menugroup):
         expected = {'category': 'Starter', 'menuitems': [], 'type': 'Food'}
 
-        menugroup = MenuGroup(type="Food", category="Starter")
         db.session.add(menugroup)
         db.session.commit()
         quried_menugroup = db.session.query(MenuGroup).first()
@@ -40,12 +40,11 @@ class TestAllergenSchema:
 
 class TestMenuItemSchema:
     # A menuitem with no allergen returned by a query is serializable.
-    def test_serialize_menuitem_no_allergen(self, db):
+    def test_serialize_menuitem_no_allergen(self, db, menugroup):
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'}, 'allergens': [],
                     'name': 'Tacos', 'description': 'Crispy tacos filled with cheese',
                     'calorie': 600, 'price': Decimal('5.00')}
 
-        menugroup = MenuGroup(type="Food", category="Starter")
         menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
                             calorie=600, price=5.00, menugroup=menugroup)
         db.session.add(menuitem)
@@ -56,13 +55,12 @@ class TestMenuItemSchema:
 
         assert serialized_menuitem == expected
 
-    def test_serilialize_menuitem_one_allergen(self, db):
+    def test_serilialize_menuitem_one_allergen(self, db, menugroup):
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'},
                     'allergens': [{'name': 'Gluten'}], 'name': 'Tacos',
                     'description': 'Crispy tacos filled with cheese', 'calorie': 600,
                     'price': Decimal('5.00')}
 
-        menugroup = MenuGroup(type="Food", category="Starter")
         allergen = Allergen(name="Gluten")
         menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
                             calorie=600, price=5.00, menugroup=menugroup)
