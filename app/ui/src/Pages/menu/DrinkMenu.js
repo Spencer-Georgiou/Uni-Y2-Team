@@ -1,0 +1,24 @@
+import Navbar from "../../components/menu/NavBar";
+import MenuFooter from "../../components/menu/MenuFooter";
+import FilterMenu from "../../components/menu/foodfilterMenu";
+
+//this is the menu page which combine all the components
+
+const DrinkMenu = () => {
+    return (
+        <div>
+            <Navbar />
+            <img
+                src="/menu/drinkMenuBG.png"
+                alt="picture"
+                class="background-size:cover w-full"
+            />
+            <div class="bg-lemon">
+                <FilterMenu />
+                <MenuFooter />
+            </div>
+        </div>
+    );
+};
+
+export default DrinkMenu;
