@@ -5,7 +5,6 @@ const CustomerLogin = () => {
 
     return (
         <div>
-            <NavBarCustomer />
             <div
                 className="w-full h-screen bg-no-repeat bg-cover bg-center flex justify-center items-center relative"
                 style={{ backgroundImage: "url('/images/CustomerLoginBackground.png')" }}
