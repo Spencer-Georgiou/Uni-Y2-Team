@@ -47,8 +47,8 @@ function NavBar() {
             </div>
 
             <div className="flex gap-2 md:order-2">
-                <Button className="font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber">Log In</Button>
-                <Button className="font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber">Sign Up</Button>
+                <Button as={Link} to="CustomerLogin" className="font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber focus:ring-amber">Log In</Button>
+                <Button as={Link} to="Registration" className="font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber focus:ring-amber">Sign Up</Button>
                 {/* Page navigation options disappear into hamburger dropdown button on smaller screens */}
                 <Navbar.Toggle className="text-cherry bg-lemon ring-lemon focus:ring-amber hover:bg-amber" />
             </div>
