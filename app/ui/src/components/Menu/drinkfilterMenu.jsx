@@ -1,20 +1,17 @@
 //the combination of filter and starters
 //combine them is because they need a same state to control the content, will solve it later
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
-const FilterMenu = () => {
+const DrinkFilterMenu = () => {
   //the state of allery list
   const [allergy, setAllergy] = useState({
     //if the state of nonspicy changed to be false, the spicy food won't show out
-    spicy: true,
-    vegan: true,
-    nonspicy: true,
-    vegetarian: true,
+    fruit: true,
+    nonAlcoholic: true,
+    alcoholic: true,
     gluten: true,
     dairy: true,
-    nuts: true,
-    fried: true,
   });
 
   // the function to set the state to control menu display
@@ -56,7 +53,7 @@ const FilterMenu = () => {
                 <input
                   id="default-checkbox"
                   type="checkbox"
-                  value="vegetarian"
+                  value="fruit"
                   onChange={handleAllergy}
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 ></input>
@@ -64,14 +61,14 @@ const FilterMenu = () => {
                   for="default-checkbox"
                   class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
                 >
-                  <b>Vegetarian</b>
+                  <b>Fruit</b>
                 </label>
               </div>
               <div class="flex items-center mb-5">
                 <input
                   id="default-checkbox"
                   type="checkbox"
-                  value="vegan"
+                  value="alcoholic"
                   onChange={handleAllergy}
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 ></input>
@@ -79,14 +76,14 @@ const FilterMenu = () => {
                   for="default-checkbox"
                   class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
                 >
-                  <b>Vegan</b>
+                  <b>Alcoholic</b>
                 </label>
               </div>
               <div class="flex items-center mb-5">
                 <input
                   id="default-checkbox"
                   type="checkbox"
-                  value="spicy"
+                  value="nonAlcoholic"
                   onChange={handleAllergy}
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 ></input>
@@ -94,14 +91,14 @@ const FilterMenu = () => {
                   for="default-checkbox"
                   class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
                 >
-                  <b>Spicy</b>
+                  <b>Non-Alcoholic</b>
                 </label>
               </div>
               <div class="flex items-center mb-5">
                 <input
                   id="default-checkbox"
                   type="checkbox"
-                  value="nonspicy"
+                  value="gluten"
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   // once the checkbox is changed, run the function
                   onChange={handleAllergy}
@@ -110,27 +107,12 @@ const FilterMenu = () => {
                   for="default-checkbox"
                   class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
                 >
-                  <b>Non-Spicy</b>
+                  <b>Gluten</b>
                 </label>
               </div>
             </div>
             <div class="pl-2 text-cherry w-56 inline float-left">
               <div class="flex items-center my-5 mt-11">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="gluten"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Gluten</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
                 <input
                   id="default-checkbox"
                   type="checkbox"
@@ -145,144 +127,99 @@ const FilterMenu = () => {
                   <b>Dairy</b>
                 </label>
               </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="nuts"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Nuts</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="fried"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Fried</b>
-                </label>
-              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="bg-lemon border-gray-200 dark:bg-gray-900">
-        <div class="flex flex-wrap justify-between mx-auto w-full h-128 px-7">
-          <img
-            src="/menu/starters.png"
-            alt="picture"
-            class="w-1/2 h-20 ml-80 mt-7"
-          />
-          <div class="w-10/12 h-90 bg-amber ml-24">
-            <div class="relative overflow-x-auto">
-              <table class="w-full text-lg text-left text-lemon">
-                <thead class="text-xl text-lemon uppercase bg-amber">
-                  <tr>
-                    <th scope="col" class="px-6 py-3">
-                      Name
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                      Calories
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                      Category
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                      Price
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="bg-amber">
-                    <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                      <b>Taco</b>
-                      <p class="text-gray-900">
-                        Crispy tacos filled with cheese
-                      </p>
-                      <p class="text-gray-900 ml-3">
-                        {allergy.nonspicy && (
-                          <p>• Beef with Black Pepper Sauce</p>
+      {allergy.nonAlcoholic && (
+        <div class="bg-lemon border-gray-200 dark:bg-gray-900">
+          <div class="flex flex-wrap justify-between mx-auto w-full h-128 px-7">
+            <img
+              src="/menu/nonAlcoholic.png"
+              alt="picture"
+              class="w-1/2 h-16 ml-80 mt-7"
+            />
+            <div class="w-10/12 h-90 bg-ocean ml-24">
+              <div class="relative overflow-x-auto">
+                <table class="w-full text-lg text-left text-lemon">
+                  <thead class="text-xl text-lemon uppercase bg-ocean">
+                    <tr>
+                      <th scope="col" class="px-6 py-3">
+                        Name
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Calories
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Category
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Price
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr class="bg-ocean">
+                      <th scope="row" class="px-6 h-5 font-medium text-lemon">
+                        <b>Peach iced tea</b>
+                        <p class="text-gray-900">
+                          {allergy.fruit && <p>Homemade with fresh peaches</p>}
+                        </p>
+                      </th>
+                      <td class="px-6 py-4 text-gray-900">150 kcal</td>
+                      <td class="px-6 py-4 text-gray-900">Fruit</td>
+                      <td class="px-6 py-4 text-gray-900">
+                        <b>￡3.00</b>
+                      </td>
+                    </tr>
+                    <tr class="bg-ocean">
+                      <th scope="row" class="px-6 h-5 font-medium text-lemon">
+                        <b>Fanta Naranja</b>
+                        {allergy.fruit && (
+                          <p class="text-gray-900">Orange Fanta</p>
                         )}
-                      </p>
-                      {/* if the state spicy if true, display this dishes. otherwise, it will be hided */}
-                      {allergy.spicy && allergy.vegan && (
-                        <p class="text-gray-900 ml-3"> • Bean chilli (Vg)</p>
-                      )}
-                    </th>
-                    <td class="px-6 py-4 text-gray-900">600 kcal</td>
-                    <td class="px-6 py-4 text-gray-900">Spicy, Vegan</td>
-                    <td class="px-6 py-4 text-gray-900">
-                      <b>￡5.00</b>
-                    </td>
-                  </tr>
-                  <tr class="bg-amber">
-                    <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                      <b>Jalapeno Poppers</b>
-                      {allergy.spicy && allergy.dairy && (
-                        <p class="text-gray-900">With cream cheese</p>
-                      )}
-                    </th>
-                    <td class="px-6 py-4 text-gray-900">450 kcal</td>
-                    <td class="px-6 py-4 text-gray-900">Dairy, Spicy</td>
-                    <td class="px-6 py-4 text-gray-900">
-                      <b>￡3.50</b>
-                    </td>
-                  </tr>
-                  <tr class="bg-amber">
-                    <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                      <b>Patatas Bravas</b>
-                      {allergy.vegetarian && (
+                      </th>
+                      <td class="px-6 py-4 text-gray-900">6 kcal</td>
+                      <td class="px-6 py-4 text-gray-900">Fruit</td>
+                      <td class="px-6 py-4 text-gray-900">
+                        <b>￡2.00</b>
+                      </td>
+                    </tr>
+                    <tr class="bg-ocean">
+                      <th scope="row" class="px-6 h-5 font-medium text-lemon">
+                        <b>Hot chocolate</b>
+
                         <p class="text-gray-900">
-                          Roasted potatoes in tomato dressing(V)
+                          Thick hot chocolate served with a galleta
                         </p>
-                      )}
-                    </th>
-                    <td class="px-6 py-4 text-gray-900">500 kcal</td>
-                    <td class="px-6 py-4 text-gray-900">Vegetarian</td>
-                    <td class="px-6 py-4 text-gray-900">
-                      <b>￡3.00</b>
-                    </td>
-                  </tr>
-                  <tr class="bg-amber">
-                    <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                      <b>Crispy Cauliflower Bites</b>
-                      {allergy.spicy && allergy.vegetarian && (
-                        <p class="text-gray-900">
-                          Roasted cauliflower in jalapeno dressing(V)
-                        </p>
-                      )}
-                    </th>
-                    <td class="px-6 py-4 text-gray-900">200 kcal</td>
-                    <td class="px-6 py-4 text-gray-900">Vegetarian, Spicy</td>
-                    <td class="px-6 py-4 text-gray-900">
-                      <b>￡2.50</b>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                        {allergy.dairy && (
+                          <Fragment>
+                            <p class="text-gray-900">• with cream</p>
+                            <p class="text-gray-900">• with milk</p>
+                          </Fragment>
+                        )}
+                        <p class="text-gray-900">• with oreo cookie crumbs</p>
+                      </th>
+                      <td class="px-6 py-4 text-gray-900">250 kcal</td>
+                      <td class="px-6 py-4 text-gray-900">Dairy</td>
+                      <td class="px-6 py-4 text-gray-900">
+                        <b>￡3.00</b>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       <div class="bg-lemon border-gray-200 dark:bg-gray-900">
         <div class="flex flex-wrap justify-between mx-auto w-full h-128 px-7">
           <img
-            src="/menu/mains.png"
+            src="/menu/alcoholic.png"
             alt="picture"
-            class="w-1/2 h-20 ml-80 mt-7"
+            class="w-1/2 h-16 ml-80 mt-7"
           />
           <div class="w-10/12 h-90 bg-cherry ml-24">
             <div class="relative overflow-x-auto">
@@ -369,94 +306,8 @@ const FilterMenu = () => {
           </div>
         </div>
       </div>
-      <div class="bg-lemon border-gray-200 dark:bg-gray-900">
-        <div class="flex flex-wrap justify-between mx-auto w-full h-128 px-7">
-          {/* the title image */}
-          <img
-            src="/menu/desserts.png"
-            alt="picture"
-            class="w-1/2 h-20 ml-80 mt-7"
-          />
-          {/* the menu block */}
-          <div class="w-10/12 h-90 bg-juice ml-24">
-            <div class="relative overflow-x-auto">
-              {/* the menu table */}
-              <table class="w-full text-lg text-left text-lemon">
-                <thead class="text-xl text-lemon uppercase bg-amber">
-                  <tr>
-                    <th scope="col" class="px-6 py-3">
-                      Name
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                      Calories
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                      Category
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                      Price
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="bg-amber">
-                    <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                      <b> Churros</b>
-                      {allergy.fried && (
-                        <p class="text-gray-900">
-                          Fried churros with a chocolate filling
-                        </p>
-                      )}
-                    </th>
-                    <td class="px-6 py-4 text-gray-900">500 kcal</td>
-                    <td class="px-6 py-4 text-gray-900">Fried</td>
-                    <td class="px-6 py-4 text-gray-900">
-                      <b>￡4.00</b>
-                    </td>
-                  </tr>
-                  <tr class="bg-amber">
-                    <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                      <b>Sweet Fried Plantains</b>
-                      {allergy.fried && (
-                        <p class="text-gray-900">
-                          Sugar coated fried plantains
-                        </p>
-                      )}
-                    </th>
-                    <td class="px-6 py-4 text-gray-900">300 kcal</td>
-                    <td class="px-6 py-4 text-gray-900">Fried</td>
-                    <td class="px-6 py-4 text-gray-900">
-                      <b>￡3.00</b>
-                    </td>
-                  </tr>
-                  {allergy.dairy && (
-                    <tr class="bg-amber">
-                      <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                        <b>Ice cream</b>
-
-                        <p class="text-gray-900">
-                          2 scoops of ice cream, choose between: (Vg)
-                        </p>
-                        <p class="text-gray-900 ml-3">• Vanilla</p>
-                        <p class="text-gray-900 ml-3"> • Chocolate</p>
-                        <p class="text-gray-900 ml-3"> • Strawberry</p>
-                      </th>
-
-                      <td class="px-6 py-4 text-gray-900">300 kcal</td>
-                      <td class="px-6 py-4 text-gray-900">Dairy</td>
-                      <td class="px-6 py-4 text-gray-900">
-                        <b>￡2.50</b>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
 
-export default FilterMenu;
+export default DrinkFilterMenu;
