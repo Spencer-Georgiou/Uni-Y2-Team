@@ -1,13 +1,13 @@
-import Navbar from "../../components/menu/NavBar";
-import MenuFooter from "../../components/menu/MenuFooter";
-import DrinkFilterMenu from "../../components/menu/drinkfilterMenu";
+import Navbar from "../../components/Menu/NavBar";
+import MenuFooter from "../../components/Menu/MenuFooter";
+import DrinkFilterMenu from "../../components/Menu/drinkfilterMenu";
 
 //this is the menu page which combine all the components
 
 const DrinkMenu = () => {
     return (
         <div>
-            <Navbar />
+
             <img
                 src="/menu/drinkMenuBanner.png"
                 alt="picture"
