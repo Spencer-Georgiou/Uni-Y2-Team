@@ -7,8 +7,14 @@ import { Link } from 'react-router-dom';
 function NavBar() {
     return (
         <Navbar className="bg-cherry">
-            <Navbar.Collapse>
 
+            {/* Displays restaurant logo */}
+            <Link to="/">
+                <img className="h-16" src="/images/OaxacaLogo.png" alt="Oaxaca Logo" />
+            </Link>
+
+            {/* Any items within collapse tags will 'disappear' on smaller windows */}
+            <Navbar.Collapse>
                 {/* Link to Home Page */}
                 <Link to="/" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
                     <span>Home</span>
@@ -16,11 +22,11 @@ function NavBar() {
 
                 {/* Dropdown of menu options, including links to the food and drink menu pages */}
                 <div className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
-                    <Dropdown label="Menus" inline className="bg-lemon border-lemon text-cherry">
-                        <Dropdown.Item as={Link} to="/FoodMenu">
+                    <Dropdown label="Menus" inline className="text-cherry bg-lemon border-lemon ">
+                        <Dropdown.Item as={Link} to="/FoodMenu" className="focus:bg-amber">
                             Food Menu
                         </Dropdown.Item>
-                        <Dropdown.Item as={Link} to="/DrinkMenu">
+                        <Dropdown.Item as={Link} to="/DrinkMenu" className="focus:bg-amber">
                             Drink Menu
                         </Dropdown.Item>
                     </Dropdown>
@@ -35,12 +41,15 @@ function NavBar() {
                 <Link to="/Contact" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
                     <span>Contact Us</span>
                 </Link>
-
             </Navbar.Collapse>
 
-            <Link to="/FoodMenu">
-                <img className="h-16" src="/images/OaxacaLogo.png" alt="Oaxaca Logo" />
-            </Link>
+            <div className="flex md:order-2">
+                {/* Displays restaurant logo */}
+                <Link to="/">
+                    <img className="h-16" src="/images/OaxacaLogo.png" alt="Oaxaca Logo" />
+                </Link>
+                <Navbar.Toggle className="text-cherry bg-lemon ring-lemon focus:ring-amber hover:bg-amber" />
+            </div>
         </Navbar>
     );
 }

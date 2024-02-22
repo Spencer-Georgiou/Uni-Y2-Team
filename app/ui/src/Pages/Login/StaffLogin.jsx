@@ -5,7 +5,6 @@ import NavBarStaff from "../../components/login/NavBarStaff"
 const StaffLogin = () => {
     return (
         <div>
-            <NavBarStaff />
             <div
                 className="w-full h-screen bg-no-repeat bg-cover bg-center flex justify-center items-center relative"
                 style={{ backgroundImage: "url('/images/StaffLoginBackground.png')" }}
