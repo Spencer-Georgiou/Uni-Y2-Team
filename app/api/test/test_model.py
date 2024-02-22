@@ -4,6 +4,7 @@ Testing data models.
 from src.model import Allergen
 from src.model import MenuGroup
 from src.model import MenuItem
+from src.model import Table
 from src.model import User
 from src.model import Session
 from datetime import datetime
@@ -114,3 +115,11 @@ class TestMenuGroup:
         db.session.commit()
 
         assert menuitem in menugroup.menuitems
+
+
+class TestTable:
+    # An instance of table can be created and stored in the database.
+    def test_create_table(self, db):
+        table = Table(number=10)
+        db.session.add(table)
+        db.session.commit()

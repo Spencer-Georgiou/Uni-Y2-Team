@@ -158,3 +158,13 @@ class MenuGroup(db.Model):
 
     def __repr__(self):
         return f"MenuGroup(id={self.id!r}, type={self.type!r}, category={self.category!r})"
+
+
+class Table(db.Model):
+    """
+    A data model represents restaurant tables.
+
+    :cvar number: the table number
+    """
+    __tablename__ = "table"
+    number: Mapped[int] = mapped_column(CheckConstraint('number > 0'), primary_key=True)
