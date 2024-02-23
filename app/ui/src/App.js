@@ -5,6 +5,7 @@ import CustomerLogin from './pages/login/CustomerLogin';
 import StaffLogin from './pages/login/StaffLogin';
 import Registration from './pages/registration/Registration';
 import FoodMenu from './pages/menu/FoodMenu';
+import Order from './pages/order/Order';
 import NavBar from './components/NavBar';
 
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/StaffLogin" element={<StaffLogin />} />
           <Route path="/Registration" element={<Registration />} />
           <Route path="/FoodMenu" element={<FoodMenu />} />
+          <Route path="/Order" element={<Order />} />
         </Routes>
       </Router>
     </div>
