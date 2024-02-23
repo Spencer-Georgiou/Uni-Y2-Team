@@ -15,7 +15,8 @@ from sqlalchemy import Integer
 from sqlalchemy import Numeric
 from sqlalchemy import String
 from sqlalchemy import Boolean
-from sqlalchemy import UniqueConstraint
+from sqlalchemy import ForeignKeyConstraint
+from sqlalchemy import PrimaryKeyConstraint
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
@@ -85,28 +86,26 @@ class Allergen(db.Model):
     """
     An allergen model to represent food or drink allergens.
 
-    :cvar id: the identifier of the allergen
     :cvar name: the name of the allergen
     :cvar menuitems: the associated menu items that contains the allergen
     """
 
     __tablename__ = "allergen"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String)
+    name: Mapped[str] = mapped_column(String, primary_key=True)
 
     menuitems: Mapped[Optional[List["MenuItem"]]] = relationship(back_populates="allergens",
                                                                  secondary="menuitem_allergen")
 
     def __repr__(self):
-        return f'Allergen(id={self.id!r}, name={self.name!r})'
+        return f'Allergen(name={self.name!r})'
 
 
 # the association table for the many-to-many relationship between menuitem and allergen
 menuitem_allergen = db.Table(
     "menuitem_allergen",
-    db.Column('menuitem', ForeignKey("menuitem.id"), primary_key=True),
-    db.Column('allergen', ForeignKey("allergen.id"), primary_key=True)
+    db.Column('menuitem', ForeignKey("menuitem.name"), primary_key=True),
+    db.Column('allergen', ForeignKey("allergen.name"), primary_key=True)
 )
 
 
@@ -114,7 +113,6 @@ class MenuItem(db.Model):
     """
     A data model for the object 'menu item', an item that can be displayed on a menu.
 
-    :cvar id: the identifier of the menu item
     :cvar name: the name of the menu item
     :cvar description: the description of the menu item, which can be more detailed than its name
     :cvar calorie: the amount of energy the menu item contains in kcal
@@ -122,22 +120,26 @@ class MenuItem(db.Model):
     :cvar allergens: the list of allergens the menu item contains
     """
     __tablename__ = "menuitem"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String)
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ("menugroup_type", "menugroup_category"), ("menugroup.type", "menugroup.category")
+        ),
+    )
+    name: Mapped[str] = mapped_column(String, primary_key=True)
     description: Mapped[str] = mapped_column(String)
     calorie: Mapped[int] = mapped_column(Integer, CheckConstraint('calorie > 0'))
     price: Mapped[int] = mapped_column(Numeric(scale=2), CheckConstraint('price > 0'))
-    menugroup_id: Mapped[int] = mapped_column(ForeignKey("menugroup.id"))
+    menugroup_type: Mapped[MenuType] = mapped_column(Enum(MenuType))
+    menugroup_category: Mapped[MenuCategory] = mapped_column(Enum(MenuCategory))
 
     allergens: Mapped[Optional[List["Allergen"]]] = relationship(back_populates="menuitems",
                                                                  secondary="menuitem_allergen")
-    menugroup: Mapped["MenuGroup"] = relationship(back_populates="menuitems")
+    menugroup: Mapped["MenuGroup"] = relationship(back_populates="menuitems",
+                                                  foreign_keys=[menugroup_type, menugroup_category])
 
     def __repr__(self):
-        return (f"MenuItem(id={self.id!r}, name={self.name!r}, description={self.description!r}, "
-                f"calorie={self.calorie!r}, price={self.price!r}, menugroup_id="
-                f"{self.menugroup_id!r})")
+        return (f"MenuItem(name={self.name!r}, description={self.description!r}, "
+                f"calorie={self.calorie!r}, price={self.price!r})")
 
 
 class MenuGroup(db.Model):
@@ -145,7 +147,6 @@ class MenuGroup(db.Model):
     A data model represents the groups of a menu, such as 'Starter' of 'Food' menu,
     or 'Alcoholic' of 'Drink' menu
 
-    :cvar id: the identifier of the menu group
     :cvar type: the type of the menu, such as 'Food' or 'Drink'
     :cvar category: the category of a type, such as 'Main' for Food Menu and 'Non-Alcoholic' for
     Drink Menu
@@ -153,17 +154,16 @@ class MenuGroup(db.Model):
     __tablename__ = "menugroup"
     __table_args__ = (
         # A group that is a pair of type and category must be unique
-        UniqueConstraint('type', 'category'),
+        PrimaryKeyConstraint('type', 'category'),
     )
 
-    id: Mapped[int] = mapped_column(primary_key=True)
     type: Mapped[MenuType] = mapped_column(Enum(MenuType))
     category: Mapped[MenuCategory] = mapped_column(Enum(MenuCategory))
 
     menuitems: Mapped[Optional[List["MenuItem"]]] = relationship(back_populates="menugroup")
 
     def __repr__(self):
-        return f"MenuGroup(id={self.id!r}, type={self.type!r}, category={self.category!r})"
+        return f"MenuGroup(type={self.type!r}, category={self.category!r})"
 
 
 class Table(db.Model):

@@ -6,14 +6,16 @@ from .model import Allergen
 from .model import MenuGroup
 from .model import db
 from .api import create_app
+from .enum import MenuType
+from .enum import MenuCategory
 
 app = create_app()
 
 with app.app_context():
     # initialize menu groups
-    starter = MenuGroup(type="Food", category="Starter")
-    main = MenuGroup(type="Food", category="Main")
-    dessert = MenuGroup(type="Food", category="Dessert")
+    starter = MenuGroup(type=MenuType.FOOD, category=MenuCategory.STARTER)
+    main = MenuGroup(type=MenuType.FOOD, category=MenuCategory.MAIN)
+    dessert = MenuGroup(type=MenuType.FOOD, category=MenuCategory.DESSERT)
     db.session.add_all([starter, main, dessert])
 
     # initialize menu allergens

@@ -9,6 +9,7 @@ from src.schema import MenuGroupSchema
 from src.schema import MenuItemSchema
 from decimal import Decimal
 from .fixture_model import menugroup
+from .fixture_model import allergen
 
 
 class TestMenuGroupSchema:
@@ -26,10 +27,9 @@ class TestMenuGroupSchema:
 
 class TestAllergenSchema:
     # An allergen with no menuitem returned by a query is serializable.
-    def test_serialize_allergen_no_menuitem(self, db):
+    def test_serialize_allergen_no_menuitem(self, db, allergen):
         expected = {'menuitems': [], 'name': 'Gluten'}
 
-        allergen = Allergen(name="Gluten")
         db.session.add(allergen)
         db.session.commit()
         quiried_allergen = db.session.query(Allergen).first()

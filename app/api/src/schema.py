@@ -20,7 +20,6 @@ class MenuGroupSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = MenuGroup
         include_relationships = True
-        exclude = ["id"]
 
     type = fields.Enum(MenuType, by_value=True)
     category = fields.Enum(MenuCategory, by_value=True)
@@ -34,7 +33,6 @@ class AllergenSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Allergen
         include_relationships = True
-        exclude = ["id"]
 
 
 class MenuItemSchema(SQLAlchemyAutoSchema):
@@ -46,7 +44,6 @@ class MenuItemSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = MenuItem
         include_relationships = True
-        exclude = ["id"]
 
     # Convert python Decimal.Decimal() to float type since the previous one cannot be parsed to json
     price = fields.Float()

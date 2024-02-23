@@ -46,13 +46,7 @@
                 <mxCell id="24" value="&lt;div style=&quot;text-align: start;&quot;&gt;MenuItem&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=center;rounded=0;shadow=0;sketch=0;strokeColor=default;" parent="1" vertex="1">
                     <mxGeometry x="695" y="490" width="100" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="26" value="" style="edgeStyle=none;rounded=1;html=1;strokeColor=default;endArrow=none;endFill=0;" parent="1" source="25" target="24" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="25" value="id" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" parent="1" vertex="1">
-                    <mxGeometry x="625" y="400" width="100" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="28" value="name" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+                <mxCell id="28" value="name" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" parent="1" vertex="1">
                     <mxGeometry x="735" y="400" width="100" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="35" value="" style="endArrow=none;html=1;rounded=0;strokeColor=default;entryX=0.41;entryY=0.975;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="28" edge="1">
@@ -108,7 +102,7 @@
                         <mxPoint x="730" y="691" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="100" value="type" style="ellipse;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+                <mxCell id="100" value="type" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" parent="1" vertex="1">
                     <mxGeometry x="634" y="710" width="100" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="104" style="edgeStyle=none;rounded=1;html=1;entryX=0.669;entryY=1.025;entryDx=0;entryDy=0;strokeColor=default;endArrow=none;endFill=0;entryPerimeter=0;" parent="1" source="103" target="158" edge="1">
@@ -116,7 +110,7 @@
                         <mxPoint x="770" y="690" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="103" value="&lt;span&gt;category&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=0" parent="1" vertex="1">
+                <mxCell id="103" value="&lt;span&gt;category&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" parent="1" vertex="1">
                     <mxGeometry x="755" y="710" width="100" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="105" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endFill=1;" parent="1" source="63" edge="1">
@@ -163,12 +157,6 @@
                 </mxCell>
                 <mxCell id="158" value="MenuGroup" style="whiteSpace=wrap;html=1;align=center;rounded=0;shadow=0;sketch=0;strokeColor=default;" parent="1" vertex="1">
                     <mxGeometry x="695" y="650" width="100" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="160" value="" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="159" target="158" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="159" value="id" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" parent="1" vertex="1">
-                    <mxGeometry x="571" y="650" width="100" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="163" value="" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="161" target="71" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
