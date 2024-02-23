@@ -3,6 +3,7 @@ Module for Object-Relation models that maps objects to tables stored in a databa
 """
 from datetime import datetime
 from datetime import timedelta
+import enum
 from typing import List
 from typing import Optional
 
@@ -21,10 +22,6 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-
-from src.enum import MenuCategory
-from src.enum import MenuType
-from src.enum import OrderStatus
 
 
 class Base(DeclarativeBase):
@@ -109,6 +106,57 @@ menuitem_allergen = db.Table(
 )
 
 
+class MenuGroup(db.Model):
+    """
+    A data model represents the groups of a menu, such as 'Starter' of 'Food' menu,
+    or 'Alcoholic' of 'Drink' menu
+
+    :cvar type: the type of the menu, such as 'Food' or 'Drink'
+    :cvar category: the category of a type, such as 'Main' for Food Menu and 'Non-Alcoholic' for
+    Drink Menu
+    """
+
+    class Type(enum.Enum):
+        """
+        An enum that is for the type of menus.
+
+        :cvar FOOD: the Food Menu
+        :cvar DRINK: the Drink Menu
+        """
+        FOOD = "Food"
+        DRINK = "Drink"
+
+    class Category(enum.Enum):
+        """
+        An enum that is for the category of menus.
+
+        :cvar STARTER: the starter meals
+        :cvar MAIN: the main meals
+        :cvar DESSERT: the dessert meals
+        :cvar ALCOHOLIC: the alcoholic drink
+        :cvar NONALCOHOLIC: the non-alcoholic drink
+        """
+        STARTER = "Starter"
+        MAIN = "Main"
+        DESSERT = "Dessert"
+        ALCOHOLIC = "Alcoholic"
+        NONALCOHOLIC = "Non-Alcoholic"
+
+    __tablename__ = "menugroup"
+    __table_args__ = (
+        # A group that is a pair of type and category must be unique
+        PrimaryKeyConstraint('type', 'category'),
+    )
+
+    type: Mapped[Type] = mapped_column(Enum(Type))
+    category: Mapped[Category] = mapped_column(Enum(Category))
+
+    menuitems: Mapped[Optional[List["MenuItem"]]] = relationship(back_populates="menugroup")
+
+    def __repr__(self):
+        return f"MenuGroup(type={self.type!r}, category={self.category!r})"
+
+
 class MenuItem(db.Model):
     """
     A data model for the object 'menu item', an item that can be displayed on a menu.
@@ -129,8 +177,8 @@ class MenuItem(db.Model):
     description: Mapped[str] = mapped_column(String)
     calorie: Mapped[int] = mapped_column(Integer, CheckConstraint('calorie > 0'))
     price: Mapped[int] = mapped_column(Numeric(scale=2), CheckConstraint('price > 0'))
-    menugroup_type: Mapped[MenuType] = mapped_column(Enum(MenuType))
-    menugroup_category: Mapped[MenuCategory] = mapped_column(Enum(MenuCategory))
+    menugroup_type: Mapped[MenuGroup.Type] = mapped_column(Enum(MenuGroup.Type))
+    menugroup_category: Mapped[MenuGroup.Category] = mapped_column(Enum(MenuGroup.Category))
 
     allergens: Mapped[Optional[List["Allergen"]]] = relationship(back_populates="menuitems",
                                                                  secondary="menuitem_allergen")
@@ -140,30 +188,6 @@ class MenuItem(db.Model):
     def __repr__(self):
         return (f"MenuItem(name={self.name!r}, description={self.description!r}, "
                 f"calorie={self.calorie!r}, price={self.price!r})")
-
-
-class MenuGroup(db.Model):
-    """
-    A data model represents the groups of a menu, such as 'Starter' of 'Food' menu,
-    or 'Alcoholic' of 'Drink' menu
-
-    :cvar type: the type of the menu, such as 'Food' or 'Drink'
-    :cvar category: the category of a type, such as 'Main' for Food Menu and 'Non-Alcoholic' for
-    Drink Menu
-    """
-    __tablename__ = "menugroup"
-    __table_args__ = (
-        # A group that is a pair of type and category must be unique
-        PrimaryKeyConstraint('type', 'category'),
-    )
-
-    type: Mapped[MenuType] = mapped_column(Enum(MenuType))
-    category: Mapped[MenuCategory] = mapped_column(Enum(MenuCategory))
-
-    menuitems: Mapped[Optional[List["MenuItem"]]] = relationship(back_populates="menugroup")
-
-    def __repr__(self):
-        return f"MenuGroup(type={self.type!r}, category={self.category!r})"
 
 
 class Table(db.Model):
@@ -187,10 +211,25 @@ class Order(db.Model):
     :cvar confirmed_kitchen: an indicator that whether the order is confirmed by a kitchen staff
     """
 
+    class Status(enum.Enum):
+        """
+        An enum that stands for possible statuses of an order.
+
+        :cvar ORDERING: a customer is making an order
+        :cvar PREPARING: the kitchen is preparing for the order
+        :cvar DELIVERING: the order is ready for a waiter to deliver
+        :cvar DELIVERED: the order has been delivered
+        :cvar FINISHED: the order is finished, i.e. the customer left the table
+        """
+        ORDERING = "Ordering"
+        PREPARING = "Preparing"
+        DELIVERING = "Delivering"
+        DELIVERED = "Delivered"
+        FINISHED = "Finished"
+
     __tablename__ = "order"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    status: Mapped[OrderStatus] = mapped_column(Enum(OrderStatus),
-                                                default=OrderStatus.ORDERING)
+    status: Mapped[Status] = mapped_column(Enum(Status), default=Status.ORDERING)
     confirmed_waiter: Mapped[bool] = mapped_column(Boolean, default=False)
     confirmed_kitchen: Mapped[bool] = mapped_column(Boolean, default=False)

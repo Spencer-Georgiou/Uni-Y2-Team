@@ -1,8 +1,6 @@
 """
 Testing data models.
 """
-from src.enum import MenuCategory
-from src.enum import MenuType
 from src.model import Allergen
 from src.model import MenuGroup
 from src.model import MenuItem

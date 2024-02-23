@@ -1,5 +1,3 @@
-from src.enum import MenuType
-from src.enum import MenuCategory
 from src.model import Allergen
 from src.model import MenuGroup
 from src.model import MenuItem
@@ -25,7 +23,7 @@ def session(user):
 # a MenuGroup instance
 @pytest.fixture
 def menugroup():
-    return MenuGroup(type=MenuType.FOOD, category=MenuCategory.STARTER)
+    return MenuGroup(type=MenuGroup.Type.FOOD, category=MenuGroup.Category.STARTER)
 
 
 # a Allergen instance

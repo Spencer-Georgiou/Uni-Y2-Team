@@ -5,8 +5,6 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
 from marshmallow_sqlalchemy.fields import fields
 
-from .enum import MenuCategory
-from .enum import MenuType
 from .model import Allergen
 from .model import MenuGroup
 from .model import MenuItem
@@ -21,8 +19,8 @@ class MenuGroupSchema(SQLAlchemyAutoSchema):
         model = MenuGroup
         include_relationships = True
 
-    type = fields.Enum(MenuType, by_value=True)
-    category = fields.Enum(MenuCategory, by_value=True)
+    type = fields.Enum(MenuGroup.Type, by_value=True)
+    category = fields.Enum(MenuGroup.Category, by_value=True)
 
 
 class AllergenSchema(SQLAlchemyAutoSchema):
