@@ -1,4 +1,5 @@
 'use client';
+import { Button } from 'flowbite-react';
 
 function TableNumber() {
     return (
@@ -14,9 +15,8 @@ function TableNumber() {
                 <b><input type="text" id="tableNumber" name="tableNumber" className="text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5 focus:ring-4 focus:ring-amber" placeholder="Table Number" required /></b>
             </div>
             <div className="flex justify-center">
-                <button type="submit" className="h-16 font-sans font-semibold bg-lemon rounded-lg text-xl w-40 rounded-2xl px-5 py-2.5 text-center text-cherry hover:ring-4 hover:ring-amber focus:ring-amber">Enter</button>
+                <Button type="submit" className="h-16 font-sans font-semibold bg-lemon rounded-lg text-xl w-40 rounded-2xl px-5 py-2.5 text-center text-cherry hover:ring-4 hover:ring-amber focus:ring-amber">Enter</Button>
             </div>
-
             </form>
         </div>
     );

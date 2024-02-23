@@ -1,8 +1,10 @@
 import TableNumber from "../../components/order/TableNumber"
+import CallWaiter from "../../components/order/CallWaiter"
+
 const Order = () => {
 
     return (
-        <TableNumber />
+        <dive>hi Nicky!</dive>
     )
 }
 
