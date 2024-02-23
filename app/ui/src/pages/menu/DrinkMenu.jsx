@@ -1,6 +1,6 @@
-import Navbar from "../../components/Menu/NavBar";
-import MenuFooter from "../../components/Menu/MenuFooter";
-import DrinkFilterMenu from "../../components/Menu/drinkfilterMenu";
+import Navbar from "../../components/menu/NavBar";
+import MenuFooter from "../../components/menu/MenuFooter";
+import DrinkFilterMenu from "../../components/menu/DrinkFilterMenu";
 
 //this is the menu page which combine all the components
 
