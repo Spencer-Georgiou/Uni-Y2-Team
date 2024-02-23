@@ -1,7 +1,8 @@
+import TableNumber from "../../components/order/TableNumber"
 const Order = () => {
 
     return (
-        <div>hi</div>
+        <TableNumber />
     )
 }
 
