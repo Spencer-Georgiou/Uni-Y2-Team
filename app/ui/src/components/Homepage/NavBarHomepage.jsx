@@ -38,7 +38,7 @@ function NavBarHomepage() {
                     <span>Contact Us</span>
                 </Link>
 
-                <Link to="/About Us" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
+                <Link to="/AboutUs" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
                     <span>About Us</span>
                 </Link>
 
