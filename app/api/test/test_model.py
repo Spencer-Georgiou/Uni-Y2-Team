@@ -100,6 +100,13 @@ class TestOrder:
         db.session.add(order)
         db.session.commit()
 
+    # An order must be associated with exactly one table.
+    def test_relationship_table(self, db, table, order):
+        db.session.add_all([table, order])
+        db.session.commit()
+
+        assert order.table is table
+
 
 class TestWaiter:
     # An instance of kitchen can be created and stored in the database.
