@@ -7,17 +7,19 @@ from src.model import User
 from src.model import Session
 import pytest
 
+from src.model import Waiter
+
 
 # a User instance
 @pytest.fixture
-def user():
-    return User(username="Kate", password="123456")
+def waiter():
+    return Waiter(username="Kate", password="123456")
 
 
 # a Session instance
 @pytest.fixture
-def session(user):
-    return Session(user=user, token="abcde")
+def session(waiter):
+    return Session(user=waiter, token="abcde")
 
 
 # a MenuGroup instance

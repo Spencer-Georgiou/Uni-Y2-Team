@@ -36,21 +36,41 @@ db = SQLAlchemy(model_class=Base)
 
 class User(db.Model):
     """
-    A user model to map user objects to a user table in a database.
+    A user model to map user objects to a user table in a database. It is an abstract model,
+    which can be inherited but not instantiated.
 
     :cvar username: the identifier of the user
     :cvar password: the array of string used to authenticate the user
     :cvar session: the session that the user has
     """
+
+    class Role(enum.Enum):
+        WAITER = "Waiter"
+        KITCHEN = "Kitchen"
+
     __tablename__ = "user"
+    __mapper_args__ = {
+        "polymorphic_abstract": True,
+        "polymorphic_on": "role",
+    }
 
     username: Mapped[str] = mapped_column(String(32), primary_key=True)
     password: Mapped[str] = mapped_column(String(255))
+    role: Mapped[Role] = mapped_column(Enum(Role))
 
     session: Mapped[Optional["Session"]] = relationship(back_populates="user")
 
     def __repr__(self) -> str:
         return f"User(username={self.username!r}, password={self.password!r})"
+
+
+class Waiter(User):
+    __tablename__ = "waiter"
+    __mapper_args__ = {
+        "polymorphic_identity": User.Role.WAITER,
+    }
+
+    username: Mapped[int] = mapped_column(ForeignKey("user.username"), primary_key=True)
 
 
 class Session(db.Model):
@@ -199,6 +219,9 @@ class Table(db.Model):
     __tablename__ = "table"
     number: Mapped[int] = mapped_column(CheckConstraint('number > 0'), primary_key=True)
 
+    def __repr__(self):
+        return (f"Table(number={self.number!r})")
+
 
 class Order(db.Model):
     """
@@ -233,3 +256,7 @@ class Order(db.Model):
     status: Mapped[Status] = mapped_column(Enum(Status), default=Status.ORDERING)
     confirmed_waiter: Mapped[bool] = mapped_column(Boolean, default=False)
     confirmed_kitchen: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    def __repr__(self):
+        return (f"Order(id={self.id!r}, status={self.status!r}, confirmed_waiter="
+                f"{self.confirmed_waiter!r}, confirmed_kitchen={self.confirmed_kitchen!r})")

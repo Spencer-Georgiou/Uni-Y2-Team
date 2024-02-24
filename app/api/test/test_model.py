@@ -9,25 +9,13 @@ from src.model import Table
 from src.model import User
 from src.model import Session
 from datetime import datetime
+
+from src.model import Waiter
 from .fixture_model import menugroup
 from .fixture_model import allergen
 from .fixture_model import menuitem
-from .fixture_model import user
+from .fixture_model import waiter
 from .fixture_model import session
-
-
-class TestUser:
-    # An instance of a user object can be created and stored in the database.
-    def test_create_user(self, db, user):
-        db.session.add(user)
-        db.session.commit()
-
-    # A user can refer to its associated session.
-    def test_relationship_session(self, db, user, session):
-        db.session.add_all([user, session])
-        db.session.commit()
-
-        assert user.session is session
 
 
 class TestSession:
@@ -37,11 +25,11 @@ class TestSession:
         db.session.commit()
 
     # A session can refer to its associated user.
-    def test_relationship_user(self, db, user, session):
-        db.session.add_all([user, session])
+    def test_relationship_user(self, db, waiter, session):
+        db.session.add_all([waiter, session])
         db.session.commit()
 
-        assert session.user is user
+        assert session.user is waiter
 
 
 class TestAllergen:
@@ -109,4 +97,11 @@ class TestOrder:
     def test_create_order(self, db):
         order = Order()
         db.session.add(order)
+        db.session.commit()
+
+
+class TestWaiter:
+    def test_create_waiter(self, db):
+        waiter = Waiter(username="Kate", password="123456")
+        db.session.add(waiter)
         db.session.commit()
