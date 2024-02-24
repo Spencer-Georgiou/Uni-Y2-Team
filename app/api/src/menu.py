@@ -1,35 +1,27 @@
-from flask import jsonify
-import sqlite3
+"""
+Module that provides the restaurant menus.
+"""
 from flask_restx import Resource
-from . import flask_api
 
-@flask_api.route("/api/menu")
+from .apidoc import apidoc
+from flask import current_app
+
+from .model import MenuItem
+from .model import db
+from .schema import MenuItemSchema
+
+
+@apidoc.route("/menu")
 class Menu(Resource):
+    """
+    A menu that is accessible via the given api.
+    """
+
     def get(self):
-        try:
-            db = sqlite3.connect("database.db")
-            cursor = db.cursor()
-            cursor.execute('SELECT * FROM food_menu')
-            menu_items = cursor.fetchall()
-
-            menu_data = []
-            for item in menu_items:
-                item_dict = {
-                    'item_id': item[0],
-                    'item_name': item[1],
-                    'description': item[2],
-                    'price': item[3],
-                    'calories': item[4],
-                    'type': item[5],
-                    'allergen': item[6],
-                    'dietary': item[7],
-                    'available': item[8]
-                }
-                menu_data.append(item_dict)
-
-            db.close()
-
-            return jsonify({"menu": menu_data})
-
-        except Exception as e:
-            return {"error": str(e)}, 500
+        """
+        Return a list of menu items in json format when a get request is received.
+        """
+        with current_app.app_context():
+            all_menu_items = db.session.query(MenuItem).all()
+            serialized = MenuItemSchema(many=True).dump(all_menu_items)
+            return serialized

@@ -3,7 +3,7 @@ import { Button, Navbar } from "flowbite-react"
 
 const NavBar = () => {
     return (
-        <nav class="bg-rose">
+        <nav class="bg-cherry">
                 
         <div class="max-w-screen-xl flex flex-wrap items-start justify-between mx-auto p-4">
             
@@ -11,16 +11,16 @@ const NavBar = () => {
             
             <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-transparent md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
             <li>
-                <a href="#" class="block py-2 px-3 text-yellow rounded md:hover:text-amber">Home</a>
+                <a href="#" class="block py-2 px-3 text-lemon rounded md:hover:text-amber">Home</a>
             </li>
             <li>
-                <a href="#" class="block py-2 px-3 text-yellow rounded md:hover:text-amber">Menus</a>
+                <a href="#" class="block py-2 px-3 text-lemon rounded md:hover:text-amber">Menus</a>
             </li>
             <li>
-                <a href="#" class="block py-2 px-3 text-yellow rounded md:hover:text-amber">Order</a>
+                <a href="#" class="block py-2 px-3 text-lemon rounded md:hover:text-amber">Order</a>
             </li>
             <li>
-                <a href="#" class="block py-2 px-3 text-yellow rounded md:hover:text-amber">Contact Us</a>
+                <a href="#" class="block py-2 px-3 text-lemon rounded md:hover:text-amber">Contact Us</a>
             </li>
             </ul>
         </div>

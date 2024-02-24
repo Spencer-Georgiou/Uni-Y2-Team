@@ -1,12 +1,12 @@
 """
-Module providing an example to show the use of flask and flask-restx
+Module providing an example to show flask and flask-restx
 """
 
 from flask_restx import Resource
-from . import flask_api
+from .apidoc import apidoc
 
 
-@flask_api.route("/api/demo")
+@apidoc.route("/demo")
 class Demo(Resource):
     """
     A sample class.
