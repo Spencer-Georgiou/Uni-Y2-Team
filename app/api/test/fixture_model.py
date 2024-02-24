@@ -11,23 +11,25 @@ import pytest
 from src.model import Waiter
 
 
-# a User instance
+# a Waiter instance
 @pytest.fixture
 def waiter():
     return Waiter(username="Kate", password="123456")
 
 
+# a Kitchen instance
 @pytest.fixture
 def kitchen():
     return Kitchen(username="Jenny", password="123456")
 
 
-# a Session instance
+# a Session instance for waiter
 @pytest.fixture
 def session_for_waiter(waiter):
     return Session(user=waiter, token="abcde")
 
 
+# a Session instance for kitchen
 @pytest.fixture
 def session_for_kitchen(kitchen):
     return Session(user=kitchen, token="abcde")
@@ -50,3 +52,13 @@ def allergen():
 def menuitem(menugroup):
     return MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
                     calorie=600, price=5.00, menugroup=menugroup)
+
+
+@pytest.fixture
+def table():
+    return Table(number=10)
+
+
+@pytest.fixture
+def order(table):
+    return Order(table=table)

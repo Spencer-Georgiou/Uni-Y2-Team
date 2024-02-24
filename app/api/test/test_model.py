@@ -82,16 +82,21 @@ class TestMenuGroup:
 
 class TestTable:
     # An instance of table can be created and stored in the database.
-    def test_create_table(self, db):
-        table = Table(number=10)
+    def test_create_table(self, db, table):
         db.session.add(table)
         db.session.commit()
+
+    # A table can be associated with many orders.
+    def test_relationship_order(self, db, table, order):
+        db.session.add_all([table, order])
+        db.session.commit()
+
+        assert order in table.orders
 
 
 class TestOrder:
     # An instance of order can be created and stored in the database.
-    def test_create_order(self, db):
-        order = Order()
+    def test_create_order(self, db, order):
         db.session.add(order)
         db.session.commit()
 

@@ -234,9 +234,12 @@ class Table(db.Model):
     A data model represents restaurant tables.
 
     :cvar number: the table number
+    :cvar orders: the orders associated with the table
     """
     __tablename__ = "table"
     number: Mapped[int] = mapped_column(CheckConstraint('number > 0'), primary_key=True)
+
+    orders: Mapped[Optional[List["Order"]]] = relationship(back_populates="table")
 
     def __repr__(self):
         return (f"Table(number={self.number!r})")
@@ -247,10 +250,12 @@ class Order(db.Model):
     A data model represents an order that is made by a table.
 
     :cvar id: the identifier of the order
+    :cvar table_number: the table number assigned to the order
     :cvar status: the state of the order, including "Ordering", "Preparing", "Delivering",
     "Delivered" and "Finished"; defaults to "Ordering"
     :cvar confirmed_waiter: an indicator that whether the order is confirmed by a waiter
     :cvar confirmed_kitchen: an indicator that whether the order is confirmed by a kitchen staff
+    :cvar table: the table associated with the order
     """
 
     class Status(enum.Enum):
@@ -272,10 +277,15 @@ class Order(db.Model):
     __tablename__ = "order"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    table_number: Mapped[int] = mapped_column(ForeignKey("table.number"))
     status: Mapped[Status] = mapped_column(Enum(Status), default=Status.ORDERING)
     confirmed_waiter: Mapped[bool] = mapped_column(Boolean, default=False)
     confirmed_kitchen: Mapped[bool] = mapped_column(Boolean, default=False)
 
+    table: Mapped["Table"] = relationship(back_populates="orders")
+
     def __repr__(self):
-        return (f"Order(id={self.id!r}, status={self.status!r}, confirmed_waiter="
-                f"{self.confirmed_waiter!r}, confirmed_kitchen={self.confirmed_kitchen!r})")
+        return (
+            f"Order(id={self.id!r}, table_number={self.table_number!r}, status={self.status!r}, "
+            f"confirmed_waiter="
+            f"{self.confirmed_waiter!r}, confirmed_kitchen={self.confirmed_kitchen!r})")
