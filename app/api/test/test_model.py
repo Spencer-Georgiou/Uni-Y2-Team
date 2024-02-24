@@ -93,6 +93,13 @@ class TestTable:
 
         assert order in table.orders
 
+    # A table can show its active order.
+    def test_show_active_order(self, db, table, active_order):
+        db.session.add_all([table, active_order])
+        db.session.commit()
+
+        assert active_order is table.get_active_order()
+
 
 class TestOrder:
     # An instance of order can be created and stored in the database.

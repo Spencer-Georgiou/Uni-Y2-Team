@@ -18,6 +18,8 @@ from sqlalchemy import String
 from sqlalchemy import Boolean
 from sqlalchemy import ForeignKeyConstraint
 from sqlalchemy import PrimaryKeyConstraint
+from sqlalchemy import and_
+from sqlalchemy import select
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
@@ -244,6 +246,18 @@ class Table(db.Model):
     def __repr__(self):
         return (f"Table(number={self.number!r})")
 
+    def get_active_order(self):
+        """
+        Return the active order associated with the table.
+        """
+        stmt = select(Order).where(
+            and_(Order.table == self,
+                 Order.status != Order.Status.FINISHED)
+        )
+        result = db.session.scalars(stmt)
+        active_order = result.one()
+        return active_order
+
 
 class Order(db.Model):
     """
@@ -261,6 +275,8 @@ class Order(db.Model):
     class Status(enum.Enum):
         """
         An enum that stands for possible statuses of an order.
+        An active order means its status is not finished.
+        An inactive order means its status is finished.
 
         :cvar ORDERING: a customer is making an order
         :cvar PREPARING: the kitchen is preparing for the order
