@@ -37,6 +37,10 @@ function NavBar() {
                     <span>Contact Us</span>
                 </Link>
 
+                <Link to="/AboutUs" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
+                    <span>About Us</span>
+                </Link>
+
             </Navbar.Collapse>
 
             <div className="flex md:order-1">

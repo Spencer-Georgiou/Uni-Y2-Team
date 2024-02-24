@@ -7,6 +7,8 @@ import Registration from './pages/registration/Registration';
 import FoodMenu from './pages/menu/FoodMenu';
 import DrinkMenu from './pages/menu/DrinkMenu';
 import NavBar from './components/NavBar'
+import Homepage from './pages/homepage/Homepage'
+import AboutUs from './pages/aboutUs/AboutUs'
 
 
 function App() {
