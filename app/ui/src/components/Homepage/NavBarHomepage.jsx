@@ -1,23 +1,62 @@
 'use client';
 
-import { Navbar } from 'flowbite-react';
+import { Navbar, Dropdown, Button } from 'flowbite-react';
+import { Link } from 'react-router-dom';
+
 
 
 function NavBarHomepage() {
     return (
         <Navbar className="bg-cherry">
+
+            {/* Any items within collapse tags will 'disappear' on smaller windows */}
             <Navbar.Collapse>
-                <Navbar.Link className="font-sans font-medium font-semibold text-lemon dark:text-white hover:text-white hover:underline" href="/">Home</Navbar.Link>
-                <Navbar.Link className="font-sans font-medium font-semibold text-lemon dark:text-white hover:text-white hover:underline" href="/Menu">Menu</Navbar.Link>
-                <Navbar.Link className="font-sans font-medium font-semibold text-lemon dark:text-white hover:text-white hover:underline" href="/Order">Order</Navbar.Link>
-                <Navbar.Link className="font-sans font-medium font-semibold text-lemon dark:text-white hover:text-white hover:underline" href="/Contact Us">Contact Us</Navbar.Link>
+                {/* Link to Home Page */}
+                <Link to="/" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
+                    <span>Home</span>
+                </Link>
+
+                {/* Dropdown of menu options, including links to the food and drink menu pages */}
+                <div className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
+                    <Dropdown label="Menus" inline className="text-cherry bg-lemon border-lemon ">
+                        <Dropdown.Item as={Link} to="/FoodMenu" className="focus:bg-amber">
+                            Food Menu
+                        </Dropdown.Item>
+                        <Dropdown.Item as={Link} to="/DrinkMenu" className="focus:bg-amber">
+                            Drink Menu
+                        </Dropdown.Item>
+                    </Dropdown>
+                </div>
+
+                {/* Link to Order Page */}
+                <Link to="/Order" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
+                    <span>Order</span>
+                </Link>
+
+                {/* Link to Contact Us Page */}
+                <Link to="/Contact" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
+                    <span>Contact Us</span>
+                </Link>
+
+                <Link to="/About Us" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
+                    <span>About Us</span>
+                </Link>
 
             </Navbar.Collapse>
-            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse mx-auto max-w-screen-xl p-4">
-                <img src="/images/OaxacaLogo.png"  class="h-8" alt="OaxacaLogo Logo" />
-            </a>
-            <button type="button" class="focus:outline-none text-lemon bg-cherry hover:bg-lemon focus:ring-4 focus:ring-cherry font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
 
+            <div className="flex md:order-1">
+                {/* Displays restaurant logo */}
+                <Link to="/">
+                    <img className="h-16" src="/images/OaxacaLogo.png" alt="Oaxaca Logo" />
+                </Link>
+            </div>
+
+            <div className="flex gap-2 md:order-2">
+                <Button as={Link} to="CustomerLogin" className="font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber focus:ring-amber">Log In</Button>
+                <Button as={Link} to="Registration" className="font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber focus:ring-amber">Sign Up</Button>
+                {/* Page navigation options disappear into hamburger dropdown button on smaller screens */}
+                <Navbar.Toggle className="text-cherry bg-lemon ring-lemon focus:ring-amber hover:bg-amber" />
+            </div>
         </Navbar>
     );
 }
