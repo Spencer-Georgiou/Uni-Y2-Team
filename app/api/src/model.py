@@ -61,13 +61,32 @@ class User(db.Model):
     session: Mapped[Optional["Session"]] = relationship(back_populates="user")
 
     def __repr__(self) -> str:
-        return f"User(username={self.username!r}, password={self.password!r})"
+        return f"{self.__class__.__name__}(username={self.username!r}, password={self.password!r})"
 
 
 class Waiter(User):
+    """
+    A kitchen model inherited from User to represent kitchen staff.
+
+    :cvar username: the identifier of the user who is a kitchen staff
+    """
     __tablename__ = "waiter"
     __mapper_args__ = {
         "polymorphic_identity": User.Role.WAITER,
+    }
+
+    username: Mapped[int] = mapped_column(ForeignKey("user.username"), primary_key=True)
+
+
+class Kitchen(User):
+    """
+    A kitchen model inherited from User to represent kitchen staff.
+
+    :cvar username: the identifier of the user who is a kitchen staff
+    """
+    __tablename__ = "kitchen"
+    __mapper_args__ = {
+        "polymorphic_identity": User.Role.KITCHEN,
     }
 
     username: Mapped[int] = mapped_column(ForeignKey("user.username"), primary_key=True)

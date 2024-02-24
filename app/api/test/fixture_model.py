@@ -1,4 +1,5 @@
 from src.model import Allergen
+from src.model import Kitchen
 from src.model import MenuGroup
 from src.model import MenuItem
 from src.model import Order
@@ -16,10 +17,20 @@ def waiter():
     return Waiter(username="Kate", password="123456")
 
 
+@pytest.fixture
+def kitchen():
+    return Kitchen(username="Jenny", password="123456")
+
+
 # a Session instance
 @pytest.fixture
-def session(waiter):
+def session_for_waiter(waiter):
     return Session(user=waiter, token="abcde")
+
+
+@pytest.fixture
+def session_for_kitchen(kitchen):
+    return Session(user=kitchen, token="abcde")
 
 
 # a MenuGroup instance

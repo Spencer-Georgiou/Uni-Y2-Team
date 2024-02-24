@@ -11,25 +11,21 @@ from src.model import Session
 from datetime import datetime
 
 from src.model import Waiter
-from .fixture_model import menugroup
-from .fixture_model import allergen
-from .fixture_model import menuitem
-from .fixture_model import waiter
-from .fixture_model import session
+from .fixture_model import *
 
 
 class TestSession:
     # An instance of a session object can be created and stored in the database.
-    def test_create_session(self, db, session):
-        db.session.add(session)
+    def test_create_session(self, db, session_for_waiter):
+        db.session.add(session_for_waiter)
         db.session.commit()
 
-    # A session can refer to its associated user.
-    def test_relationship_user(self, db, waiter, session):
-        db.session.add_all([waiter, session])
+    # A session can refer to its associated waiter.
+    def test_relationship_user(self, db, waiter, session_for_waiter):
+        db.session.add_all([waiter, session_for_waiter])
         db.session.commit()
 
-        assert session.user is waiter
+        assert session_for_waiter.user is waiter
 
 
 class TestAllergen:
@@ -101,7 +97,28 @@ class TestOrder:
 
 
 class TestWaiter:
-    def test_create_waiter(self, db):
-        waiter = Waiter(username="Kate", password="123456")
+    # An instance of kitchen can be created and stored in the database.
+    def test_create_waiter(self, db, waiter):
         db.session.add(waiter)
         db.session.commit()
+
+    # A kitchen can refer to its associated session.
+    def test_relationship_session(self, db, waiter, session_for_waiter):
+        db.session.add_all([waiter, session_for_waiter])
+        db.session.commit()
+
+        assert waiter.session is session_for_waiter
+
+
+class TestKitchen:
+    # An instance of kitchen staff can be created and stored in the database.
+    def test_create_kitchen(self, db, kitchen):
+        db.session.add(kitchen)
+        db.session.commit()
+
+    # A kitchen can refer to its associated session.
+    def test_relationship_session(self, db, kitchen, session_for_kitchen):
+        db.session.add_all([kitchen, session_for_kitchen])
+        db.session.commit()
+
+        assert kitchen.session is session_for_kitchen
