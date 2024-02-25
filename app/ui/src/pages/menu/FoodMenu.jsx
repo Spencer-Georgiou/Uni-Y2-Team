@@ -1,6 +1,6 @@
 import Navbar from "../../components/menu/NavBar";
 import MenuFooter from "../../components/menu/MenuFooter";
-import FilterMenu from "../../components/menu/FilterMenu";
+import FilterMenu from "../../components/menu/FoodFilterMenu";
 
 //this is the menu page which combine all the components
 
