@@ -250,6 +250,8 @@ class Table(db.Model):
     def get_active_order(self):
         """
         Return the active order associated with the table if it has one, none otherwise.
+
+        :return: the active order or none
         """
         stmt = select(Order).where(
             and_(Order.table == self,
@@ -258,6 +260,14 @@ class Table(db.Model):
         result = db.session.scalars(stmt)
         active_order = result.first()
         return active_order
+
+    def is_available(self):
+        """
+        Return the availability of the table.
+
+        :return: True if the table has no active order, False otherwise.
+        """
+        return not bool(self.get_active_order())
 
 
 class Order(db.Model):
@@ -308,6 +318,7 @@ class Order(db.Model):
             f"{self.confirmed_waiter!r}, confirmed_kitchen={self.confirmed_kitchen!r})")
 
     @validates("table")
+    # validate whether the table, which the order is assigned, is available
     def validate_table(self, key, table):
         active_order = table.get_active_order()
         if active_order:

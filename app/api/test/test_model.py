@@ -107,6 +107,13 @@ class TestTable:
 
         assert None is table.get_active_order()
 
+    # An empty table should be available.
+    def test_empty_table_available(self, db, table):
+        db.session.add(table)
+        db.session.commit()
+        result = table.is_available()
+        assert True is result
+
 
 class TestOrder:
     # An instance of order can be created and stored in the database.
