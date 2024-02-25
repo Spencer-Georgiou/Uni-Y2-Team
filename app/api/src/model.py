@@ -255,7 +255,7 @@ class Table(db.Model):
                  Order.status != Order.Status.FINISHED)
         )
         result = db.session.scalars(stmt)
-        active_order = result.one()
+        active_order = result.first()
         return active_order
 
 

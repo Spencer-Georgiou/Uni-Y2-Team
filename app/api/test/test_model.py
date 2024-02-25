@@ -100,6 +100,13 @@ class TestTable:
 
         assert active_order is table.get_active_order()
 
+    # A table should return None if it does not have any active order.
+    def test_no_active_order(self, db, table, inactive_order):
+        db.session.add_all([table, inactive_order])
+        db.session.commit()
+
+        assert None is table.get_active_order()
+
 
 class TestOrder:
     # An instance of order can be created and stored in the database.
