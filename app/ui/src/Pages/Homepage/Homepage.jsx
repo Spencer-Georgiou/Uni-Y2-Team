@@ -1,5 +1,6 @@
 import OrderButton from "../../components/homepage/OrderButton"
 import CarouselHomepage from "../../components/homepage/CarouselHomepage";
+import HomepageFooter from "../../components/homepage/HomepageFooter"
 
 const homepage = () => {
     return(
@@ -13,6 +14,7 @@ const homepage = () => {
                 <OrderButton />
             </div>
             <CarouselHomepage />
+            <HomepageFooter />
 
         </div>
         

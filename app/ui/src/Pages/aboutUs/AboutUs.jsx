@@ -1,3 +1,4 @@
+import HomepageFooter from "../../components/homepage/HomepageFooter";
 
 const AboutUs = () => {
     return(
@@ -148,6 +149,7 @@ const AboutUs = () => {
                     </div>
                 </div>
             </div>
+            <HomepageFooter />
         </div>
         
 

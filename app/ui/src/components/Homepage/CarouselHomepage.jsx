@@ -5,7 +5,7 @@ import { Carousel } from 'flowbite-react';
 
 function CarouselHomepage() {
   return (
-    <div className="grid h-56 grid-cols-2 gap-4 sm:h-64 xl:h-80 2xl:h-96" style={{backgroundColor: 'gold'}}>
+    <div className="grid h-56 grid-cols-2 gap-2 sm:h-64 xl:h-80 2xl:h-96 bg-lemon py-3 pl-3 pr-3">
       <Carousel pauseOnHover slideInterval={2000}>
         <img src="/Homepage/Guac.jpg"  />
         <img src="/Homepage/Dancers.jpg" />
