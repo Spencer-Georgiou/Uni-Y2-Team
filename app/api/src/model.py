@@ -24,6 +24,7 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm import validates
 
 
 class Base(DeclarativeBase):
@@ -248,7 +249,7 @@ class Table(db.Model):
 
     def get_active_order(self):
         """
-        Return the active order associated with the table.
+        Return the active order associated with the table if it has one, none otherwise.
         """
         stmt = select(Order).where(
             and_(Order.table == self,
@@ -305,3 +306,11 @@ class Order(db.Model):
             f"Order(id={self.id!r}, table_number={self.table_number!r}, status={self.status!r}, "
             f"confirmed_waiter="
             f"{self.confirmed_waiter!r}, confirmed_kitchen={self.confirmed_kitchen!r})")
+
+    @validates("table")
+    def validate_table(self, key, table):
+        active_order = table.get_active_order()
+        if active_order:
+            raise ValueError(
+                f"The active order {active_order} has already been assigned to {table}.")
+        return table

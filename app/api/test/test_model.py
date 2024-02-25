@@ -121,6 +121,14 @@ class TestOrder:
 
         assert order.table is table
 
+    # An active order cannot be assigned to the table that already has one.
+    def test_no_two_active_order_with_same_table(self, db, table, active_order):
+        db.session.add_all([table, active_order])
+        db.session.commit()
+
+        with pytest.raises(ValueError) as exception:
+            another_active_order = Order(table=table, status=Order.Status.ORDERING)
+
 
 class TestWaiter:
     # An instance of kitchen can be created and stored in the database.
