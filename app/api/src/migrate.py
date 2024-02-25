@@ -1,9 +1,8 @@
 """
 Module creating database entries for deployment.
 """
-from .model import MenuItem
-from .model import Allergen
-from .model import MenuGroup
+from .model import MenuItem, MenuGroup, Allergen
+from .model import User
 from .model import db
 from .api import create_app
 
@@ -33,6 +32,11 @@ with app.app_context():
         MenuItem(name="Patatas Bravas",
                  description="Roasted potatoes in tomato dressing", calorie=500,
                  price=3.00, menugroup=starter)
+    ])
+
+    # haven't executed this. worried it will create duplicate menu items.
+    db.session.add_all([
+        User(username="testuser", password="testpass")
     ])
 
     db.session.commit()
