@@ -7,18 +7,40 @@ import NavBarWaiterHub from "../../components/waiterHub/NavBarWaiterHub";
 const WaiterHub = () => {
     return (
 
-        <div className="w-full h-screen bg-redder">
-            <div className="flex justify-evenly space-x-4 flex-nowrap flex-row w-screen h-3/4">
-                <div class="w-80 mt-12 bg-lemon rounded-[25px] pl-3">Order</div>
+        <div className="flex flex-col space-y-16 w-full h-screen bg-redder">
+            <div className="flex justify-evenly flex-nowrap flex-row h-3/4 text-xl text-redder font-semibold">
+                <div class="flex w-80 mt-12 bg-lemon rounded-[25px]">
+                    <div className="flex flex-col space-y-1 w-full mt-5">
+                        <div className="ml-4">Orders</div>
+                        <div className="h-1 bg-redder"></div>
+                    </div>
+                </div>
 
-                <div class="w-80 mt-12 bg-lemon rounded-[25px] pl-3">Ready</div>
+                <div class="flex w-80 mt-12 bg-lemon rounded-[25px]">
+                    <div className="flex flex-col space-y-1 w-full mt-5">
+                        <div className="ml-4">Ready</div>
+                        <div className="h-1 bg-redder"></div>
+                    </div>
+                </div>
 
-                <div class="w-80 mt-12 bg-lemon rounded-[25px] pl-3">Customer Help</div>
-
+                <div class="flex w-80 mt-12 bg-lemon rounded-[25px]">
+                    <div className="flex flex-col space-y-1 w-full mt-5">
+                        <div className="ml-4">Customers need help</div>
+                        <div className="h-1 bg-redder"></div>
+                    </div>
+                </div>
             </div>
-            <NewOrderButton />
-            <ModifyCancelOrderButton />
-            <ChangeMenuButton />
+            <div className="flex justify-evenly flex-nowrap flex-row font-semibold text-xl">
+                <div className="bg-amber w-80 flex justify-center rounded-lg size-20">
+                    <NewOrderButton />
+                </div>
+                <div className=" bg-amber w-80 flex justify-center rounded-lg size-20">
+                    <ModifyCancelOrderButton />
+                </div>
+                <div className=" bg-amber w-80 flex justify-center rounded-lg size-20">
+                    <ChangeMenuButton />
+                </div>
+            </div>
         </div>
     );
 }
