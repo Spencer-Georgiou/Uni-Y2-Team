@@ -11,7 +11,17 @@ const AboutUs = () => {
                     
 
                     <div className="bg-lemon h-[1000px] w-[200px] bg-lemon rounded-[25px] m-auto bg-opacity-85">
-                        <div className="pl-1 space-y-10 w-25 pt-10">
+                        <div>
+
+                            <div className="relative block group">
+                                <img className="group-hover:blur duration-300 opacity-80" src="/aboutUs/Enchilada.png" />
+
+                                <div className="opacity-0 hover:opacity-100 duration-300 absolute 
+                                inset-0 z-10 flex text-center justify-center items-center tracking-widest leading-normal text-3xl 
+                                text-white font-sans font-semibold">Francisco<br/>Erjill<br/>CEO</div>
+                           
+                            </div>
+
                             <div className="relative block group">
                                 <img className="group-hover:blur duration-300 opacity-80" src="/aboutUs/Guacamole.png" />
 
@@ -130,7 +140,7 @@ const AboutUs = () => {
 
                                 <div className="opacity-0 hover:opacity-100 duration-300 absolute 
                                 inset-0 z-10 flex text-center justify-center items-center leading-normal text-3xl 
-                                text-white font-sans font-bold">Spencer<br/> CEO</div>
+                                text-white font-sans font-bold">Spencer<br/> Cybersecurity<br/>Analyst</div>
                            
                             </div>
 
