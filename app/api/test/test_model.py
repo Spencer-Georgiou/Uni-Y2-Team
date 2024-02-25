@@ -111,8 +111,15 @@ class TestTable:
     def test_empty_table_available(self, db, table):
         db.session.add(table)
         db.session.commit()
-        result = table.is_available()
-        assert True is result
+        
+        assert True is table.is_available()
+
+    # A table with an active order should be unavailable.
+    def test_occupied_table_available(self, db, table, active_order):
+        db.session.add_all([table, active_order])
+        db.session.commit()
+
+        assert False is table.is_available()
 
 
 class TestOrder:
