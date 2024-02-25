@@ -6,6 +6,8 @@ import StaffLogin from './pages/login/StaffLogin';
 import Registration from './pages/registration/Registration';
 import FoodMenu from './pages/menu/FoodMenu';
 import DrinkMenu from './pages/menu/DrinkMenu';
+import WaiterHub from './pages/waiterHub/WaiterHub'
+
 import NavBar from './components/NavBar'
 
 
@@ -22,6 +24,7 @@ function App() {
           <Route path="/Registration" element={<Registration />} />
           <Route path="/FoodMenu" element={<FoodMenu />} />
           <Route path="/DrinkMenu" element={<DrinkMenu />} />
+          <Route path="/WaiterHub" element={<WaiterHub />} />
         </Routes>
       </Router>
     </div>
