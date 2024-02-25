@@ -4,28 +4,45 @@ const AboutUs = () => {
         <div>
             <div
                 className="w-full h-screen bg-no-repeat bg-cover bg-center flex justify-center items-center relative"
-                style={{ backgroundImage: "url('/Homepage/Banners.jpg')" }}>
+                style={{ backgroundImage: "url('/Homepage/Taco.jpg')" }}>
 
                 <div className="flex flex-row space-x-4">
                     
 
                     <div className="bg-lemon h-[1000px] w-[200px] bg-lemon rounded-[25px] m-auto opacity-95">
-                        <div className="opacity-100 pl-1 space-y-10 w-25 pt-10">
-                            <div className="rounded-full">
+                        <div className="opacity-100 pl-1 space-y-10 w-25 pt-10 rounded-full">
+                            <div className="rounded-full relative duration-300 rounded-lg hover:hue-rotate-180">
                                 <img src="/aboutUs/Strawberry.png" />
+
+                                <div className="opacity-0 hover:opacity-100 duration-300 absolute 
+                                inset-0 z-10 flex text-center items-center tracking-wider leading-normal text-3xl 
+                                text-white font-sans">Abigail<br/> Restaurant Manager</div>
+                          
                             </div>
 
-                            <div className="rounded-full">
+
+                            <div className="rounded-full relative duration-300 rounded-lg hover:hue-rotate-180">
                                 <img src="/aboutUs/Pineapple.png" />
+
+                                <div className="opacity-0 hover:opacity-100 duration-300 absolute 
+                                inset-0 z-10 flex text-center justify-center items-center tracking-wider leading-normal text-3xl 
+                                text-white font-sans">Natasha<br/> Head <br/> Chef</div>
+
                             </div>
 
-                            <div className="rounded-full">
+                            <div className="rounded-full relative duration-300 rounded-lg hover:hue-rotate-180">
                                 <img src="/aboutUs/Watermelon.png" />
+
+                                <div className="opacity-0 hover:opacity-100 duration-300 absolute 
+                                inset-0 z-10 flex text-center justify-center items-center tracking-wider leading-normal text-3xl 
+                                text-white font-sans">Nicky<br/> Social Media Consultant</div>
+                            
                             </div>
 
-                            <div className="rounded-full">
-                                <img src="/aboutUs/Lemon.png" />
-                            </div>
+                                <img className="transition-all duration-300 rounded-lg blur-none hover:blur" src="/aboutUs/Lemon.png" />
+                                {/* <p className="opacity-0 hover:opacity-100 duration-300 absolute 
+                                inset-0 z-10 flex text-center items-center tracking-wider leading-normal text-3xl 
+                                text-white font-sans">Abigail<br/> Restaurant Manager</p> */}
 
                         </div>
                     </div>
@@ -66,24 +83,24 @@ const AboutUs = () => {
 
 
                     <div className="bg-lemon h-[1000px] w-[200px] bg-lemon rounded-[25px] py-0 m-auto opacity-95">
-                        <div className="opacity-100 w-25">
-                            <div className="rounded-full">
+                        <div className="opacity-100 w-25 rounded-full">
+                            <div className="transition-all duration-300 rounded-lg blur-none hover:blur">
                                 <img src="/aboutUs/Lemon.png" />
                             </div>
 
-                            <div className="rounded-full">
+                            <div className="transition-all duration-300 rounded-lg blur-none hover:blur">
                                 <img src="/aboutUs/Orange.png" />
                             </div>
 
-                            <div className="rounded-full">
+                            <div className="transition-all duration-300 rounded-lg blur-none hover:blur">
                                 <img src="/aboutUs/Strawberry.png" />
                             </div>
 
-                            <div className="rounded-full">
+                            <div className="transition-all duration-300 rounded-lg blur-none hover:blur">
                                 <img src="/aboutUs/Pineapple.png" />
                             </div>
 
-                            <div className="rounded-full">
+                            <div className="transition-all duration-300 rounded-lg blur-none hover:blur">
                                 <img src="/aboutUs/Watermelon.png" />
                             </div>
 
