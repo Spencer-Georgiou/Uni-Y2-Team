@@ -6,20 +6,19 @@ import NavBarWaiterHub from "../../components/waiterHub/NavBarWaiterHub";
 
 const WaiterHub = () => {
     return (
-        <div>
-            <div className="w-full h-screen bg-cherry">
-                <div className="flex w-screen space-x-4">
-                    <div class="flex-1 bg-lemon rounded-[25px] pl-3">Order</div>
 
-                    <div class="flex-1 bg-lemon rounded-[25px] pl-3">Ready</div>
+        <div className="w-full h-screen bg-redder">
+            <div className="flex justify-evenly space-x-4 flex-nowrap flex-row w-screen h-3/4">
+                <div class="w-80 mt-12 bg-lemon rounded-[25px] pl-3">Order</div>
 
-                    <div class="flex-1 bg-lemon rounded-[25px] pl-3">Customer Help</div>
+                <div class="w-80 mt-12 bg-lemon rounded-[25px] pl-3">Ready</div>
 
-                </div>
-                <NewOrderButton />
-                <ModifyCancelOrderButton />
-                <ChangeMenuButton />
+                <div class="w-80 mt-12 bg-lemon rounded-[25px] pl-3">Customer Help</div>
+
             </div>
+            <NewOrderButton />
+            <ModifyCancelOrderButton />
+            <ChangeMenuButton />
         </div>
     );
 }
