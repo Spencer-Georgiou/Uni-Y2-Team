@@ -3,11 +3,11 @@ Module that provides configurations for a flask app.
 """
 
 
-class DeploymentConfig(object):
+class DevelopmentConfig(object):
     """
     Flask configuration used in Deployment.
     """
-    SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
+    SQLALCHEMY_DATABASE_URI = "sqlite://"
     SQLALCHEMY_ECHO = False
 
 
