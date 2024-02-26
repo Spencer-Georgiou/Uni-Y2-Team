@@ -1,19 +1,20 @@
 """
 Module creating database entries for deployment.
 """
+from .model import Kitchen
 from .model import MenuItem
 from .model import Allergen
 from .model import MenuGroup
+from .model import Session
+from .model import Waiter
 from .model import db
-from .api import create_app
 
-app = create_app()
 
-with app.app_context():
+def migrate():
     # initialize menu groups
-    starter = MenuGroup(type="Food", category="Starter")
-    main = MenuGroup(type="Food", category="Main")
-    dessert = MenuGroup(type="Food", category="Dessert")
+    starter = MenuGroup(type=MenuGroup.Type.FOOD, category=MenuGroup.Category.STARTER)
+    main = MenuGroup(type=MenuGroup.Type.FOOD, category=MenuGroup.Category.MAIN)
+    dessert = MenuGroup(type=MenuGroup.Type.FOOD, category=MenuGroup.Category.DESSERT)
     db.session.add_all([starter, main, dessert])
 
     # initialize menu allergens
@@ -35,4 +36,13 @@ with app.app_context():
                  price=3.00, menugroup=starter)
     ])
 
+    # initialize users with their sessions
+    waiter = Waiter(username="Kate", password="123456")
+    kitchen = Kitchen(username="Jenny", password="123456")
+    db.session.add_all([waiter, kitchen])
+
+    db.session.add_all([
+        Session(user=waiter, token="abcde"),
+        Session(user=kitchen, token="abcde"),
+    ])
     db.session.commit()

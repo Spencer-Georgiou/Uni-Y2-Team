@@ -9,6 +9,9 @@ import DrinkMenu from './pages/menu/DrinkMenu';
 import WaiterHub from './pages/waiterHub/WaiterHub'
 
 import NavBar from './components/NavBar'
+import Foot from './components/Foot'
+import Homepage from './pages/homepage/Homepage'
+import AboutUs from './pages/aboutUs/AboutUs'
 
 
 function App() {
@@ -18,7 +21,8 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
-          <Route path="/" element={<StaffLogin />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/CustomerLogin" element={<CustomerLogin />} />
           <Route path="/StaffLogin" element={<StaffLogin />} />
           <Route path="/Registration" element={<Registration />} />
@@ -26,6 +30,7 @@ function App() {
           <Route path="/DrinkMenu" element={<DrinkMenu />} />
           <Route path="/WaiterHub" element={<WaiterHub />} />
         </Routes>
+        <Foot />
       </Router>
     </div>
   )
