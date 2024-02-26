@@ -15,6 +15,11 @@ function NavBar() {
                     <span>Home</span>
                 </Link>
 
+                {/* Link to About Us Page */}
+                <Link to="/AboutUs" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
+                    <span>About Us</span>
+                </Link>
+                
                 {/* Dropdown of menu options, including links to the food and drink menu pages */}
                 <div className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
                     <Dropdown label="Menus" inline className="text-cherry bg-lemon border-lemon ">
