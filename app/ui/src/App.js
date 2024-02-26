@@ -7,6 +7,7 @@ import Registration from './pages/registration/Registration';
 import FoodMenu from './pages/menu/FoodMenu';
 import DrinkMenu from './pages/menu/DrinkMenu';
 import NavBar from './components/NavBar'
+import Foot from './components/Foot'
 import Homepage from './pages/homepage/Homepage'
 import AboutUs from './pages/aboutUs/AboutUs'
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/DrinkMenu" element={<DrinkMenu />} />
 
         </Routes>
+        <Foot />
       </Router>
     </div>
   )
