@@ -8,7 +8,7 @@ import FoodMenu from './pages/menu/FoodMenu';
 import DrinkMenu from './pages/menu/DrinkMenu';
 import NavBar from './components/NavBar'
 import Foot from './components/Foot'
-import Homepage from './pages/homepage/Homepage'
+import Homepage from './pages/Homepage/Homepage'
 import AboutUs from './pages/aboutUs/AboutUs'
 
 
