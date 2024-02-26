@@ -6,11 +6,11 @@ const homepage = () => {
     return(
         <div>
             <div>
-                <img class="h-auto w-full bg-center items-center  " src="/Homepage/HomeBannerBackground.png"></img>
+                <img class="h-auto w-full bg-center items-center  " src="/homepage/HomeBannerBackground.png"></img>
             </div>
             <div>
-                <img class="h-auto w-full bg-center items-center  " src="/Homepage/Slogan.png"></img>
-                <img class="h-auto w-full bg-center items-center  " src="/Homepage/OrderProcess.png"></img>
+                <img class="h-auto w-full bg-center items-center  " src="/homepage/Slogan.png"></img>
+                <img class="h-auto w-full bg-center items-center  " src="/homepage/OrderProcess.png"></img>
                 <OrderButton />
             </div>
             <CarouselHomepage />
