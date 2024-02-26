@@ -35,6 +35,7 @@ def create_app(config=DevelopmentConfig):
     # import modules containing apis after this line
     from . import demo
     from . import menu
+    from . import login
     # end of import api modules
 
     # activate the apidoc blueprint and the corresponding apidoc
