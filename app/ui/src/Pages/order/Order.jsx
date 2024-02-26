@@ -1,6 +1,7 @@
 import TableNumber from "../../components/order/TableNumber";
 import CallWaiter from "../../components/order/CallWaiter";
 import OrderFilter from "../../components/order/OrderFilter";
+import OrderProgress from "../../components/order/OrderProgress";
 import SideBar from "../../components/order/SideBar";
 
 const Order = () => {
@@ -13,6 +14,9 @@ const Order = () => {
       </div>
       <div class="float-left w-1/3 bg-amber h-screen fixed z-10 top-0 start-0">
         <SideBar />
+      </div>
+      <div>
+        <OrderProgress />
       </div>
     </div>
   );
