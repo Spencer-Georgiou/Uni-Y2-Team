@@ -8,11 +8,23 @@ from marshmallow_sqlalchemy.fields import fields
 from .model import Allergen
 from .model import MenuGroup
 from .model import MenuItem
+from .model import Session
+from .model import User
+
+
+class SessionSchema(SQLAlchemyAutoSchema):
+    """
+    Schema for Session that hides the id attribute.
+    """
+
+    class Meta:
+        model = Session
+        exclude = ("id",)
 
 
 class MenuGroupSchema(SQLAlchemyAutoSchema):
     """
-    Schema for MenuGroup that hides the id attribute.
+    Schema for MenuGroup.
     """
 
     class Meta:
@@ -25,7 +37,7 @@ class MenuGroupSchema(SQLAlchemyAutoSchema):
 
 class AllergenSchema(SQLAlchemyAutoSchema):
     """
-    Schema for MenuGroup that hides the id attribute.
+    Schema for MenuGroup.
     """
 
     class Meta:
@@ -35,8 +47,7 @@ class AllergenSchema(SQLAlchemyAutoSchema):
 
 class MenuItemSchema(SQLAlchemyAutoSchema):
     """
-    Schema for MenuGroup that hides the id attribute and shows its menugroup as well as the
-    related allergens.
+    Schema for MenuGroup that shows its menugroup as well as the related allergens.
     """
 
     class Meta:

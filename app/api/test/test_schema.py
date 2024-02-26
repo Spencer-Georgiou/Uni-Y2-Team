@@ -1,15 +1,37 @@
 """
 Testing Schemas that can parse Data Model to json.
 """
+from datetime import datetime
+
+from sqlalchemy import DateTime
+
 from src.model import Allergen
 from src.model import MenuGroup
 from src.model import MenuItem
+from src.model import Waiter
 from src.schema import AllergenSchema
 from src.schema import MenuGroupSchema
 from src.schema import MenuItemSchema
 from decimal import Decimal
-from .fixture_model import menugroup
-from .fixture_model import allergen
+
+from src.schema import SessionSchema
+from .fixture_model import *
+
+
+class TestSessionSchema:
+    # A session of a user returned by a query is serializable.
+    def test_serialize_session(self, db, waiter, session_for_waiter):
+        # set expiration time to 2024-02-26 00:00
+        session_for_waiter.expires = datetime(year=2024, month=2, day=26)
+        expected = {'token': 'abcde', 'expires': '2024-02-26T00:00:00'}
+
+        db.session.add_all([waiter, session_for_waiter])
+        db.session.commit()
+        quired_waiter = db.session.query(Waiter).first()
+        retrived_session = quired_waiter.session
+        serialized_session = SessionSchema().dump(retrived_session)
+
+        assert serialized_session == expected
 
 
 class TestMenuGroupSchema:
