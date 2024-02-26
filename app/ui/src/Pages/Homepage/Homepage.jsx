@@ -9,7 +9,7 @@ const homepage = () => {
                 <img class="h-auto w-full bg-center items-center  " src="/Homepage/HomeBannerBackground.png"></img>
             </div>
             <div>
-                <img class="h-auto w-full bg-center items-center  " src="/Homepage/PullSilla.png"></img>
+                <img class="h-auto w-full bg-center items-center  " src="/Homepage/Slogan.png"></img>
                 <img class="h-auto w-full bg-center items-center  " src="/Homepage/OrderProcess.png"></img>
                 <OrderButton />
             </div>

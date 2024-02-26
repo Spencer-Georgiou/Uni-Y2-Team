@@ -8,7 +8,7 @@ const Menu = () => {
   return (
     <div>
       <img
-        src="/menu/FoodMenubackground.png"
+        src="/images/menu/FoodMenubackground.png"
         alt="picture"
         class="background-size:cover w-full"
       />
