@@ -33,7 +33,7 @@ const FormCustomer = () => {
 
 
         };
-        fetch('/api/user/login', postingData).then(response => {
+        fetch('/api/login', postingData).then(response => {
             if (response.status == 200) return response.json();
             else alert("error here");
         }).then().catch(error => {
