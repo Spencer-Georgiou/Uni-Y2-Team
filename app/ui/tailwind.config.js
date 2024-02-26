@@ -16,6 +16,7 @@ module.exports = {
       'height': {
         '128': '32rem',
         '90': '22rem',
+        '700': '44.5rem',
       }
     },
     fontFamily: {

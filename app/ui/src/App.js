@@ -15,7 +15,10 @@ function App() {
     //add in the other paths to the other pages
     <div className="App">
       <Router>
-        <NavBar />
+        <div class="fixed top-0 z-20 w-full">
+          <NavBar />
+        </div>
+
         <Routes>
           <Route path="/" element={<StaffLogin />} />
           <Route path="/CustomerLogin" element={<CustomerLogin />} />
