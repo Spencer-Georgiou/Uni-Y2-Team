@@ -11,6 +11,7 @@ import Foot from './components/Foot'
 import Homepage from './pages/homepage/Homepage'
 import AboutUs from './pages/about-us/AboutUs'
 import WaiterHub from './pages/waiterHub/WaiterHub';
+import ModifyCancelOrder from './pages/waiterHub/ModifyCancelOrder';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/FoodMenu" element={<FoodMenu />} />
           <Route path="/DrinkMenu" element={<DrinkMenu />} />
           <Route path="/WaiterHub" element={<WaiterHub />} />
+          <Route path="/ModifyCancelOrder" element={<ModifyCancelOrder />} />
         </Routes>
         <Foot />
       </Router>

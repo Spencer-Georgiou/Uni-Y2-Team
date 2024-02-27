@@ -47,6 +47,7 @@ const FormStaff = () => {
             const session_key = data.session_key; // extracts the session key from the server response data
             Cookies.set('session_key', session_key); // sets the session key as a cookie for future reference
             console.log("set cookie");
+            alert("login success!");
             navigate('/WaiterHub');
 
         }).catch(error => {
