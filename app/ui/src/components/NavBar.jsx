@@ -51,8 +51,11 @@ function NavBar() {
                 </Link>
             </div>
 
-            <div className="flex gap-2 md:order-2">
-                <Button as={Link} to="StaffLogin" className="font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber focus:ring-amber">Log In</Button>
+            <div className="flex gap-2 md:order-2 ">
+                <Dropdown label={<span className="font-sans font-semibold text-lemon border-lemon" >Log in</span>} dismissOnClick={false}>
+                    <Dropdown.Item as={Link} to="/StaffLogin" className="focus:bg-amber">Staff Login</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/CustomerLogin" className="focus:bg-amber">Customer Login</Dropdown.Item>
+                </Dropdown>
                 <Button as={Link} to="Registration" className="font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber focus:ring-amber">Sign Up</Button>
                 {/* Page navigation options disappear into hamburger dropdown button on smaller screens */}
                 <Navbar.Toggle className="text-cherry bg-lemon ring-lemon focus:ring-amber hover:bg-amber" />
