@@ -1,15 +1,15 @@
 import UpdateOrderButton from "../../components/modifyCancelOrder/UpdateOrderButton";
 import CancelButton from "../../components/modifyCancelOrder/CancelButton";
+import Menu from "../../components/modifyCancelOrder/Menu"
 
 const ModifyCancelOrder = () => {
     return(
         <div className="w-screen h-screen bg-redder flex items-center justify-center">
-
             
             <div className="h-4/5 w-4/5 bg-lemon p-4 flex flex-row">
-
                 <div className="flex flex-nowrap">
-                    This will be the menu section. This will be the menu section. This will be the menu section. This will be the menu section. 
+                    <Menu />
+                    {/* This will be the menu section. This will be the menu section. This will be the menu section. This will be the menu section.  */}
                 </div>
 
 
