@@ -6,7 +6,7 @@ const ModifyCancelOrder = () => {
     return(
         <div className="w-screen h-screen bg-redder flex items-center justify-center">
             
-            <div className="h-4/5 w-4/5 bg-lemon p-4 flex flex-row">
+            <div className="h-4/5 w-4/5 bg-lemon p-4 flex flex-row justify-end">
                 <div className="flex flex-nowrap">
                     <Menu />
                     {/* This will be the menu section. This will be the menu section. This will be the menu section. This will be the menu section.  */}
@@ -16,7 +16,7 @@ const ModifyCancelOrder = () => {
 
                 <div className="flex flex-col ">
 
-                    <div className="flex flex-nowrap h-full w-full bg-yellow-200 rounded-[25px] allign-right">
+                    <div className="flex flex-nowrap h-full w-full bg-yellow-200 rounded-[25px] ">
                         This is where the order will be displayed
                     </div>
 
