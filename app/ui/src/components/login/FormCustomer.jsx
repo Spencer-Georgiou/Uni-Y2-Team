@@ -48,7 +48,7 @@ const FormCustomer = () => {
                 <b><input type="text" id="username" value={username} onChange={handleUsernameChange} name="username" className=" text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5" placeholder="Username" required /></b>
             </div>
             <div className="mb-5 ">
-                <b><input type="text" id="password" value={password} onChange={handlePasswordChange} name="password" className="text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5" placeholder="Password" required /></b>
+                <b><input type="password" id="password" value={password} onChange={handlePasswordChange} name="password" className="text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5" placeholder="Password" required /></b>
             </div>
             <div className="flex justify-center">
                 <button type="submit" className="h-16 font-sans font-semibold bg-lemon rounded-lg text-xl w-40 rounded-2xl px-5 py-2.5 text-center">Login</button>

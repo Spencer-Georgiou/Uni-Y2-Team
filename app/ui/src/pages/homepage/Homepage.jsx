@@ -1,5 +1,5 @@
-import OrderButton from "../../components/Homepage/OrderButton"
-import CarouselHomepage from "../../components/Homepage/CarouselHomepage";
+import OrderButton from "../../components/homepage/OrderButton"
+import CarouselHomepage from "../../components/homepage/CarouselHomepage";
 
 const homepage = () => {
     return (
