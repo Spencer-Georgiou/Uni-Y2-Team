@@ -9,7 +9,8 @@ module.exports = {
     colors: {
       'cherry': '#ff244b',
       'lemon': '#fdbb28',
-      'amber': '#f97316'
+      'amber': '#f97316',
+      'ocean': '#397dd9',
     },
     extend: {
       'height': {

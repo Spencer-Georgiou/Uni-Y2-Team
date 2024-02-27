@@ -68,7 +68,7 @@ local.properties
 .sts4-cache/
 
 ### Flask ###
-instance/*
+# instance/*
 !instance/.gitignore
 .webassets-cache
 .env

@@ -19,6 +19,7 @@ This is the repository for Team 27 taking the module CS2810 in academic year 202
 - [Standard \& Convention](#standard-convention)
   - [Frontend](#frontend-1)
   - [Backend](#backend-1)
+  - [Git](#git)
 ## Configuration
 ### Manual Setup
 1. Open a terminal
@@ -31,7 +32,10 @@ This is the repository for Team 27 taking the module CS2810 in academic year 202
    2. Create a python virtual enviroment
       1. `python -m venv venv`
    3. Activate the virtual enviroment
-      1. Execute the commandas in this [guide](https://docs.python.org/3/library/venv.html#how-venvs-work) based on your operating system and shell
+      1. Execute the command in this [guide](https://docs.python.org/3/library/venv.html#how-venvs-work) based on your operating system and shell, common command are listed below
+         - bash/zsh: `source venv/bin/activate`
+         - cmd.exe: `venv\Scripts\activate.bat`
+         - PowerShell: `venv\Scripts\Activate.ps1`
    4. Install the dependencies
       1. `pip install -r requirements.txt`
    5. Go back to the root folder
@@ -67,6 +71,7 @@ This section assumes you have the **backend server** running.
 #### Reading Flask API Documentation
 1. View all APIs on [localhost:5000](http://localhost:5000)
 #### Generating JSDoc
+*Currently unavaliable for Windows*
 1. Open a terminal
 2. Go to the ui directory
    1. `cd <your parent directory>/TeamProject27/app/ui`
@@ -92,8 +97,6 @@ TeamProject27
 │   ├── api
 │   │   ├── pyproject.toml
 │   │   ├── requirements.txt
-│   │   ├── instance
-│   │   │   └── database.db
 │   │   ├── src
 │   │   └── test
 │   └── ui
@@ -112,8 +115,6 @@ TeamProject27
 - `api`: directory for the backend (Flask)
   -  `pyproject.toml` : python build configuration
   -  `requirements.txt`: a list of dependencies for the python package
-  -  `instance`: directory to store resource files
-     -  `database.db`: database of the product
   - `src`: directory consists of python source codes
   - `test`: directory consists of python test codes
 - `ui`: directory for the frontend (React)
@@ -139,3 +140,6 @@ TeamProject27
 - Style checker: [Pylint](https://pylint.readthedocs.io/)
 - Testing tool: [pytest](https://docs.pytest.org/)
 - API Documentation Tool: [Flask-RESTX](https://flask-restx.readthedocs.io/)
+### Git
+- Gitflow: CS2800 Gitflow, consisting of `main`, `feature` branches and `release` branches
+- Message format: [Conventional Commits](https://www.conventionalcommits.org) (optional)

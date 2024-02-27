@@ -5,6 +5,11 @@ import CustomerLogin from './pages/login/CustomerLogin';
 import StaffLogin from './pages/login/StaffLogin';
 import Registration from './pages/registration/Registration';
 import FoodMenu from './pages/menu/FoodMenu';
+import DrinkMenu from './pages/menu/DrinkMenu';
+import NavBar from './components/NavBar'
+import Foot from './components/Foot'
+import Homepage from './pages/homepage/Homepage'
+import AboutUs from './pages/aboutUs/AboutUs'
 
 
 function App() {
@@ -12,13 +17,18 @@ function App() {
     //add in the other paths to the other pages
     <div className="App">
       <Router>
+        <NavBar />
         <Routes>
-          <Route path="/" element={<FoodMenu />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/CustomerLogin" element={<CustomerLogin />} />
           <Route path="/StaffLogin" element={<StaffLogin />} />
           <Route path="/Registration" element={<Registration />} />
           <Route path="/FoodMenu" element={<FoodMenu />} />
+          <Route path="/DrinkMenu" element={<DrinkMenu />} />
+
         </Routes>
+        <Foot />
       </Router>
     </div>
   )
