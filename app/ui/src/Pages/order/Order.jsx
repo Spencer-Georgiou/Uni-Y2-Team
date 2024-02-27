@@ -3,6 +3,7 @@ import CallWaiter from "../../components/order/CallWaiter";
 import OrderFilter from "../../components/order/OrderFilter";
 import OrderProgress from "../../components/order/OrderProgress";
 import SideBar from "../../components/order/SideBar";
+import Starters from "../../components/order/Starters";
 
 const Order = () => {
   return (
@@ -11,7 +12,9 @@ const Order = () => {
         <div style={{ height: "100px" }}></div>
         <OrderProgress />
         <OrderFilter />
-        <div class="h-700 bg-cherry">try</div>
+        <div class="h-700 bg-lemon">
+          <Starters />
+        </div>
       </div>
       <div class="float-left w-1/3 bg-amber h-screen fixed z-10 top-0 start-0">
         <SideBar />
