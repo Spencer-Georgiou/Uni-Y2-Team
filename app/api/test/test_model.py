@@ -5,6 +5,7 @@ from src.model import Allergen
 from src.model import MenuGroup
 from src.model import MenuItem
 from src.model import Order
+from src.model import OrderMenuItemAssociation
 from src.model import Table
 from src.model import User
 from src.model import Session
@@ -111,7 +112,7 @@ class TestTable:
     def test_empty_table_available(self, db, table):
         db.session.add(table)
         db.session.commit()
-        
+
         assert True is table.is_available()
 
     # A table with an active order should be unavailable.
@@ -143,6 +144,26 @@ class TestOrder:
         with pytest.raises(ValueError) as exception:
             another_active_order = Order(table=table, status=Order.Status.ORDERING)
 
+    # An order can add one menuitem as well as the quantity.
+    def test_add_an_menuitem_association(self, db, order, menuitem):
+        association = OrderMenuItemAssociation(menuitem=menuitem, quantity=2)
+        order.menuitem_associations.append(association)
+        db.session.add(order)
+        db.session.commit()
+
+    # An order can add multiple menuitems as well as their quantities.
+    def test_add_menuitem_associations(self, db, order, menuitem, menugroup):
+        # when we have two menuitems and two associations
+        another_menuitem = MenuItem(name="Jalapeno Poppers", description="With cream cheese",
+                                    calorie=450, price=3.50, menugroup=menugroup)
+        association = OrderMenuItemAssociation(menuitem=menuitem, quantity=2)
+        another_association = OrderMenuItemAssociation(menuitem=another_menuitem, quantity=4)
+
+        # add them to the order in database
+        order.menuitem_associations.extend([association, another_association])
+        db.session.add(order)
+        db.session.commit()
+
 
 class TestWaiter:
     # An instance of kitchen can be created and stored in the database.
@@ -170,3 +191,26 @@ class TestKitchen:
         db.session.commit()
 
         assert kitchen.session is session_for_kitchen
+
+
+class TestOrderMenuItemAssociation:
+    # An order-menuitem association can be created with an order ID and a menuitem name.
+    def test_create_order_menuitem_association_with_key(self, db, menuitem, order):
+        # when the database has an order and a menuitem
+        db.session.add(order)
+        db.session.add(menuitem)
+        db.session.commit()
+
+        order_menuitem_association = OrderMenuItemAssociation(order_id=order.id,
+                                                              menuitem_name=menuitem.name,
+                                                              quantity=2)
+        db.session.add(order_menuitem_association)
+        db.session.commit()
+
+    # An order-menuitem association can be created with an order instance, and a menuitem instance.
+    def test_create_order_menuitem_association_with_instance(self, db, menuitem, order):
+        order_menuitem_association = OrderMenuItemAssociation(order=order,
+                                                              menuitem=menuitem,
+                                                              quantity=2)
+        db.session.add(order_menuitem_association)
+        db.session.commit()

@@ -11,7 +11,7 @@ import ModifyCancelOrder from './pages/waiterHub/ModifyCancelOrder'
 import NavBar from './components/NavBar'
 import Foot from './components/Foot'
 import Homepage from './pages/homepage/Homepage'
-import AboutUs from './pages/aboutUs/AboutUs'
+import AboutUs from './pages/about-us/AboutUs'
 
 
 function App() {
