@@ -1,4 +1,10 @@
-const Starters = () => {
+import { Fragment, useEffect, useState } from "react";
+
+const Starters = ({ handleOrder }) => {
+  useEffect(() => {
+    fetch("api/menu");
+  });
+
   const starter1 = [
     {
       title: "Tacos",
@@ -6,6 +12,7 @@ const Starters = () => {
       kcal: "600 kcal",
       price: "￡5.00",
       value: "spicy",
+      id: 1,
     },
     {
       title: "Patatas Bravas",
@@ -13,6 +20,7 @@ const Starters = () => {
       kcal: "500 kcal",
       price: "$3.00",
       value: "vegetarian",
+      id: 2,
     },
   ];
 
@@ -23,6 +31,7 @@ const Starters = () => {
       kcal: "450 kcal",
       price: "￡3.00",
       value: "spicy",
+      id: 3,
     },
     {
       title: "Crispy Cauliflower Bites",
@@ -30,6 +39,7 @@ const Starters = () => {
       kcal: "200 kcal",
       price: "￡2.50",
       value: "spicy",
+      id: 4,
     },
   ];
 
@@ -37,48 +47,55 @@ const Starters = () => {
     <div>
       <img
         src="/menu/starters.png"
-        alt="picture"
+        alt="starter"
         class="w-2/3 h-18 mx-48 my-2"
       />
       <div>
         <div class="w-1/2 float-left">
           {starter1.map((s) => (
-            <div class="w-3/4 bg-amber h-[180px] ml-[100px] my-5 p-3 text-xl">
-              <p class="text-lemon">
-                <b>{s.title}</b>
-              </p>
-              <p>• {s.name}</p>
-              <p class="text-lg">{s.kcal}</p>
-              <p class="pt-1">
-                <b>{s.price}</b>
-                <button
-                  type="button"
-                  class=" bg-lemon w-[40px] h-[40px] rounded-full text-2xl ml-[230px] text-center"
-                >
-                  <b>+</b>
-                </button>
-              </p>
-            </div>
+            <Fragment key={s.id}>
+              <div class="w-3/4 bg-amber h-[180px] ml-[100px] my-5 p-3 text-xl">
+                <p class="text-lemon">
+                  <b>{s.title}</b>
+                </p>
+                <p>• {s.name}</p>
+                <p class="text-lg">{s.kcal}</p>
+                <p class="pt-1">
+                  <b>{s.price}</b>
+                  <button
+                    type="button"
+                    name={s.name}
+                    value={s.price}
+                    class=" bg-lemon w-[40px] h-[40px] rounded-full text-2xl ml-[230px] text-center"
+                    onClick={handleOrder}
+                  >
+                    <b name={s.name}>+</b>
+                  </button>
+                </p>
+              </div>
+            </Fragment>
           ))}
         </div>
         <div class="w-1/2 float-right">
           {starter2.map((s) => (
-            <div class="w-3/4 bg-amber h-[180px] ml-[20px] my-5 p-3 text-xl">
-              <p class="text-lemon">
-                <b>{s.title}</b>
-              </p>
-              <p>• {s.name}</p>
-              <p class="text-lg">{s.kcal}</p>
-              <p class="pt-1">
-                <b>{s.price}</b>
-                <button
-                  type="button"
-                  class=" bg-lemon w-[40px] h-[40px] rounded-full text-2xl ml-[230px] text-center"
-                >
-                  <b>+</b>
-                </button>
-              </p>
-            </div>
+            <Fragment key={s.id}>
+              <div class="w-3/4 bg-amber h-[180px] ml-[20px] my-5 p-3 text-xl">
+                <p class="text-lemon">
+                  <b>{s.title}</b>
+                </p>
+                <p>• {s.name}</p>
+                <p class="text-lg">{s.kcal}</p>
+                <p class="pt-1">
+                  <b>{s.price}</b>
+                  <button
+                    type="button"
+                    class=" bg-lemon w-[40px] h-[40px] rounded-full text-2xl ml-[230px] text-center"
+                  >
+                    <b>+</b>
+                  </button>
+                </p>
+              </div>
+            </Fragment>
           ))}
         </div>
       </div>

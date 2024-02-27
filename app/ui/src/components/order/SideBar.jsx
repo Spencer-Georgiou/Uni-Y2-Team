@@ -1,10 +1,18 @@
 import { Fragment } from "react";
 
-const SideBar = () => {
+const SideBar = ({ order }) => {
   return (
     <Fragment>
       <div class="mt-24 bg-lemon w-10/12 h-3/4 ml-8 rounded-3xl">
-        <div>hi , Abi</div>
+        {order.length > 0 ? (
+          order.map((o, index) => (
+            <Fragment key={index}>
+              <p>{o.id}</p>
+            </Fragment>
+          ))
+        ) : (
+          <p>no order</p>
+        )}
       </div>
       <button
         type="button"
