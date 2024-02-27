@@ -25,9 +25,9 @@ class Register(Resource):
         with current_app.app_context():
             user = request.args.get('username')
             pwd = request.args.get('password')
-            all_users = db.session.query(User).all()
-            if username in all_users:
-                return "Failed"
+            all_users = db.session.query(User.username).all()
+            if user in all_users:
+                return "Failed", 403
             else:
                 insert(User).values(username=user, password=pwd)
-                return "Success"
+                return "Success", 200
