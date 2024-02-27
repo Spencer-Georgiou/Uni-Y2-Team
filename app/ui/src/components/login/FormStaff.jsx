@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const FormStaff = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
@@ -33,10 +36,22 @@ const FormStaff = () => {
 
         };
         fetch('/api/login', postingData).then(response => {
-            if (response.status === 200) return response.json();
-            else alert("error here");
-        }).then().catch(error => {
-            console.error("there was an error", error)
+            if (response.ok) {
+                return response.json();
+            } else {
+                return response.json().then(error => {
+                    throw new Error(error.error_message);
+                });
+            }
+        }).then(data => {
+            const session_key = data.session_key; // extracts the session key from the server response data
+            Cookies.set('session_key', session_key); // sets the session key as a cookie for future reference
+            console.log("set cookie");
+            navigate('/WaiterHub');
+
+        }).catch(error => {
+            console.error("error happening", error)
+            alert(error.message);
         })
 
     };

@@ -6,12 +6,11 @@ import StaffLogin from './pages/login/StaffLogin';
 import Registration from './pages/registration/Registration';
 import FoodMenu from './pages/menu/FoodMenu';
 import DrinkMenu from './pages/menu/DrinkMenu';
-import WaiterHub from './pages/waiterHub/WaiterHub'
-import ModifyCancelOrder from './pages/waiterHub/ModifyCancelOrder'
 import NavBar from './components/NavBar'
 import Foot from './components/Foot'
 import Homepage from './pages/homepage/Homepage'
 import AboutUs from './pages/about-us/AboutUs'
+import WaiterHub from './pages/waiterHub/WaiterHub';
 
 
 function App() {
@@ -29,7 +28,6 @@ function App() {
           <Route path="/FoodMenu" element={<FoodMenu />} />
           <Route path="/DrinkMenu" element={<DrinkMenu />} />
           <Route path="/WaiterHub" element={<WaiterHub />} />
-          <Route path="/ModifyCancelOrder" element={<ModifyCancelOrder />} />
         </Routes>
         <Foot />
       </Router>
