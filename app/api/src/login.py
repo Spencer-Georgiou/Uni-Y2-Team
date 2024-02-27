@@ -6,6 +6,18 @@ from sqlalchemy.exc import SQLAlchemyError
 from .model import User
 from .model import db
 
+import hashlib
+import random
+import time
+
+
+# unique to username and time created with extra randomness
+def generate_token(username):
+    curr_time = time.time()
+    rand = random.randint(9, 9999)
+    to_hash = username + str(int(curr_time * rand))
+
+    return hashlib.sha256(to_hash.encode("utf-8")).hexdigest()
 
 @apidoc.route("/login")
 class Login(Resource):
@@ -28,7 +40,7 @@ class Login(Resource):
                 return {"error_message": "Password is wrong"}, 401
 
             # insert token generator here
-            return {"session_key": "TOKEN_HERE", "error_message": None}, 200
+            return {"session_key": generate_token(username), "error_message": None}, 200
         except SQLAlchemyError:
             return {"error_message": "Database error occurred"}, 500
         except Exception as e:
