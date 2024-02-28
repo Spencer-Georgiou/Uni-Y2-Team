@@ -1,4 +1,5 @@
 from src.model import Allergen
+from src.model import Customer
 from src.model import Kitchen
 from src.model import MenuGroup
 from src.model import MenuItem
@@ -9,6 +10,12 @@ from src.model import Session
 import pytest
 
 from src.model import Waiter
+
+
+@pytest.fixture
+# a Customer instance
+def customer():
+    return Customer(username="Robert", password="123456")
 
 
 # a Waiter instance
@@ -33,6 +40,12 @@ def session_for_waiter(waiter):
 @pytest.fixture
 def session_for_kitchen(kitchen):
     return Session(user=kitchen, token="abcde")
+
+
+# a Session instance for customer
+@pytest.fixture
+def session_for_customer(customer):
+    return Session(user=customer, token="abcde")
 
 
 # a MenuGroup instance

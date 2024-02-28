@@ -48,6 +48,7 @@ class User(db.Model):
     """
 
     class Role(enum.Enum):
+        CUSTOMER = "Customer"
         WAITER = "Waiter"
         KITCHEN = "Kitchen"
 
@@ -67,11 +68,25 @@ class User(db.Model):
         return f"{self.__class__.__name__}(username={self.username!r}, password={self.password!r})"
 
 
+class Customer(User):
+    """
+    A customer model inherited from User to represent customers.
+
+    :cvar username: the identifier of the user who is a customer
+    """
+    __tablename__ = "customer"
+    __mapper_args__ = {
+        "polymorphic_identity": User.Role.CUSTOMER,
+    }
+
+    username: Mapped[int] = mapped_column(ForeignKey("user.username"), primary_key=True)
+
+
 class Waiter(User):
     """
-    A kitchen model inherited from User to represent kitchen staff.
+    A waiter model inherited from User to represent waiters.
 
-    :cvar username: the identifier of the user who is a kitchen staff
+    :cvar username: the identifier of the user who is a waiter
     """
     __tablename__ = "waiter"
     __mapper_args__ = {
