@@ -6,11 +6,11 @@ The urls of api are prefixed with '/api' and return a json.
 
 from flask import Flask
 from .apidoc import apidoc_bp
-from .config import DeploymentConfig
+from .config import DevelopmentConfig
 from .model import db
 
 
-def create_app(config=DeploymentConfig):
+def create_app(config=DevelopmentConfig):
     """
     Create a flask application with the given configurations. The default configuration is set
     for Deployment environment.
@@ -27,10 +27,15 @@ def create_app(config=DeploymentConfig):
     db.init_app(app)
     with app.app_context():
         db.create_all()
+        # create model instances when in development mode
+        if config == DevelopmentConfig:
+            from .migrate import migrate
+            migrate()
 
     # import modules containing apis after this line
     from . import demo
     from . import menu
+    from . import login
     # end of import api modules
 
     # activate the apidoc blueprint and the corresponding apidoc

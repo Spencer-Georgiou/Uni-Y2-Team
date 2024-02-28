@@ -8,6 +8,9 @@ import FoodMenu from './pages/menu/FoodMenu';
 import NavBar from './components/NavBar';
 import Order from './pages/order/Order'
 import DrinkMenu from './pages/menu/DrinkMenu'
+import Foot from './components/Foot'
+import Homepage from './pages/Homepage/Homepage'
+import AboutUs from './pages/aboutUs/AboutUs'
 
 
 function App() {
@@ -20,14 +23,17 @@ function App() {
         </div>
 
         <Routes>
-          <Route path="/" element={<StaffLogin />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/CustomerLogin" element={<CustomerLogin />} />
           <Route path="/StaffLogin" element={<StaffLogin />} />
           <Route path="/Registration" element={<Registration />} />
           <Route path="/FoodMenu" element={<FoodMenu />} />
           <Route path="/Order" element={<Order />} />
           <Route path="/DrinkMenu" element={<DrinkMenu />} />
+
         </Routes>
+        <Foot />
       </Router>
     </div>
   )

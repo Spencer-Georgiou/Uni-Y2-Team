@@ -1,6 +1,5 @@
-import Navbar from "../../components/menu/NavBar";
-import MenuFooter from "../../components/menu/MenuFooter";
-import FilterMenu from "../../components/menu/FoodFilterMenu";
+
+import FilterMenu from "../../components/menu/FoodFilterMenu"
 
 //this is the menu page which combine all the components
 
@@ -14,7 +13,6 @@ const Menu = () => {
       />
       <div class="bg-lemon">
         <FilterMenu />
-        <MenuFooter />
       </div>
     </div>
   );

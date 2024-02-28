@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Cookies from 'js-cookie';
 
 
 const FormCustomer = () => {
@@ -18,9 +19,27 @@ const FormCustomer = () => {
     const handleSubmit = (e) => {
         e.preventDefault(); // prevents the default form from submitting and keeps the page from reloading
 
-        if (username != null && password != null) {
-            alert('login success!'); //a mock login authentication alert box pops up when the fields are not null
-        }
+        const postingData = {
+
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+
+            })
+
+
+        };
+        fetch('/api/login', postingData).then(response => {
+            if (response.status == 200) return response.json();
+            else alert("error here");
+        }).then().catch(error => {
+            console.error("there was an error", error)
+        })
+
     };
 
     return (
