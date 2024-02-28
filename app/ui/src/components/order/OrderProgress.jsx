@@ -10,33 +10,29 @@ function OrderProgress() {
       className="h-[180px] w-full bg-amber justify-center pl-5"
     >
       <Timeline.Item>
-        <Timeline.Point icon={HiCalendar} />
         <Timeline.Content>
-          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded flex text-center self-center text-cherry">
+          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
             Waiting For Confirmation
           </Timeline.Title>
         </Timeline.Content>
       </Timeline.Item>
       <Timeline.Item>
-        <Timeline.Point icon={HiCalendar} />
         <Timeline.Content>
-          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded flex text-center self-center text-cherry">
+          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
             Preparing
           </Timeline.Title>
         </Timeline.Content>
       </Timeline.Item>
       <Timeline.Item>
-        <Timeline.Point icon={HiCalendar} />
         <Timeline.Content>
-          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded flex text-center self-center text-cherry">
+          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
             Delivering
           </Timeline.Title>
         </Timeline.Content>
       </Timeline.Item>
       <Timeline.Item>
-        <Timeline.Point icon={HiCalendar} />
         <Timeline.Content>
-          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded flex text-center self-center text-cherry">
+          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
             Enjoy!
           </Timeline.Title>
         </Timeline.Content>
