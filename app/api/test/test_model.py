@@ -171,6 +171,13 @@ class TestCustomer:
         db.session.add(customer)
         db.session.commit()
 
+    # A customer can refer to its associated session.
+    def test_relationship_session(self, db, customer, session_for_customer):
+        db.session.add_all([customer, session_for_customer])
+        db.session.commit()
+
+        assert customer.session is session_for_customer
+
 
 class TestWaiter:
     # An instance of waiter can be created and stored in the database.

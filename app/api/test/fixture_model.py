@@ -42,6 +42,12 @@ def session_for_kitchen(kitchen):
     return Session(user=kitchen, token="abcde")
 
 
+# a Session instance for customer
+@pytest.fixture
+def session_for_customer(customer):
+    return Session(user=customer, token="abcde")
+
+
 # a MenuGroup instance
 @pytest.fixture
 def menugroup():
