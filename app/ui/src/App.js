@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { useLocation } from 'react-router-dom';
 import CustomerLogin from './pages/login/CustomerLogin';
 import StaffLogin from './pages/login/StaffLogin';
 import Registration from './pages/registration/Registration';
@@ -12,14 +13,45 @@ import Homepage from './pages/homepage/Homepage'
 import AboutUs from './pages/about-us/AboutUs'
 import WaiterHub from './pages/waiterHub/WaiterHub';
 import ModifyCancelOrder from './pages/waiterHub/ModifyCancelOrder';
+import NavBarWaiterHub from './components/waiterHub/NavBarWaiterHub';
+import NavBarStaff from './components/login/NavBarStaff';
+import NavBarCustomer from './components/login/NavBarCustomer';
+import NavBarRegistration from './components/registration/NavBarRegistration';
 
+
+
+function PickNavBar() {
+
+  const location = useLocation();
+  console.log(location);
+
+  switch (location.pathname) {
+    case "/WaiterHub":
+    case "/ModifyCancelOrder":
+      return <NavBarWaiterHub />;
+
+    case "/StaffLogin":
+      return <NavBarStaff />;
+
+    case "/CustomerLogin":
+      return <NavBarCustomer />;
+
+    case "/Registration":
+      return <NavBarRegistration />;
+
+    default:
+      return <NavBar />;
+
+  }
+}
 
 function App() {
   return (
     //add in the other paths to the other pages
     <div className="App">
+
       <Router>
-        <NavBar />
+        <PickNavBar />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/AboutUs" element={<AboutUs />} />
