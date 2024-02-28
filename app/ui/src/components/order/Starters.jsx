@@ -1,9 +1,48 @@
 import { Fragment, useEffect, useState } from "react";
 
 const Starters = ({ handleOrder }) => {
+  const [starter, setStarter] = useState();
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+  const [length, setLength] = useState();
+  const [newStarter1, setNewStarter1] = useState();
+  const [newStarter2, setNewStarter2] = useState();
+
+  async function getData() {
+    setLoading(true);
+    let url = "http://localhost:5000/api/menu";
+    const res = await fetch(url);
+
+    if (res.status > 400) {
+      setError(await res.json());
+    } else {
+      const data = await res.json();
+      setStarter(data);
+    }
+
+    setLoading(false);
+  }
+
   useEffect(() => {
-    fetch("api/menu");
-  });
+    getData();
+  }, []);
+
+  // function isEven(num) {
+  //   return typeof num === "number" && num % 2 === 0;
+  // }
+
+  // function splitMenu(props) {
+  //   var i = 1;
+  //   const listItems = starter.map((s) => {
+  //     if (s.menugroup.type === "Food" && s.menugroup.category === "Starters") {
+  //       if (isEven(i)) {
+  //         setNewStarter1([...newStarter1, s]);
+  //       }
+  //     } else {
+  //       setNewStarter2([...newStarter1, s]);
+  //     }
+  //   });
+  // }
 
   const starter1 = [
     {
@@ -56,18 +95,15 @@ const Starters = ({ handleOrder }) => {
             <Fragment key={s.id}>
               <div class="w-3/4 bg-amber h-[180px] ml-[100px] my-5 p-3 text-xl">
                 <p class="text-lemon">
-                  <b>{s.title}</b>
+                  <b>{s.name}</b>
                 </p>
-                <p>• {s.name}</p>
-                <p class="text-lg">{s.kcal}</p>
+                <p>• {s.description}</p>
+                <p class="text-lg">{s.calorie}</p>
                 <p class="pt-1">
-                  <b>{s.price}</b>
+                  <b>￡{s.price}</b>
                   <button
                     type="button"
-                    name={s.name}
-                    value={s.price}
                     class=" bg-lemon w-[40px] h-[40px] rounded-full text-2xl ml-[230px] text-center"
-                    onClick={handleOrder}
                   >
                     <b name={s.name}>+</b>
                   </button>
