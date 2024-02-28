@@ -39,7 +39,7 @@ const OrderFilter = () => {
     <div>
       <div class="bg-lemon w-full h-96 border-gray-200 p-4 pl-48">
         <div class="flex flex-wrap justify-between mx-auto">
-          <div class="my-2.5 p-1 w-full">
+          <div class="my-2.5 w-full">
             <span class="text-cherry line-height:1.25rem text-2xl ">
               <b>Dietary Filter</b>
             </span>
