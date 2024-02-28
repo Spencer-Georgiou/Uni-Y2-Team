@@ -5,9 +5,10 @@ The urls of api are prefixed with '/api' and return a json.
 """
 
 from flask import Flask
-from .apidoc import apidoc_bp
+from .apidoc import apidoc
 from .config import DevelopmentConfig
 from .model import db
+from flask_smorest import Api
 
 
 def create_app(config=DevelopmentConfig):
@@ -20,25 +21,29 @@ def create_app(config=DevelopmentConfig):
     """
     # initialize the flask application
     app = Flask(__name__)
+    # set up the global application context to avoid manually creating a context everytime when
+    # calling the database
+    app.app_context().push()
     # configure the flask app with the given config
     app.config.from_object(config)
 
     # initialize the database and create all schemas
     db.init_app(app)
-    with app.app_context():
-        db.create_all()
-        # create model instances when in development mode
-        if config == DevelopmentConfig:
-            from .migrate import migrate
-            migrate()
+    db.create_all()
+    # create model instances when in development mode
+    if config == DevelopmentConfig:
+        from .migrate import migrate
+        migrate()
 
     # import modules containing apis after this line
     from . import demo
     from . import menu
     # end of import api modules
 
+    # a flask-smorest API instance that is a wrapper of a Flask app
+    api = Api(app)
     # activate the apidoc blueprint and the corresponding apidoc
-    app.register_blueprint(apidoc_bp)
+    api.register_blueprint(apidoc)
     return app
 
 

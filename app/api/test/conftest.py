@@ -30,7 +30,6 @@ def runner(app):
 # the database descriptor
 @pytest.fixture()
 def db(app):
-    with app.app_context():
-        db = src.model.db
-        yield db
-        db.session.rollback()
+    db = src.model.db
+    yield db
+    db.session.rollback()

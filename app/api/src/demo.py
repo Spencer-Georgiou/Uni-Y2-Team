@@ -2,12 +2,12 @@
 Module providing an example to show flask and flask-restx
 """
 
-from flask_restx import Resource
+from flask.views import MethodView
 from .apidoc import apidoc
 
 
 @apidoc.route("/demo")
-class Demo(Resource):
+class Demo(MethodView):
     """
     A sample class.
     """
