@@ -53,6 +53,7 @@ class MenuItemSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = MenuItem
         include_relationships = True
+        exclude = ("order_associations",)
 
     # Convert python Decimal.Decimal() to float type since the previous one cannot be parsed to json
     price = fields.Float()

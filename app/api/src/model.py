@@ -208,6 +208,7 @@ class MenuItem(db.Model):
     :cvar calorie: the amount of energy the menu item contains in kcal
     :cvar price: the price of the menu item
     :cvar allergens: the list of allergens the menu item contains
+    :cvar order_associations: the association with orders
     """
     __tablename__ = "menuitem"
     __table_args__ = (
@@ -226,6 +227,8 @@ class MenuItem(db.Model):
                                                                  secondary="menuitem_allergen")
     menugroup: Mapped["MenuGroup"] = relationship(back_populates="menuitems",
                                                   foreign_keys=[menugroup_type, menugroup_category])
+    order_associations: Mapped[List["OrderMenuItemAssociation"]] = relationship(
+        back_populates="menuitem")
 
     def __repr__(self):
         return (f"MenuItem(name={self.name!r}, description={self.description!r}, "
@@ -281,6 +284,7 @@ class Order(db.Model):
     :cvar confirmed_waiter: an indicator that whether the order is confirmed by a waiter
     :cvar confirmed_kitchen: an indicator that whether the order is confirmed by a kitchen staff
     :cvar table: the table associated with the order
+    :cvar menuitem_associations: the association with menuitems
     """
 
     class Status(enum.Enum):
@@ -310,6 +314,8 @@ class Order(db.Model):
     confirmed_kitchen: Mapped[bool] = mapped_column(Boolean, default=False)
 
     table: Mapped["Table"] = relationship(back_populates="orders")
+    menuitem_associations: Mapped[List["OrderMenuItemAssociation"]] = relationship(
+        back_populates="order")
 
     def __repr__(self):
         return (
@@ -325,3 +331,30 @@ class Order(db.Model):
             raise ValueError(
                 f"The active order {active_order} has already been assigned to {table}.")
         return table
+
+
+class OrderMenuItemAssociation(db.Model):
+    """
+    An association between an order and a menuitem.
+
+    :cvar order_id: the identifier of the associated order
+    :cvar menuitem_name: the unique name of the associated menuitem
+    :cvar quantity: the amount of the menuitem ordered
+    :cvar order: the associated order
+    :cvar menuitem: the associated menuitem
+    """
+    __tablename__ = "order_menuitem"
+    __table_args__ = (
+        # A group that is a pair of type and category must be unique
+        PrimaryKeyConstraint('order_id', 'menuitem_name'),
+    )
+    order_id: Mapped[int] = mapped_column(ForeignKey("order.id"))
+    menuitem_name: Mapped[str] = mapped_column(ForeignKey("menuitem.name"))
+    quantity: Mapped[int] = mapped_column(CheckConstraint('quantity > 0'))
+
+    order: Mapped["Order"] = relationship(back_populates="menuitem_associations")
+    menuitem: Mapped["MenuItem"] = relationship(back_populates="order_associations")
+
+    def __repr__(self):
+        return (f"OrderMenuItemAssociation(order_id={self.order_id}, menuitem_name="
+                f"{self.menuitem_name}, quantity={self.quantity})")
