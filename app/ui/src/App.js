@@ -9,7 +9,7 @@ import NavBar from './components/NavBar';
 import Order from './pages/order/Order'
 import DrinkMenu from './pages/menu/DrinkMenu'
 import Foot from './components/Foot'
-import Homepage from './pages/Homepage/Homepage'
+import Homepage from './pages/homepage/Homepage'
 import AboutUs from './pages/aboutUs/AboutUs'
 
 
