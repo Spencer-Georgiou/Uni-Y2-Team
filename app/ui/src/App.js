@@ -13,6 +13,7 @@ import Order from './pages/order/Order'
 import Foot from './components/Foot'
 import Homepage from './pages/homepage/Homepage'
 import AboutUs from './pages/about-us/AboutUs'
+import NewOrder from './pages/waiterHub/NewOrder';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/DrinkMenu" element={<DrinkMenu />} />
           <Route path="/WaiterHub" element={<WaiterHub />} />
           <Route path="/ModifyCancelOrder" element={<ModifyCancelOrder />} />
+          <Route path="/NewOrder" element={<NewOrder />} />
         </Routes>
         <Foot />
       </Router>
