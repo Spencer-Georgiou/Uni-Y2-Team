@@ -44,7 +44,8 @@ function PickNavBar() {
       return <NavBar />;
 
   }
-}
+} import NewOrder from './pages/waiterHub/NewOrder';
+
 
 function App() {
   return (
