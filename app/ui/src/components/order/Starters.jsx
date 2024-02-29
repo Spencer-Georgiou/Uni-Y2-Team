@@ -1,39 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 
-const Starters = ({ handleOrder }) => {
-  const [starter, setStarter] = useState();
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
-
-  async function getData() {
-    setLoading(true);
-    const res = await fetch("/api/menu");
-    const data = await res.json();
-    setStarter(data);
-    console.log(data);
-    setLoading(false);
-  }
-
+const Starters = (starter, handleOrder) => {
   useEffect(() => {
-    getData();
+    console.log(starter1);
   }, []);
-
-  // function isEven(num) {
-  //   return typeof num === "number" && num % 2 === 0;
-  // }
-
-  // function splitMenu(props) {
-  //   var i = 1;
-  //   const listItems = starter.map((s) => {
-  //     if (s.menugroup.type === "Food" && s.menugroup.category === "Starters") {
-  //       if (isEven(i)) {
-  //         setNewStarter1([...newStarter1, s]);
-  //       }
-  //     } else {
-  //       setNewStarter2([...newStarter1, s]);
-  //     }
-  //   });
-  // }
 
   const starter1 = [
     {

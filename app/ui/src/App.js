@@ -9,9 +9,7 @@ import DrinkMenu from './pages/menu/DrinkMenu';
 import WaiterHub from './pages/waiterHub/WaiterHub'
 import ModifyCancelOrder from './pages/waiterHub/ModifyCancelOrder'
 import NavBar from './components/NavBar'
-import NavBar from './components/NavBar';
 import Order from './pages/order/Order'
-import DrinkMenu from './pages/menu/DrinkMenu'
 import Foot from './components/Foot'
 import Homepage from './pages/homepage/Homepage'
 import AboutUs from './pages/about-us/AboutUs'

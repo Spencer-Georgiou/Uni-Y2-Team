@@ -7,6 +7,26 @@ import Starters from "../../components/order/Starters";
 import { useState, useEffect } from "react";
 
 const Order = () => {
+  const [menu, setMenu] = useState();
+  const [starter, setStarter] = useState();
+
+  function getData() {
+    fetch("/api/menu")
+      .then((response) => response.json())
+      .then((json) => setMenu(json));
+    console.log(menu);
+  }
+
+  function getStarter() {
+    // const starter = Objec
+    let filter = menu.filter((m) => m.menugroup.category === "starter");
+    console.log(filter);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const [order, setOrder] = useState([
     {
       name: "hello",
@@ -18,7 +38,7 @@ const Order = () => {
 
   function handleOrder(e) {
     let { name, value } = e.target;
-    console.log(name);
+    // console.log(name);
   }
 
   return (
@@ -28,7 +48,7 @@ const Order = () => {
         <OrderProgress />
         <OrderFilter />
         <div class="bg-lemon">
-          <Starters handleOrder={handleOrder} />
+          <Starters starter={menu} handleOrder={handleOrder} />
         </div>
       </div>
       <div class="float-left w-1/3 bg-amber h-screen fixed z-10 top-0 start-0">
