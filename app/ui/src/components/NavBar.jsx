@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 }
 function NavBar() {
   return (
-    <Navbar className="bg-cherry z-20">
+    <Navbar className="bg-cherry">
       {/* Any items within collapse tags will 'disappear' on smaller windows */}
       <Navbar.Collapse>
         {/* Link to Home Page */}

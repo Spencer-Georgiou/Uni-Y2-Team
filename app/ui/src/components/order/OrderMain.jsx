@@ -1,20 +1,20 @@
 import { Fragment, useEffect, useState } from "react";
 
-const Starters = ({ starter, handleOrder }) => {
+const OrderMain = ({ starter, handleOrder }) => {
   const starter1 = [
     {
-      title: "Tacos",
-      name: "Crispy tacos filled with cheese",
-      kcal: "600 kcal",
-      price: "￡5.00",
-      value: "spicy",
+      title: "Burrito",
+      name: "Rice, beans and cheese wrapped up in a flour tortilla",
+      kcal: "350 kcal",
+      price: "￡6.00",
+      value: "-----",
       id: 1,
     },
     {
-      title: "Patatas Bravas",
-      name: "Roasted potatoes in tomato dressing (V)",
-      kcal: "500 kcal",
-      price: "$3.00",
+      title: "Chorizo Quesadilla",
+      name: "Chorizo and cheese toasted in a flour tortilla",
+      kcal: "400 kcal",
+      price: "$7.50",
       value: "vegetarian",
       id: 2,
     },
@@ -22,51 +22,26 @@ const Starters = ({ starter, handleOrder }) => {
 
   const starter2 = [
     {
-      title: "Jalapeno Poppers",
-      name: "With cream cheese",
-      kcal: "450 kcal",
-      price: "￡3.00",
-      value: "spicy",
+      title: "Bean Tostadas",
+      name: "Chickpeas, beans and peas with tomato salsa",
+      kcal: "300 kcal",
+      price: "￡6.00",
+      value: "vegan",
       id: 3,
     },
     {
-      title: "Crispy Cauliflower Bites",
-      name: "Roasted cauliflower in jalapeno dressing (V)",
-      kcal: "200 kcal",
-      price: "￡2.50",
-      value: "spicy",
+      title: "Halloumi Skewers",
+      name: "Roasted halloumi cheese and vegetables",
+      kcal: "500 kcal",
+      price: "￡5.50",
+      value: "------",
       id: 4,
     },
   ];
 
-  const [door, setDoor] = useState(true);
-  const [s1, setS1] = useState(starter);
-  const [s2, setS2] = useState(starter);
-
-  useEffect(() => {
-    SplitItem();
-  }, []);
-
-  function SplitItem() {
-    let filter1 = starter.filter(
-      (m) => m.name === "Tacos" || m.name === "Jalapeno Poppers"
-    );
-    console.log(filter1);
-    setS1(filter1);
-    let filter2 = starter.filter(
-      (m) =>
-        m.name === "Patatas Bravas" || m.name === "Crispy Cauliflower Bites"
-    );
-    setS2(filter2);
-  }
-
   return (
     <div>
-      <img
-        src="/menu/starters.png"
-        alt="starter"
-        class="w-2/3 h-18 mx-48 my-2"
-      />
+      <img src="/menu/mains.png" alt="starter" class="w-2/3 h-18 mx-48 my-2" />
       <div>
         <div class="w-1/2 float-left">
           {starter1.map((s) => (
@@ -117,4 +92,4 @@ const Starters = ({ starter, handleOrder }) => {
   );
 };
 
-export default Starters;
+export default OrderMain;

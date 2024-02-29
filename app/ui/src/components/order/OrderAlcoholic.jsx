@@ -1,69 +1,40 @@
 import { Fragment, useEffect, useState } from "react";
 
-const Starters = ({ starter, handleOrder }) => {
+const OrderAlocholic = ({ starter, handleOrder }) => {
   const starter1 = [
     {
-      title: "Tacos",
-      name: "Crispy tacos filled with cheese",
-      kcal: "600 kcal",
-      price: "￡5.00",
-      value: "spicy",
+      title: "Tequila Blanco",
+      name: "Blue agave",
+      kcal: "450 kcal",
+      price: "￡4.00",
+      value: "-----",
       id: 1,
     },
     {
-      title: "Patatas Bravas",
-      name: "Roasted potatoes in tomato dressing (V)",
-      kcal: "500 kcal",
+      title: "Corona",
+      name: "Beer",
+      kcal: "300 kcal",
       price: "$3.00",
-      value: "vegetarian",
+      value: "Gluten",
       id: 2,
     },
   ];
 
   const starter2 = [
     {
-      title: "Jalapeno Poppers",
-      name: "With cream cheese",
-      kcal: "450 kcal",
-      price: "￡3.00",
-      value: "spicy",
+      title: "PinaColada",
+      name: "Pineapple cocktail",
+      kcal: "400 kcal",
+      price: "￡2.50",
+      value: "------",
       id: 3,
     },
-    {
-      title: "Crispy Cauliflower Bites",
-      name: "Roasted cauliflower in jalapeno dressing (V)",
-      kcal: "200 kcal",
-      price: "￡2.50",
-      value: "spicy",
-      id: 4,
-    },
   ];
-
-  const [door, setDoor] = useState(true);
-  const [s1, setS1] = useState(starter);
-  const [s2, setS2] = useState(starter);
-
-  useEffect(() => {
-    SplitItem();
-  }, []);
-
-  function SplitItem() {
-    let filter1 = starter.filter(
-      (m) => m.name === "Tacos" || m.name === "Jalapeno Poppers"
-    );
-    console.log(filter1);
-    setS1(filter1);
-    let filter2 = starter.filter(
-      (m) =>
-        m.name === "Patatas Bravas" || m.name === "Crispy Cauliflower Bites"
-    );
-    setS2(filter2);
-  }
 
   return (
     <div>
       <img
-        src="/menu/starters.png"
+        src="/menu/alcoholic.png"
         alt="starter"
         class="w-2/3 h-18 mx-48 my-2"
       />
@@ -117,4 +88,4 @@ const Starters = ({ starter, handleOrder }) => {
   );
 };
 
-export default Starters;
+export default OrderAlocholic;
