@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 
 function OrderButton() {
     return (
-        <div class = "container py-5 min-w-full grid place-items-center bg-lemon">
-            <button type="button" as={Link} to="Order" className="px-12 py-7 text-3xl text-lemon bg-amber rounded-lg text-center font-semibold font-sans">Order Now!</button>
-            {/* <Button as={Link} to="Order" class = "px-12 py-7 font-sans flex text-sm font-semibold text-lemon bg-amber hover:ring-amber focus:ring-4 focus:ring-lemon rounded-lg text-center dark:bg-orangy">Order Now!</Button> */}
-        </div>
+        <Link to="/Order" className="flex items-center justify-center">
+        <button type="button" className="bg-amber text-lemon font-sans font-bold py-2 px-4 rounded-lg">
+          Order Now!
+        </button>
+      </Link>
     );
 }
 
