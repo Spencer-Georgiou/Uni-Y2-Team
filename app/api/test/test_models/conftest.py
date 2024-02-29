@@ -1,14 +1,12 @@
-from src.model import Allergen
-from src.model import Kitchen
-from src.model import MenuGroup
-from src.model import MenuItem
-from src.model import Order
-from src.model import Table
-from src.model import User
-from src.model import Session
 import pytest
-
-from src.model import Waiter
+from src.models import Allergen
+from src.models import Kitchen
+from src.models import MenuGroup
+from src.models import MenuItem
+from src.models import Order
+from src.models import Session
+from src.models import Table
+from src.models import Waiter
 
 
 # a Waiter instance

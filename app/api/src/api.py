@@ -7,7 +7,7 @@ The urls of api are prefixed with '/api' and return a json.
 from flask import Flask
 from .apidoc import apidoc
 from .config import DevelopmentConfig
-from .model import db
+from src.models.base import db
 from flask_smorest import Api
 
 
@@ -35,10 +35,7 @@ def create_app(config=DevelopmentConfig):
         from .migrate import migrate
         migrate()
 
-    # import modules containing apis after this line
-    from . import demo
-    from . import menu
-    # end of import api modules
+    from . import services
 
     # a flask-smorest API instance that is a wrapper of a Flask app
     api = Api(app)

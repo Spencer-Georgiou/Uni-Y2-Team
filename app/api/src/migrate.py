@@ -1,13 +1,13 @@
 """
 Module creating database entries for deployment.
 """
-from .model import Kitchen
-from .model import MenuItem
-from .model import Allergen
-from .model import MenuGroup
-from .model import Session
-from .model import Waiter
-from .model import db
+from .models.kitchen import Kitchen
+from .models.menuitem import MenuItem
+from .models.allergen import Allergen
+from .models.menugroup import MenuGroup
+from .models.session import Session
+from .models.waiter import Waiter
+from .models.base import db
 
 
 def migrate():

@@ -3,11 +3,11 @@ Module that provides the restaurant menus.
 """
 from flask.views import MethodView
 
-from .apidoc import apidoc
+from src.apidoc import apidoc
 
-from .model import MenuItem
-from .model import db
-from .schema import MenuItemSchema
+from src.models.menuitem import MenuItem
+from src.models.base import db
+from src.schema import MenuItemSchema
 
 
 @apidoc.route("/menu")

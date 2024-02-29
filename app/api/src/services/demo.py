@@ -3,7 +3,7 @@ Module providing an example to show flask and flask-restx
 """
 
 from flask.views import MethodView
-from .apidoc import apidoc
+from src.apidoc import apidoc
 
 
 @apidoc.route("/demo")

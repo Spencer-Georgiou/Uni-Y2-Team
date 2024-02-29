@@ -3,19 +3,13 @@ Testing Schemas that can parse Data Model to json.
 """
 from datetime import datetime
 
-from sqlalchemy import DateTime
-
-from src.model import Allergen
-from src.model import MenuGroup
-from src.model import MenuItem
-from src.model import Waiter
 from src.schema import AllergenSchema
 from src.schema import MenuGroupSchema
 from src.schema import MenuItemSchema
 from decimal import Decimal
 
 from src.schema import SessionSchema
-from .fixture_model import *
+from .test_models.conftest import *
 
 
 class TestSessionSchema:

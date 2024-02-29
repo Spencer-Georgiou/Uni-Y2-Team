@@ -3,7 +3,7 @@ Module that provides the fixtures for pytest tests.
 """
 
 import pytest
-import src.model
+import src.models
 from src.api import create_app
 from src.config import TestingConfig
 
@@ -30,6 +30,6 @@ def runner(app):
 # the database descriptor
 @pytest.fixture()
 def db(app):
-    db = src.model.db
+    db = src.models.db
     yield db
     db.session.rollback()

@@ -1,7 +1,7 @@
 """
 Testing Demo class.
 """
-from src import demo
+
 
 class TestDemo:
     # The get request to '/api/demo' should be okay and return a message in json.

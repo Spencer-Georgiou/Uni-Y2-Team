@@ -5,11 +5,10 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
 from marshmallow_sqlalchemy.fields import fields
 
-from .model import Allergen
-from .model import MenuGroup
-from .model import MenuItem
-from .model import Session
-from .model import User
+from .models import Allergen
+from .models import MenuGroup
+from .models import MenuItem
+from .models import Session
 
 
 class SessionSchema(SQLAlchemyAutoSchema):
