@@ -30,6 +30,7 @@ function PickNavBar() {
   switch (location.pathname) {
     case "/WaiterHub":
     case "/ModifyCancelOrder":
+    case "/NewOrder":
       return <NavBarWaiterHub />;
 
     case "/StaffLogin":
