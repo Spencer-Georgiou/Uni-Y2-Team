@@ -3,13 +3,19 @@ Testing Schemas that can parse Data Model to json.
 """
 from datetime import datetime
 
+from src.models import Allergen
+from src.models import MenuGroup
+from src.models import MenuItem
+from src.models import OrderMenuItemAssociation
+from src.models import Waiter
 from src.schema import AllergenSchema
 from src.schema import MenuGroupSchema
 from src.schema import MenuItemSchema
 from decimal import Decimal
 
+from src.schema import OrderMenuItemAssociationSchema
+from src.schema import OrderSchema
 from src.schema import SessionSchema
-from .test_models.conftest import *
 
 
 class TestSessionSchema:
@@ -21,9 +27,9 @@ class TestSessionSchema:
 
         db.session.add_all([waiter, session_for_waiter])
         db.session.commit()
-        quired_waiter = db.session.query(Waiter).first()
-        retrived_session = quired_waiter.session
-        serialized_session = SessionSchema().dump(retrived_session)
+        queried_waiter = db.session.query(Waiter).first()
+        retrieved_session = queried_waiter.session
+        serialized_session = SessionSchema().dump(retrieved_session)
 
         assert serialized_session == expected
 
@@ -66,12 +72,12 @@ class TestMenuItemSchema:
         db.session.add(menuitem)
         db.session.add(menugroup)
         db.session.commit()
-        quired_menuitem = db.session.query(MenuItem).first()
-        serialized_menuitem = MenuItemSchema().dump(quired_menuitem)
+        queried_menuitem = db.session.query(MenuItem).first()
+        serialized_menuitem = MenuItemSchema().dump(queried_menuitem)
 
         assert serialized_menuitem == expected
 
-    def test_serilialize_menuitem_one_allergen(self, db, menugroup):
+    def test_serialize_menuitem_one_allergen(self, db, menugroup):
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'},
                     'allergens': [{'name': 'Gluten'}], 'name': 'Tacos',
                     'description': 'Crispy tacos filled with cheese', 'calorie': 600,
@@ -85,7 +91,21 @@ class TestMenuItemSchema:
         db.session.add(menuitem)
         db.session.commit()
 
-        quired_menuitem = db.session.query(MenuItem).first()
-        serialised_menuitem = MenuItemSchema().dump(quired_menuitem)
+        queried_menuitem = db.session.query(MenuItem).first()
+        serialized_menuitem = MenuItemSchema().dump(queried_menuitem)
 
-        assert serialised_menuitem == expected
+        assert serialized_menuitem == expected
+
+
+class TestOrderMenuItemAssociationSchema:
+    def test_serialize_order_menuitem_association(self, db, active_order, menuitem):
+        expected = {'menuitem_name': 'Tacos', 'order_id': 1, 'quantity': 3}
+        order_menuitem_association = OrderMenuItemAssociation(order=active_order, menuitem=menuitem,
+                                                              quantity=3)
+        db.session.add(order_menuitem_association)
+        db.session.commit()
+
+        queried_order_menuitem_association = db.session.query(OrderMenuItemAssociation).first()
+        serialized_order_menuitem_association = OrderMenuItemAssociationSchema().dump(
+            queried_order_menuitem_association)
+        assert serialized_order_menuitem_association == expected

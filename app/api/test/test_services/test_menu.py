@@ -2,9 +2,6 @@
 Testing menu apis.
 """
 from src.schema import MenuItemSchema
-from test.test_models.conftest import allergen
-from test.test_models.conftest import menugroup
-from test.test_models.conftest import menuitem
 
 
 class TestMenu:
