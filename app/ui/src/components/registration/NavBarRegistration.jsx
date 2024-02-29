@@ -4,7 +4,7 @@ import { Navbar, Dropdown, Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
 
-function NavBarCustomer() {
+const NavBarRegistration = () => {
     return (
         <Navbar className="bg-amber">
 
@@ -45,13 +45,17 @@ function NavBarCustomer() {
             </Navbar.Collapse>
 
             <div className="flex gap-2 md:order-2 ">
-                <Button as={Link} to="Registration" className="font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber focus:ring-amber">Sign Up</Button>
+                <Dropdown label={<span className="font-sans font-semibold text-lemon border-lemon" >Log in</span>} dismissOnClick={false}>
+                    <Dropdown.Item as={Link} to="/StaffLogin" className="focus:bg-amber">Staff Login</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/CustomerLogin" className="focus:bg-amber">Customer Login</Dropdown.Item>
+                </Dropdown>
                 {/* Page navigation options disappear into hamburger dropdown button on smaller screens */}
                 <Navbar.Toggle className="text-cherry bg-lemon ring-lemon focus:ring-amber hover:bg-amber" />
             </div>
         </Navbar>
-    );
+
+    )
+
 }
 
-
-export default NavBarCustomer
+export default NavBarRegistration
