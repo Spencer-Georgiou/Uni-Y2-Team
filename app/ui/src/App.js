@@ -18,7 +18,7 @@ import NavBarWaiterHub from './components/waiterHub/NavBarWaiterHub';
 import NavBarStaff from './components/login/NavBarStaff';
 import NavBarCustomer from './components/login/NavBarCustomer';
 import NavBarRegistration from './components/registration/NavBarRegistration';
-
+import NewOrder from './pages/waiterHub/NewOrder';
 
 
 function PickNavBar() {
@@ -45,6 +45,7 @@ function PickNavBar() {
 
   }
 }
+
 
 function App() {
   return (
