@@ -6,6 +6,7 @@ from datetime import datetime
 from src.models import Allergen
 from src.models import MenuGroup
 from src.models import MenuItem
+from src.models import Order
 from src.models import OrderMenuItemAssociation
 from src.models import Waiter
 from src.schema import AllergenSchema
@@ -41,8 +42,8 @@ class TestMenuGroupSchema:
 
         db.session.add(menugroup)
         db.session.commit()
-        quried_menugroup = db.session.query(MenuGroup).first()
-        serialized_menugroup = MenuGroupSchema().dump(quried_menugroup)
+        queried_menugroup = db.session.query(MenuGroup).first()
+        serialized_menugroup = MenuGroupSchema().dump(queried_menugroup)
 
         assert serialized_menugroup == expected
 
@@ -54,8 +55,8 @@ class TestAllergenSchema:
 
         db.session.add(allergen)
         db.session.commit()
-        quiried_allergen = db.session.query(Allergen).first()
-        serialized_allergen = AllergenSchema().dump(quiried_allergen)
+        queried_allergen = db.session.query(Allergen).first()
+        serialized_allergen = AllergenSchema().dump(queried_allergen)
 
         assert serialized_allergen == expected
 
@@ -77,6 +78,7 @@ class TestMenuItemSchema:
 
         assert serialized_menuitem == expected
 
+    # A menuitem with one allergen returned by a query is serializable.
     def test_serialize_menuitem_one_allergen(self, db, menugroup):
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'},
                     'allergens': [{'name': 'Gluten'}], 'name': 'Tacos',
@@ -98,6 +100,7 @@ class TestMenuItemSchema:
 
 
 class TestOrderMenuItemAssociationSchema:
+    # An association between an order and menuitem returned by a query is serializable.
     def test_serialize_order_menuitem_association(self, db, active_order, menuitem):
         expected = {'menuitem_name': 'Tacos', 'order_id': 1, 'quantity': 3}
         order_menuitem_association = OrderMenuItemAssociation(order=active_order, menuitem=menuitem,
@@ -109,3 +112,19 @@ class TestOrderMenuItemAssociationSchema:
         serialized_order_menuitem_association = OrderMenuItemAssociationSchema().dump(
             queried_order_menuitem_association)
         assert serialized_order_menuitem_association == expected
+
+
+class TestOrderSchema:
+    # An order returned by a query is serializable.
+    def test_serialize_order(self, db, active_order, menuitem):
+        expected = {'status': 'Preparing',
+                    'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
+                    'table': 10, 'id': 1, 'confirmed_waiter': False, 'confirmed_kitchen': False}
+        active_order.menuitem_associations.append(
+            OrderMenuItemAssociation(menuitem=menuitem, quantity=3))
+        db.session.add(active_order)
+        db.session.commit()
+
+        queried_order = db.session.query(Order).first()
+        serialized_order = OrderSchema().dump(queried_order)
+        assert serialized_order == expected

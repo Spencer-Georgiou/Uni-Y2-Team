@@ -75,5 +75,5 @@ class OrderSchema(SQLAlchemyAutoSchema):
         model = Order
         include_relationships = True
 
-    menuitem_associations = Nested(OrderMenuItemAssociationSchema(many=True),
-                                   exclude=("order", "order_id"))
+    status = fields.Enum(Order.Status, by_value=True)
+    menuitem_associations = Nested(OrderMenuItemAssociationSchema(many=True), exclude=("order_id",))
