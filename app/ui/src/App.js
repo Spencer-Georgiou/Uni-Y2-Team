@@ -19,6 +19,7 @@ import NavBarStaff from './components/login/NavBarStaff';
 import NavBarCustomer from './components/login/NavBarCustomer';
 import NavBarRegistration from './components/registration/NavBarRegistration';
 import NewOrder from './pages/waiterHub/NewOrder';
+import OrderNavBar from './components/order/OrderNavBar';
 
 
 function PickNavBar() {
@@ -39,6 +40,9 @@ function PickNavBar() {
 
     case "/Registration":
       return <NavBarRegistration />;
+
+    case "/Order":
+      return <OrderNavBar />
 
     default:
       return <NavBar />;

@@ -43,7 +43,6 @@ const Order = () => {
 
   return (
     <div>
-      <div style={{ height: "100px" }}></div>
       <div class="w-2/3 bg-lemon float-right">
         <div style={{ height: "100px" }}></div>
         <OrderProgress />
