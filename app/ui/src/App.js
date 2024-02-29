@@ -43,7 +43,8 @@ function PickNavBar() {
       return <NavBar />;
 
   }
-}
+} import NewOrder from './pages/waiterHub/NewOrder';
+
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
           <Route path="/DrinkMenu" element={<DrinkMenu />} />
           <Route path="/WaiterHub" element={<WaiterHub />} />
           <Route path="/ModifyCancelOrder" element={<ModifyCancelOrder />} />
+          <Route path="/NewOrder" element={<NewOrder />} />
         </Routes>
         <Foot />
       </Router>

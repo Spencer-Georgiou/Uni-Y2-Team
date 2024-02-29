@@ -1,14 +1,13 @@
-import UpdateOrderButton from "../../components/modifyCancelOrder/UpdateOrderButton";
-import CancelButton from "../../components/modifyCancelOrder/CancelButton";
-import MenuModify from "../../components/modifyCancelOrder/MenuModify";
+import MenuNew from "../../components/newOrder/MenuNew";
+import ConfirmOrderButton from "../../components/newOrder/ConfirmOrderButton";
 
-const ModifyCancelOrder = () => {
+const NewOrder = () => {
     return(
         <div className="w-screen h-screen bg-redder flex items-center justify-center">
             
             <div className="h-5/6 w-5/6 bg-lemon p-4 flex flex-row justify-end">
                 <div className="flex flex-nowrap">
-                    <MenuModify />
+                    <MenuNew />
                     {/* This will be the menu section. This will be the menu section. This will be the menu section. This will be the menu section.  */}
                 </div>
 
@@ -19,13 +18,12 @@ const ModifyCancelOrder = () => {
                     <div className="flex flex-nowrap h-full w-full bg-yellow-200 rounded-[25px] ">
                         This is where the order will be displayed
                     </div>
+                    <ConfirmOrderButton />
 
-                    <UpdateOrderButton />
-                    <CancelButton />
                 </div>
             </div>
         </div>
     );
 }
 
-export default ModifyCancelOrder
+export default NewOrder
