@@ -1,8 +1,8 @@
-import OrderButton from "../../components/homepage/OrderButton"
-import CarouselHomepage from "../../components/homepage/CarouselHomepage";
+import OrderButton from "../../components/Homepage/OrderButton"
+import CarouselHomepage from "../../components/Homepage/CarouselHomepage";
 
 const homepage = () => {
-    return(
+    return (
         <div>
             <div>
                 <img class="h-auto w-full bg-center items-center  " src="/homepage/HomeBannerBackground.png"></img>
@@ -14,7 +14,7 @@ const homepage = () => {
             </div>
             <CarouselHomepage />
         </div>
-        
+
 
     );
 
