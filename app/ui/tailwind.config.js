@@ -11,6 +11,7 @@ module.exports = {
       'lemon': '#fdbb28',
       'amber': '#f97316',
       'ocean': '#397dd9',
+      'redder': '#ED2447'
     },
     extend: {
       'height': {
