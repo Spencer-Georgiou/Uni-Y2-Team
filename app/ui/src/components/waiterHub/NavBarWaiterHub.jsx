@@ -8,7 +8,11 @@ function NavBarWaiterHub() {
     return (
         <Navbar className="bg-cherry flex items-center justify-between">
             <div className=" flex flex-1 flex-nowrap">
-                <span className="self-center text-xl text-lemon font-semibold underline">Waiter Hub</span>
+                <Link to="/WaiterHub">
+                    <span className="self-center text-xl text-lemon font-semibold underline">Waiter Hub</span>
+                </Link>
+
+
             </div>
             <div className="flex flex-1 justify-center flex-nowrap">
                 {/* restaurant logo */}
