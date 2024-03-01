@@ -1,6 +1,7 @@
 """
 Module creating database entries for deployment.
 """
+from .models import Table
 from .models.kitchen import Kitchen
 from .models.menuitem import MenuItem
 from .models.allergen import Allergen
@@ -81,4 +82,8 @@ def migrate():
         Session(user=waiter, token="abcde"),
         Session(user=kitchen, token="abcde"),
     ])
+
+    # initialize tables
+    for number in range(1, 20 + 1):
+        db.session.add(Table(number=number))
     db.session.commit()

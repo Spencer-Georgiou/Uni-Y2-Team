@@ -11,6 +11,13 @@ from .models import MenuItem
 from .models import Order
 from .models import OrderMenuItemAssociation
 from .models import Session
+from .models import db
+
+
+class BaseMeta:
+    """Base metaclass for all Schemas, which enable loading and deserialization."""
+    load_instance = True
+    sqla_session = db.session
 
 
 class SessionSchema(SQLAlchemyAutoSchema):
@@ -18,7 +25,7 @@ class SessionSchema(SQLAlchemyAutoSchema):
     Schema for Session that hides the id attribute.
     """
 
-    class Meta:
+    class Meta(BaseMeta):
         model = Session
         exclude = ("id",)
 
@@ -28,7 +35,7 @@ class MenuGroupSchema(SQLAlchemyAutoSchema):
     Schema for MenuGroup.
     """
 
-    class Meta:
+    class Meta(BaseMeta):
         model = MenuGroup
         include_relationships = True
 
@@ -41,7 +48,7 @@ class AllergenSchema(SQLAlchemyAutoSchema):
     Schema for MenuGroup.
     """
 
-    class Meta:
+    class Meta(BaseMeta):
         model = Allergen
         include_relationships = True
 
@@ -51,7 +58,7 @@ class MenuItemSchema(SQLAlchemyAutoSchema):
     Schema for MenuGroup that shows its menugroup as well as the related allergens.
     """
 
-    class Meta:
+    class Meta(BaseMeta):
         model = MenuItem
         include_relationships = True
         exclude = ("order_associations",)
@@ -63,7 +70,7 @@ class MenuItemSchema(SQLAlchemyAutoSchema):
 
 
 class OrderMenuItemAssociationSchema(SQLAlchemyAutoSchema):
-    class Meta:
+    class Meta(BaseMeta):
         model = OrderMenuItemAssociation
 
     order_id = fields.Int()
@@ -71,9 +78,11 @@ class OrderMenuItemAssociationSchema(SQLAlchemyAutoSchema):
 
 
 class OrderSchema(SQLAlchemyAutoSchema):
-    class Meta:
+    class Meta(BaseMeta):
         model = Order
         include_relationships = True
+        exclude = ("table",)
 
+    table_number = fields.Int()
     status = fields.Enum(Order.Status, by_value=True)
     menuitem_associations = Nested(OrderMenuItemAssociationSchema(many=True), exclude=("order_id",))
