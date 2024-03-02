@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 }
 function NavBar() {
   return (
-    <Navbar className="bg-cherry">
+    <Navbar className="bg-cherry w-full">
       {/* Any items within collapse tags will 'disappear' on smaller windows */}
       <Navbar.Collapse>
         {/* Link to Home Page */}
@@ -72,11 +72,32 @@ function NavBar() {
       </div>
 
       <div className="flex gap-2 md:order-2 ">
-        <Dropdown label={<span className="font-sans font-semibold text-lemon border-lemon" >Log in</span>} dismissOnClick={false}>
-          <Dropdown.Item as={Link} to="/StaffLogin" className="focus:bg-amber">Staff Login</Dropdown.Item>
-          <Dropdown.Item as={Link} to="/CustomerLogin" className="focus:bg-amber">Customer Login</Dropdown.Item>
+        <Dropdown
+          label={
+            <span className="font-sans font-semibold text-lemon border-lemon">
+              Log in
+            </span>
+          }
+          dismissOnClick={false}
+        >
+          <Dropdown.Item as={Link} to="/StaffLogin" className="focus:bg-amber">
+            Staff Login
+          </Dropdown.Item>
+          <Dropdown.Item
+            as={Link}
+            to="/CustomerLogin"
+            className="focus:bg-amber"
+          >
+            Customer Login
+          </Dropdown.Item>
         </Dropdown>
-        <Button as={Link} to="Registration" className="font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber focus:ring-amber">Sign Up</Button>
+        <Button
+          as={Link}
+          to="Registration"
+          className="font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber focus:ring-amber"
+        >
+          Sign Up
+        </Button>
         {/* Page navigation options disappear into hamburger dropdown button on smaller screens */}
         <Navbar.Toggle className="text-cherry bg-lemon ring-lemon focus:ring-amber hover:bg-amber" />
       </div>

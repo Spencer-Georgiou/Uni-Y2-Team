@@ -4,14 +4,17 @@ const OrderFilter = () => {
   //the state of allery list
   const [allergy, setAllergy] = useState({
     //if the state of nonspicy changed to be false, the spicy food won't show out
-    spicy: true,
+
     vegan: true,
-    alcohol: true,
     vegetarian: true,
+    spicy: true,
+    nonspicy: true,
     gluten: true,
     dairy: true,
-    nonAlcohol: true,
-    fried: true,
+    nuts: true,
+    eggs: true,
+    mollusks: true,
+    alcohol: true,
   });
 
   // the function to set the state to control menu display
@@ -36,147 +39,174 @@ const OrderFilter = () => {
   }
 
   return (
-    <div>
-      <div class="bg-lemon w-full h-96 border-gray-200 p-4 pl-48">
-        <div class="flex flex-wrap justify-between mx-auto">
-          <div class="my-2.5 w-full">
-            <span class="text-cherry line-height:1.25rem text-2xl ">
-              <b>Dietary Filter</b>
-            </span>
+    <div class="m-2 p-3">
+      <h3 class="my-2 text-xl text-cherry">
+        <b>Dietary Filter</b>
+      </h3>
+      <ul class="items-center w-full text-sm text-lemon bg-cherry border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+          <div class="flex items-center ps-3">
+            <input
+              id="vue-checkbox-list"
+              type="checkbox"
+              value="vegetarian"
+              class="w-4 h-4 text-lemon border-gray-300 rounded "
+            />
+            <label
+              for="vue-checkbox-list"
+              class="w-full py-3 ms-2 text-sm font-medium text-lemon"
+            >
+              <b>Vegetarin</b>
+            </label>
           </div>
-          <div class="bg-cherry w-5/6 h-64 rounded-2xl pt-5 px-20">
-            <div class="pl-2 text-lemon w-1/2 inline float-left">
-              <span class="text-xl">
-                <b>Does Not Contain:</b>
-              </span>
-              <div class="flex items-center my-4">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="vegetarian"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Vegetarian</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="vegan"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Vegan</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="spicy"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Spicy</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="alcohol"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  // once the checkbox is changed, run the function
-                  onChange={handleAllergy}
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>alcohol</b>
-                </label>
-              </div>
-            </div>
-            <div class="pl-2 text-lemon w-56 inline float-left">
-              <div class="flex items-center my-5 mt-11">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="gluten"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Gluten</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="dairy"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Dairy</b>
-                </label>
-              </div>
-
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="fried"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Fried</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="nonAlcohol"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Non-alcohol</b>
-                </label>
-              </div>
-            </div>
+        </li>
+        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+          <div class="flex items-center ps-3">
+            <input
+              id="vue-checkbox-list"
+              type="checkbox"
+              value="vegan"
+              class="w-4 h-4 text-lemon border-gray-300 rounded "
+            />
+            <label
+              for="vue-checkbox-list"
+              class="w-full py-3 ms-2 text-sm font-medium text-lemon"
+            >
+              <b>Vegan</b>
+            </label>
           </div>
-        </div>
-      </div>
+        </li>
+        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+          <div class="flex items-center ps-3">
+            <input
+              id="vue-checkbox-list"
+              type="checkbox"
+              value="spicy"
+              class="w-4 h-4 text-lemon border-gray-300 rounded "
+            />
+            <label
+              for="vue-checkbox-list"
+              class="w-full py-3 ms-2 text-sm font-medium text-lemon"
+            >
+              <b>Spicy</b>
+            </label>
+          </div>
+        </li>
+        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+          <div class="flex items-center ps-3">
+            <input
+              id="vue-checkbox-list"
+              type="checkbox"
+              value="nonspicy"
+              class="w-4 h-4 text-lemon border-gray-300 rounded "
+            />
+            <label
+              for="vue-checkbox-list"
+              class="w-full py-3 ms-2 text-sm font-medium text-lemon"
+            >
+              <b>Non-Spicy</b>
+            </label>
+          </div>
+        </li>
+        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+          <div class="flex items-center ps-3">
+            <input
+              id="vue-checkbox-list"
+              type="checkbox"
+              value="gluten"
+              class="w-4 h-4 text-lemon border-gray-300 rounded "
+            />
+            <label
+              for="vue-checkbox-list"
+              class="w-full py-3 ms-2 text-sm font-medium text-lemon"
+            >
+              <b>Gluten</b>
+            </label>
+          </div>
+        </li>
+      </ul>
+      <ul class="items-center w-full text-sm text-lemon bg-cherry border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+          <div class="flex items-center ps-3">
+            <input
+              id="vue-checkbox-list"
+              type="checkbox"
+              value="dairy"
+              class="w-4 h-4 text-lemon border-gray-300 rounded "
+            />
+            <label
+              for="vue-checkbox-list"
+              class="w-full py-3 ms-2 text-sm font-medium text-lemon"
+            >
+              <b>Dairy</b>
+            </label>
+          </div>
+        </li>
+        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+          <div class="flex items-center ps-3">
+            <input
+              id="vue-checkbox-list"
+              type="checkbox"
+              value="nuts"
+              class="w-4 h-4 text-lemon border-gray-300 rounded "
+            />
+            <label
+              for="vue-checkbox-list"
+              class="w-full py-3 ms-2 text-sm font-medium text-lemon"
+            >
+              <b>Nuts</b>
+            </label>
+          </div>
+        </li>
+        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+          <div class="flex items-center ps-3">
+            <input
+              id="vue-checkbox-list"
+              type="checkbox"
+              value="eggs"
+              class="w-4 h-4 text-lemon border-gray-300 rounded "
+            />
+            <label
+              for="vue-checkbox-list"
+              class="w-full py-3 ms-2 text-sm font-medium text-lemon"
+            >
+              <b>Eggs</b>
+            </label>
+          </div>
+        </li>
+        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+          <div class="flex items-center ps-3">
+            <input
+              id="vue-checkbox-list"
+              type="checkbox"
+              value="mollusks"
+              class="w-4 h-4 text-lemon border-gray-300 rounded "
+            />
+            <label
+              for="vue-checkbox-list"
+              class="w-full py-3 ms-2 text-sm font-medium text-lemon"
+            >
+              <b>Mollusks</b>
+            </label>
+          </div>
+        </li>
+        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+          <div class="flex items-center ps-3">
+            <input
+              id="vue-checkbox-list"
+              type="checkbox"
+              value="alcohol"
+              class="w-4 h-4 text-lemon border-gray-300 rounded "
+            />
+            <label
+              for="vue-checkbox-list"
+              class="w-full py-3 ms-2 text-sm font-medium text-lemon"
+            >
+              <b>Alcohol</b>
+            </label>
+          </div>
+        </li>
+      </ul>
     </div>
   );
 };

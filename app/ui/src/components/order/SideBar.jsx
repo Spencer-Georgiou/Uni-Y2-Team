@@ -2,8 +2,8 @@ import { Fragment } from "react";
 
 const SideBar = ({ order }) => {
   return (
-    <Fragment>
-      <div class="mt-24 bg-lemon w-10/12 h-3/4 ml-8 rounded-3xl p-6">
+    <div class="w-1/3 bg-amber h-screen">
+      <div class="mt-24 bg-lemon w-10/12 h-[550px] ml-8 rounded-3xl p-6">
         {order.length > 0 ? (
           order.map((o, index) => (
             <Fragment key={index}>
@@ -24,7 +24,7 @@ const SideBar = ({ order }) => {
       >
         <b>Check Out</b>
       </button>
-    </Fragment>
+    </div>
   );
 };
 
