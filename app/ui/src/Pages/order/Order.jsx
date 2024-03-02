@@ -5,16 +5,7 @@ import { useState, useEffect } from "react";
 import OrderTab from "../../components/order/OrderTable";
 
 const Order = () => {
-  const [order, setOrder] = useState([
-    {
-      name: "Tacos with Crispy tacos filled with cheese",
-      price: "￡5.00",
-      amount: 1,
-      id: 1,
-    },
-  ]);
-
-  function handleOrder(e) {}
+  const [order, setOrder] = useState([]);
 
   return (
     <div class="flex flex-wrap justify-end w-screen h-screen">
@@ -23,7 +14,7 @@ const Order = () => {
 
         <OrderFilter />
 
-        <OrderTab />
+        <OrderTab setOrder={(order, setOrder)} />
       </div>
       <SideBar order={order} />
     </div>

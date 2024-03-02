@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Button, Modal } from "flowbite-react";
 
 const filterButtons = [
@@ -24,16 +24,13 @@ const filterButtons = [
   },
 ];
 
-const OrderTab = () => {
-  const [order, setOrer] = useState({
-    name: "",
-    description: "",
-    price: "",
-  });
-
+const OrderTab = ({ order, setOrder }) => {
+  const [food, setFood] = useState([]);
   const [data, setData] = useState([]);
   const [menu, setMenu] = useState(data);
   const [loading, setLoding] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
   // Fetches menu data from api and sets it in json format
   useEffect(() => {
     fetch("/api/menu")
@@ -52,11 +49,31 @@ const OrderTab = () => {
     } else {
       setLoding(true);
       // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
-      let food = data.filter((item) => item.menugroup.category === filterType);
-      setMenu(food);
+      let filterfood = data.filter(
+        (item) => item.menugroup.category === filterType
+      );
+      setMenu(filterfood);
       setLoding(false);
       console.log("loading" + filterType);
     }
+  }
+
+  function handleOrder(item) {
+    setFood([
+      {
+        name: item.name,
+        description: item.description,
+        allergens: item.allergens,
+        calorie: item.calorie,
+      },
+    ]);
+  }
+
+  function handleOrder() {
+    setOrder([
+      ...order,
+      { name: food.name, description: food.description, amount: 1 },
+    ]);
   }
 
   return (
@@ -76,8 +93,57 @@ const OrderTab = () => {
           </li>
         ))}
       </ul>
+      <Modal
+        size="4xl"
+        dismissible
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+      >
+        {food.map((f) => (
+          <Fragment>
+            <Modal.Header>
+              <b>{f.name}</b>
+            </Modal.Header>
+            <Modal.Body>
+              <div class="flex flex-wrap justify-end">
+                <div className="space-y-3 w-2/3">
+                  <p className="text-xl">{f.description}</p>
+                  <p className="text-m text-black text-sans text-base">
+                    {f.calorie} calories
+                  </p>
 
-      <div className=" mx-24 rounded-2xl bg-amber w-[780px] h-[530px] overflow-x-auto p-2">
+                  {f.allergens &&
+                    f.allergens.map((food) => (
+                      <p key={food.id} className="text-base m-0">
+                        Allergen: {food.name}
+                      </p>
+                    ))}
+                </div>
+                <div>
+                  <img src="/menu/taco.jpg" alt="picture" className="mr-4" />
+                </div>
+              </div>
+            </Modal.Body>
+          </Fragment>
+        ))}
+        <Modal.Footer>
+          <button
+            type="button"
+            className="bg-lemon font-sans font-bold py-2 px-4 my-2 rounded-lg  hover:text-white hover:bg-amber"
+          >
+            Add to order
+          </button>
+          <button
+            onClick={() => setOpenModal(false)}
+            type="button"
+            className="bg-lemon font-sans font-bold py-2 px-4 my-2 rounded-lg hover:text-white hover:bg-amber"
+          >
+            Cancel
+          </button>
+        </Modal.Footer>
+      </Modal>
+
+      <div className="mx-24 rounded-2xl bg-amber w-[800px] h-[530px] overflow-x-auto p-2">
         <table className="w-full h-full text-lg text-left rtl:text-right">
           <thead>
             <tr className="bg-amber text-xl text-sans">
@@ -119,8 +185,12 @@ const OrderTab = () => {
                   </td>
                   <td>
                     <button
+                      onClick={() => {
+                        handleOrder(item);
+                        setOpenModal(true);
+                      }}
                       type="button"
-                      class="text-white bg-lemon hover:bg-cherry focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-1.5 text-center inline-flex items-center me-2 "
+                      class="text-white bg-lemon hover:bg-cherry focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-1.5 text-center inline-flex items-center me-2  hover:text-white hover:bg-amber"
                     >
                       <svg
                         class="w-4 h-4 me-2"
