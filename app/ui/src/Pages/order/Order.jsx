@@ -7,6 +7,19 @@ import OrderTab from "../../components/order/OrderTable";
 const Order = () => {
   const [order, setOrder] = useState([]);
 
+  function handleOrder(food) {
+    setOrder([
+      ...order,
+      {
+        name: food.name,
+        description: food.description,
+        price: food.price,
+        amount: 1,
+      },
+    ]);
+    console.log(order);
+  }
+
   return (
     <div class="flex flex-wrap justify-end w-screen h-screen">
       <div class="w-2/3 bg-lemon h-screen ">
@@ -14,7 +27,7 @@ const Order = () => {
 
         <OrderFilter />
 
-        <OrderTab setOrder={(order, setOrder)} />
+        <OrderTab handleOrder={handleOrder} />
       </div>
       <SideBar order={order} />
     </div>

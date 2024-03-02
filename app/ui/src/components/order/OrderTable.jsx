@@ -24,8 +24,14 @@ const filterButtons = [
   },
 ];
 
-const OrderTab = ({ order, setOrder }) => {
-  const [food, setFood] = useState([]);
+const OrderTab = ({ handleOrder }) => {
+  const [food, setFood] = useState({
+    name: "",
+    description: "",
+    allergens: "",
+    calorie: "",
+    price: "",
+  });
   const [data, setData] = useState([]);
   const [menu, setMenu] = useState(data);
   const [loading, setLoding] = useState(false);
@@ -58,22 +64,14 @@ const OrderTab = ({ order, setOrder }) => {
     }
   }
 
-  function handleOrder(item) {
-    setFood([
-      {
-        name: item.name,
-        description: item.description,
-        allergens: item.allergens,
-        calorie: item.calorie,
-      },
-    ]);
-  }
-
-  function handleOrder() {
-    setOrder([
-      ...order,
-      { name: food.name, description: food.description, amount: 1 },
-    ]);
+  function handleFood(item) {
+    setFood({
+      name: item.name,
+      description: item.description,
+      allergens: item.allergens,
+      calorie: item.calorie,
+      price: item.price,
+    });
   }
 
   return (
@@ -86,7 +84,7 @@ const OrderTab = ({ order, setOrder }) => {
               value={m.name}
               type="button"
               href="#"
-              class="bg-amber inline-block px-5 py-3 rounded-lg hover:text-cherry hover:bg-gray-100 text-lemon"
+              class="bg-amber inline-block px-5 py-3 rounded-lg hover:text-amber hover:bg-gray-100 text-lemon"
             >
               <b>{m.name}</b>
             </button>
@@ -99,35 +97,37 @@ const OrderTab = ({ order, setOrder }) => {
         show={openModal}
         onClose={() => setOpenModal(false)}
       >
-        {food.map((f) => (
-          <Fragment>
-            <Modal.Header>
-              <b>{f.name}</b>
-            </Modal.Header>
-            <Modal.Body>
-              <div class="flex flex-wrap justify-end">
-                <div className="space-y-3 w-2/3">
-                  <p className="text-xl">{f.description}</p>
-                  <p className="text-m text-black text-sans text-base">
-                    {f.calorie} calories
-                  </p>
+        <Fragment>
+          <Modal.Header>
+            <b>{food.name}</b>
+          </Modal.Header>
+          <Modal.Body>
+            <div class="flex flex-wrap justify-end">
+              <div className="space-y-3 w-2/3">
+                <p className="text-xl">{food.description}</p>
+                <p className="text-black text-sans text-base">
+                  {food.calorie} calories
+                </p>
 
-                  {f.allergens &&
-                    f.allergens.map((food) => (
-                      <p key={food.id} className="text-base m-0">
-                        Allergen: {food.name}
-                      </p>
-                    ))}
-                </div>
-                <div>
-                  <img src="/menu/taco.jpg" alt="picture" className="mr-4" />
-                </div>
+                {food.allergens &&
+                  food.allergens.map((food) => (
+                    <p key={food.id} className="text-base m-0">
+                      Allergen: {food.name}
+                    </p>
+                  ))}
               </div>
-            </Modal.Body>
-          </Fragment>
-        ))}
+              <div>
+                <img src="/menu/taco.jpg" alt="picture" className="mr-4" />
+              </div>
+            </div>
+          </Modal.Body>
+        </Fragment>
         <Modal.Footer>
           <button
+            onClick={() => {
+              handleOrder(food);
+              console.log(food);
+            }}
             type="button"
             className="bg-lemon font-sans font-bold py-2 px-4 my-2 rounded-lg  hover:text-white hover:bg-amber"
           >
@@ -186,7 +186,7 @@ const OrderTab = ({ order, setOrder }) => {
                   <td>
                     <button
                       onClick={() => {
-                        handleOrder(item);
+                        handleFood(item);
                         setOpenModal(true);
                       }}
                       type="button"
