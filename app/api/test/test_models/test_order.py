@@ -1,9 +1,7 @@
 import pytest
+
 from src.models import MenuItem
 from src.models import Order
-from src.models import Order
-from src.models import OrderMenuItemAssociation
-from src.models import OrderMenuItemAssociation
 from src.models import OrderMenuItemAssociation
 
 

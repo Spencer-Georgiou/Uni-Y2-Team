@@ -3,8 +3,9 @@ Module that provides the fixtures for pytest tests.
 """
 
 import pytest
+
 import src.models
-from src.api import create_app
+from src import create_app
 from src.config import TestingConfig
 
 

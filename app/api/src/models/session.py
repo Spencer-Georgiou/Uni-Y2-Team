@@ -7,19 +7,20 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from .base import db
-from .user import User
+
+from src.models.base import db
+from src.models.user import User
 
 
 class Session(db.Model):
     """
     A session model to record data of a session between the client and the server.
 
-    :cvar id: the identifier of the session
-    :cvar user_username: the username of the associated user
-    :cvar token: the secret key to authenticate the session
-    :cvar expires: the time when the session is valid until
-    :cvar user: the user the session belongs to
+    :cvar id: Identifier of the session
+    :cvar user_username: Username of the associated user
+    :cvar token: Secret key to authenticate the session
+    :cvar expires: Time when the session is valid until
+    :cvar user: User the session belongs to
     """
     __tablename__ = "session"
     id: Mapped[int] = mapped_column(primary_key=True)

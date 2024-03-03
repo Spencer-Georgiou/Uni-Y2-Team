@@ -6,7 +6,8 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from .base import db
+
+from src.models.base import db
 
 
 class User(db.Model):
@@ -14,9 +15,9 @@ class User(db.Model):
     A user model to map user objects to a user table in a database. It is an abstract model,
     which can be inherited but not instantiated.
 
-    :cvar username: the identifier of the user
-    :cvar password: the array of string used to authenticate the user
-    :cvar session: the session that the user has
+    :cvar username: Identifier of the user
+    :cvar password: Array of string used to authenticate the user
+    :cvar session: Session that the user has
     """
 
     class Role(enum.Enum):

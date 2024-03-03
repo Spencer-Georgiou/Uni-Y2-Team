@@ -1,8 +1,9 @@
 """
-Module providing an example to show flask and flask-restx
+Module providing an example to show flask and flask-smorest
 """
 
 from flask.views import MethodView
+
 from src.apidoc import apidoc
 
 

@@ -4,9 +4,8 @@ Module that provides the restaurant menus.
 from flask.views import MethodView
 
 from src.apidoc import apidoc
-
-from src.models.menuitem import MenuItem
 from src.models.base import db
+from src.models.menuitem import MenuItem
 from src.schema import MenuItemSchema
 
 

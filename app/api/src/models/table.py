@@ -7,16 +7,17 @@ from sqlalchemy import select
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from .base import db
-from .order import Order
+
+from src.models.base import db
+from src.models.order import Order
 
 
 class Table(db.Model):
     """
     A data model represents restaurant tables.
 
-    :cvar number: the table number
-    :cvar orders: the orders associated with the table
+    :cvar number: Table number
+    :cvar orders: Orders associated with the table
     """
     __tablename__ = "table"
     number: Mapped[int] = mapped_column(CheckConstraint('number > 0'), primary_key=True)
@@ -24,13 +25,13 @@ class Table(db.Model):
     orders: Mapped[Optional[List["Order"]]] = relationship(back_populates="table")
 
     def __repr__(self):
-        return (f"Table(number={self.number!r})")
+        return f"Table(number={self.number!r})"
 
     def get_active_order(self):
         """
         Return the active order associated with the table if it has one, none otherwise.
 
-        :return: the active order or none
+        :return: The active order or none
         """
         stmt = select(Order).where(
             and_(Order.table == self,

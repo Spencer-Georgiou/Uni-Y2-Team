@@ -22,7 +22,7 @@ class BaseMeta:
 
 class SessionSchema(SQLAlchemyAutoSchema):
     """
-    Schema for Session that hides the id attribute.
+    Schema for Session that hides the ID attribute.
     """
 
     class Meta(BaseMeta):

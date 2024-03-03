@@ -5,16 +5,17 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from .base import db
-from .menuitem import MenuItem
+
+from src.models.base import db
+from src.models.menuitem import MenuItem
 
 
 class Allergen(db.Model):
     """
     An allergen model to represent food or drink allergens.
 
-    :cvar name: the name of the allergen
-    :cvar menuitems: the associated menu items that contains the allergen
+    :cvar name: Name of the allergen
+    :cvar menuitems: Associated menu items that contains the allergen
     """
 
     __tablename__ = "allergen"

@@ -1,14 +1,14 @@
 """
 Package for Object-Relation models that maps objects to tables stored in a database.
 """
-from .base import db
-from .allergen import Allergen
-from .association import OrderMenuItemAssociation
-from .kitchen import Kitchen
-from .menugroup import MenuGroup
-from .menuitem import MenuItem
-from .order import Order
-from .session import Session
-from .table import Table
-from .user import User
-from .waiter import Waiter
+from src.models.allergen import Allergen
+from src.models.association import OrderMenuItemAssociation
+from src.models.base import db
+from src.models.kitchen import Kitchen
+from src.models.menugroup import MenuGroup
+from src.models.menuitem import MenuItem
+from src.models.order import Order
+from src.models.session import Session
+from src.models.table import Table
+from src.models.user import User
+from src.models.waiter import Waiter

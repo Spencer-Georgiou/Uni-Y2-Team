@@ -4,15 +4,16 @@ from sqlalchemy import PrimaryKeyConstraint
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from .base import db
+
+from src.models.base import db
 
 
 class MenuItemAllergenAssociation(db.Model):
     """
     A many-to-many association between menuitem and allergen
 
-    :cvar menuitem: the associated menuitem
-    :cvar allergen: the associated allergen
+    :cvar menuitem: The associated menuitem
+    :cvar allergen: The associated allergen
     """
     __tablename__ = "menuitem_allergen"
 
@@ -24,11 +25,11 @@ class OrderMenuItemAssociation(db.Model):
     """
     An association between an order and a menuitem.
 
-    :cvar order_id: the identifier of the associated order
-    :cvar menuitem_name: the unique name of the associated menuitem
-    :cvar quantity: the amount of the menuitem ordered
-    :cvar order: the associated order
-    :cvar menuitem: the associated menuitem
+    :cvar order_id: Identifier of the associated order
+    :cvar menuitem_name: Unique name of the associated menuitem
+    :cvar quantity: Amount of the menuitem ordered
+    :cvar order: Associated order
+    :cvar menuitem: Associated menuitem
     """
     __tablename__ = "order_menuitem"
     __table_args__ = (

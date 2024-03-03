@@ -2,6 +2,7 @@
 Testing Schemas that can parse Data Model to json.
 """
 from datetime import datetime
+from decimal import Decimal
 
 from src.models import Allergen
 from src.models import MenuGroup
@@ -12,8 +13,6 @@ from src.models import Waiter
 from src.schema import AllergenSchema
 from src.schema import MenuGroupSchema
 from src.schema import MenuItemSchema
-from decimal import Decimal
-
 from src.schema import OrderMenuItemAssociationSchema
 from src.schema import OrderSchema
 from src.schema import SessionSchema

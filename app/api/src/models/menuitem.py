@@ -10,20 +10,21 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from .base import db
-from .menugroup import MenuGroup
+
+from src.models.base import db
+from src.models.menugroup import MenuGroup
 
 
 class MenuItem(db.Model):
     """
     A data model for the object 'menu item', an item that can be displayed on a menu.
 
-    :cvar name: the name of the menu item
-    :cvar description: the description of the menu item, which can be more detailed than its name
-    :cvar calorie: the amount of energy the menu item contains in kcal
-    :cvar price: the price of the menu item
-    :cvar allergens: the list of allergens the menu item contains
-    :cvar order_associations: the association with orders
+    :cvar name: Name of the menu item
+    :cvar description: Description of the menu item, which can be more detailed than its name
+    :cvar calorie: Amount of energy the menu item contains in kcal
+    :cvar price: Price of the menu item
+    :cvar allergens: A list of allergens the menu item contains
+    :cvar order_associations: Association with its orders
     """
     __tablename__ = "menuitem"
     __table_args__ = (

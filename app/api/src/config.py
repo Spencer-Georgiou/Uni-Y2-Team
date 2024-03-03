@@ -3,7 +3,7 @@ Module that provides configurations for a flask app.
 """
 
 
-class ApiConfig(object):
+class ApiConfig:
     """
     Flask configuration for api documents.
     Refer to https://flask-smorest.readthedocs.io/en/latest/openapi.html for more information.

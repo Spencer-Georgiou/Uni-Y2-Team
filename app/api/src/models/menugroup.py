@@ -7,7 +7,8 @@ from sqlalchemy import PrimaryKeyConstraint
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from .base import db
+
+from src.models.base import db
 
 
 class MenuGroup(db.Model):
@@ -24,8 +25,8 @@ class MenuGroup(db.Model):
         """
         An enum that is for the type of menus.
 
-        :cvar FOOD: the Food Menu
-        :cvar DRINK: the Drink Menu
+        :cvar FOOD: The Food Menu
+        :cvar DRINK: The Drink Menu
         """
         FOOD = "Food"
         DRINK = "Drink"
@@ -34,11 +35,11 @@ class MenuGroup(db.Model):
         """
         An enum that is for the category of menus.
 
-        :cvar STARTER: the starter meals
-        :cvar MAIN: the main meals
-        :cvar DESSERT: the dessert meals
-        :cvar ALCOHOLIC: the alcoholic drink
-        :cvar NONALCOHOLIC: the non-alcoholic drink
+        :cvar STARTER: The starter meals
+        :cvar MAIN: The main meals
+        :cvar DESSERT: The dessert meals
+        :cvar ALCOHOLIC: The alcoholic drink
+        :cvar NONALCOHOLIC: The non-alcoholic drink
         """
         STARTER = "Starter"
         MAIN = "Main"

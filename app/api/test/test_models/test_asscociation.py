@@ -1,5 +1,4 @@
 from src.models import OrderMenuItemAssociation
-from src.models import OrderMenuItemAssociation
 
 
 class TestOrderMenuItemAssociation:
