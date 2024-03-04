@@ -1,6 +1,7 @@
 import MenuNew from "../../components/newOrder/MenuNew";
 import ConfirmOrderButton from "../../components/newOrder/ConfirmOrderButton";
 
+
 const NewOrder = () => {
     return(
         <div className="w-screen h-screen bg-redder flex items-center justify-center">

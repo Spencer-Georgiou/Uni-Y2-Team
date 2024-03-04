@@ -38,9 +38,21 @@ const MenuModify = () => {
     const [openModal, setOpenModal] =useState(false);
     const [allergens, setAllergens] = useState(data)
 
+    // States to display in the Modal
     const [foodName, setFoodName] = useState("")
     const [foodDescription, setFoodDescription] = useState("")
     const [foodCalories, setFoodCalories] = useState(0)
+
+
+    // Food item the customer wants to order
+    const [orderQuantity, setOrderQuantity] = useState(0)
+    const [orderItem, setOrderItem] = useState({
+        name: "",
+        calorie: "",
+        price: "",
+        quantity:0,
+      });
+    
 
 
 
@@ -86,6 +98,30 @@ const MenuModify = () => {
 
 
 
+        const increaseQuantity = (currentQuantity) => {
+            setOrderQuantity(orderQuantity + 1)
+        }
+
+        const decreaseQuantity = (currentQuantity) => {
+            {orderQuantity > 0 ? setOrderQuantity(orderQuantity - 1) : setOrderQuantity(0)}
+            // setOrderQuantity(orderQuantity - 1)
+        }  
+
+
+        const handleOrder = (orderitem) => {
+            setOrderItem({
+            name: orderitem.name,
+            calorie: orderitem.calorie,
+            price: orderitem.price,
+            quantity:orderQuantity,
+            });
+        }
+
+
+
+
+
+
     
         
     
@@ -112,7 +148,7 @@ const MenuModify = () => {
                                 <th scope="col" className="px-6 py-3">Name</th>
                                 <th scope="col" className="px-6 py-3">Price</th>
                                 <th scope="col" className="px-6 py-3">Calorie</th>
-                                <th scope="col" className="px-6 py-3">Amount</th>
+                                <th scope="col" className="px-6 py-3">  </th>
                                 
 
                                 
@@ -120,13 +156,11 @@ const MenuModify = () => {
                         </thead>
                         <tbody>
                         {filteredMenu.map((item) => (
-                            <tr key={item.id}
-                            onClick={() => {setOpenModal(true); getAllergens(item.allergens); setVariables(item)}} 
+                            <tr key={item.id} 
                             className="text-sans text-2xl bg-lemon border-b dark:bg-gray-800 dark:border-gray-700">
                                 <Modal 
                                 size="4xl"
-                                dismissible show={openModal} 
-                                onClose={() => setOpenModal(false)}>
+                                show={openModal} onClose={() => setOpenModal(false)}>
 
 
                                     
@@ -149,17 +183,49 @@ const MenuModify = () => {
                                             ))}
                                         </div>
 
+
+
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <button type="button" className="bg-lemon text-black font-sans font-bold py-2 px-4 my-2 rounded-lg">
+
+
+
+                                        <button type="button" 
+                                        className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full"
+                                        onClick={()=> decreaseQuantity({orderQuantity})}>
+                                                --
+                                        </button>
+
+                                        <p className="text-xl text-bold text-black text-sans text-base">{orderQuantity}</p>
+
+                                        <button type="button" 
+                                        className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full"
+                                        onClick={()=> increaseQuantity({orderQuantity})}>
+                                                +
+                                        </button>
+
+
+
+
+                                        <button type="button" 
+                                        className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg"
+                                        onClick={() => setOpenModal(false)}>
                                             Add to order
                                         </button>                                    
+
                                     </Modal.Footer>
                             </Modal>
                             <td className="px-6 py-4">{item.name}</td>
                             <td className="px-6 py-4">{item.price}</td>
                             <td className="px-6 py-4">{item.calorie}</td>
-                            <td className="px-6 py-4"> </td>
+
+                            <td className="px-6 py-4">
+                                <button type="button" 
+                                    className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg"
+                                    onClick={() => {setOpenModal(true);getAllergens(item.allergens); setVariables(item); setOrderQuantity(0)}}>
+                                    Add to order
+                                </button> 
+                            </td>
                         </tr>
                         ))}
                         </tbody>

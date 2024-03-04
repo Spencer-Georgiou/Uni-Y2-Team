@@ -151,7 +151,19 @@ const MenuModify = () => {
 
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <button type="button" className="bg-lemon text-black font-sans font-bold py-2 px-4 my-2 rounded-lg">
+
+                                        <button type="button" className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full">
+                                                -
+                                        </button>
+
+                                        <button type="button" className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full">
+                                                +
+                                        </button>
+
+
+
+
+                                        <button type="button" className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg">
                                             Add to order
                                         </button>                                    
                                     </Modal.Footer>
