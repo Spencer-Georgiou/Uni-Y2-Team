@@ -33,7 +33,7 @@ const OrderTab = ({ handleOrder }) => {
     price: "",
   });
   const [data, setData] = useState([]);
-  const [menu, setMenu] = useState(data);
+  const [menu, setMenu] = useState([]);
   const [loading, setLoding] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -143,7 +143,7 @@ const OrderTab = ({ handleOrder }) => {
         </Modal.Footer>
       </Modal>
 
-      <div className="mx-24 rounded-2xl bg-amber w-[800px] h-[530px] overflow-x-auto p-2">
+      <div className="mx-24 rounded-2xl bg-amber w-[780px] h-[530px] overflow-x-auto p-2">
         <table className="w-full h-full text-lg text-left rtl:text-right">
           <thead>
             <tr className="bg-amber text-xl text-sans">
