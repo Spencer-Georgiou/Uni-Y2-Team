@@ -97,8 +97,6 @@ TeamProject27
 │   ├── api
 │   │   ├── pyproject.toml
 │   │   ├── requirements.txt
-│   │   ├── instance
-│   │   │   └── database.db
 │   │   ├── src
 │   │   └── test
 │   └── ui
@@ -117,8 +115,6 @@ TeamProject27
 - `api`: directory for the backend (Flask)
   -  `pyproject.toml` : python build configuration
   -  `requirements.txt`: a list of dependencies for the python package
-  -  `instance`: directory to store resource files
-     -  `database.db`: database of the product
   - `src`: directory consists of python source codes
   - `test`: directory consists of python test codes
 - `ui`: directory for the frontend (React)
