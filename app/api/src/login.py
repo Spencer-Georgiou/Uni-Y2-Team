@@ -32,14 +32,10 @@ class Login(Resource):
 
             user = db.session.query(User).filter_by(username=username).first()
 
-            if not user:
-                return {"error_message": "Username does not exist"}, 401
-
             # need to create hash() for use here and for registration
-            if user.password != password:
-                return {"error_message": "Password is wrong"}, 401
+            if not user or user.password != password:
+                return {"error_message": "Invalid credentials"}, 401
 
-            # insert token generator here
             return {"session_key": generate_token(username), "error_message": None}, 200
         except SQLAlchemyError:
             return {"error_message": "Database error occurred"}, 500
