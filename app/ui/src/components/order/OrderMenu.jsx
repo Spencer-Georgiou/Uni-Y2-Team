@@ -1,5 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Button, Modal } from "flowbite-react";
+import { addToCart } from "./redux/cartSlice";
+import { useDispatch } from "react-redux";
 
 const filterButtons = [
   {
@@ -24,7 +26,8 @@ const filterButtons = [
   },
 ];
 
-const OrderTab = ({ handleOrder }) => {
+const OrderMenu = ({ handleOrder }) => {
+  const dispatch = useDispatch();
   const [food, setFood] = useState({
     name: "",
     description: "",
@@ -137,8 +140,14 @@ const OrderTab = ({ handleOrder }) => {
         <Modal.Footer>
           <button
             onClick={() => {
-              handleOrder(food);
-              console.log(food);
+              dispatch(
+                addToCart({
+                  name: food.name,
+                  description: food.description,
+                  price: food.price,
+                })
+              );
+              setOpenModal(false);
             }}
             type="button"
             className="bg-lemon font-sans font-bold py-2 px-4 my-2 rounded-lg  hover:text-white hover:bg-amber"
@@ -199,6 +208,7 @@ const OrderTab = ({ handleOrder }) => {
                     <button
                       onClick={() => {
                         handleFood(item);
+
                         setOpenModal(true);
                       }}
                       type="button"
@@ -226,4 +236,4 @@ const OrderTab = ({ handleOrder }) => {
   );
 };
 
-export default OrderTab;
+export default OrderMenu;

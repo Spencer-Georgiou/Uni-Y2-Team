@@ -1,25 +1,10 @@
 import OrderFilter from "../../components/order/OrderFilter";
 
-import SideBar from "../../components/order/SideBar";
+import Cart from "../../components/order/Cart";
 import { useState, useEffect } from "react";
-import OrderTab from "../../components/order/OrderTable";
+import OrderMenu from "../../components/order/OrderMenu";
 
 const Order = () => {
-  const [order, setOrder] = useState([]);
-
-  function handleOrder(food) {
-    setOrder([
-      ...order,
-      {
-        name: food.name,
-        description: food.description,
-        price: food.price,
-        amount: 1,
-      },
-    ]);
-    console.log(order);
-  }
-
   return (
     <div class="flex flex-wrap justify-end w-screen h-screen">
       <div class="w-2/3 bg-lemon h-screen ">
@@ -27,9 +12,9 @@ const Order = () => {
 
         <OrderFilter />
 
-        <OrderTab handleOrder={handleOrder} />
+        <OrderMenu />
       </div>
-      <SideBar order={order} setOrder={setOrder} />
+      <Cart />
     </div>
   );
 };
