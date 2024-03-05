@@ -36,7 +36,7 @@ class Login(Resource):
             if not user or user.password != password:
                 return {"error_message": "Invalid credentials"}, 401
 
-            return {"session_key": generate_token(username), "error_message": None}, 200
+            return {"session_key": generate_token(username), "role": user.__tablename__, "error_message": None}, 200
         except SQLAlchemyError:
             return {"error_message": "Database error occurred"}, 500
         except Exception as e:
