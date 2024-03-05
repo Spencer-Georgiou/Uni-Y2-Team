@@ -29,7 +29,7 @@ const Order = () => {
 
         <OrderTab handleOrder={handleOrder} />
       </div>
-      <SideBar order={order} />
+      <SideBar order={order} setOrder={setOrder} />
     </div>
   );
 };

@@ -1,6 +1,8 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
-const SideBar = ({ order }) => {
+const SideBar = ({ order, setOrder }) => {
+  useEffect(() => {}, [order]);
+
   return (
     <div class="w-1/3 bg-amber h-screen">
       <div class="mt-20 bg-lemon w-10/12 h-[600px] ml-8 rounded-3xl p-6">
@@ -36,6 +38,19 @@ const SideBar = ({ order }) => {
                   </button>
                   <b className="text-lg">{o.amount}</b>
                   <button
+                    onClick={() => {
+                      let re = order.filter((f) => f.name !== o.name);
+
+                      setOrder([
+                        re,
+                        {
+                          name: o.name,
+                          description: o.description,
+                          price: o.price,
+                          amount: o.amount + 1,
+                        },
+                      ]);
+                    }}
                     type="button"
                     className="border text-gray-800 border-gray-800 bg-amber hover:bg-cherry focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-1.5 py-1.5 text-center inline-flex items-center m-1 hover:text-white hover:bg-amber"
                   >

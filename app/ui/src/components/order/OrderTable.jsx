@@ -52,6 +52,18 @@ const OrderTab = ({ handleOrder }) => {
       setMenu(data); // filtered menu state as just the entire data
       setLoding(false);
       console.log("loading all");
+    }
+    if (filterType === "Drink") {
+      setLoding(true);
+      // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
+      let filterfood = data.filter(
+        (item) =>
+          item.menugroup.category === "Alcoholic" ||
+          item.menugroup.category === "Non-Alcoholic"
+      );
+      setMenu(filterfood);
+      setLoding(false);
+      console.log("loading" + filterType);
     } else {
       setLoding(true);
       // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
