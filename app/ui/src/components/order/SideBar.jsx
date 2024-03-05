@@ -1,7 +1,9 @@
 import { Fragment, useEffect } from "react";
 
 const SideBar = ({ order, setOrder }) => {
-  useEffect(() => {}, [order]);
+  useEffect(() => {
+    //window.location.reload();
+  }, [order]);
 
   return (
     <div class="w-1/3 bg-amber h-screen">
@@ -17,6 +19,22 @@ const SideBar = ({ order, setOrder }) => {
                 Price: <b>￡{o.price} </b>
                 <div className="float-right mx-2">
                   <button
+                    onClick={() => {
+                      let re = order.filter((f) => f.name !== o.name);
+                      if (o.amount > 1) {
+                        setOrder([
+                          re,
+                          {
+                            name: o.name,
+                            description: o.description,
+                            price: o.price,
+                            amount: o.amount - 1,
+                          },
+                        ]);
+                      } else {
+                        setOrder([re]);
+                      }
+                    }}
                     type="button"
                     className=" border text-gray-800 border-gray-800 bg-amber hover:bg-white focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-1.5 py-1.5 text-center inline-flex items-center m-1 hover:text-dark hover:bg-amber"
                   >
@@ -52,7 +70,7 @@ const SideBar = ({ order, setOrder }) => {
                       ]);
                     }}
                     type="button"
-                    className="border text-gray-800 border-gray-800 bg-amber hover:bg-cherry focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-1.5 py-1.5 text-center inline-flex items-center m-1 hover:text-white hover:bg-amber"
+                    className="border text-gray-800 border-gray-800 bg-amber hover:bg-white focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-1.5 py-1.5 text-center inline-flex items-center m-1 hover:text-dark hover:bg-amber"
                   >
                     <svg
                       class="w-3 h-3 dark:text-white"
