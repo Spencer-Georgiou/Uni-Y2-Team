@@ -4,26 +4,12 @@ class TestTable:
         db.session.add(table)
         db.session.commit()
 
-    # A table can be associated with many orders.
+    # A table can be associated with at most one order.
     def test_relationship_order(self, db, table, order):
         db.session.add_all([table, order])
         db.session.commit()
 
-        assert order in table.orders
-
-    # A table can show its active order.
-    def test_show_active_order(self, db, table, active_order):
-        db.session.add_all([table, active_order])
-        db.session.commit()
-
-        assert active_order is table.get_active_order()
-
-    # A table should return None if it does not have any active order.
-    def test_no_active_order(self, db, table, inactive_order):
-        db.session.add_all([table, inactive_order])
-        db.session.commit()
-
-        assert None is table.get_active_order()
+        assert order is table.order
 
     # An empty table should be available.
     def test_empty_table_available(self, db, table):

@@ -56,7 +56,7 @@ class Order(db.Model):
     status: Mapped[Status] = mapped_column(Enum(Status), default=Status.ORDERING)
     confirmed_waiter: Mapped[bool] = mapped_column(Boolean, default=False)
 
-    table: Mapped["Table"] = relationship(back_populates="orders")
+    table: Mapped["Table"] = relationship(back_populates="order")
     menuitem_associations: Mapped[List["OrderMenuItemAssociation"]] = relationship(
         back_populates="order")
 
@@ -65,17 +65,3 @@ class Order(db.Model):
             f"Order(id={self.id!r}, table_number={self.table_number!r}, status={self.status!r}, "
             f"confirmed_waiter="
             f"{self.confirmed_waiter!r})")
-
-    @validates("table")
-    # validate whether the table, which the order is assigned, is available
-    # pylint: disable=unused-argument
-    def validate_table(self, key, table):
-        """
-        Will be deprecated soon since the relationship between table and order are going to be
-        one-to-one.
-        """
-        active_order = table.get_active_order()
-        if active_order:
-            raise ValueError(
-                f"The active order {active_order} has already been assigned to {table}.")
-        return table
