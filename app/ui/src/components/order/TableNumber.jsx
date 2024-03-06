@@ -1,34 +1,61 @@
-'use client';
-import { Button } from 'flowbite-react';
-import React, { useState } from 'react';
+"use client";
 
-function TableNumber() {
+import { Button, Modal } from "flowbite-react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
-    const [tableNumber, setTableNumber] = useState('');
+function TableNumber({ openModal, setOpenModal }) {
+  const [tableNumber, setTableNumber] = useState(0);
+  const cart = useSelector((state) => state.cart);
 
-    const handleTableNumber = (e) => {
-        setTableNumber(e.target.value);
-    }
+  return (
+    <>
+      <Button onClick={() => setOpenModal(true)}>Toggle modal</Button>
+      <Modal
+        show={openModal}
+        size="md"
+        onClose={() => setOpenModal(false)}
+        popup
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <p className="text-2xl text-lemon font-sans font-semibold text-center mb-4">
+              Enter Your Table Number
+            </p>
 
-    return (
-        <div class="w-full h-screen bg-fixed bg-center bg-cover flex justify-center items-center relative" style={{ backgroundImage: "url('/images/TableNumberBanner.png')" }}>
-            <form className="h-[300px] w-[500px] rounded-[25px] py-5 m-auto bg-cherry px-6">
-            <div className="text-2xl text-lemon font-sans font-semibold text-center mb-4">
-                Order
-            </div>
-            <div className="text-2xl text-lemon font-sans font-semibold text-center mb-4">
-                Please Enter Your Table Number
-            </div>
             <div className="mb-5 ">
-                <b><input type="text" id="tableNumber" value={tableNumber} onChange={handleTableNumber} name="tableNumber" className="text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5 focus:ring-4 focus:ring-amber" placeholder="Table Number" required /></b>
+              <b>
+                <input
+                  type="number"
+                  onChange={(e) => setTableNumber(e.target.value)}
+                  id="tableNumber"
+                  name="tableNumber"
+                  className="text-xl text-dark font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5 focus:ring-4 focus:ring-amber"
+                  placeholder="Table Number"
+                  required
+                />
+              </b>
             </div>
-            <div className="flex justify-center">
-                <Button type="submit" className="h-16 font-sans font-semibold bg-lemon rounded-lg text-xl w-40 rounded-2xl px-5 py-2.5 text-center text-cherry hover:ring-4 hover:ring-amber focus:ring-amber">Enter</Button>
+            <div className="flex justify-center gap-4">
+              <Button
+                color="red"
+                onClick={() => {
+                  setOpenModal(false);
+                  console.log(tableNumber);
+                }}
+              >
+                <b>Order now</b>
+              </Button>
+              <Button color="green" onClick={() => setOpenModal(false)}>
+                <b>cancel</b>
+              </Button>
             </div>
-            </form>
-        </div>
-    );
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
 }
 
-
-export default TableNumber
+export default TableNumber;

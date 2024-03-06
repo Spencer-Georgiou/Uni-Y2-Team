@@ -209,7 +209,6 @@ const OrderMenu = () => {
                     <button
                       onClick={() => {
                         handleFood(item);
-
                         setOpenModal(true);
                       }}
                       type="button"

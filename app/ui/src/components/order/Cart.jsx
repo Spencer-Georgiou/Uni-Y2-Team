@@ -1,9 +1,8 @@
-import { Fragment, useEffect, useReducer } from "react";
 import { useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import OrderTotal from "./OrderTotal";
 
-const Cart = () => {
+const Cart = ({ setOpenModal }) => {
   //useSelector hook to get the cart state from our store
   const cart = useSelector((state) => state.cart);
 
@@ -22,6 +21,9 @@ const Cart = () => {
       </div>
       <button
         type="button"
+        onClick={() => {
+          setOpenModal(true);
+        }}
         class="w-48 text-lemon bg-cherry rounded-full text-2xl px-5 py-2 text-cente mx-36 mt-5 hover:bg-lemon hover:text-amber"
       >
         <b>Check Out</b>
