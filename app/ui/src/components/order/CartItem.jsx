@@ -10,8 +10,8 @@ import { useDispatch } from "react-redux";
 function CartItem({ name, description, price, quantity = 0 }) {
   const dispatch = useDispatch();
   return (
-    <div>
-      <p class="text-lg mt-2">
+    <div className="mt-3">
+      <p class="text-lg">
         <b>{name}</b>
       </p>
       <p>{description}</p>
@@ -63,7 +63,7 @@ function CartItem({ name, description, price, quantity = 0 }) {
           </button>
           <button
             type="button"
-            class="text-sm ml-1"
+            class="text-sm ml-1 underline hover:text-cherry"
             onClick={() => dispatch(removeItem(name))}
           >
             Remove

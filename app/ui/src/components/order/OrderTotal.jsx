@@ -1,9 +1,8 @@
 import { useSelector } from "react-redux";
 
-function Total() {
-  //get the state of cart in reducer
+const OrderTotal = () => {
+  //useSelector hook to get the cart state from our store
   const cart = useSelector((state) => state.cart);
-
   //@return the total price and quantity
   const getTotal = () => {
     //initial state is 0
@@ -17,6 +16,15 @@ function Total() {
 
     return { totalPrice, totalQuantity };
   };
-  return <p>{getTotal.totalQuantity()}</p>;
-}
-export default Total;
+
+  return (
+    <div>
+      <p className="mt-5 mb-2 overline decoration-2 text-lg">
+        Total ( {getTotal().totalQuantity} items) :{" "}
+        <b>${getTotal().totalPrice}</b>
+      </p>
+    </div>
+  );
+};
+
+export default OrderTotal;
