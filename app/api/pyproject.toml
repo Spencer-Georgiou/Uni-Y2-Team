@@ -1,16 +1,6 @@
 [project]
 name = "OAXACA-API"
 version = "0.0.1"
-dependencies = [
-    "Flask==3.0.2",
-    "flask_smorest==0.44.0",
-    "flask_sqlalchemy==3.1.1",
-    "marshmallow_sqlalchemy==1.0.0",
-    "pytest==8.0.0",
-    "SQLAlchemy==2.0.26",
-    "python-dotenv==1.0.1",
-    "pylint==3.1.0"
-]
 
 [tool.pytest.ini_options]
 # ignore Deprecation warnings
