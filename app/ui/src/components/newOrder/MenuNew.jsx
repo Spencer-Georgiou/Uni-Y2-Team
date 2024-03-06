@@ -1,7 +1,7 @@
 'use client';
 
-import React, {useState, useEffect} from "react"
-import {Button, Modal } from 'flowbite-react';
+import React, { useState, useEffect } from "react"
+import { Button, Modal } from 'flowbite-react';
 
 
 // Buttons which waiter presses to filter menu
@@ -32,10 +32,10 @@ const filterButtons = [
     }
 ];
 
-const MenuModify = () => {
+const MenuModify = ({ orderNewItem }) => {
     const [data, setData] = useState([])
     const [filteredMenu, setFilteredMenu] = useState(data)
-    const [openModal, setOpenModal] =useState(false);
+    const [openModal, setOpenModal] = useState(false);
     const [allergens, setAllergens] = useState(data)
 
     // States to display in the Modal
@@ -50,189 +50,193 @@ const MenuModify = () => {
         name: "",
         calorie: "",
         price: "",
-        quantity:0,
-      });
-    
+        quantity: 0,
+    });
+
 
 
 
     // Fetches menu data from api and sets it in json format
     useEffect(() => {
         fetch('/api/menu')
-          .then(response => response.json())
-          .then(json => setData(json))
+            .then(response => response.json())
+            .then(json => setData(json))
 
-      }, [])
+    }, [])
 
 
-  
 
-      // Filter menu item
-        const filterMenu = (filterType) => { //The argument filterType is the filter waiter wants to display
-            if (filterType === "All"){ //If waiter wants to display the entire menu, it will set the
-                setFilteredMenu(data);// filtered menu state as just the entire data
-                
-            }
-            else{ // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
-                let filteredFood = data.filter(item => item.menugroup.category === filterType);
-                setFilteredMenu(filteredFood)
-            }
+
+    // Filter menu item
+    const filterMenu = (filterType) => { //The argument filterType is the filter waiter wants to display
+        if (filterType === "All") { //If waiter wants to display the entire menu, it will set the
+            setFilteredMenu(data);// filtered menu state as just the entire data
+
         }
-
-
-
-
-        const getAllergens = (itemAllergens) => {
-
-            setAllergens(itemAllergens)
+        else { // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
+            let filteredFood = data.filter(item => item.menugroup.category === filterType);
+            setFilteredMenu(filteredFood)
         }
-
-        const setVariables = (food) => {
-            setFoodName(food.name)
-            setFoodDescription(food.description)
-            setFoodCalories(food.calorie)
-        }
+    }
 
 
 
 
+    const getAllergens = (itemAllergens) => {
 
+        setAllergens(itemAllergens)
+    }
 
-        const increaseQuantity = (currentQuantity) => {
-            setOrderQuantity(orderQuantity + 1)
-        }
-
-        const decreaseQuantity = (currentQuantity) => {
-            {orderQuantity > 0 ? setOrderQuantity(orderQuantity - 1) : setOrderQuantity(0)}
-            // setOrderQuantity(orderQuantity - 1)
-        }  
-
-
-        const handleOrder = (orderitem) => {
-            setOrderItem({
-            name: orderitem.name,
-            calorie: orderitem.calorie,
-            price: orderitem.price,
-            quantity:orderQuantity,
-            });
-        }
+    const setVariables = (food) => {
+        setFoodName(food.name)
+        setFoodDescription(food.description)
+        setFoodCalories(food.calorie)
+    }
 
 
 
 
 
 
-    
-        
-    
-        
+    const increaseQuantity = (currentQuantity) => {
+        setOrderQuantity(orderQuantity + 1)
+    }
+
+    const decreaseQuantity = (currentQuantity) => {
+        { orderQuantity > 0 ? setOrderQuantity(orderQuantity - 1) : setOrderQuantity(0) }
+        // setOrderQuantity(orderQuantity - 1)
+    }
+
+
+    const handleOrder = (item, quantity) => {
+        orderNewItem({
+            name: item.name,
+            calorie: item.calorie,
+            price: item.price,
+            quantity: quantity,
+        })
+    }
+
+    const getQuantity = (quantity) => {
+        setOrderQuantity(quantity);
+    }
 
 
 
 
-        return(
 
-            <div className="Menu relative overflow-x-auto">
-                {filterButtons.map((item, index) => (
-                    <button className="bg-redder text-black text-3xl  font-sans font-bold py-5 px-5 my-2 mx-1 space-x-4 rounded-lg" 
-                    key={index} value={item.name} onClick={()=> filterMenu(item.name)}>
-                        
-                        {item.name}
-                    </button>
-                ))}
 
-                    <table border={1} className="w-full text-xl text-left rtl:text-right">
-                        <thead>
-                            <tr className="bg-amber text-3xl text-sans">
 
-                                <th scope="col" className="px-6 py-3">Name</th>
-                                <th scope="col" className="px-6 py-3">Price</th>
-                                <th scope="col" className="px-6 py-3">Calorie</th>
-                                <th scope="col" className="px-6 py-3">  </th>
-                                
 
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {filteredMenu.map((item) => (
-                            <tr key={item.id} 
+
+
+
+
+
+
+    return (
+
+        <div className="Menu relative overflow-x-auto">
+            {filterButtons.map((item, index) => (
+                <button className="bg-redder text-black text-3xl  font-sans font-bold py-5 px-5 my-2 mx-1 space-x-4 rounded-lg"
+                    key={index} value={item.name} onClick={() => filterMenu(item.name)}>
+
+                    {item.name}
+                </button>
+            ))}
+
+            <table border={1} className="w-full text-xl text-left rtl:text-right">
+                <thead>
+                    <tr className="bg-amber text-3xl text-sans">
+
+                        <th scope="col" className="px-6 py-3">Name</th>
+                        <th scope="col" className="px-6 py-3">Price</th>
+                        <th scope="col" className="px-6 py-3">Calorie</th>
+                        <th scope="col" className="px-6 py-3">  </th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {filteredMenu.map((item) => (
+                        <tr key={item.id}
                             className="text-sans text-2xl bg-lemon border-b dark:bg-gray-800 dark:border-gray-700">
-                                <Modal 
+                            <Modal
                                 size="4xl"
                                 show={openModal} onClose={() => setOpenModal(false)}>
 
 
-                                    
-                                    <Modal.Header className="text-5xl text-black text-sans text-base">{foodName}</Modal.Header>
-                                    <Modal.Body>
 
-                                        <div className="space-y-6">
-                                            <p className="text-xl text-black text-sans text-base">
-                                                {foodDescription}
-                                            </p>
-                                            <p className="text-m text-black text-sans text-base">
-                                                {foodCalories} calories
-                                            </p>
+                                <Modal.Header className="text-5xl text-black text-sans text-base">{foodName}</Modal.Header>
+                                <Modal.Body>
 
-                                            {allergens &&
+                                    <div className="space-y-6">
+                                        <p className="text-xl text-black text-sans text-base">
+                                            {foodDescription}
+                                        </p>
+                                        <p className="text-m text-black text-sans text-base">
+                                            {foodCalories} calories
+                                        </p>
+
+                                        {allergens &&
                                             allergens.map(food => (
                                                 <p key={food.id} className="text-m text-black text-sans text-base">
-                                                Allergen: {food.name}
-                                            </p>
+                                                    Allergen: {food.name}
+                                                </p>
                                             ))}
-                                        </div>
+                                    </div>
 
 
 
-                                    </Modal.Body>
-                                    <Modal.Footer>
+                                </Modal.Body>
+                                <Modal.Footer>
 
 
 
-                                        <button type="button" 
+                                    <button type="button"
                                         className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full"
-                                        onClick={()=> decreaseQuantity({orderQuantity})}>
-                                                --
-                                        </button>
+                                        onClick={() => decreaseQuantity({ orderQuantity })}>
+                                        --
+                                    </button>
 
-                                        <p className="text-xl text-bold text-black text-sans text-base">{orderQuantity}</p>
+                                    <p className="text-xl text-bold text-black text-sans text-base">{orderQuantity}</p>
 
-                                        <button type="button" 
+                                    <button type="button"
                                         className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full"
-                                        onClick={()=> increaseQuantity({orderQuantity})}>
-                                                +
-                                        </button>
+                                        onClick={() => increaseQuantity({ orderQuantity })}>
+                                        +
+                                    </button>
 
 
 
 
-                                        <button type="button" 
+                                    <button type="button"
                                         className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg"
                                         onClick={() => setOpenModal(false)}>
-                                            Add to order
-                                        </button>                                    
+                                        Add to order
+                                    </button>
 
-                                    </Modal.Footer>
+                                </Modal.Footer>
                             </Modal>
                             <td className="px-6 py-4">{item.name}</td>
                             <td className="px-6 py-4">{item.price}</td>
                             <td className="px-6 py-4">{item.calorie}</td>
 
                             <td className="px-6 py-4">
-                                <button type="button" 
+                                <button type="button"
                                     className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg"
-                                    onClick={() => {setOpenModal(true);getAllergens(item.allergens); setVariables(item); setOrderQuantity(0)}}>
+                                    onClick={() => { setOpenModal(true); getAllergens(item.allergens); setVariables(item); setOrderQuantity(0); handleOrder(item) }}>
                                     Add to order
-                                </button> 
+                                </button>
                             </td>
                         </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                </div>
-            
-        )
+                    ))}
+                </tbody>
+            </table>
+        </div>
+
+    )
 }
 export default MenuModify
 
