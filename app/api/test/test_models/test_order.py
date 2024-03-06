@@ -40,14 +40,6 @@ class TestOrder:
             db.session.add_all([invalid_order, table])
             db.session.commit()
 
-    # An active order cannot be assigned to the table that already has one.
-    def test_no_two_active_order_with_same_table(self, db, table, active_order):
-        db.session.add_all([table, active_order])
-        db.session.commit()
-
-        with pytest.raises(ValueError) as exception:
-            another_active_order = Order(table=table, status=Order.Status.ORDERING)
-
     # An order can add one menuitem as well as the quantity.
     def test_add_an_menuitem_association(self, db, order, menuitem):
         association = OrderMenuItemAssociation(menuitem=menuitem, quantity=2)

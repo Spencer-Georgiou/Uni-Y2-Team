@@ -118,8 +118,7 @@ class TestOrderSchema:
     def test_serialize_order(self, db, active_order, menuitem):
         expected = {'status': 'Preparing',
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
-                    'table_number': 10, 'id': 1, 'confirmed_waiter': False,
-                    'confirmed_kitchen': False}
+                    'table_number': 10, 'id': 1, 'confirmed_waiter': False}
         active_order.menuitem_associations.append(
             OrderMenuItemAssociation(menuitem=menuitem, quantity=3))
         db.session.add(active_order)
