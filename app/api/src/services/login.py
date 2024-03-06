@@ -1,10 +1,10 @@
 from flask import request
-from .apidoc import apidoc
-from flask_restx import Resource
+from src.apidoc import apidoc
+from flask.views import MethodView
 
 from sqlalchemy.exc import SQLAlchemyError
-from .model import User
-from .model import db
+from src.models import User
+from src.models import db
 
 import hashlib
 import random
@@ -19,8 +19,9 @@ def generate_token(username):
 
     return hashlib.sha256(to_hash.encode("utf-8")).hexdigest()
 
+
 @apidoc.route("/login")
-class Login(Resource):
+class Login(MethodView):
     def post(self):
         try:
             data = request.get_json()
@@ -36,12 +37,13 @@ class Login(Resource):
             if not user or user.password != password:
                 return {"error_message": "Invalid credentials"}, 401
 
-            return {"session_key": generate_token(username), "role": user.__tablename__, "error_message": None}, 200
+            return {"session_key": generate_token(username), "role": user.__tablename__,
+                    "error_message": None}, 200
         except SQLAlchemyError:
             return {"error_message": "Database error occurred"}, 500
         except Exception as e:
             return {"error_message": str(e)}, 500
 
-
 # INSTRUCTIONS-READ-ME
-# Run the app and send POST requests to /api/login with 'username' and 'password' parameters to authenticate users.
+# Run the app and send POST requests to /api/login with 'username' and 'password' parameters to
+# authenticate users.

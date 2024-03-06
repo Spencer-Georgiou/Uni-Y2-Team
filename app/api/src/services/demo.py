@@ -1,13 +1,14 @@
 """
-Module providing an example to show flask and flask-restx
+Module providing an example to show flask and flask-smorest
 """
 
-from flask_restx import Resource
-from .apidoc import apidoc
+from flask.views import MethodView
+
+from src.apidoc import apidoc
 
 
 @apidoc.route("/demo")
-class Demo(Resource):
+class Demo(MethodView):
     """
     A sample class.
     """

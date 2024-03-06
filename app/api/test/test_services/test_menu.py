@@ -1,13 +1,7 @@
 """
 Testing menu apis.
 """
-from src.model import Allergen
-from src.model import MenuGroup
-from src.model import MenuItem
 from src.schema import MenuItemSchema
-from .fixture_model import menugroup
-from .fixture_model import menuitem
-from .fixture_model import allergen
 
 
 class TestMenu:

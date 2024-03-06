@@ -1,17 +1,20 @@
 """
-Module creating database entries for deployment.
+Module creating database entries.
 """
-
-from .model import Kitchen
-from .model import MenuItem
-from .model import Allergen
-from .model import MenuGroup
-from .model import Session
-from .model import Waiter
-from .model import db
+from src.models import Table
+from src.models.allergen import Allergen
+from src.models.base import db
+from src.models.kitchen import Kitchen
+from src.models.menugroup import MenuGroup
+from src.models.menuitem import MenuItem
+from src.models.session import Session
+from src.models.waiter import Waiter
 
 
 def migrate():
+    """
+    Create database entries.
+    """
     # initialize menu groups
     starter = MenuGroup(type=MenuGroup.Type.FOOD, category=MenuGroup.Category.STARTER)
     main = MenuGroup(type=MenuGroup.Type.FOOD, category=MenuGroup.Category.MAIN)
@@ -83,4 +86,7 @@ def migrate():
         Session(user=kitchen, token="abcde"),
     ])
 
+    # initialize tables
+    for number in range(1, 20 + 1):
+        db.session.add(Table(number=number))
     db.session.commit()
