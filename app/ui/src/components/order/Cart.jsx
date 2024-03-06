@@ -6,16 +6,21 @@ import CartItem from "./CartItem";
 import Total from "./Total";
 
 const Cart = () => {
+  //useSelector hook to get the cart state from our store
   const cart = useSelector((state) => state.cart);
-
-  const getTotalQuantity = () => {
-    let total = 0;
+  //@return the total price and quantity
+  const getTotal = () => {
+    //initial state is 0
+    let totalQuantity = 0;
+    let totalPrice = 0;
+    //iterate each item in the cart state to add quantities and prices
     cart.forEach((item) => {
-      total += item.quantity;
+      totalQuantity += item.quantity;
+      totalPrice += item.price * item.quantity;
     });
-    return total;
+
+    return { totalPrice, totalQuantity };
   };
-  const dispatch = useDispatch();
 
   return (
     <div class="w-1/3 bg-amber h-screen">
@@ -28,8 +33,11 @@ const Cart = () => {
             quantity={item.quantity}
           />
         ))}
-        <p>{getTotalQuantity() || 0}</p>
-        {Total}
+        {/* <p>{getTotalQuantity() || 0}</p> */}
+        <p>
+          total ({getTotal().totalQuantity} items) :{" "}
+          <strong>${getTotal().totalPrice}</strong>
+        </p>
       </div>
       <button
         type="button"

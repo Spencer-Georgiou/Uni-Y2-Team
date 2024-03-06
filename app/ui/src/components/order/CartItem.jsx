@@ -5,6 +5,8 @@ import {
 } from "./redux/cartSlice";
 import { useDispatch } from "react-redux";
 
+//display cart items
+//@param item name which is also id, item description, item price, set initial quantity to 0
 function CartItem({ name, description, price, quantity = 0 }) {
   const dispatch = useDispatch();
   return (

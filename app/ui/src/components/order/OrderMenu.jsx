@@ -26,7 +26,7 @@ const filterButtons = [
   },
 ];
 
-const OrderMenu = ({ handleOrder }) => {
+const OrderMenu = () => {
   const dispatch = useDispatch();
   const [food, setFood] = useState({
     name: "",
@@ -140,6 +140,7 @@ const OrderMenu = ({ handleOrder }) => {
         <Modal.Footer>
           <button
             onClick={() => {
+              //calling the addToCart action creator in the dispatch function from useDispatch
               dispatch(
                 addToCart({
                   name: food.name,

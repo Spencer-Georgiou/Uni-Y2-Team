@@ -9,9 +9,7 @@ const Order = () => {
     <div class="flex flex-wrap justify-end w-screen h-screen">
       <div class="w-2/3 bg-lemon h-screen ">
         {/* <OrderProgress /> */}
-
         <OrderFilter />
-
         <OrderMenu />
       </div>
       <Cart />
