@@ -11,7 +11,7 @@ class TestOrder:
         db.session.commit()
 
         # expected response body
-        expected = {'confirmed_kitchen': False, 'confirmed_waiter': False, 'id': 1,
+        expected = {'confirmed_waiter': False, 'id': 1,
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
                     'status': 'Ordering', 'table_number': 10}
 

@@ -55,7 +55,6 @@ class Order(db.Model):
     table_number: Mapped[int] = mapped_column(ForeignKey("table.number"))
     status: Mapped[Status] = mapped_column(Enum(Status), default=Status.ORDERING)
     confirmed_waiter: Mapped[bool] = mapped_column(Boolean, default=False)
-    confirmed_kitchen: Mapped[bool] = mapped_column(Boolean, default=False)
 
     table: Mapped["Table"] = relationship(back_populates="orders")
     menuitem_associations: Mapped[List["OrderMenuItemAssociation"]] = relationship(
@@ -65,7 +64,7 @@ class Order(db.Model):
         return (
             f"Order(id={self.id!r}, table_number={self.table_number!r}, status={self.status!r}, "
             f"confirmed_waiter="
-            f"{self.confirmed_waiter!r}, confirmed_kitchen={self.confirmed_kitchen!r})")
+            f"{self.confirmed_waiter!r})")
 
     @validates("table")
     # validate whether the table, which the order is assigned, is available
