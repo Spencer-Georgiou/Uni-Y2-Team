@@ -1,3 +1,7 @@
+"""
+Module for the Order model.
+"""
+
 import enum
 from typing import List
 
@@ -67,6 +71,10 @@ class Order(db.Model):
     # validate whether the table, which the order is assigned, is available
     # pylint: disable=unused-argument
     def validate_table(self, key, table):
+        """
+        Will be deprecated soon since the relationship between table and order are going to be
+        one-to-one.
+        """
         active_order = table.get_active_order()
         if active_order:
             raise ValueError(

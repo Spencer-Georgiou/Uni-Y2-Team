@@ -14,6 +14,7 @@ from .models import Session
 from .models import db
 
 
+# pylint: disable=missing-class-docstring
 class BaseMeta:
     """Base metaclass for all Schemas, which enable loading and deserialization."""
     load_instance = True

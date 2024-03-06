@@ -1,3 +1,7 @@
+"""
+Module for the MenuItem model.
+"""
+
 from typing import List
 from typing import Optional
 

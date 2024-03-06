@@ -3,6 +3,8 @@ import pytest
 from src.models import MenuItem
 from src.models import Order
 from src.models import OrderMenuItemAssociation
+from src.models import Table
+from sqlalchemy.exc import IntegrityError
 
 
 class TestOrder:
@@ -17,6 +19,26 @@ class TestOrder:
         db.session.commit()
 
         assert order.table is table
+
+    # An order raises an IntegrityError when the table number does not exist.
+    def test_relationship_incorrect_table_number(self, db):
+        invalid_table_number = 200
+        with pytest.raises(IntegrityError) as exception:
+            invalid_order = Order(table_number=invalid_table_number)
+            db.session.add(invalid_order)
+            db.session.commit()
+
+    # An order raises an IntegrityError when the menuitem associations contains a menuitem,
+    # which name does not exist in the database.
+    def test_relationship_incorrect_menuitem_associations(self, db, table, menuitem):
+        invalid_menu_item = menuitem
+        with pytest.raises(IntegrityError) as exception:
+            invalid_order = Order(table_number=table.number, menuitem_associations=[
+                OrderMenuItemAssociation(menuitem_name=invalid_menu_item.name, quantity=3)])
+
+            # not log the menuitem to the database
+            db.session.add_all([invalid_order, table])
+            db.session.commit()
 
     # An active order cannot be assigned to the table that already has one.
     def test_no_two_active_order_with_same_table(self, db, table, active_order):

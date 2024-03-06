@@ -1,3 +1,7 @@
+"""
+Module for the User model.
+"""
+
 import enum
 from typing import Optional
 
@@ -21,6 +25,10 @@ class User(db.Model):
     """
 
     class Role(enum.Enum):
+        """
+        Enumeration of user roles.
+        """
+        CUSTOMER = "Customer"
         WAITER = "Waiter"
         KITCHEN = "Kitchen"
 

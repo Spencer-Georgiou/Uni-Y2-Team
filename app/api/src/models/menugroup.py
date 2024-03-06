@@ -1,3 +1,7 @@
+"""
+Module for the MenuGroup model.
+"""
+
 import enum
 from typing import List
 from typing import Optional

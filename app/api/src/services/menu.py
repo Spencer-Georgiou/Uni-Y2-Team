@@ -1,6 +1,7 @@
 """
-Module that provides the restaurant menus.
+Module that provide apis to present the restaurant menus.
 """
+
 from flask.views import MethodView
 
 from src.apidoc import apidoc

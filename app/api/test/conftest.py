@@ -44,6 +44,13 @@ from src.models import Order
 from src.models import Session
 from src.models import Table
 from src.models import Waiter
+from src.models import Customer
+
+
+@pytest.fixture
+# a Customer instance
+def customer():
+    return Customer(username="Robert", password="123456")
 
 
 # a Waiter instance
@@ -56,6 +63,12 @@ def waiter():
 @pytest.fixture
 def kitchen():
     return Kitchen(username="Jenny", password="123456")
+
+
+# a Session instance for customer
+@pytest.fixture
+def session_for_customer(customer):
+    return Session(user=customer, token="abcde")
 
 
 # a Session instance for waiter

@@ -1,3 +1,7 @@
+"""
+Module for the Waiter model.
+"""
+
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column

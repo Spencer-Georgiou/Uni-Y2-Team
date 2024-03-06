@@ -12,3 +12,4 @@ from src.models.session import Session
 from src.models.table import Table
 from src.models.user import User
 from src.models.waiter import Waiter
+from src.models.customer import Customer

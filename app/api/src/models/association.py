@@ -1,3 +1,7 @@
+"""
+Module for the relationships between two models.
+"""
+
 from sqlalchemy import CheckConstraint
 from sqlalchemy import ForeignKey
 from sqlalchemy import PrimaryKeyConstraint

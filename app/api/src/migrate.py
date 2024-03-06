@@ -1,5 +1,5 @@
 """
-Module creating database entries for deployment.
+Module creating database entries.
 """
 from src.models import Table
 from src.models.allergen import Allergen
@@ -12,6 +12,9 @@ from src.models.waiter import Waiter
 
 
 def migrate():
+    """
+    Create database entries.
+    """
     # initialize menu groups
     starter = MenuGroup(type=MenuGroup.Type.FOOD, category=MenuGroup.Category.STARTER)
     main = MenuGroup(type=MenuGroup.Type.FOOD, category=MenuGroup.Category.MAIN)
