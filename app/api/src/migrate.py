@@ -35,8 +35,6 @@ def migrate():
     menuitems = [
         MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
                  calorie=600, price=5.00, menugroup=starter, allergens=[gluten, dairy]),
-        MenuItem(name="Jalapeno Poppers", description="With cream cheese",
-                 calorie=450, price=3.50, menugroup=starter, allergens=[]),
         MenuItem(name="Patatas Bravas",
                  description="Roasted potatoes in tomato dressing", calorie=500,
                  price=3.00, menugroup=starter, allergens=[nut, egg]),
@@ -70,8 +68,6 @@ def migrate():
                  menugroup=alcoholic, allergens=[]),
         MenuItem(name="Corona", description="Beer", calorie=300, price=3.00,
                  menugroup=alcoholic, allergens=[gluten, egg, mollusk]),
-        MenuItem(name="PinaColada", description="Pineapple cocktail", calorie=400, price=2.50,
-                 menugroup=alcoholic, allergens=[]),
     ]
 
     db.session.add_all(menuitems)
