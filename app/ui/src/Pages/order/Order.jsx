@@ -29,8 +29,8 @@ const Order = () => {
 
   const [order, setOrder] = useState([
     {
-      name: "hello",
-      price: "3",
+      name: "Tacos with Crispy tacos filled with cheese",
+      price: "￡5.00",
       amount: 1,
       id: 1,
     },
