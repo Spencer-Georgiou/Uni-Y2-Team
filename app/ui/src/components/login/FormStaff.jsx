@@ -40,7 +40,7 @@ const FormStaff = () => {
 
 
         };
-        fetch('/api/login', postingData).then(response => {
+        fetch('api/login', postingData).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
@@ -53,7 +53,12 @@ const FormStaff = () => {
             Cookies.set('session_key', session_key); // sets the session key as a cookie for future reference
             console.log("set cookie");
             alert("login success!");
-            navigate('/WaiterHub');
+            if (data.role === "waiter") {
+                navigate('/WaiterHub');
+            } else {
+                navigate('/KitchenHub');
+            }
+
 
         }).catch(error => {
             console.error("error happening", error)
@@ -69,34 +74,34 @@ const FormStaff = () => {
             //Input field that allows users to input their usernames
             <div className="mb-5">
                 <b>
-                    <input 
-                    type="text" 
-                    id="username" 
-                    //Variable will be assigned as a username
-                    value={username} 
-                    //When user submits form, assign input to username variable
-                    onChange={handleUsernameChange} 
-                    name="username" 
-                    className=" text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5" 
-                    placeholder="Username" 
-                    required 
+                    <input
+                        type="text"
+                        id="username"
+                        //Variable will be assigned as a username
+                        value={username}
+                        //When user submits form, assign input to username variable
+                        onChange={handleUsernameChange}
+                        name="username"
+                        className=" text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5"
+                        placeholder="Username"
+                        required
                     />
                 </b>
             </div>
             //Input field that allows users to input their password
             <div className="mb-5 ">
                 <b>
-                    <input 
-                    type="password" 
-                    id="password" 
-                    //Variable will be assigned as a password
-                    value={password}
-                    //When user submits form, assign input to password variable 
-                    onChange={handlePasswordChange} 
-                    name="password" 
-                    className="text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5" 
-                    placeholder="Password" 
-                    required 
+                    <input
+                        type="password"
+                        id="password"
+                        //Variable will be assigned as a password
+                        value={password}
+                        //When user submits form, assign input to password variable 
+                        onChange={handlePasswordChange}
+                        name="password"
+                        className="text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5"
+                        placeholder="Password"
+                        required
                     />
                 </b>
             </div>
