@@ -21,6 +21,7 @@ import NavBarRegistration from './components/registration/NavBarRegistration';
 import NewOrder from './pages/waiterHub/NewOrder';
 import OrderNavBar from './components/order/OrderNavBar';
 import KitchenHub from './pages/kitchenHub/KitchenHub'
+import NavBarKitchenHub from './components/kitchenHub/NavBarKitchenHub';
 
 
 function PickNavBar() {
@@ -32,8 +33,10 @@ function PickNavBar() {
     case "/WaiterHub":
     case "/ModifyCancelOrder":
     case "/NewOrder":
-    case "/KitchenHub":
       return <NavBarWaiterHub />;
+
+    case "/KitchenHub":
+      return <NavBarKitchenHub />;
 
     case "/StaffLogin":
       return <NavBarStaff />;
