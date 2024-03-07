@@ -20,7 +20,8 @@ import NavBarCustomer from './components/login/NavBarCustomer';
 import NavBarRegistration from './components/registration/NavBarRegistration';
 import NewOrder from './pages/waiterHub/NewOrder';
 
-
+/**Picks which NavBar to display depending on what page is active.
+ */
 function PickNavBar() {
 
   const location = useLocation();
@@ -29,14 +30,19 @@ function PickNavBar() {
   switch (location.pathname) {
     case "/WaiterHub":
     case "/ModifyCancelOrder":
+    //Waiters Hub NavBar which contains a user icon and link back to main hub page
+    case "/NewOrder":
       return <NavBarWaiterHub />;
 
+    //Staff Login NavBar which removes Sign Up and Log In buttons from general NavBar
     case "/StaffLogin":
       return <NavBarStaff />;
 
+    //Customer Login NavBar which removes Log In buttons from general NavBar
     case "/CustomerLogin":
       return <NavBarCustomer />;
 
+    //Registration NavBar which removes Sign Up butotns from general NavBar
     case "/Registration":
       return <NavBarRegistration />;
 
@@ -49,7 +55,7 @@ function PickNavBar() {
 
 function App() {
   return (
-    //add in the other paths to the other pages
+    //Add in the other paths to the other pages
     <div className="App">
 
       <Router>
