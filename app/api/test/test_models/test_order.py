@@ -59,3 +59,15 @@ class TestOrder:
         order.menuitem_associations.extend([association, another_association])
         db.session.add(order)
         db.session.commit()
+
+    # Two orders cannot associate with the same table.
+    def test_avoid_relationship_occupied_table(self, db, order):
+        # when an order in the database
+        db.session.add(order)
+        db.session.commit()
+
+        # create another order pointing to the same table should raise an error
+        with pytest.raises(IntegrityError):
+            another_order = Order(table_number=order.table_number)
+            db.session.add(another_order)
+            db.session.commit()
