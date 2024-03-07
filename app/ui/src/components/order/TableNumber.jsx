@@ -18,7 +18,7 @@ function TableNumber({ openModal, setOpenModal, setShowProgress }) {
     cart.map((item) =>
       order.menuitem_associations.push({
         menuitem_name: item.name,
-        quantity: item.quantity,
+        quantity: parseInt(item.quantity),
       })
     );
     console.log(order);
@@ -33,10 +33,11 @@ function TableNumber({ openModal, setOpenModal, setShowProgress }) {
       },
       body: JSON.stringify(order),
     };
-    fetch("/api/login", postingData)
+    fetch("/api/order", postingData)
       .then((response) => {
-        if (response.status === 200) return response.json();
-        else alert("error here");
+        if (response.status === 200) {
+          return response.json();
+        } else alert("error here");
       })
       .then()
       .catch((error) => {
@@ -69,7 +70,10 @@ function TableNumber({ openModal, setOpenModal, setShowProgress }) {
                   <input
                     type="number"
                     onChange={(e) =>
-                      setOrder({ ...order, table_number: e.target.value })
+                      setOrder({
+                        ...order,
+                        table_number: parseInt(e.target.value),
+                      })
                     }
                     id="tableNumber"
                     name="tableNumber"
