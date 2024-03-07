@@ -13,7 +13,7 @@ class TestOrder:
         # expected response body
         expected = {'confirmed_waiter': False, 'id': 1,
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
-                    'status': 'Ordering', 'table_number': 10}
+                    'status': 'Preparing', 'table_number': 10}
 
         response = client.post("/api/order", json={
             "table_number": 10,
