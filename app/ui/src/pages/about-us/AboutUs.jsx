@@ -1,5 +1,5 @@
 
-
+{/*Page that contains information about the history of the restaurant and staff.*/}
 const AboutUs = () => {
     return (
         <div>
