@@ -7,12 +7,18 @@ import TableNumber from "../../components/order/TableNumber";
 
 const Order = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
   return (
-    <div class="flex flex-wrap justify-end w-screen h-screen">
+    <div class="flex flex-wrap justify-end w-screen h-auto">
       <div class="w-2/3 bg-lemon h-auto">
+        {showProgress && <OrderProgress />}
         <OrderFilter />
         <OrderMenu />
-        <TableNumber openModal={openModal} setOpenModal={setOpenModal} />
+        <TableNumber
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          setShowProgress={setShowProgress}
+        />
       </div>
       <Cart setOpenModal={setOpenModal} />
     </div>

@@ -191,7 +191,7 @@ const OrderMenu = () => {
               menu.map((item) => (
                 <tr
                   key={item.id}
-                  className="bg-amber border-b dark:bg-gray-800 dark:border-gray-700"
+                  className="bg-amber border-b border-lemon dark:bg-gray-800 dark:border-gray-700"
                 >
                   <td className="px-4 py-4">
                     <p className="text-lemon text-lg mb-2">
