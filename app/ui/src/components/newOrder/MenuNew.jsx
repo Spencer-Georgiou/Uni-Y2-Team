@@ -1,57 +1,34 @@
 'use client';
 
 import React, { useState, useEffect } from "react"
-import { Button, Modal } from 'flowbite-react';
+// import {  Modal } from 'flowbite-react';
+import ModalNew from "../../components/newOrder/ModalNew";
 
 
 // Buttons which waiter presses to filter menu
 const filterButtons = [
-    {
-        name: "All",
-        value: "All"
-    },
-    {
-        name: "Starter",
-        value: "Starter"
-    },
-    {
-        name: "Main",
-        value: "Main"
-    },
-    {
-        name: "Dessert",
-        value: "Dessert"
-    },
-    {
-        name: "Non-Alcoholic",
-        value: "Non-Alcoholic"
-    },
-    {
-        name: "Alcoholic",
-        value: "Alcoholic"
-    }
+    { name: "All", value: "All" },
+    { name: "Starter", value: "Starter" },
+    { name: "Main", value: "Main" },
+    { name: "Dessert", value: "Dessert" },
+    { name: "Non-Alcoholic", value: "Non-Alcoholic" },
+    { name: "Alcoholic", value: "Alcoholic" }
 ];
+
+
+
+
+
 
 const MenuModify = ({ orderNewItem }) => {
     const [data, setData] = useState([])
     const [filteredMenu, setFilteredMenu] = useState(data)
-    const [openModal, setOpenModal] = useState(false);
-    const [allergens, setAllergens] = useState(data)
-
-    // States to display in the Modal
-    const [foodName, setFoodName] = useState("")
-    const [foodDescription, setFoodDescription] = useState("")
-    const [foodCalories, setFoodCalories] = useState(0)
+    const [selectedItemId, setSelectedItemId] = useState(null);
 
 
-    // Food item the customer wants to order
-    const [orderQuantity, setOrderQuantity] = useState(0)
-    const [orderItem, setOrderItem] = useState({
-        name: "",
-        calorie: "",
-        price: "",
-        quantity: 0,
-    });
+    // Quantity of food item the customer wants to order
+    const [orderQuantity, setOrderQuantity] = useState({})
+
 
 
 
@@ -82,43 +59,45 @@ const MenuModify = ({ orderNewItem }) => {
 
 
 
-    const getAllergens = (itemAllergens) => {
-
-        setAllergens(itemAllergens)
+    const increaseQuantity = (quant) => {
+        setOrderQuantity(prevState => ({ //prev state is the previous state iof ordeQuantity
+            ...prevState, 
+            [quant]: (prevState[quant] || 0) +1 //updating the quantity associated with the item identified by quant. 
+            //If quant already exists in the previous state (prevState), we increment its value by 1. 
+            //If quant doesn't exist (i.e., it's the first time we're adding this item), we default its value to 0 and then increment it by 1.
+        }));
     }
 
-    const setVariables = (food) => {
-        setFoodName(food.name)
-        setFoodDescription(food.description)
-        setFoodCalories(food.calorie)
+    const decreaseQuantity = (quant) => {
+        setOrderQuantity(prevState => ({
+            ...prevState,
+            [quant]: Math.max((prevState[quant] || 1) -1, 0)
+        }));
     }
 
+    const openModalForItem = (itemId) => {
+        setSelectedItemId(itemId);
+    };
+
+    const closeModal = () => {
+        setSelectedItemId(null);
+        setOrderQuantity({})
+    };
 
 
 
 
-
-    const increaseQuantity = (currentQuantity) => {
-        setOrderQuantity(orderQuantity + 1)
-    }
-
-    const decreaseQuantity = (currentQuantity) => {
-        { orderQuantity > 0 ? setOrderQuantity(orderQuantity - 1) : setOrderQuantity(0) }
-        // setOrderQuantity(orderQuantity - 1)
-    }
-
-
-    const handleOrder = (item, quantity) => {
-        orderNewItem({
-            name: item.name,
-            calorie: item.calorie,
-            price: item.price,
-            quantity: quantity,
-        })
-    }
-
-    const getQuantity = (quantity) => {
-        setOrderQuantity(quantity);
+    const handleOrder = (item) => {
+        let quantity = orderQuantity[item.id];
+        {quantity > 0 ?
+            (orderNewItem({
+                name: item.name,
+                calorie: item.calorie,
+                price: item.price,
+                quantity: quantity,
+            }))
+            : (quantity = 0)
+        }
     }
 
 
@@ -159,76 +138,31 @@ const MenuModify = ({ orderNewItem }) => {
                     </tr>
                 </thead>
                 <tbody>
+                    {/* Render each item */}
                     {filteredMenu.map((item) => (
-                        <tr key={item.id}
-                            className="text-sans text-2xl bg-lemon border-b dark:bg-gray-800 dark:border-gray-700">
-                            <Modal
-                                size="4xl"
-                                show={openModal} onClose={() => setOpenModal(false)}>
-
-
-
-                                <Modal.Header className="text-5xl text-black text-sans text-base">{foodName}</Modal.Header>
-                                <Modal.Body>
-
-                                    <div className="space-y-6">
-                                        <p className="text-xl text-black text-sans text-base">
-                                            {foodDescription}
-                                        </p>
-                                        <p className="text-m text-black text-sans text-base">
-                                            {foodCalories} calories
-                                        </p>
-
-                                        {allergens &&
-                                            allergens.map(food => (
-                                                <p key={food.id} className="text-m text-black text-sans text-base">
-                                                    Allergen: {food.name}
-                                                </p>
-                                            ))}
-                                    </div>
-
-
-
-                                </Modal.Body>
-                                <Modal.Footer>
-
-
-
-                                    <button type="button"
-                                        className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full"
-                                        onClick={() => decreaseQuantity({ orderQuantity })}>
-                                        --
-                                    </button>
-
-                                    <p className="text-xl text-bold text-black text-sans text-base">{orderQuantity}</p>
-
-                                    <button type="button"
-                                        className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full"
-                                        onClick={() => increaseQuantity({ orderQuantity })}>
-                                        +
-                                    </button>
-
-
-
-
-                                    <button type="button"
-                                        className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg"
-                                        onClick={() => setOpenModal(false)}>
-                                        Add to order
-                                    </button>
-
-                                </Modal.Footer>
-                            </Modal>
+                        <tr key={item.id} className="text-sans text-2xl bg-lemon border-b dark:bg-gray-800 dark:border-gray-700">
                             <td className="px-6 py-4">{item.name}</td>
                             <td className="px-6 py-4">{item.price}</td>
                             <td className="px-6 py-4">{item.calorie}</td>
-
                             <td className="px-6 py-4">
-                                <button type="button"
+                                <button
+                                    type="button"
                                     className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg"
-                                    onClick={() => { setOpenModal(true); getAllergens(item.allergens); setVariables(item); setOrderQuantity(0); handleOrder(item) }}>
+                                    onClick={() => {openModalForItem(filteredMenu.indexOf(item));console.log(item)}}
+                                >
                                     Add to order
                                 </button>
+                                {selectedItemId !== null && (
+                                    <ModalNew
+                                    item={filteredMenu[selectedItemId]}
+                                    openModal={true}
+                                    setOpenModal={closeModal}
+                                    decreaseQuantity={decreaseQuantity}
+                                    orderQuantity={orderQuantity}
+                                    increaseQuantity={increaseQuantity}
+                                    handleOrder={handleOrder}
+                                    />
+                                )}
                             </td>
                         </tr>
                     ))}

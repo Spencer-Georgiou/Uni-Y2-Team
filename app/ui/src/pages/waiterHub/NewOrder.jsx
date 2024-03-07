@@ -8,6 +8,7 @@ const NewOrder = () => {
 
     const orderNewItem = (newOrder) => {
         setAddedOrder([...addedOrder, newOrder]);
+        console.log(addedOrder)
     }
 
 
@@ -30,8 +31,12 @@ const NewOrder = () => {
 
                     <div className="flex flex-col flex-nowrap h-full w-full bg-yellow-200 rounded-[25px] ">
                         {addedOrder.map((order, index) => (
-                            <div className="flex" key={index}>
-                                {order.name} - Quantity:{order.quantity}
+                            <div className="flex text-black text-xl  font-sans font-bold " key={index}>
+                                {order.name}
+                                <br/>
+                                Quantity: {order.quantity}
+                                <br/>
+                                Price: £{order.quantity * order.price}
                             </div>
                         ))}
                     </div>
