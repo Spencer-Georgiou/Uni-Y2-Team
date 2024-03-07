@@ -3,6 +3,9 @@
 import { Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
+/**Takes users to Order Page
+ *
+ */
 function OrderButton() {
     return (
         <Link to="/Order" className="container py-5 min-w-full grid place-items-center bg-lemon">

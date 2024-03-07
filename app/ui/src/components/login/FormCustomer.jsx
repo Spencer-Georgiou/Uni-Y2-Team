@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 //import Cookies from "js-cookie";
 
+/**Form that allows users to input their username and password to log in.
+ * 
+ */
 const FormCustomer = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  //Change Username to user input
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
 
+  //Change Password to user input
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault(); // prevents the default form from submitting and keeps the page from reloading
@@ -39,12 +45,15 @@ const FormCustomer = () => {
 
   return (
     <form onSubmit={handleSubmit} className="px-6 mx-auto">
+      //Input field that allows users to input their usernames
       <div className="mb-5">
         <b>
           <input
             type="text"
             id="username"
+            //Variable will be assigned as a username
             value={username}
+            //When user submits form, assign input to username variable
             onChange={handleUsernameChange}
             name="username"
             className=" text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5"
@@ -53,12 +62,15 @@ const FormCustomer = () => {
           />
         </b>
       </div>
+      //Input field that allows users to input their password
       <div className="mb-5 ">
         <b>
           <input
             type="text"
             id="password"
+            //Variable will be assigned as a password
             value={password}
+            //When user submits form, assign input to password variable
             onChange={handlePasswordChange}
             name="password"
             className="text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5"
@@ -67,6 +79,7 @@ const FormCustomer = () => {
           />
         </b>
       </div>
+      //Button to submit form
       <div className="flex justify-center">
         <button
           type="submit"
