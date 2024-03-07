@@ -3,16 +3,17 @@ Module for the Order model.
 """
 
 import enum
+from datetime import datetime
 from typing import List
 
 from sqlalchemy import Boolean
+from sqlalchemy import DateTime
 from sqlalchemy import Enum
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from sqlalchemy.orm import validates
-
+from sqlalchemy.sql import functions
 from src.models.association import OrderMenuItemAssociation
 from src.models.base import db
 
@@ -23,10 +24,10 @@ class Order(db.Model):
 
     :cvar id: Identifier of the order
     :cvar table_number: Table number assigned to the order
-    :cvar status: State of the order, including "Ordering", "Preparing", "Delivering",
-    "Delivered" and "Finished"; defaults to "Ordering"
+    :cvar status: State of the order, including "Preparing", "Delivering" and
+    "Delivered"; defaults to "Preparing"
     :cvar confirmed_waiter: Indicator that whether the order is confirmed by a waiter
-    :cvar confirmed_kitchen: Indicator that whether the order is confirmed by a kitchen staff
+    :cvar time_created: Time when the order was created
     :cvar table: Table associated with the order
     :cvar menuitem_associations: Association with menuitems
     """
@@ -51,6 +52,9 @@ class Order(db.Model):
     table_number: Mapped[int] = mapped_column(ForeignKey("table.number"))
     status: Mapped[Status] = mapped_column(Enum(Status), default=Status.PREPARING)
     confirmed_waiter: Mapped[bool] = mapped_column(Boolean, default=False)
+    # use lambda to set default to a dynamically value
+    time_created: Mapped[datetime] = mapped_column((DateTime(timezone=True)),
+                                                   default=lambda: datetime.now())
 
     table: Mapped["Table"] = relationship(back_populates="order")
     menuitem_associations: Mapped[List["OrderMenuItemAssociation"]] = relationship(

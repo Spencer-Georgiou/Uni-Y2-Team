@@ -2,6 +2,7 @@
 Testing order apis.
 """
 from src.services import Order
+from src.schema import OrderSchema
 
 
 class TestOrder:
@@ -15,11 +16,16 @@ class TestOrder:
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
                     'status': 'Preparing', 'table_number': 10}
 
-        response = client.post("/api/order", json={
+        # when a post request is sent
+        request_json = {
             "table_number": 10,
             "menuitem_associations": [{'menuitem_name': 'Tacos', 'quantity': 3}],
-        })
+        }
+        response = client.post("/api/order", json=request_json)
+
+        # assert whether the response matches
         assert response.status_code == 200
+        expected['time_created'] = response.get_json().get('time_created')
         assert response.get_json() == expected
 
     def test_post_invalid_table_number(self, client, db, table, menuitem):

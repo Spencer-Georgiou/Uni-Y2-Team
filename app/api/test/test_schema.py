@@ -116,6 +116,7 @@ class TestOrderMenuItemAssociationSchema:
 class TestOrderSchema:
     # An order returned by a query is serializable.
     def test_serialize_order(self, db, order, menuitem):
+        # when an order is in the database
         expected = {'status': 'Preparing',
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
                     'table_number': 10, 'id': 1, 'confirmed_waiter': False}
@@ -124,6 +125,10 @@ class TestOrderSchema:
         db.session.add(order)
         db.session.commit()
 
+        # then serialize the queried order
         queried_order = db.session.query(Order).first()
         serialized_order = OrderSchema().dump(queried_order)
+
+        # assert the serialized queried order has the same value with the expected order
+        expected['time_created'] = serialized_order['time_created']
         assert serialized_order == expected

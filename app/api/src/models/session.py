@@ -11,7 +11,7 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-
+from sqlalchemy.sql import functions
 from src.models.base import db
 from src.models.user import User
 
@@ -26,12 +26,14 @@ class Session(db.Model):
     :cvar expires: Time when the session is valid until
     :cvar user: User the session belongs to
     """
+
     __tablename__ = "session"
     id: Mapped[int] = mapped_column(primary_key=True)
     user_username: Mapped[str] = mapped_column(ForeignKey("user.username"))
     token: Mapped[str] = mapped_column(String(128))
+    # use lambda to set default to a dynamically value
     expires: Mapped[datetime] = mapped_column((DateTime(timezone=True)),
-                                              default=datetime.now() + timedelta(days=1))
+                                              default=lambda: datetime.now() + timedelta(days=1))
 
     user: Mapped["User"] = relationship(back_populates="session")
 
