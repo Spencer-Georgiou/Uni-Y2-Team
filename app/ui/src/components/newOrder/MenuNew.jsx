@@ -117,7 +117,7 @@ const MenuModify = ({ orderNewItem }) => {
 
         <div className="Menu relative overflow-x-auto">
             {filterButtons.map((item, index) => (
-                <button className="bg-redder text-black text-3xl  font-sans font-bold py-5 px-5 my-2 mx-1 space-x-4 rounded-lg"
+                <button className="bg-redder text-black text-3xl  font-sans font-bold py-5 px-5 my-2 mx-1 space-x-4 rounded-lg hover:bg-amber hover:text-lemon"
                     key={index} value={item.name} onClick={() => filterMenu(item.name)}>
 
                     {item.name}
@@ -129,8 +129,8 @@ const MenuModify = ({ orderNewItem }) => {
                     <tr className="bg-amber text-3xl text-sans">
 
                         <th scope="col" className="px-6 py-3">Name</th>
-                        <th scope="col" className="px-6 py-3">Price</th>
-                        <th scope="col" className="px-6 py-3">Calorie</th>
+                        <th scope="col" className="px-6 py-3">Price(£)</th>
+                        <th scope="col" className="px-6 py-3">Calorie(cal)</th>
                         <th scope="col" className="px-6 py-3">  </th>
 
 
@@ -147,7 +147,7 @@ const MenuModify = ({ orderNewItem }) => {
                             <td className="px-6 py-4">
                                 <button
                                     type="button"
-                                    className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg"
+                                    className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg hover:bg-amber hover:text-yellow-200"
                                     onClick={() => {openModalForItem(filteredMenu.indexOf(item));console.log(item)}}
                                 >
                                     Add to order

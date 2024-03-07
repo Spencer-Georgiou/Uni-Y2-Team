@@ -30,7 +30,7 @@ const WaiterHub = () => {
                 </div>
             </div>
             <div className="flex justify-evenly flex-nowrap flex-row font-semibold text-xl">
-                <div className="bg-amber w-80 flex justify-center rounded-lg size-20">
+                <div className="bg-amber w-80 flex justify-center rounded-lg size-20 ">
                     <NewOrderButton />
                 </div>
                 <div className=" bg-amber w-80 flex justify-center rounded-lg size-20">

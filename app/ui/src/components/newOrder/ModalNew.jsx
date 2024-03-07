@@ -3,7 +3,7 @@ import React from 'react';
 import {  Modal } from 'flowbite-react';
 
 const ModalNew = ({ item, openModal, setOpenModal, decreaseQuantity, orderQuantity, increaseQuantity, handleOrder }) => {
-    const { id, name, description, calorie, allergens } = item;
+    const { id, name, description, calorie, allergens, price } = item;
 
 
 
@@ -28,7 +28,7 @@ const ModalNew = ({ item, openModal, setOpenModal, decreaseQuantity, orderQuanti
             <Modal.Footer>
                 <button
                     type="button"
-                    className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full"
+                    className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full hover:bg-amber hover:text-lemon"
                     onClick={() => decreaseQuantity(id)}
                 >
                     --
@@ -38,17 +38,17 @@ const ModalNew = ({ item, openModal, setOpenModal, decreaseQuantity, orderQuanti
                 </p>
                 <button
                     type="button"
-                    className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full"
+                    className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full hover:bg-amber hover:text-lemon"
                     onClick={() => increaseQuantity(id)}
                 >
                     +
                 </button>
                 <button
                     type="button"
-                    className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg"
+                    className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg hover:bg-amber hover:text-yellow-200 text-2xl"
                     onClick={() => { setOpenModal(false); handleOrder(item) }}
                 >
-                    Add to order
+                    Add £{orderQuantity[id] * price || 0}
                 </button>
             </Modal.Footer>
         </Modal>
