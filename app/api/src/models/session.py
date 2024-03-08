@@ -11,7 +11,7 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import functions
+
 from src.models.base import db
 from src.models.user import User
 

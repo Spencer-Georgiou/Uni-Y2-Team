@@ -13,7 +13,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import functions
+
 from src.models.association import OrderMenuItemAssociation
 from src.models.base import db
 
