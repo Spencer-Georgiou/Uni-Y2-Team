@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from "react"
-// import {  Modal } from 'flowbite-react';
+import {  Modal } from 'flowbite-react';
 import ModalNew from "../../components/newOrder/ModalNew";
+
 
 
 // Buttons which waiter presses to filter menu
@@ -20,7 +21,7 @@ const filterButtons = [
 
 
 
-const MenuModify = ({ orderNewItem }) => {
+const MenuNew = ({ orderNewItem }) => {
     const [data, setData] = useState([])
     const [filteredMenu, setFilteredMenu] = useState(data)
     const [selectedItemId, setSelectedItemId] = useState(null);
@@ -30,6 +31,9 @@ const MenuModify = ({ orderNewItem }) => {
     const [orderQuantity, setOrderQuantity] = useState({})
 
 
+
+    const [openModal, setOpenModal] = useState(true);
+    const [tableNumber, setTableNumber] = useState('');
 
 
 
@@ -96,6 +100,7 @@ const MenuModify = ({ orderNewItem }) => {
                     calorie: item.calorie,
                     price: item.price,
                     quantity: quantity,
+                    tableNumber: tableNumber
                 }))
                 : (quantity = 0)
         }
@@ -106,10 +111,9 @@ const MenuModify = ({ orderNewItem }) => {
 
 
 
-
-
-
-
+    const handleTableNumber = (e) => {
+        setTableNumber(e.target.value);
+    }
 
 
 
@@ -117,6 +121,54 @@ const MenuModify = ({ orderNewItem }) => {
     return (
 
         <div className="Menu relative overflow-x-auto">
+            <>
+            {/* Modal for Table Number */}
+            <Modal
+            show={openModal}
+            size="lg"
+            onClose={() => setOpenModal(false)}
+            popup
+            >
+            <div
+                class="bg-cover w-full h-full"
+                style={{ backgroundImage: "url('/images/CustomerLoginBackground.png')" }}
+            >
+                <Modal.Header />
+    
+                <Modal.Body>
+                <div className="text-center">
+                    <p className="text-2xl text-lemon font-sans font-semibold text-center mb-4">
+                    Enter The Table Number
+                    </p>
+    
+                    <div className="mb-5 ">
+                    <b>
+                        <input
+                        type="number"
+                        onChange={(e) => handleTableNumber(e)}
+                        id="tableNumber"
+                        name="tableNumber"
+                        className="text-xl text-dark font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5 focus:ring-4 focus:ring-amber"
+                        placeholder="Table Number"
+                        required
+                        />
+                    </b>
+                    </div>
+                    <div className="flex justify-center gap-4">
+                        <button
+                            type="button"
+                            className="bg-lemon text-black font-sans font-bold py-2 px-4 my-2 rounded-lg  hover:bg-cherry hover:text-lemon"
+                            onClick={() => setOpenModal(false)}
+                        >
+                            Done
+                        </button>
+                    </div>
+                </div>
+                </Modal.Body>
+            </div>
+            </Modal>
+        </>
+                
             {filterButtons.map((item, index) => (
                 <button className="bg-redder text-black text-3xl  font-sans font-bold py-5 px-5 my-2 mx-1 space-x-4 rounded-lg hover:bg-amber hover:text-lemon"
                     key={index} value={item.name} onClick={() => filterMenu(item.name)}>
@@ -149,7 +201,7 @@ const MenuModify = ({ orderNewItem }) => {
                                 <button
                                     type="button"
                                     className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg hover:bg-amber hover:text-yellow-200"
-                                    onClick={() => { openModalForItem(filteredMenu.indexOf(item)); console.log(item) }}
+                                    onClick={() => { openModalForItem(filteredMenu.indexOf(item)) }}
                                 >
                                     Add to order
                                 </button>
@@ -173,7 +225,7 @@ const MenuModify = ({ orderNewItem }) => {
 
     )
 }
-export default MenuModify
+export default MenuNew
 
 
 

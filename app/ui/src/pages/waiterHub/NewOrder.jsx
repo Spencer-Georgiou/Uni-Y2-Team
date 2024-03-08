@@ -8,7 +8,6 @@ const NewOrder = () => {
 
     const orderNewItem = (newOrder) => {
         setAddedOrder([...addedOrder, newOrder]);
-        console.log(addedOrder)
     }
 
 
