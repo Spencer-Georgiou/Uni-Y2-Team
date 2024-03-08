@@ -8,27 +8,38 @@ from sqlalchemy.exc import IntegrityError
 from src.apidoc import apidoc
 from src.models import db
 from src.schema import OrderSchema
+from src import models
 
 
 @apidoc.route("/order")
 class Order(MethodView):
     """
-    Class that provide apis to manipulate order instances.
+    Class that provide apis to manipulate order instances at "/order".
     """
     MSG_INCORRECT_POST_DATA = "The order cannot be created because the data provided is incorrect."
 
     @apidoc.arguments(schema=OrderSchema(only=("table_number", "menuitem_associations",)),
                       location="json")
     @apidoc.response(status_code=200, schema=OrderSchema)
-    def post(self, order):
+    def post(self, new_order):
         """
         Create an order in the database with the given data.
         """
         try:
-            db.session.add(order)
+            db.session.add(new_order)
             db.session.commit()
-            return order
+            return new_order
         # when input values are not fit to the db constraints
         except IntegrityError:
             abort(422,
                   message=Order.MSG_INCORRECT_POST_DATA)
+
+    @apidoc.response(204)
+    @apidoc.arguments(schema=OrderSchema(only=("id",)), location="query", )
+    def delete(self, order_from_request):
+        """
+        Delete an order in the database with the given ID.
+        """
+        order_in_db = db.session.query(models.Order).get(order_from_request.id)
+        db.session.delete(order_in_db)
+        db.session.commit()

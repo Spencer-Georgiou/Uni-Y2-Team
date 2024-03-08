@@ -40,7 +40,7 @@ class OrderMenuItemAssociation(db.Model):
         # A group that is a pair of type and category must be unique
         PrimaryKeyConstraint('order_id', 'menuitem_name'),
     )
-    order_id: Mapped[int] = mapped_column(ForeignKey("order.id"))
+    order_id: Mapped[int] = mapped_column(ForeignKey("order.id", ondelete="CASCADE"))
     menuitem_name: Mapped[str] = mapped_column(ForeignKey("menuitem.name"))
     quantity: Mapped[int] = mapped_column(CheckConstraint('quantity > 0'))
 
