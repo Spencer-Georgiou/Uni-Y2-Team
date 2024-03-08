@@ -4,12 +4,19 @@ import { useState } from "react";
 
 
 const NewOrder = () => {
+
     const [addedOrder, setAddedOrder] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     const orderNewItem = (newOrder) => {
-        setAddedOrder([...addedOrder, newOrder]);
-        console.log(addedOrder)
+        const newAddedOrder = [...addedOrder, newOrder];
+        setAddedOrder(newAddedOrder);
+
+        const newTotalPrice = newAddedOrder.reduce((acc, order) => acc + order.price * order.quantity, 0);
+        setTotalPrice(newTotalPrice);
+
     }
+
 
 
     return (
@@ -24,7 +31,7 @@ const NewOrder = () => {
 
 
                 <div className="flex flex-col justify-end space-y-4">
-                    <div className="flex justify-center h-10 max-w-full text-black text-2xl font-sans font-bold">
+                    <div className="flex justify-start h-10 max-w-full text-black text-2xl font-sans font-bold">
                         Table Number :
                     </div>
 
@@ -38,13 +45,16 @@ const NewOrder = () => {
                                     <div className="flex justify-center w-full text-black text-lg ">
                                         Quantity: {order.quantity}
                                         <br />
-                                        Price: £{order.quantity * order.price}
+                                        Price: £{order.price * order.quantity}
                                     </div>
                                 </div>
                                 <br />
 
                             </div>
                         ))}
+                    </div>
+                    <div className="flex justify-start h-10 w-full font-sans font-bold text-2xl">
+                        Total Price : £{totalPrice}
                     </div>
                     <ConfirmOrderButton />
 
