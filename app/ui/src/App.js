@@ -20,6 +20,7 @@ import NavBarCustomer from './components/login/NavBarCustomer';
 import NavBarRegistration from './components/registration/NavBarRegistration';
 import NewOrder from './pages/waiterHub/NewOrder';
 import OrderNavBar from './components/order/OrderNavBar';
+import ChangeMenu from './pages/waiterHub/ChangeMenu';
 
 /**Picks which NavBar to display depending on what page is active.
  */
@@ -33,6 +34,7 @@ function PickNavBar() {
     case "/ModifyCancelOrder":
     //Waiters Hub NavBar which contains a user icon and link back to main hub page
     case "/NewOrder":
+    case "/ChangeMenu":
       return <NavBarWaiterHub />;
 
     //Staff Login NavBar which removes Sign Up and Log In buttons from general NavBar
@@ -77,6 +79,7 @@ function App() {
           <Route path="/WaiterHub" element={<WaiterHub />} />
           <Route path="/ModifyCancelOrder" element={<ModifyCancelOrder />} />
           <Route path="/NewOrder" element={<NewOrder />} />
+          <Route path="/ChangeMenu" element={<ChangeMenu />} />
         </Routes>
         <Foot />
       </Router>
