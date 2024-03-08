@@ -24,7 +24,10 @@ class Order(MethodView):
     @apidoc.response(status_code=200, schema=OrderSchema)
     def post(self, new_order):
         """
-        Create an order in the database with the given data.
+        Create an order.
+
+        - Create an order in the database with the given data.
+        - Return 422 if the input data is invalid.
         """
         try:
             db.session.add(new_order)
@@ -39,7 +42,10 @@ class Order(MethodView):
     @apidoc.arguments(schema=OrderSchema(only=("id",)), location="query", )
     def delete(self, order_from_request):
         """
-        Delete an order in the database with the given ID.
+        Delete an order.
+
+        - Delete an order in the database with the given ID.
+        - Return 404 if the order is not found in the database.
         """
         order_in_db = db.session.query(models.Order).get(order_from_request.id)
         # check if the order is stored in the db
