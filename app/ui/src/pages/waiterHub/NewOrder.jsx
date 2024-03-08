@@ -8,6 +8,13 @@ const NewOrder = () => {
     const [addedOrder, setAddedOrder] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
 
+    const [tableNumber, setTableNumber] = useState(null);
+
+    const handleSetTableNumber = (number) => {
+        setTableNumber(number);
+    };
+
+
     const orderNewItem = (newOrder) => {
         const newAddedOrder = [...addedOrder, newOrder];
         setAddedOrder(newAddedOrder);
@@ -16,6 +23,7 @@ const NewOrder = () => {
         setTotalPrice(newTotalPrice);
 
     }
+    console.log(tableNumber);
 
 
 
@@ -24,7 +32,7 @@ const NewOrder = () => {
 
             <div className="h-5/6 w-5/6 bg-lemon p-4 flex flex-row space-x-4">
                 <div className="flex justify-start flex-nowrap">
-                    <MenuNew orderNewItem={orderNewItem} />
+                    <MenuNew orderNewItem={orderNewItem} onSetTableNumber={handleSetTableNumber} />
                     {/* This will be the menu section. This will be the menu section. This will be the menu section. This will be the menu section.  */}
                 </div>
 
@@ -32,7 +40,7 @@ const NewOrder = () => {
 
                 <div className="flex flex-col justify-end space-y-4">
                     <div className="flex justify-start h-10 max-w-full text-black text-2xl font-sans font-bold">
-                        Table Number :
+                        Table Number : {tableNumber}
                     </div>
 
                     <div className="flex flex-col flex-nowrap h-full w-60 bg-yellow-200 rounded-[25px] space-y-10 overflow-auto">
@@ -49,7 +57,6 @@ const NewOrder = () => {
                                     </div>
                                 </div>
                                 <br />
-
                             </div>
                         ))}
                     </div>
