@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 function NavBarWaiterHub() {
     return (
-        <Navbar className="bg-cherry flex items-center justify-between">
+        <Navbar className="bg-cherry flex items-center justify-between w-screen">
             <div className=" flex flex-1 flex-nowrap">
                 <Link to="/WaiterHub">
                     <span className="self-center text-xl text-lemon font-semibold underline">Waiter Hub</span>

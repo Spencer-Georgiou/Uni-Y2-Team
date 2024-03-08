@@ -12,10 +12,6 @@ const NewOrder = () => {
     }
 
 
-
-
-
-
     return (
         <div className="w-screen h-screen bg-redder flex items-center justify-center">
 
@@ -27,21 +23,26 @@ const NewOrder = () => {
 
 
 
-                <div className="flex flex-col justify-end ">
+                <div className="flex flex-col justify-end space-y-4">
+                    <div className="flex justify-center h-10 max-w-full text-black text-2xl font-sans font-bold">
+                        Table Number :
+                    </div>
 
-                    <div className="flex flex-col flex-nowrap h-full w-60 bg-yellow-200 rounded-[25px] space-y-2 ">
+                    <div className="flex flex-col flex-nowrap h-full w-60 bg-yellow-200 rounded-[25px] space-y-10 overflow-auto">
                         {addedOrder.map((order, index) => (
-                            <div className="flex justify-start text-black text-lg font-sans font-bold " key={index}>
-                                <span className="text-cherry">
+                            <div className="flex font-sans font-bold mt-5 ml-2" key={index}>
+
+                                <div className="w-full text-cherry justify-start text-xl break-words space-y-2 list-disc">
                                     {order.name}
-                                </span>
-                                <br />
-                                <span>
-                                    Quantity: {order.quantity}
                                     <br />
-                                    Price: £{order.quantity * order.price}
-                                </span>
+                                    <div className="flex justify-center w-full text-black text-lg ">
+                                        Quantity: {order.quantity}
+                                        <br />
+                                        Price: £{order.quantity * order.price}
+                                    </div>
+                                </div>
                                 <br />
+
                             </div>
                         ))}
                     </div>
