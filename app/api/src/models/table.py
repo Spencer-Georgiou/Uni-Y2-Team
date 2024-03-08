@@ -2,12 +2,9 @@
 Module for the Table model.
 """
 
-from typing import List
 from typing import Optional
 
 from sqlalchemy import CheckConstraint
-from sqlalchemy import and_
-from sqlalchemy import select
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship

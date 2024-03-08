@@ -19,9 +19,12 @@ def migrate():
     starter = MenuGroup(type=MenuGroup.Type.FOOD, category=MenuGroup.Category.STARTER)
     main = MenuGroup(type=MenuGroup.Type.FOOD, category=MenuGroup.Category.MAIN)
     dessert = MenuGroup(type=MenuGroup.Type.FOOD, category=MenuGroup.Category.DESSERT)
-    non_alcoholic = MenuGroup(type=MenuGroup.Type.DRINK, category=MenuGroup.Category.NONALCOHOLIC)
-    alcoholic = MenuGroup(type=MenuGroup.Type.DRINK, category=MenuGroup.Category.ALCOHOLIC)
-    db.session.add_all([starter, main, dessert, non_alcoholic, alcoholic])
+    soft_drink = MenuGroup(type=MenuGroup.Type.DRINK, category=MenuGroup.Category.SOFT_DRINK)
+    beer = MenuGroup(type=MenuGroup.Type.DRINK, category=MenuGroup.Category.BEER)
+    cocktail = MenuGroup(type=MenuGroup.Type.DRINK, category=MenuGroup.Category.COCKTAIL)
+    hot_drink = MenuGroup(type=MenuGroup.Type.DRINK, category=MenuGroup.Category.HOT_DRINK)
+
+    db.session.add_all([starter, main, dessert, soft_drink, beer, cocktail, hot_drink])
 
     # initialize menu allergens
     gluten = Allergen(name="Gluten")
@@ -58,16 +61,53 @@ def migrate():
         MenuItem(name="Ice Cream", description="2 scoops of vanilla ice cream,", calorie=300,
                  price=2.50,
                  menugroup=dessert, allergens=[]),
-        MenuItem(name="Peach Iced Tea", description="Homemade with fresh peaches", calorie=150,
-                 price=3.00, menugroup=non_alcoholic, allergens=[]),
-        MenuItem(name="Fanta Naranja", description="Orange Fanta", calorie=6, price=2.00,
-                 menugroup=non_alcoholic, allergens=[dairy]),
-        MenuItem(name="Hot chocolate", description="Thick hot chocolate served with a galleta",
-                 calorie=250, price=2.50, menugroup=non_alcoholic, allergens=[]),
-        MenuItem(name="Tequila Blanco", description="Blue agave", calorie=450, price=4.00,
-                 menugroup=alcoholic, allergens=[]),
-        MenuItem(name="Corona", description="Beer", calorie=300, price=3.00,
-                 menugroup=alcoholic, allergens=[gluten, egg, mollusk]),
+        # Soft Drinks
+        MenuItem(name="Jarritos", description="fruit flavoured soda- available in lime, pineapple, and mandarin",
+                 calorie=200, price=2, menugroup=soft_drink, allergens=[]),
+        MenuItem(name="Peach Iced Tea", description="Homemade with fresh Peaches", calorie=150, price=3,
+                 menugroup=soft_drink, allergens=[]),
+        MenuItem(name="Horchata", description="creamy and sweet beverage made from rice, almonds, cinnamon, and sugar",
+                 calorie=220, price=2.8, menugroup=soft_drink, allergens=[]),
+        MenuItem(name="Mineral Water", description="naturally carbonated water sourced from underground springs",
+                 calorie=0, price=2, menugroup=soft_drink, allergens=[]),
+
+        # Beers
+        MenuItem(name="Corona Extra", description="light, refreshing with wedge of lime", calorie=300, price=3,
+                 menugroup=beer, allergens=[]),
+        MenuItem(name="Modelo Especial", description="balanced flavour profile, and smooth, crisp finish", calorie=150,
+                 price=2, menugroup=beer, allergens=[]),
+        MenuItem(name="Pacifico", description="crisp taste with a touch of malt sweetness", calorie=150, price=2.3,
+                 menugroup=beer, allergens=[]),
+        MenuItem(name="Dos Equis", description="smooth flavour with hints of toasted malt", calorie=180, price=3,
+                 menugroup=beer, allergens=[]),
+
+        # Cocktails
+        MenuItem(name="Margarita",
+                 description="classic cocktail featuring tequila, lime juice, and orange liqueur, served over ice and often rimmed with salt",
+                 calorie=290, price=8, menugroup=cocktail, allergens=[]),
+        MenuItem(name="Paloma",
+                 description="refreshing Mexican cocktail made with tequila, grapefruit soda, lime juice, and a pinch of salt, served over ice",
+                 calorie=250, price=9, menugroup=cocktail, allergens=[]),
+        MenuItem(name="Michelada",
+                 description="spicy and savory Mexican beer cocktail made with beer, lime juice, assorted sauces, spices, and chili peppers, served over ice with a salted rim",
+                 calorie=140, price=11, menugroup=cocktail, allergens=[]),
+        MenuItem(name="Tequila Sunrise",
+                 description="made with tequila, orange juice, and grenadine, creating a gradient of colors resembling a sunrise",
+                 calorie=300, price=8, menugroup=cocktail, allergens=[]),
+        MenuItem(name="Mexican Mule",
+                 description="variation of the classic Moscow Mule cocktail, made with tequila, lime juice, and ginger beer, served over ice with a wedge of lime",
+                 calorie=240, price=10, menugroup=cocktail, allergens=[]),
+
+        # Hot Drinks
+        MenuItem(name="Mexican Hot Chocolate", description="hot chocolate spiced with cinnamon and chili", calorie=300,
+                 price=4.5, menugroup=hot_drink, allergens=[]),
+        MenuItem(name="Cafe de Olla", description="coffee brewed with cinnamon and piloncillo- unrefined cane sugar",
+                 calorie=180, price=3, menugroup=hot_drink, allergens=[]),
+        MenuItem(name="Atole",
+                 description="comforting beverage made from masa harina (corn flour), water or milk, sweeteners, and spices",
+                 calorie=130, price=2.5, menugroup=hot_drink, allergens=[]),
+        MenuItem(name="Agua de Jamaica", description="tangy and sweet hibiscus flower tea", calorie=90, price=1.2,
+                 menugroup=hot_drink, allergens=[])
     ]
 
     db.session.add_all(menuitems)

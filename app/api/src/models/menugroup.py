@@ -42,14 +42,19 @@ class MenuGroup(db.Model):
         :cvar STARTER: The starter meals
         :cvar MAIN: The main meals
         :cvar DESSERT: The dessert meals
-        :cvar ALCOHOLIC: The alcoholic drink
-        :cvar NONALCOHOLIC: The non-alcoholic drink
+        :cvar SOFT_DRINK: The soft drinks
+        :cvar BEER: The beers
+        :cvar COCKTAILS: The cocktails
+        :cvar HOT_DRINK: The hot drinks
         """
         STARTER = "Starter"
         MAIN = "Main"
         DESSERT = "Dessert"
-        ALCOHOLIC = "Alcoholic"
-        NONALCOHOLIC = "Non-Alcoholic"
+        SOFT_DRINK = "Soft Drink"
+        BEER = "Beer"
+        COCKTAIL = "Cocktails"
+        HOT_DRINK = "Hot Drink"
+
 
     __tablename__ = "menugroup"
     __table_args__ = (
