@@ -18,12 +18,13 @@ class TestSession:
 
     # Two sessions cannot associate with the same user.
     def test_avoid_relationship_same_user(self, db, session_for_waiter):
-        # when an session in the database
+        # when a session in the database
         db.session.add(session_for_waiter)
         db.session.commit()
 
-        # # create another session pointing to the same user should raise an error
+        # create another session pointing to the same user should raise an error
         with pytest.raises(IntegrityError):
-            another_session = Session(user_username=session_for_waiter.user_username, token="abcde")
+            another_session = Session(user_username=session_for_waiter.user_username,
+                                      token="abcde")
             db.session.add(another_session)
             db.session.commit()

@@ -29,7 +29,8 @@ class Session(db.Model):
 
     __tablename__ = "session"
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_username: Mapped[str] = mapped_column(ForeignKey("user.username"), unique=True)
+    user_username: Mapped[str] = mapped_column(ForeignKey("user.username"),
+                                               unique=True)
     token: Mapped[str] = mapped_column(String(128))
     # use lambda to set default to a dynamically value
     expires: Mapped[datetime] = mapped_column((DateTime(timezone=True)),

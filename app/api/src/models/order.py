@@ -47,8 +47,7 @@ class Order(db.Model):
         DELIVERED = "Delivered"
 
     __tablename__ = "order"
-    __table_args__ = {"extend_existing": True}
-
+    
     id: Mapped[int] = mapped_column(primary_key=True)
     table_number: Mapped[int] = mapped_column(ForeignKey("table.number"), unique=True)
     status: Mapped[Status] = mapped_column(Enum(Status), default=Status.PREPARING)
