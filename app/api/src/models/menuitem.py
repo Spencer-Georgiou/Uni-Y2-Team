@@ -39,7 +39,7 @@ class MenuItem(db.Model):
     )
     name: Mapped[str] = mapped_column(String, primary_key=True)
     description: Mapped[str] = mapped_column(String)
-    calorie: Mapped[int] = mapped_column(Integer, CheckConstraint('calorie > 0'))
+    calorie: Mapped[int] = mapped_column(Integer, CheckConstraint('calorie >= 0'))
     price: Mapped[int] = mapped_column(Numeric(scale=2), CheckConstraint('price > 0'))
     menugroup_type: Mapped[MenuGroup.Type] = mapped_column(Enum(MenuGroup.Type))
     menugroup_category: Mapped[MenuGroup.Category] = mapped_column(Enum(MenuGroup.Category))
