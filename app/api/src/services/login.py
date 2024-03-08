@@ -1,14 +1,14 @@
-from flask import request
-from src.apidoc import apidoc
-from flask.views import MethodView
-
-from sqlalchemy.exc import SQLAlchemyError
-from src.models import User
-from src.models import db
-
 import hashlib
 import random
 import time
+
+from flask import request
+from flask.views import MethodView
+from sqlalchemy.exc import SQLAlchemyError
+
+from src.apidoc import apidoc
+from src.models import User
+from src.models import db
 
 
 # unique to username and time created with extra randomness

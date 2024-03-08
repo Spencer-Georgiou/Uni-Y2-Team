@@ -42,7 +42,8 @@ class User(db.Model):
     password: Mapped[str] = mapped_column(String(255))
     role: Mapped[Role] = mapped_column(Enum(Role))
 
-    session: Mapped[Optional["Session"]] = relationship(back_populates="user")
+    session: Mapped[Optional["Session"]] = relationship(back_populates="user",
+                                                        cascade="all, delete-orphan")
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}(username={self.username!r}, password={self.password!r})"
