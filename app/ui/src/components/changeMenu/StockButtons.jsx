@@ -31,6 +31,8 @@ const StockButtons = ({ defaultAvailability }) => {
 
     return(
         <td className="px-6 py-4">
+
+            
             <button
                 type="button"
                 className="font-sans font-bold py-2 px-4 my-2 rounded-lg"
@@ -39,6 +41,11 @@ const StockButtons = ({ defaultAvailability }) => {
             >
                 Available
             </button>
+
+
+
+
+
             <button
                 type="button"
                 className="font-sans font-bold py-2 px-4 my-2 rounded-lg"

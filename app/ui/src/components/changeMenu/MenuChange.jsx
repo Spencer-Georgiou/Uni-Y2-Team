@@ -20,10 +20,6 @@ const MenuChange = () => {
     const [data, setData] = useState([])
     const [filteredMenu, setFilteredMenu] = useState(data)
 
-    // const [clicked, setClicked] = useState("available");
-    // const [availableButton, setAvailableButton] = useState("green");
-    // const [unavailableButton, setUnvailableButton] = useState("lemon");
-
 
 
     useEffect(() => {
@@ -45,27 +41,7 @@ const MenuChange = () => {
     }
 
 
-    // const stockButtonColour = () => {
-    //     if (stockButton === "red"){
-    //         setStockButton("green");
-    //         setStockText("Available")
-    //     }
-    //     else{
-    //         setStockButton("red")
-    //         setStockText("Unavailable")
-    //     }
-    //   };
 
-    // const checkButton = () => {
-    //     if (clicked === "available"){
-    //         setAvailableButton("green")
-    //         setUnvailableButton("transparent")
-    //     }
-    //     else{
-    //         setAvailableButton("transparent")
-    //         setUnvailableButton("red")
-    //     }
-    // }
 
 
 
