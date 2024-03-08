@@ -47,7 +47,7 @@ class Order(db.Model):
         DELIVERED = "Delivered"
 
     __tablename__ = "order"
-    
+
     id: Mapped[int] = mapped_column(primary_key=True)
     table_number: Mapped[int] = mapped_column(ForeignKey("table.number"), unique=True)
     status: Mapped[Status] = mapped_column(Enum(Status), default=Status.PREPARING)
@@ -58,7 +58,7 @@ class Order(db.Model):
 
     table: Mapped["Table"] = relationship(back_populates="order")
     menuitem_associations: Mapped[List["OrderMenuItemAssociation"]] = relationship(
-        back_populates="order")
+        back_populates="order", cascade="all, delete-orphan")
 
     def __repr__(self):
         return (

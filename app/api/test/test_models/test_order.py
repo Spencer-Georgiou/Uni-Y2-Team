@@ -71,3 +71,23 @@ class TestOrder:
             another_order = Order(table_number=order.table_number)
             db.session.add(another_order)
             db.session.commit()
+
+    # The association between Order and MenuItem should be deleted when the order is deleted.
+    def test_cascade_delete_association_menuitem(self, db, order, menuitem):
+        # when a waiter and its session in the database
+        association = OrderMenuItemAssociation(menuitem=menuitem, quantity=2)
+        order.menuitem_associations.append(association)
+        db.session.add_all([order, menuitem])
+        db.session.commit()
+
+        # then delete the order
+        db.session.delete(order)
+        db.session.commit()
+
+        # check whether the session in the database is removed
+        association_in_db = db.session.query(OrderMenuItemAssociation).get(
+            (association.order_id, association.menuitem_name))
+        assert association_in_db is None
+        # check the involved menuitem is not deleted
+        menuitem_in_db = db.session.query(MenuItem).get(menuitem.name)
+        assert menuitem_in_db is not None
