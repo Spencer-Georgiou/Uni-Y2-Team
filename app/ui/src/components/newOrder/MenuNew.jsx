@@ -61,8 +61,8 @@ const MenuModify = ({ orderNewItem }) => {
 
     const increaseQuantity = (quant) => {
         setOrderQuantity(prevState => ({ //prev state is the previous state iof ordeQuantity
-            ...prevState, 
-            [quant]: (prevState[quant] || 0) +1 //updating the quantity associated with the item identified by quant. 
+            ...prevState,
+            [quant]: (prevState[quant] || 0) + 1 //updating the quantity associated with the item identified by quant. 
             //If quant already exists in the previous state (prevState), we increment its value by 1. 
             //If quant doesn't exist (i.e., it's the first time we're adding this item), we default its value to 0 and then increment it by 1.
         }));
@@ -71,7 +71,7 @@ const MenuModify = ({ orderNewItem }) => {
     const decreaseQuantity = (quant) => {
         setOrderQuantity(prevState => ({
             ...prevState,
-            [quant]: Math.max((prevState[quant] || 1) -1, 0)
+            [quant]: Math.max((prevState[quant] || 1) - 1, 0)
         }));
     }
 
@@ -89,14 +89,15 @@ const MenuModify = ({ orderNewItem }) => {
 
     const handleOrder = (item) => {
         let quantity = orderQuantity[item.id];
-        {quantity > 0 ?
-            (orderNewItem({
-                name: item.name,
-                calorie: item.calorie,
-                price: item.price,
-                quantity: quantity,
-            }))
-            : (quantity = 0)
+        {
+            quantity > 0 ?
+                (orderNewItem({
+                    name: item.name,
+                    calorie: item.calorie,
+                    price: item.price,
+                    quantity: quantity,
+                }))
+                : (quantity = 0)
         }
     }
 
@@ -148,19 +149,19 @@ const MenuModify = ({ orderNewItem }) => {
                                 <button
                                     type="button"
                                     className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg hover:bg-amber hover:text-yellow-200"
-                                    onClick={() => {openModalForItem(filteredMenu.indexOf(item));console.log(item)}}
+                                    onClick={() => { openModalForItem(filteredMenu.indexOf(item)); console.log(item) }}
                                 >
                                     Add to order
                                 </button>
                                 {selectedItemId !== null && (
                                     <ModalNew
-                                    item={filteredMenu[selectedItemId]}
-                                    openModal={true}
-                                    setOpenModal={closeModal}
-                                    decreaseQuantity={decreaseQuantity}
-                                    orderQuantity={orderQuantity}
-                                    increaseQuantity={increaseQuantity}
-                                    handleOrder={handleOrder}
+                                        item={filteredMenu[selectedItemId]}
+                                        openModal={true}
+                                        setOpenModal={closeModal}
+                                        decreaseQuantity={decreaseQuantity}
+                                        orderQuantity={orderQuantity}
+                                        increaseQuantity={increaseQuantity}
+                                        handleOrder={handleOrder}
                                     />
                                 )}
                             </td>
