@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react"
+import StockButtons from "./StockButtons";
 
 const filterButtons = [
     { name: "All", value: "All" },
@@ -19,9 +20,9 @@ const MenuChange = () => {
     const [data, setData] = useState([])
     const [filteredMenu, setFilteredMenu] = useState(data)
 
-    const [clicked, setClicked] = useState("available");
-    const [availableButton, setAvailableButton] = useState("green");
-    const [unavailableButton, setUnvailableButton] = useState("lemon");
+    // const [clicked, setClicked] = useState("available");
+    // const [availableButton, setAvailableButton] = useState("green");
+    // const [unavailableButton, setUnvailableButton] = useState("lemon");
 
 
 
@@ -55,16 +56,16 @@ const MenuChange = () => {
     //     }
     //   };
 
-    const checkButton = () => {
-        if (clicked === "available"){
-            setAvailableButton("green")
-            setUnvailableButton("transparent")
-        }
-        else{
-            setAvailableButton("transparent")
-            setUnvailableButton("red")
-        }
-    }
+    // const checkButton = () => {
+    //     if (clicked === "available"){
+    //         setAvailableButton("green")
+    //         setUnvailableButton("transparent")
+    //     }
+    //     else{
+    //         setAvailableButton("transparent")
+    //         setUnvailableButton("red")
+    //     }
+    // }
 
 
 
@@ -89,7 +90,7 @@ const MenuChange = () => {
                         <th scope="col" className="px-6 py-3">Name</th>
                         <th scope="col" className="px-6 py-3">Price(£)</th>
                         <th scope="col" className="px-6 py-3">Calorie(cal)</th>
-                        <th scope="col" className="px-6 py-3">  </th>
+                        <th scope="col" className="px-6 py-3">Stock Availibility</th>
 
 
 
@@ -102,24 +103,7 @@ const MenuChange = () => {
                             <td className="px-6 py-4">{item.name}</td>
                             <td className="px-6 py-4">{item.price}</td>
                             <td className="px-6 py-4">{item.calorie}</td>
-                            <td className="px-6 py-4">
-                                <button
-                                    type="button"
-                                    className="font-sans font-bold py-2 px-4 my-2 rounded-lg"
-                                    style={{backgroundColor: availableButton}}
-                                    onClick={() => {setClicked("available"); checkButton()}}
-                                >
-                                    Available
-                                </button>
-                                <button
-                                    type="button"
-                                    className="font-sans font-bold py-2 px-4 my-2 rounded-lg"
-                                    style={{backgroundColor: unavailableButton}}
-                                    onClick={() => {setClicked("unavailable"); checkButton()}}
-                                >
-                                    Unavailable
-                                </button>
-                            </td>
+                            <StockButtons defaultAvailability="available" />
                         </tr>
                     ))}
                 </tbody>
