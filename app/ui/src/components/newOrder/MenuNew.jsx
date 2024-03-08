@@ -110,12 +110,18 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
 
 
 
-
-
-    const handleTableNumber = (e) => {
-        setTableNumber(e.target.value);
-        updateTableNum(e.target.value);
+        const handleTableNumber = (e) => {
+        const newTableNumber = e.target.value;
+        if (newTableNumber > 0 && newTableNumber <= 20){
+            setTableNumber(e.target.value);
+            updateTableNum(e.target.value);
+        } else {
+            // Handle invalid input (for example, display an error message)
+            alert('Please enter a table number between 1 and 20');
+          }
     }
+
+ 
 
     const updateTableNum = (tableNum) => {
         onSetTableNumber(tableNum);
@@ -154,7 +160,9 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
                                             onChange={(e) => { handleTableNumber(e); }}
                                             id="tableNumber"
                                             name="tableNumber"
-                                            className="text-xl text-dark font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5 focus:ring-4 focus:ring-amber"
+                                            min="1"
+                                            max="20"
+                                            className="overflow-hidden text-xl text-dark font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5 focus:ring-4 focus:ring-amber"
                                             placeholder="Table Number"
                                             required
                                         />
