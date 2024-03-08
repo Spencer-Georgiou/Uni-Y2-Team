@@ -13,7 +13,12 @@ const ModalNew = ({ item, openModal, setOpenModal, decreaseQuantity, orderQuanti
             show={openModal}
             onClose={() => setOpenModal(false)}
         >
-            <Modal.Header className="text-5xl text-black text-sans text-base">{name}</Modal.Header>
+            <div
+                class="bg-cover w-full h-full"
+                style={{ backgroundImage: "url('/images/modal.jpg')" }}
+                // style={{ backgroundColor: 'goldenrod'}}
+            >
+            <Modal.Header className="text-5xl text-white text-sans text-base">{name}</Modal.Header>
             <Modal.Body>
                 <div className="space-y-6">
                     <p className="text-xl text-black text-sans text-base">{description}</p>
@@ -38,19 +43,20 @@ const ModalNew = ({ item, openModal, setOpenModal, decreaseQuantity, orderQuanti
                 </p>
                 <button
                     type="button"
-                    className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full hover:bg-amber hover:text-lemon"
+                    className="bg-lemon text-green text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full hover:bg-amber hover:text-lemon"
                     onClick={() => increaseQuantity(id)}
                 >
                     +
                 </button>
                 <button
                     type="button"
-                    className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg hover:bg-amber hover:text-yellow-200 text-2xl"
+                    className="bg-amber text-black font-sans font-bold py-2 px-4 my-2 rounded-lg hover:bg-redder hover:text-yellow-200 text-2xl"
                     onClick={() => { setOpenModal(false); handleOrder(item) }}
                 >
                     Add £{orderQuantity[id] * price || 0}
                 </button>
             </Modal.Footer>
+            </div>
         </Modal>
     );
 };

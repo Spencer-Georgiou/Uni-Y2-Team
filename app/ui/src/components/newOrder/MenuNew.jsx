@@ -13,8 +13,10 @@ const filterButtons = [
     { name: "Starter", value: "Starter" },
     { name: "Main", value: "Main" },
     { name: "Dessert", value: "Dessert" },
-    { name: "Non-Alcoholic", value: "Non-Alcoholic" },
-    { name: "Alcoholic", value: "Alcoholic" }
+    { name: "Soft Drink", value: "Soft Drink" },
+    { name: "Beer", value: "Beer" },
+    { name: "Cocktails", value: "Cocktails" },
+    { name: "Hot Drink", value: "Hot Drink" },
 ];
 
 
