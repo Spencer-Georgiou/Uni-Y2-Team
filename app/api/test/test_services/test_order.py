@@ -58,3 +58,14 @@ class TestOrder:
         # check the response is 204, and the instance is deleted from the database
         assert response.status_code == 204
         assert order_in_db is None
+
+    # A delete request to "api/order?id=<order_id>" should give a 404 if the order does not exist.
+    def test_delete_invalid_order_id(self, client, db, order):
+        # when no order in the database
+        # then send a delete request to delete a non-existing order
+        query = {"id": order.id}
+        response = client.delete("/api/order", query_string=query)
+
+        # check the response is 404, and the instance is deleted from the database
+        assert response.status_code == 404
+        assert response.get_json()["message"] == services.Order.MSG_NO_SUCH_ORDER

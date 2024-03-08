@@ -17,6 +17,7 @@ class Order(MethodView):
     Class that provide apis to manipulate order instances at "/order".
     """
     MSG_INCORRECT_POST_DATA = "The order cannot be created because the data provided is incorrect."
+    MSG_NO_SUCH_ORDER = "Order does not exist."
 
     @apidoc.arguments(schema=OrderSchema(only=("table_number", "menuitem_associations",)),
                       location="json")
@@ -41,5 +42,9 @@ class Order(MethodView):
         Delete an order in the database with the given ID.
         """
         order_in_db = db.session.query(models.Order).get(order_from_request.id)
-        db.session.delete(order_in_db)
-        db.session.commit()
+        # check if the order is stored in the db
+        if order_in_db is None:
+            abort(404, message=Order.MSG_NO_SUCH_ORDER)
+        else:
+            db.session.delete(order_in_db)
+            db.session.commit()
