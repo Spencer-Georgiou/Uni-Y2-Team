@@ -4,6 +4,7 @@ Module to serialize or deserialize model instances to or from json with primitiv
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
 from marshmallow_sqlalchemy.fields import fields
+from marshmallow import Schema
 
 from .models import Allergen
 from .models import MenuGroup
