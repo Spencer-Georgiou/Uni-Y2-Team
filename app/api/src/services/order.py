@@ -5,10 +5,10 @@ from flask.views import MethodView
 from flask_smorest import abort
 from sqlalchemy.exc import IntegrityError
 
+from src import models
 from src.apidoc import apidoc
 from src.models import db
 from src.schema import OrderSchema
-from src import models
 
 
 @apidoc.route("/order")

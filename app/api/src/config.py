@@ -1,6 +1,21 @@
 """
 Module that provides configurations for a flask app.
 """
+from pathlib import Path
+
+from dotenv import dotenv_values
+
+
+class BaseConfig:
+    """
+    Configurations from native flask package for the Flask application.
+    """
+    # load environment variables from .flaskenv
+    flask_env_config_path = Path(__file__).parent.parent.joinpath('.flaskenv').resolve()
+    flask_env_config = dotenv_values(flask_env_config_path)
+    # set host and port number
+    HOST = flask_env_config['FLASK_RUN_HOST']
+    PORT = flask_env_config['FLASK_RUN_PORT']
 
 
 class ApiConfig:
@@ -16,7 +31,7 @@ class ApiConfig:
     OPENAPI_SWAGGER_UI_URL = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 
 
-class DevelopmentConfig(ApiConfig):
+class DevelopmentConfig(BaseConfig, ApiConfig):
     """
     Flask configuration used in Deployment.
     """
@@ -24,7 +39,7 @@ class DevelopmentConfig(ApiConfig):
     SQLALCHEMY_ECHO = False
 
 
-class TestingConfig(ApiConfig):
+class TestingConfig(BaseConfig, ApiConfig):
     """
     Flask configuration used in Testing.
     """
