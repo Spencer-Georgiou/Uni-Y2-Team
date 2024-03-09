@@ -26,8 +26,10 @@ class MenuItem(db.Model):
     :cvar name: Name of the menu item
     :cvar description: Description of the menu item, which can be more detailed than its name
     :cvar calorie: Amount of energy the menu item contains in Kcal. Must be positive.
+    :cvar image_path: Image URL of the menu
     :cvar price: Price of the menu item. Must be positive.
     :cvar allergens: A list of allergens the menu item contains
+    :cvar menugroup: Menu group the menu item belongs to
     :cvar order_associations: Association with its orders
     """
     __tablename__ = "menuitem"
@@ -41,6 +43,7 @@ class MenuItem(db.Model):
     description: Mapped[str] = mapped_column(String)
     calorie: Mapped[int] = mapped_column(Integer, CheckConstraint('calorie >= 0'))
     price: Mapped[int] = mapped_column(Numeric(scale=2), CheckConstraint('price > 0'))
+    image_path: Mapped[Optional[str]] = mapped_column(String)
     menugroup_type: Mapped[MenuGroup.Type] = mapped_column(Enum(MenuGroup.Type))
     menugroup_category: Mapped[MenuGroup.Category] = mapped_column(Enum(MenuGroup.Category))
 

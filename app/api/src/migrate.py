@@ -41,7 +41,8 @@ def migrate():
     menuitems = [
         MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
                  calorie=600, price=5.00, menugroup=menugroups["starter"],
-                 allergens=[allergens["gluten"], allergens["dairy"]]),
+                 allergens=[allergens["gluten"], allergens["dairy"]],
+                 image_path="static/tacos_placeholder.jpg"),
         MenuItem(name="Patatas Bravas",
                  description="Roasted potatoes in tomato dressing", calorie=500,
                  price=3.00, menugroup=menugroups["starter"],

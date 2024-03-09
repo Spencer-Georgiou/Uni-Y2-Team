@@ -1,10 +1,11 @@
 """
 Module to serialize or deserialize model instances to or from json with primitive types.
 """
+from flask import current_app
+from flask import request
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
 from marshmallow_sqlalchemy.fields import fields
-from marshmallow import Schema
 
 from .models import Allergen
 from .models import MenuGroup
@@ -55,6 +56,32 @@ class AllergenSchema(SQLAlchemyAutoSchema):
         include_relationships = True
 
 
+class Path(fields.Field):
+    """Field that serializes a relative path to a flask url and deserializes a flask url to a
+    relative path
+    """
+
+    def _serialize(self, value, attr, obj, **kwargs):
+        """
+        Deserializes a relative path to a flask url.
+
+        :param value: The value to be deserialized.
+        :return: The deserialized value.
+        """
+        if value is None:
+            return value
+        else:
+            # the returned url is in the format of "host:port/abstract_path"
+            with current_app.test_request_context():
+                host = request.host_url[:-1]
+                port = current_app.config["PORT"]
+                relative_path = str(value)
+                return host + ":" + port + "/" + relative_path
+
+    def _deserialize(self, value, attr, data, **kwargs):
+        pass
+
+
 class MenuItemSchema(SQLAlchemyAutoSchema):
     """
     Schema for MenuGroup that shows its menugroup as well as the related allergens.
@@ -67,6 +94,7 @@ class MenuItemSchema(SQLAlchemyAutoSchema):
 
     # Convert python Decimal.Decimal() to float type since the previous one cannot be parsed to json
     price = fields.Float()
+    image_path = Path()
     menugroup = Nested(MenuGroupSchema, exclude=("menuitems",))
     allergens = Nested(AllergenSchema(many=True), exclude=("menuitems",))
 

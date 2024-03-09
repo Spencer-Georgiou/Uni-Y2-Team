@@ -1,5 +1,6 @@
 from sqlalchemy.exc import IntegrityError
 import pytest
+from flask import url_for, request
 
 
 class TestMenuItem:
@@ -36,3 +37,9 @@ class TestMenuItem:
         db.session.commit()
 
         assert menuitem.menugroup is menugroup
+
+    # A menu item should have a field to store a path to its image.
+    def test_menuitem_with_image_url(self, app, db, menuitem):
+        menuitem.image_path = 'static/tacos_placeholder.jpg'
+        db.session.add(menuitem)
+        db.session.commit()

@@ -16,6 +16,9 @@ from src.schema import MenuItemSchema
 from src.schema import OrderMenuItemAssociationSchema
 from src.schema import OrderSchema
 from src.schema import SessionSchema
+from src import schema
+import pathlib
+from flask import request, url_for
 
 
 class TestSessionSchema:
@@ -64,8 +67,9 @@ class TestMenuItemSchema:
     # A menuitem with no allergen returned by a query is serializable.
     def test_serialize_menuitem_no_allergen(self, db, menugroup):
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'}, 'allergens': [],
-                    'name': 'Tacos', 'description': 'Crispy tacos filled with cheese',
-                    'calorie': 600, 'price': Decimal('5.00')}
+                    'name': 'Tacos', 'image_path': None,
+                    'description': 'Crispy tacos filled with cheese',
+                    'calorie': 600, 'price': 5.00}
 
         menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
                             calorie=600, price=5.00, menugroup=menugroup)
@@ -81,8 +85,9 @@ class TestMenuItemSchema:
     def test_serialize_menuitem_one_allergen(self, db, menugroup):
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'},
                     'allergens': [{'name': 'Gluten'}], 'name': 'Tacos',
-                    'description': 'Crispy tacos filled with cheese', 'calorie': 600,
-                    'price': Decimal('5.00')}
+                    'description': 'Crispy tacos filled with cheese',
+                    'image_path': None, 'calorie': 600,
+                    'price': 5.00}
 
         allergen = Allergen(name="Gluten")
         menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
@@ -132,3 +137,20 @@ class TestOrderSchema:
         # assert the serialized queried order has the same value with the expected order
         expected['time_created'] = serialized_order['time_created']
         assert serialized_order == expected
+
+
+class TestPathField:
+    # Path field should serialize to an url to the relative path.
+    def test_serialize_path(self, app, client):
+        # when a path points to an existing file
+        abstract_path = pathlib.PurePath("static/tacos_placeholder.jpg")
+        concrete_path = pathlib.Path(abstract_path)
+        assert concrete_path.exists() == True
+
+        # convert the local relative path to an url
+        url = schema.Path()._serialize(abstract_path, attr=None, obj=None)
+
+        # check if the url is in the format of "protocol + host + port + abstract_path"
+        with app.test_request_context():
+            expected = request.host_url[:-1] + ":" + app.config["PORT"] + "/" + str(abstract_path)
+        assert url == expected
