@@ -3,10 +3,11 @@ Module to serialize or deserialize model instances to or from json with primitiv
 """
 from flask import current_app
 from flask import request
+from marshmallow import missing as missing_
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
 from marshmallow_sqlalchemy.fields import fields
-
+import urllib.parse
 from .models import Allergen
 from .models import MenuGroup
 from .models import MenuItem
@@ -63,7 +64,21 @@ class Path(fields.Field):
 
     def _serialize(self, value, attr=None, obj=None, **kwargs):
         """
-        Deserializes a relative path to a flask url.
+        Serializes a relative path to a flask url.
+
+        :param value: The value to be serialized.
+        :return: The serialized value.
+        """
+        if value is None:
+            return value
+        else:
+            # the returned url is in the format of "host:port/abstract_path"
+            relative_path = urllib.parse.quote(value)
+            return self.get_host() + ":" + self.get_port() + "/" + relative_path
+
+    def _deserialize(self, value, attr=None, data=None, **kwargs):
+        """
+        Deserializes a flask url to a relative path.
 
         :param value: The value to be deserialized.
         :return: The deserialized value.
@@ -71,15 +86,18 @@ class Path(fields.Field):
         if value is None:
             return value
         else:
-            # the returned url is in the format of "host:port/abstract_path"
-            with current_app.test_request_context():
-                host = request.host_url[:-1]
-                port = current_app.config["PORT"]
-                relative_path = str(value)
-                return host + ":" + port + "/" + relative_path
+            # remove the host and port part in the value
+            prefix = self.get_host() + ":" + self.get_port() + "/"
+            decoded_path = value.replace(prefix, "")
+            return urllib.parse.unquote(decoded_path)
 
-    def _deserialize(self, value, attr, data, **kwargs):
-        pass
+    def get_host(self):
+        with current_app.test_request_context():
+            return request.host_url[:-1]
+
+    def get_port(self):
+        with current_app.test_request_context():
+            return current_app.config["PORT"]
 
 
 class MenuItemSchema(SQLAlchemyAutoSchema):

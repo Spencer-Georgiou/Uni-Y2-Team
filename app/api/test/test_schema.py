@@ -18,7 +18,9 @@ from src.schema import OrderSchema
 from src.schema import SessionSchema
 from src import schema
 import pathlib
-from flask import request, url_for
+from flask import request
+from flask import url_for
+import urllib.parse
 
 
 class TestSessionSchema:
@@ -162,17 +164,33 @@ class TestOrderSchema:
 
 
 class TestPathField:
-    # Path field should serialize to an url to the relative path.
+    # Path field should serialize a relative path to an url.
     def test_serialize_path(self, app, client):
         # when a path points to an existing file
-        abstract_path = pathlib.PurePath("static/tacos_placeholder.jpg")
+        abstract_path = pathlib.PurePath("static/tacos-placeholder.jpg")
         concrete_path = pathlib.Path(abstract_path)
         assert concrete_path.exists() == True
 
         # convert the local relative path to an url
-        url = schema.Path()._serialize(abstract_path)
+        url = schema.Path()._serialize(str(abstract_path))
 
         # check if the url is in the format of "protocol + host + port + abstract_path"
         with app.test_request_context():
-            expected = request.host_url[:-1] + ":" + app.config["PORT"] + "/" + str(abstract_path)
+            expected = request.host_url[:-1] + ":" + app.config["PORT"] + "/" + urllib.parse.quote(
+                str(abstract_path))
         assert url == expected
+
+    # Path field should deserialize to an url to a relative path.
+    def test_deserialize_path(self, app, client):
+        # when an url is consumed
+        abstract_path = pathlib.PurePath("static/tacos_placeholder.jpg")
+        with app.test_request_context():
+            url = request.host_url[:-1] + ":" + app.config["PORT"] + "/" + urllib.parse.unquote(
+                str(abstract_path))
+        expected = str(abstract_path)
+
+        # convert the url to a local relative path
+        image_path = schema.Path()._deserialize(url)
+
+        # check if the image path equals to the string of the abstract path
+        assert image_path == expected
