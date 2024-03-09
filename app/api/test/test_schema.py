@@ -102,6 +102,28 @@ class TestMenuItemSchema:
 
         assert serialized_menuitem == expected
 
+    # A menuitem with an image path returned by a query is serializable.
+    def test_serialize_menuitem_has_image_path(self, db, menugroup):
+        # when a menuitem is created
+        menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
+                            calorie=600, price=5.00, menugroup=menugroup,
+                            image_path="static/tacos_placeholder.jpg")
+        expected = {'menugroup': {'type': 'Food', 'category': 'Starter'}, 'allergens': [],
+                    'name': 'Tacos', 'image_path': None,
+                    'description': 'Crispy tacos filled with cheese',
+                    'calorie': 600, 'price': 5.00}
+        expected['image_path'] = schema.Path()._serialize(menuitem.image_path)
+
+        # add it to the empty database then serialize the only menuitem found in database
+        db.session.add(menuitem)
+        db.session.add(menugroup)
+        db.session.commit()
+        queried_menuitem = db.session.query(MenuItem).first()
+        serialized_menuitem = MenuItemSchema().dump(queried_menuitem)
+
+        # assert if the serialized menuitem is what we expect
+        assert serialized_menuitem == expected
+
 
 class TestOrderMenuItemAssociationSchema:
     # An association between an order and menuitem returned by a query is serializable.
@@ -148,7 +170,7 @@ class TestPathField:
         assert concrete_path.exists() == True
 
         # convert the local relative path to an url
-        url = schema.Path()._serialize(abstract_path, attr=None, obj=None)
+        url = schema.Path()._serialize(abstract_path)
 
         # check if the url is in the format of "protocol + host + port + abstract_path"
         with app.test_request_context():

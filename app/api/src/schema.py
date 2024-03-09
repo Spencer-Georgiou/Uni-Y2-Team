@@ -61,7 +61,7 @@ class Path(fields.Field):
     relative path
     """
 
-    def _serialize(self, value, attr, obj, **kwargs):
+    def _serialize(self, value, attr=None, obj=None, **kwargs):
         """
         Deserializes a relative path to a flask url.
 
