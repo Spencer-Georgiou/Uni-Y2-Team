@@ -1,13 +1,14 @@
 """
 Module to serialize or deserialize model instances to or from json with primitive types.
 """
+import urllib.parse
+
 from flask import current_app
 from flask import request
-from marshmallow import missing as missing_
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
 from marshmallow_sqlalchemy.fields import fields
-import urllib.parse
+
 from .models import Allergen
 from .models import MenuGroup
 from .models import MenuItem
@@ -71,10 +72,10 @@ class Path(fields.Field):
         """
         if value is None:
             return value
-        else:
-            # the returned url is in the format of "host:port/abstract_path"
-            relative_path = urllib.parse.quote(value)
-            return self.get_host() + ":" + self.get_port() + "/" + relative_path
+
+        # the returned url is in the format of "host:port/abstract_path"
+        relative_path = urllib.parse.quote(value)
+        return self.__get_host() + ":" + self.__get_port() + "/" + relative_path
 
     def _deserialize(self, value, attr=None, data=None, **kwargs):
         """
@@ -85,17 +86,19 @@ class Path(fields.Field):
         """
         if value is None:
             return value
-        else:
-            # remove the host and port part in the value
-            prefix = self.get_host() + ":" + self.get_port() + "/"
-            decoded_path = value.replace(prefix, "")
-            return urllib.parse.unquote(decoded_path)
 
-    def get_host(self):
+        # remove the host and port part in the value
+        prefix = self.__get_host() + ":" + self.__get_port() + "/"
+        decoded_path = value.replace(prefix, "")
+        return urllib.parse.unquote(decoded_path)
+
+    def __get_host(self):
+        # get the host url of the app
         with current_app.test_request_context():
             return request.host_url[:-1]
 
-    def get_port(self):
+    def __get_port(self):
+        # get the port number of the app
         with current_app.test_request_context():
             return current_app.config["PORT"]
 
