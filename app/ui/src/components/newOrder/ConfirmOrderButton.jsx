@@ -22,7 +22,7 @@ function ConfirmOrderButton({ addedOrder, tableNumber }) {
     };
 
     // Define the fetch options
-    const requestOptions = {
+    const postingOrder = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -31,10 +31,10 @@ function ConfirmOrderButton({ addedOrder, tableNumber }) {
     };
 
     // Make the POST request to the API
-    fetch('/api/order', requestOptions)
+    fetch('/api/order', postingOrder)
       .then(response => {
         if (!response.ok) {
-          throw new Error('API response was not ok');
+          throw new Error('Check if there is already an order under this table. If so, modify that order instead.');
         }
         return response.json();
       })
@@ -42,7 +42,7 @@ function ConfirmOrderButton({ addedOrder, tableNumber }) {
         console.log('Order confirmed successfully:', data);
       })
       .catch(error => {
-        console.error('There was a problem confirming the order:', error);
+        alert('There was a problem confirming the order: ' + error.message, error);
       });
   };
 
