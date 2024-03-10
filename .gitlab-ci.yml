@@ -67,6 +67,7 @@ test-flask-job:
     - cd app/api
     - source venv/bin/activate
     # set app/api as the root path of python project
+    - pip install -r requirements.txt
     - export PYTHONPATH=$(pwd)
     - cd test
     - python -m pytest
