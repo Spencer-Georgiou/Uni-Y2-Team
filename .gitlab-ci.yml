@@ -78,6 +78,7 @@ build-flask-job:
   script:
     - cd app/api
     - source venv/bin/activate
+    - pip install -r requirements.txt
     - flask shell
 
 # test the source codes of the react app
