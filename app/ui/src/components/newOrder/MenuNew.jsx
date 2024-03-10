@@ -15,7 +15,7 @@ const filterButtons = [
     { name: "Dessert", value: "Dessert" },
     { name: "Soft Drink", value: "Soft Drink" },
     { name: "Beer", value: "Beer" },
-    { name: "Cocktails", value: "Cocktails" },
+    { name: "Cocktail", value: "Cocktail" },
     { name: "Hot Drink", value: "Hot Drink" },
 ];
 
