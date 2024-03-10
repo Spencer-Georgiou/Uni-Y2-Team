@@ -23,7 +23,7 @@ const NewOrder = () => {
         setTotalPrice(newTotalPrice);
 
     }
-    console.log(tableNumber);
+    // console.log(tableNumber);
 
 
 
@@ -63,7 +63,7 @@ const NewOrder = () => {
                     <div className="flex justify-start h-10 w-full font-sans font-bold text-2xl">
                         Total Price : £{totalPrice}
                     </div>
-                    <ConfirmOrderButton />
+                    <ConfirmOrderButton addedOrder={addedOrder} tableNumber={tableNumber} />
 
                 </div>
             </div>
@@ -72,3 +72,5 @@ const NewOrder = () => {
 }
 
 export default NewOrder
+
+
