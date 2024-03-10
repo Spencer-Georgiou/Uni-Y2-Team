@@ -1,30 +1,103 @@
 stages:
+  # set up the ci enviroment
+  - initialize
+  # test source codes
   - test
-  - start-service
-
-default:
-  image: python:3.12
+  # check if a app is runnable
+  - build
   
-test-flask-job:
-  stage: test
+.python:
+# a template for a job to specify the version of python
+  image: python:3.12
+  before_script:
+    - python --version
+
+.node:
+# a template for a job to specify the version of node
+  image: node:20.11.0
+  before_script:
+    - node --version
+
+initialize-flask-job:
+# initialize the flask enviroment
+  stage: initialize
+  extends: .python
+  tags:
+    - docker
   script:
     - cd app/api
     # install dependencies in virtual enviroment
     - python -m venv venv
     - source venv/bin/activate
     - pip install -r requirements.txt
+  artifacts:
+  # save the created virtual enviroment for following jobs
+    paths:
+      - app/api/venv
+    expire_in: 1 hour
+
+test-flask-job:
+# test the source codes of the flask app
+  stage: test
+  extends: .python
+  tags:
+    - docker
+  script:
+    - cd app/api
+    - source venv/bin/activate
     # set app/api as the root path of python project
     - export PYTHONPATH=$(pwd)
     - cd test
     - python -m pytest
-    - deactivate
-  artifacts:
-    paths:
-      - app/api/venv
 
-start-flask-job:
-  stage: start-service
+build-flask-job:
+# check if the flask app can run
+  stage: build
+  extends: .python
+  tags:
+    - docker
   script:
     - cd app/api
     - source venv/bin/activate
     - flask shell
+
+initialize-react-job:
+# initialize the react enviroment
+  stage: initialize
+  extends: .node
+  tags:
+    - docker
+  script:
+    - cd app/ui
+    # install the react dependencies
+    - npm install
+  artifacts:
+    # save the installed dependencies for following jobs
+    paths:
+      - app/ui/node_modules
+    expire_in: 1 hour
+  
+test-react-job:
+# test the source codes of the react app
+  extends: .node
+  stage: test
+  tags:
+    - docker
+  script:
+    - cd app/ui
+    # disable interactive prompts when testing
+    - export CI=true
+    - npm test
+
+build-react-job:
+# check if the react app can be built
+  extends: .node
+  stage: build
+  tags:
+    - docker
+  script:
+    - cd app/ui
+    # linting check is not a part of the build job
+    - export DISABLE_ESLINT_PLUGIN=true
+    - npm run build
+  
