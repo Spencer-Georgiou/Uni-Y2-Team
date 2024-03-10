@@ -5,21 +5,46 @@ stages:
   - test
   # check if a app is runnable
   - build
-  
-.python:
+
 # a template for a job to specify the version of python
+.python:
   image: python:3.12
   before_script:
     - python --version
 
-.node:
-# a template for a job to specify the version of node
+# a template to specify the version of node
+.node_image:
   image: node:20.11.0
   before_script:
     - node --version
 
-initialize-flask-job:
+# a template to cache the node dependencies for each pipeline
+.node_cache:
+  before_script:
+    - cd app/ui
+    # freshly install node dependecies from caches with error logs only
+    - npm clean-install --cache .npm --prefer-offline --loglevel=error
+    - cd $CI_PROJECT_DIR
+  cache:
+    # the identifer of the cache is a combination of
+    # the instance-level pipeline ID and project-level pipeline ID
+    key: $CI_PIPELINE_ID.$CI_PIPELINE_IID
+    paths:
+      - app/ui/.npm/
+
+# a template to intergrate the settings of Node.js
+.node:
+  extends:
+    - .node_image
+    - .node_cache
+  before_script:
+    # combine the before_scripts of each node settings
+    - !reference [.node_image, before_script]
+    - !reference [.node_cache, before_script]
+    - cd app/ui
+
 # initialize the flask enviroment
+initialize-flask-job:
   stage: initialize
   extends: .python
   script:
@@ -29,13 +54,13 @@ initialize-flask-job:
     - source venv/bin/activate
     - pip install -r requirements.txt
   artifacts:
-  # save the created virtual enviroment for following jobs
+    # save the created virtual enviroment for following jobs
     paths:
       - app/api/venv
     expire_in: 1 hour
 
-test-flask-job:
 # test the source codes of the flask app
+test-flask-job:
   stage: test
   extends: .python
   script:
@@ -46,8 +71,8 @@ test-flask-job:
     - cd test
     - python -m pytest
 
-build-flask-job:
 # check if the flask app can run
+build-flask-job:
   stage: build
   extends: .python
   script:
@@ -55,37 +80,20 @@ build-flask-job:
     - source venv/bin/activate
     - flask shell
 
-initialize-react-job:
-# initialize the react enviroment
-  stage: initialize
-  extends: .node
-  script:
-    - cd app/ui
-    # install the react dependencies
-    - npm install
-  artifacts:
-    # save the installed dependencies for following jobs
-    paths:
-      - app/ui/node_modules
-    expire_in: 1 hour
-  
-test-react-job:
 # test the source codes of the react app
+test-react-job:
   extends: .node
   stage: test
   script:
-    - cd app/ui
     # disable interactive prompts when testing
     - export CI=true
     - npm test
 
-build-react-job:
 # check if the react app can be built
+build-react-job:
   extends: .node
   stage: build
   script:
-    - cd app/ui
     # linting check is not a part of the build job
     - export DISABLE_ESLINT_PLUGIN=true
     - npm run build
-  
