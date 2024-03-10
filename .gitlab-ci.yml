@@ -1,0 +1,30 @@
+stages:
+  - test
+  - start-service
+
+default:
+  image: python:3.12
+  
+test-flask-job:
+  stage: test
+  script:
+    - cd app/api
+    # install dependencies in virtual enviroment
+    - python -m venv venv
+    - source venv/bin/activate
+    - pip install -r requirements.txt
+    # set app/api as the root path of python project
+    - export PYTHONPATH=$(pwd)
+    - cd test
+    - python -m pytest
+    - deactivate
+  artifacts:
+    paths:
+      - app/api/venv
+
+start-flask-job:
+  stage: start-service
+  script:
+    - cd app/api
+    - source venv/bin/activate
+    - flask shell

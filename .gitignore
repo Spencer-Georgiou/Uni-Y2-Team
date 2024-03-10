@@ -876,4 +876,7 @@ $RECYCLE.BIN/
 # GitKeep used as directory placeholders
 .gitkeep
 
+# Gitlab-CI-Local runner files
+.gitlab-ci-local/
+
 # End of https://www.toptal.com/developers/gitignore/api/git,node,flask,linux,macos,react,python,eclipse,pycharm,windows,intellij,webstorm,visualstudiocode,notepadpp,libreoffice,microsoftoffice
