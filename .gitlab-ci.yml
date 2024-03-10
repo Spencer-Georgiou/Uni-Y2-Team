@@ -22,8 +22,6 @@ initialize-flask-job:
 # initialize the flask enviroment
   stage: initialize
   extends: .python
-  tags:
-    - docker
   script:
     - cd app/api
     # install dependencies in virtual enviroment
@@ -40,8 +38,6 @@ test-flask-job:
 # test the source codes of the flask app
   stage: test
   extends: .python
-  tags:
-    - docker
   script:
     - cd app/api
     - source venv/bin/activate
@@ -54,8 +50,6 @@ build-flask-job:
 # check if the flask app can run
   stage: build
   extends: .python
-  tags:
-    - docker
   script:
     - cd app/api
     - source venv/bin/activate
@@ -65,8 +59,6 @@ initialize-react-job:
 # initialize the react enviroment
   stage: initialize
   extends: .node
-  tags:
-    - docker
   script:
     - cd app/ui
     # install the react dependencies
@@ -81,8 +73,6 @@ test-react-job:
 # test the source codes of the react app
   extends: .node
   stage: test
-  tags:
-    - docker
   script:
     - cd app/ui
     # disable interactive prompts when testing
@@ -93,8 +83,6 @@ build-react-job:
 # check if the react app can be built
   extends: .node
   stage: build
-  tags:
-    - docker
   script:
     - cd app/ui
     # linting check is not a part of the build job
