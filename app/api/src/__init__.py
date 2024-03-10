@@ -32,8 +32,9 @@ def create_app(config=DevelopmentConfig):
     db.create_all()
     # create model instances when in development mode
     if config == DevelopmentConfig:
-        from src.migrate import migrate
-        migrate()
+        from src.migrate import Migration
+        migration = Migration(menuitem_image_directory="static/menuitem")
+        migration.migrate()
 
     from . import services
 
