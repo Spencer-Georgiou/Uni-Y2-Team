@@ -1,16 +1,52 @@
 stages:
-  # set up the ci enviroment
-  - initialize
   # test source codes
   - test
-  # check if a app is runnable
+  # check if an app is runnable
   - build
 
-# a template for a job to specify the version of python
-.python:
+# enviroment variables for the pipeline
+variables:
+  # the path to the flask project
+  FLASK_DIR: $CI_PROJECT_DIR/app/api
+  # the path to the react project
+  REACT_DIR: $CI_PROJECT_DIR/app/ui
+  # the path to the pip cache
+  PIP_CACHE_DIR: $FLASK_DIR/.cache/pip
+  # the path to the npm cache
+  NPM_CACHE_DIR: $REACT_DIR/.npm
+  # the ID for the pipeline that is universally unique for all the pipelines of every projects
+  CI_PIPELINE_UUID: $CI_PIPELINE_ID.$CI_PIPELINE_IID
+
+# a template to specify the version of python
+.python_image:
   image: python:3.12
   before_script:
     - python --version
+
+# a template to cache the pip dependencies for each pipeline
+.pip_cache:
+  before_script:
+    - cd $FLASK_DIR
+    # install dependencies in virtual enviroment
+    - python -m venv venv
+    - source venv/bin/activate
+    - pip install -r requirements.txt --quiet
+    - cd $CI_PROJECT_DIR
+  cache:
+    key: $CI_PIPELINE_UUID
+    paths:
+      - $PIP_CACHE_DIR
+
+# a template for the python enviroment
+.python:
+  extends:
+    - .python_image
+    - .pip_cache
+  before_script:
+    # combine the before_scripts to avoid overwrites
+    - !reference [.python_image, before_script]
+    - !reference [.pip_cache, before_script]
+    - cd $FLASK_DIR
 
 # a template to specify the version of node
 .node_image:
@@ -19,56 +55,34 @@ stages:
     - node --version
 
 # a template to cache the node dependencies for each pipeline
-.node_cache:
+.npm_cache:
   before_script:
-    - cd app/ui
+    - cd $REACT_DIR
     # freshly install node dependecies from caches with error logs only
-    - npm clean-install --cache .npm --prefer-offline --loglevel=error
+    - npm clean-install --cache $NPM_CACHE_DIR --prefer-offline --loglevel=error
     - cd $CI_PROJECT_DIR
   cache:
-    # the identifer of the cache is a combination of
-    # the instance-level pipeline ID and project-level pipeline ID
-    key: $CI_PIPELINE_ID.$CI_PIPELINE_IID
+    key: $CI_PIPELINE_UUID
     paths:
-      - app/ui/.npm/
+      - $NPM_CACHE_DIR
 
-# a template to intergrate the settings of Node.js
+# a template for the node enviroment
 .node:
   extends:
     - .node_image
-    - .node_cache
+    - .npm_cache
   before_script:
-    # combine the before_scripts of each node settings
+    # combine the before_scripts to avoid overwrites
     - !reference [.node_image, before_script]
-    - !reference [.node_cache, before_script]
-    - cd app/ui
-
-# initialize the flask enviroment
-initialize-flask-job:
-  stage: initialize
-  extends: .python
-  script:
-    - cd app/api
-    # install dependencies in virtual enviroment
-    - python -m venv venv
-    - source venv/bin/activate
-    - pip install -r requirements.txt
-  artifacts:
-    # save the created virtual enviroment for following jobs
-    paths:
-      - app/api/venv
-    expire_in: 1 hour
+    - !reference [.npm_cache, before_script]
+    - cd $REACT_DIR
 
 # test the source codes of the flask app
 test-flask-job:
   stage: test
   extends: .python
   script:
-    - cd app/api
-    - source venv/bin/activate
-    # set app/api as the root path of python project
-    - pip install -r requirements.txt
-    - export PYTHONPATH=$(pwd)
+    - export PYTHONPATH=$FLASK_DIR
     - cd test
     - python -m pytest
 
@@ -77,9 +91,6 @@ build-flask-job:
   stage: build
   extends: .python
   script:
-    - cd app/api
-    - source venv/bin/activate
-    - pip install -r requirements.txt
     - flask shell
 
 # test the source codes of the react app
