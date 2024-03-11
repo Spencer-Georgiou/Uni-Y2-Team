@@ -1,112 +1,15 @@
 stages:
-  # test source codes
-  - test
-  # check if an app is runnable
-  - build
+  # trigger child pipelines for different sub-projects
+ - trigger
 
-# enviroment variables for the pipeline
-variables:
-  # the path to the flask project
-  FLASK_DIR: $CI_PROJECT_DIR/app/api
-  # the path to the react project
-  REACT_DIR: $CI_PROJECT_DIR/app/ui
-  # the path to the pip cache
-  PIP_CACHE_DIR: $FLASK_DIR/.cache/pip
-  # the path to the npm cache
-  NPM_CACHE_DIR: $REACT_DIR/.npm
-  # the ID for the pipeline that is universally unique for all the pipelines of every projects
-  CI_PIPELINE_UUID: $CI_PIPELINE_ID.$CI_PIPELINE_IID
+# trigger the pipeline for the flask project
+trigger_flask_pipeline:
+  stage: trigger
+  trigger:
+    include: .gitlab-ci/flask.gitlab-ci.yml
 
-# a template to specify the version of python
-.python_image:
-  image: python:3.12
-  before_script:
-    - python --version
-
-# a template to cache the pip dependencies for each pipeline
-.pip_cache:
-  before_script:
-    - cd $FLASK_DIR
-    # install dependencies in virtual enviroment
-    - python -m venv venv
-    - source venv/bin/activate
-    - pip install -r requirements.txt --quiet
-    - cd $CI_PROJECT_DIR
-  cache:
-    key: $CI_PIPELINE_UUID
-    paths:
-      - $PIP_CACHE_DIR
-
-# a template for the python enviroment
-.python:
-  extends:
-    - .python_image
-    - .pip_cache
-  before_script:
-    # combine the before_scripts to avoid overwrites
-    - !reference [.python_image, before_script]
-    - !reference [.pip_cache, before_script]
-    - cd $FLASK_DIR
-
-# a template to specify the version of node
-.node_image:
-  image: node:20.11.0
-  before_script:
-    - node --version
-
-# a template to cache the node dependencies for each pipeline
-.npm_cache:
-  before_script:
-    - cd $REACT_DIR
-    # freshly install node dependecies from caches with error logs only
-    - npm clean-install --cache $NPM_CACHE_DIR --prefer-offline --loglevel=error
-    - cd $CI_PROJECT_DIR
-  cache:
-    key: $CI_PIPELINE_UUID
-    paths:
-      - $NPM_CACHE_DIR
-
-# a template for the node enviroment
-.node:
-  extends:
-    - .node_image
-    - .npm_cache
-  before_script:
-    # combine the before_scripts to avoid overwrites
-    - !reference [.node_image, before_script]
-    - !reference [.npm_cache, before_script]
-    - cd $REACT_DIR
-
-# test the source codes of the flask app
-test-flask-job:
-  stage: test
-  extends: .python
-  script:
-    - export PYTHONPATH=$FLASK_DIR
-    - cd test
-    - python -m pytest
-
-# check if the flask app can run
-build-flask-job:
-  stage: build
-  extends: .python
-  script:
-    - flask shell
-
-# test the source codes of the react app
-test-react-job:
-  extends: .node
-  stage: test
-  script:
-    # disable interactive prompts when testing
-    - export CI=true
-    - npm test
-
-# check if the react app can be built
-build-react-job:
-  extends: .node
-  stage: build
-  script:
-    # linting check is not a part of the build job
-    - export DISABLE_ESLINT_PLUGIN=true
-    - npm run build
+# trigger the pipeline for the react project
+trigger_react_pipeline:
+  stage: trigger
+  trigger:
+    include: .gitlab-ci/react.gitlab-ci.yml
