@@ -92,6 +92,7 @@ This section assumes you have activated the **python virtual enviroment**.
 ```
 TeamProject27
 ├── .gitignore
+├── .gitlab-ci
 ├── README.md
 ├── app
 │   ├── api
@@ -109,8 +110,9 @@ TeamProject27
 └── doc
 ```
 ### Description
-- `.gitignore`: git configuration file to ignore files to be pushed to the repository
-- `README.md`: Manual for our project
+- `.gitignore`: Git configuration file to ignore files to be pushed to the repository
+- `.gitlab-ci`: directory containing GitLab CI configuration files for sub-projects
+- `README.md`: manual for our project
 - `app` : directory including the source file of frontend and backend
 - `api`: directory for the backend (Flask)
   -  `pyproject.toml` : python build configuration
@@ -139,7 +141,7 @@ TeamProject27
 - Code Style: [PEP8](https://peps.python.org/pep-0008/)
 - Style checker: [Pylint](https://pylint.readthedocs.io/)
 - Testing tool: [pytest](https://docs.pytest.org/)
-- API Documentation Tool: [Flask-RESTX](https://flask-restx.readthedocs.io/)
+- API Documentation Tool: [Flask-Smorest](https://flask-smorest.readthedocs.io/)
 ### Git
 - Gitflow: CS2800 Gitflow, consisting of `main`, `feature` branches and `release` branches
 - Message format: [Conventional Commits](https://www.conventionalcommits.org) (optional)

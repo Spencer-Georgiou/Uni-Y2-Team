@@ -1,0 +1,45 @@
+"""
+Testing Login API.
+"""
+from src.services import Login
+
+
+class TestLogin:
+    # A post to "api/login" should ...
+    def test_waiter_success(self, client, db, waiter):
+        db.session.add_all([waiter])
+        db.session.commit()
+
+        response = client.post("/api/login", json={
+            "username": "Kate",
+            "password": "123456"
+        })
+
+        assert response.status_code == 200
+        assert response.get_json()["error_message"] is None
+        assert response.get_json()["role"] == "waiter"
+
+    def test_kitchen_success(self, client, db, kitchen):
+        db.session.add_all([kitchen])
+        db.session.commit()
+
+        response = client.post("/api/login", json={
+            "username": "Jenny",
+            "password": "123456"
+        })
+
+        assert response.status_code == 200
+        assert response.get_json()["error_message"] is None
+        assert response.get_json()["role"] == "kitchen"
+
+    def test_incorrect_creds(self, client, db, waiter, kitchen):
+        db.session.add_all([waiter, kitchen])
+        db.session.commit()
+
+        response = client.post("/api/login", json={
+            "username": "NotAUser",
+            "password": "NotAPass"
+        })
+
+        assert response.status_code == 401
+        assert response.get_json()["error_message"] == "Invalid credentials"

@@ -1,0 +1,61 @@
+stages:
+  # test source codes
+  - test
+  # check if an app is runnable
+  - build
+
+# enviroment variables for the pipeline
+variables:
+  # the path to the flask project
+  FLASK_DIR: $CI_PROJECT_DIR/app/api
+  # the path to the pip cache
+  PIP_CACHE_DIR: $FLASK_DIR/.cache/pip
+  # the ID for the pipeline that is universally unique for all the pipelines of every projects
+  CI_PIPELINE_UUID: $CI_PIPELINE_ID.$CI_PIPELINE_IID
+
+# a template to specify the version of python
+.python_image:
+  image: python:3.12
+  before_script:
+    - python --version
+
+# a template to cache the pip dependencies for each pipeline
+.pip_cache:
+  before_script:
+    - cd $FLASK_DIR
+    # install dependencies in virtual enviroment
+    - python -m venv venv
+    - source venv/bin/activate
+    - pip install -r requirements.txt --quiet
+    - cd $CI_PROJECT_DIR
+  cache:
+    key: $CI_PIPELINE_UUID
+    paths:
+      - $PIP_CACHE_DIR
+
+# a template for the python enviroment
+.python:
+  extends:
+    - .python_image
+    - .pip_cache
+  before_script:
+    # combine the before_scripts to avoid overwrites
+    - !reference [.python_image, before_script]
+    - !reference [.pip_cache, before_script]
+    - cd $FLASK_DIR
+
+# test the source codes of the flask app
+test-flask-job:
+  stage: test
+  extends: .python
+  script:
+    - export PYTHONPATH=$FLASK_DIR
+    - cd test
+    - python -m pytest
+
+# check if the flask app can run
+build-flask-job:
+  stage: build
+  extends: .python
+  script:
+    - flask shell

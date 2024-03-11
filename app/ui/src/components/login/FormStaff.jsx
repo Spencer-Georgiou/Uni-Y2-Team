@@ -38,7 +38,7 @@ const FormStaff = () => {
 
 
         };
-        fetch('/api/login', postingData).then(response => {
+        fetch('api/login', postingData).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
@@ -51,7 +51,12 @@ const FormStaff = () => {
             Cookies.set('session_key', session_key); {/*sets the session key as a cookie for future reference*/}
             console.log("set cookie");
             alert("login success!");
-            navigate('/WaiterHub');
+            if (data.role === "waiter") {
+                navigate('/WaiterHub');
+            } else {
+                navigate('/KitchenHub');
+            }
+
 
         }).catch(error => {
             console.error("error happening", error)
