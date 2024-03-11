@@ -1,5 +1,6 @@
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
+{/*Form that allows new customers to register an account*/}
 const SignUpForm = () => {
   return (
     <div>

@@ -1,7 +1,7 @@
 
 import FilterMenu from "../../components/menu/FoodFilterMenu"
 
-//this is the menu page which combine all the components
+{/*this is the menu page which combine all the components*/}
 
 const Menu = () => {
   return (
