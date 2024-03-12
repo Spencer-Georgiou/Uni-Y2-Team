@@ -5,7 +5,6 @@ import CarouselHomepage from "../../components/homepage/CarouselHomepage";
 const homepage = () => {
   return (
     <div>
-      //Background Image
       <div>
         <img
           class="h-auto w-full bg-center items-center  "
