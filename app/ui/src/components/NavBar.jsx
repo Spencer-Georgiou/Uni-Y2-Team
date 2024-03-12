@@ -50,14 +50,6 @@ function NavBar() {
         >
           <span>Order</span>
         </Link>
-
-        {/* Link to Contact Us Page */}
-        <Link
-          to="/Contact"
-          className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline"
-        >
-          <span>Contact Us</span>
-        </Link>
       </Navbar.Collapse>
 
       <div className="flex md:order-1">
@@ -71,8 +63,8 @@ function NavBar() {
         </Link>
       </div>
 
-      <div className="flex gap-2 md:order-2 ">
-        <Dropdown label={<span className="font-sans font-semibold text-lemon border-lemon" >Log in</span>} dismissOnClick={false}>
+      <div className="flex gap-2 md:order-2 font-sans font-medium font-semibold text-lemon">
+        <Dropdown label="Log In" inline className='text-lemon bg-lemon border-lemon' dismissOnClick={false}>
           <Dropdown.Item as={Link} to="/StaffLogin" className="focus:bg-amber">Staff Login</Dropdown.Item>
           <Dropdown.Item as={Link} to="/CustomerLogin" className="focus:bg-amber">Customer Login</Dropdown.Item>
         </Dropdown>

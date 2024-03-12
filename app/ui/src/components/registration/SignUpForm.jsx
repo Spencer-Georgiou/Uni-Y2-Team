@@ -36,7 +36,7 @@ const SignUpForm = () => {
     <div className="flex justify-center">
       <button
         type="submit"
-        className="h-16 font-sans font-semibold bg-lemon rounded-lg text-xl w-40 rounded-2xl px-5 py-2.5 text-center"
+        className="h-16 font-sans font-semibold bg-lemon rounded-lg text-xl w-40 rounded-2xl px-5 py-2.5 text-center hover:ring-4 hover:ring-cherry"
       >
         Sign Up
       </button>
