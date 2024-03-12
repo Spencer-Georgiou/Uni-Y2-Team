@@ -2,9 +2,7 @@
 
 import { Dropdown } from 'flowbite-react';
 
-/**Drop down list that takes users to the food menu and drink menu pages.
- * 
- */
+{/*Drop down list that takes users to the food menu and drink menu pages.*/}
 function DropDownMenu() {
     return (
         <Dropdown className="text-cherry" label="Menu" inline>

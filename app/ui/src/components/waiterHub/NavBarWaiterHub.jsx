@@ -4,6 +4,7 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
+{/*NavBar displayed on the Waiter's Hub, showing the logo, return to main hub link and account icon.*/}
 function NavBarWaiterHub() {
     return (
         <Navbar className="bg-cherry flex items-center justify-between w-screen">
@@ -15,12 +16,12 @@ function NavBarWaiterHub() {
 
             </div>
             <div className="flex flex-1 justify-center flex-nowrap">
-                {/* restaurant logo */}
+                {/*Restaurant logo*/}
                 <Link to="/">
                     <img className="h-16" src="/images/OaxacaLogo.png" alt="Oaxaca Logo" />
                 </Link>
             </div>
-            {/* the avatar icon with a dropdown displaying log out which takes you back to StaffLogin */}
+            {/*The avatar icon with a dropdown displaying log out which takes you back to StaffLogin*/}
             <div className="flex flex-1 justify-end items-center">
                 <Dropdown className="bg-lemon" label={
                     <Avatar rounded />
