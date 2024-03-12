@@ -41,7 +41,7 @@ class TestOrder:
         })
 
         assert response.status_code == 422
-        assert response.get_json()["message"] == services.Order.MSG_INCORRECT_POST_DATA
+        assert response.get_json()["message"] == services.Order.MSG_INCORRECT_DATA
 
     # A delete request to "api/order?id=<order_id>" should delete the order with the order_id in
     # the database.
@@ -131,3 +131,19 @@ class TestOrder:
         expected_json = OrderSchema().dump(expected_order)
         assert response.status_code == 200
         assert response.get_json() == expected_json
+
+    def test_update_with_absent_order_id(self, client, order, db):
+        # when order in database
+        db.session.add(order)
+        db.session.commit()
+
+        # then send patch request without order_id
+        request_json = {
+            "confirmed_waiter": True
+        }
+        response = client.patch("/api/order", json=request_json)
+
+        #check the response code is 422
+        assert response.status_code == 422
+        assert response.get_json()["message"] == services.Order.MSG_INCORRECT_DATA
+        

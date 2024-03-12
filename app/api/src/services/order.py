@@ -16,7 +16,7 @@ class Order(MethodView):
     """
     Class that provide apis to manipulate order instances at "/order".
     """
-    MSG_INCORRECT_POST_DATA = "The order cannot be created because the data provided is incorrect."
+    MSG_INCORRECT_DATA = "The order cannot be created because the data provided is incorrect."
     MSG_NO_SUCH_ORDER = "Order does not exist."
 
     @apidoc.arguments(schema=OrderSchema(only=("table_number", "menuitem_associations",)),
@@ -36,7 +36,7 @@ class Order(MethodView):
         # when input values are not fit to the db constraints
         except IntegrityError:
             abort(422,
-                  message=Order.MSG_INCORRECT_POST_DATA)
+                  message=Order.MSG_INCORRECT_DATA)
 
     @apidoc.response(204)
     @apidoc.arguments(schema=OrderSchema(only=("id",)), location="query", )
@@ -68,7 +68,7 @@ class Order(MethodView):
         """
         if order_from_request.id is None:
             abort(422,
-                  message=Order.MSG_INCORRECT_POST_DATA)
+                  message=Order.MSG_INCORRECT_DATA)
 
         order_in_db = db.session.query(models.Order).get(order_from_request.id)
         if order_in_db is None:
