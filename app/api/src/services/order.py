@@ -54,3 +54,32 @@ class Order(MethodView):
         else:
             db.session.delete(order_in_db)
             db.session.commit()
+
+    def patch(self, order_to_update, order_from_request):
+        """
+        Partially update an order.
+
+        - Updates specified fields of an order based on user role.
+        - Validates user role using a token in the cookie.
+        - Returns 404 if the order is not found.
+        - Returns 403 if the user does not have the required permissions.
+        """
+
+        # Retrieve token from cookie and validate user role
+        token =  request.cookies.get("token")  # Replace with actual token retrieval
+        role = validateToken.post(token)  # Replace with actual role validation logic
+
+        order_in_db = db.session.query(models.Order).get(order_from_request.id)
+        if order_in_db is None:
+            abort(404, message=Order.MSG_NO_SUCH_ORDER)
+
+        if role not in ["waiter", "kitchen"]:
+            abort(403, message="Unauthorized to update order")
+
+        if role == "waiter":
+            order_in_db.waiter_confirmation = order_to_update.waiter_confirmation
+        if role in ["waiter", "kitchen"]:
+            order_in_db.order_status = order_to_update.order_status
+
+        db.session.commit()
+        return order_in_db
