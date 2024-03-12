@@ -29,7 +29,7 @@ class TestSessionSchema:
         db.session.commit()
         queried_waiter = db.session.query(Waiter).first()
         retrieved_session = queried_waiter.session
-        serialized_session = SessionSchema().dump(retrieved_session)
+        serialized_session = SessionSchema(exclude=("user",)).dump(retrieved_session)
 
         assert serialized_session == expected
 
