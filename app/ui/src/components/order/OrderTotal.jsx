@@ -21,7 +21,7 @@ const OrderTotal = () => {
     <div>
       <p className="mt-5 mb-2 overline decoration-2 text-lg">
         Total ( {getTotal().totalQuantity} items) :{" "}
-        <b>${getTotal().totalPrice}</b>
+        <b>￡{getTotal().totalPrice}</b>
       </p>
     </div>
   );

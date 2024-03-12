@@ -26,7 +26,7 @@ const filterButtons = [
   },
 ];
 
-const OrderMenu = () => {
+const OrderMenu = ({ gluten, dairy }) => {
   const dispatch = useDispatch();
   const [food, setFood] = useState({
     name: "",
@@ -39,6 +39,7 @@ const OrderMenu = () => {
   const [menu, setMenu] = useState([]);
   const [loading, setLoding] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [filtered, setFiltered] = useState([]);
 
   // Fetches menu data from api and sets it in json format
   useEffect(() => {
@@ -48,18 +49,36 @@ const OrderMenu = () => {
   }, []);
 
   function hanldeMenu(e) {
+    if (gluten === false) {
+      let a = data.filter(
+        (f) =>
+          f.name !== "Tacos" &&
+          f.name !== "Bean Tostadas" &&
+          f.name !== "Corona"
+      );
+      setFiltered(a);
+    }
+    if (!dairy) {
+      let b = data.filter(
+        (f) => f.name !== "Tacos" && f.name !== "Fanta Naranja"
+      );
+      setFiltered(b);
+    } else {
+      setFiltered(data);
+    }
+
     let filterType = e.target.value;
     if (filterType === "All") {
       setLoding(true);
       //If waiter wants to display the entire menu, it will set the
-      setMenu(data); // filtered menu state as just the entire data
+      setMenu(filtered); // filtered menu state as just the entire data
       setLoding(false);
       console.log("loading all");
     }
     if (filterType === "Drink") {
       setLoding(true);
       // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
-      let filterfood = data.filter(
+      let filterfood = filtered.filter(
         (item) =>
           item.menugroup.category === "Alcoholic" ||
           item.menugroup.category === "Non-Alcoholic"
@@ -70,7 +89,7 @@ const OrderMenu = () => {
     } else {
       setLoding(true);
       // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
-      let filterfood = data.filter(
+      let filterfood = filtered.filter(
         (item) => item.menugroup.category === filterType
       );
       setMenu(filterfood);
@@ -79,13 +98,13 @@ const OrderMenu = () => {
     }
   }
 
-  function handleFood(item) {
+  function handleFood(name, description, allergens, calorie, price) {
     setFood({
-      name: item.name,
-      description: item.description,
-      allergens: item.allergens,
-      calorie: item.calorie,
-      price: item.price,
+      name: name,
+      description: description,
+      allergens: allergens,
+      calorie: calorie,
+      price: price,
     });
   }
 

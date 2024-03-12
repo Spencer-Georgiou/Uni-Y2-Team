@@ -24,8 +24,9 @@ function TableNumber({ openModal, setOpenModal, setShowProgress }) {
     console.log(order);
   }
 
-  //post the final order to back-end
+  //post the data to back-end
   function handleSubmit() {
+    //the information in the head
     const postingData = {
       method: "POST",
       headers: {
@@ -33,9 +34,12 @@ function TableNumber({ openModal, setOpenModal, setShowProgress }) {
       },
       body: JSON.stringify(order),
     };
+
+    //post the data and get the response
     fetch("/api/order", postingData)
       .then((response) => {
         if (response.status === 200) {
+          alert("order sucessfully!");
           return response.json();
         } else alert("error here");
       })
