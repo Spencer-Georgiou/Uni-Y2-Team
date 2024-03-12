@@ -48,9 +48,26 @@ class Order(MethodView):
         - Return 404 if the order is not found in the database.
         """
         order_in_db = db.session.query(models.Order).get(order_from_request.id)
-        # check if the order is stored in the db
+        # raise 404 when order is not found
         if order_in_db is None:
             abort(404, message=Order.MSG_NO_SUCH_ORDER)
-        else:
-            db.session.delete(order_in_db)
-            db.session.commit()
+
+        db.session.delete(order_in_db)
+        db.session.commit()
+
+    @apidoc.arguments(schema=OrderSchema(only=("id",)), location="query")
+    @apidoc.response(status_code=200, schema=OrderSchema)
+    def get(self, order_from_request):
+        """
+        Return an order.
+
+        - Return an order with the given ID if it exists in the database.
+        - Return 404 if the order is not found in the database.
+        """
+        order_in_db = db.session.query(models.Order).get(order_from_request.id)
+        
+        # raise 404 when order is not found
+        if order_in_db is None:
+            abort(404, message=Order.MSG_NO_SUCH_ORDER)
+
+        return order_in_db
