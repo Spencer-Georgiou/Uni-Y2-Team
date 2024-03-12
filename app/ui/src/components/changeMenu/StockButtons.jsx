@@ -1,61 +1,34 @@
-'use client';
+// StockButtons.js
+import { useState } from "react";
 
-import { useState } from "react"
+const StockButtons = ({ itemId, available, toggleAvailability }) => {
+    const [isAvailable, setIsAvailable] = useState(available);
 
-
-
-
-const StockButtons = ({ defaultAvailability }) => {
-    const [clicked, setClicked] = useState(defaultAvailability);
-
-    const [availableButton, setAvailableButton] = useState("green");
-    const [unavailableButton, setUnavailableButton] = useState("transparent");
-
-
-
-
-
-    const checkButton = () => {
-        if (clicked === "available") {
-            setAvailableButton("green");
-            setUnavailableButton("transparent");
-        } else {
-            setAvailableButton("transparent");
-            setUnavailableButton("red");
-        }
+    const handleClick = () => {
+        setIsAvailable(!isAvailable);
+        toggleAvailability(itemId);
     };
 
-
-
-
-
-    return(
+    return (
         <td className="px-6 py-4">
-
-            
             <button
                 type="button"
                 className="font-sans font-bold py-2 px-4 my-2 rounded-lg"
-                style={{ backgroundColor: availableButton }}
-                onClick={() => { setClicked("available"); checkButton(); }}
+                style={{ backgroundColor: isAvailable ? "green" : "transparent" }}
+                onClick={handleClick}
             >
                 Available
             </button>
-
-
-
-
-
             <button
                 type="button"
                 className="font-sans font-bold py-2 px-4 my-2 rounded-lg"
-                style={{ backgroundColor: unavailableButton }}
-                onClick={() => { setClicked("unavailable"); checkButton(); }}
+                style={{ backgroundColor: isAvailable ? "transparent" : "red" }}
+                onClick={handleClick}
             >
                 Unavailable
             </button>
         </td>
-    )
+    );
+};
 
-}
-export default StockButtons
+export default StockButtons;
