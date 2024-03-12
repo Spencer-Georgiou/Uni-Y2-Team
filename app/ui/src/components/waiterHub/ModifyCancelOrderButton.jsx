@@ -2,6 +2,7 @@
 
 import { Link } from 'react-router-dom';
 
+{/*Button that will allow the waiter to modify or cancel an order via the ModifyCancelOrder page.*/}
 function ModifyCancelOrderButton() {
     return (
       <Link to="/ModifyCancelOrder" className="flex items-center justify-center">

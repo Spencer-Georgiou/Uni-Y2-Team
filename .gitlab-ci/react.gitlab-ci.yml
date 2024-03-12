@@ -1,0 +1,61 @@
+stages:
+  # test source codes
+  - test
+  # check if an app is runnable
+  - build
+
+# enviroment variables for the pipeline
+variables:
+  # the path to the react project
+  REACT_DIR: $CI_PROJECT_DIR/app/ui
+  # the path to the pip cache
+  NPM_CACHE_DIR: $REACT_DIR/.npm
+  # the ID for the pipeline that is universally unique for all the pipelines of every projects
+  CI_PIPELINE_UUID: $CI_PIPELINE_ID.$CI_PIPELINE_IID
+
+# a template to specify the version of node
+.node_image:
+  image: node:20.11.0
+  before_script:
+    - node --version
+
+# a template to cache the node dependencies for each pipeline
+.npm_cache:
+  before_script:
+    - cd $REACT_DIR
+    # freshly install node dependecies from caches with error logs only
+    - npm clean-install --cache $NPM_CACHE_DIR --prefer-offline --loglevel=error
+    - cd $CI_PROJECT_DIR
+  cache:
+    key: $CI_PIPELINE_UUID
+    paths:
+      - $NPM_CACHE_DIR
+
+# a template for the node enviroment
+.node:
+  extends:
+    - .node_image
+    - .npm_cache
+  before_script:
+    # combine the before_scripts to avoid overwrites
+    - !reference [.node_image, before_script]
+    - !reference [.npm_cache, before_script]
+    - cd $REACT_DIR
+
+# test the source codes of the react app
+test-react-job:
+  extends: .node
+  stage: test
+  script:
+    # disable interactive prompts when testing
+    - export CI=true
+    - npm test
+
+# check if the react app can be built
+build-react-job:
+  extends: .node
+  stage: build
+  script:
+    # linting check is not a part of the build job
+    - export DISABLE_ESLINT_PLUGIN=true
+    - npm run build

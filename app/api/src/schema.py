@@ -1,6 +1,10 @@
 """
 Module to serialize or deserialize model instances to or from json with primitive types.
 """
+import urllib.parse
+
+from flask import current_app
+from flask import request
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
 from marshmallow_sqlalchemy.fields import fields
@@ -54,6 +58,51 @@ class AllergenSchema(SQLAlchemyAutoSchema):
         include_relationships = True
 
 
+class Path(fields.Field):
+    """Field that serializes a relative path to a flask url and deserializes a flask url to a
+    relative path
+    """
+
+    def _serialize(self, value, attr=None, obj=None, **kwargs):
+        """
+        Serializes a relative path to a flask url.
+
+        :param value: The value to be serialized.
+        :return: The serialized value.
+        """
+        if value is None:
+            return value
+
+        # the returned url is in the format of "host:port/abstract_path"
+        relative_path = urllib.parse.quote(value)
+        return self.__get_host() + ":" + self.__get_port() + "/" + relative_path
+
+    def _deserialize(self, value, attr=None, data=None, **kwargs):
+        """
+        Deserializes a flask url to a relative path.
+
+        :param value: The value to be deserialized.
+        :return: The deserialized value.
+        """
+        if value is None:
+            return value
+
+        # remove the host and port part in the value
+        prefix = self.__get_host() + ":" + self.__get_port() + "/"
+        decoded_path = value.replace(prefix, "")
+        return urllib.parse.unquote(decoded_path)
+
+    def __get_host(self):
+        # get the host url of the app
+        with current_app.test_request_context():
+            return request.host_url[:-1]
+
+    def __get_port(self):
+        # get the port number of the app
+        with current_app.test_request_context():
+            return current_app.config["PORT"]
+
+
 class MenuItemSchema(SQLAlchemyAutoSchema):
     """
     Schema for MenuGroup that shows its menugroup as well as the related allergens.
@@ -66,6 +115,7 @@ class MenuItemSchema(SQLAlchemyAutoSchema):
 
     # Convert python Decimal.Decimal() to float type since the previous one cannot be parsed to json
     price = fields.Float()
+    image_path = Path()
     menugroup = Nested(MenuGroupSchema, exclude=("menuitems",))
     allergens = Nested(AllergenSchema(many=True), exclude=("menuitems",))
 

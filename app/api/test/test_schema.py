@@ -16,6 +16,11 @@ from src.schema import MenuItemSchema
 from src.schema import OrderMenuItemAssociationSchema
 from src.schema import OrderSchema
 from src.schema import SessionSchema
+from src import schema
+import pathlib
+from flask import request
+from flask import url_for
+import urllib.parse
 
 
 class TestSessionSchema:
@@ -64,8 +69,9 @@ class TestMenuItemSchema:
     # A menuitem with no allergen returned by a query is serializable.
     def test_serialize_menuitem_no_allergen(self, db, menugroup):
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'}, 'allergens': [],
-                    'name': 'Tacos', 'description': 'Crispy tacos filled with cheese',
-                    'calorie': 600, 'price': Decimal('5.00')}
+                    'name': 'Tacos', 'image_path': None,
+                    'description': 'Crispy tacos filled with cheese',
+                    'calorie': 600, 'price': 5.00, 'available': True}
 
         menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
                             calorie=600, price=5.00, menugroup=menugroup)
@@ -81,8 +87,9 @@ class TestMenuItemSchema:
     def test_serialize_menuitem_one_allergen(self, db, menugroup):
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'},
                     'allergens': [{'name': 'Gluten'}], 'name': 'Tacos',
-                    'description': 'Crispy tacos filled with cheese', 'calorie': 600,
-                    'price': Decimal('5.00')}
+                    'description': 'Crispy tacos filled with cheese',
+                    'image_path': None, 'calorie': 600,
+                    'price': 5.00, 'available': True}
 
         allergen = Allergen(name="Gluten")
         menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
@@ -97,12 +104,34 @@ class TestMenuItemSchema:
 
         assert serialized_menuitem == expected
 
+    # A menuitem with an image path returned by a query is serializable.
+    def test_serialize_menuitem_has_image_path(self, db, menugroup):
+        # when a menuitem is created
+        menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
+                            calorie=600, price=5.00, menugroup=menugroup,
+                            image_path="static/tacos_placeholder.jpg")
+        expected = {'menugroup': {'type': 'Food', 'category': 'Starter'}, 'allergens': [],
+                    'name': 'Tacos', 'image_path': None,
+                    'description': 'Crispy tacos filled with cheese',
+                    'calorie': 600, 'price': 5.00, 'available': True}
+        expected['image_path'] = schema.Path()._serialize(menuitem.image_path)
+
+        # add it to the empty database then serialize the only menuitem found in database
+        db.session.add(menuitem)
+        db.session.add(menugroup)
+        db.session.commit()
+        queried_menuitem = db.session.query(MenuItem).first()
+        serialized_menuitem = MenuItemSchema().dump(queried_menuitem)
+
+        # assert if the serialized menuitem is what we expect
+        assert serialized_menuitem == expected
+
 
 class TestOrderMenuItemAssociationSchema:
     # An association between an order and menuitem returned by a query is serializable.
-    def test_serialize_order_menuitem_association(self, db, active_order, menuitem):
+    def test_serialize_order_menuitem_association(self, db, order, menuitem):
         expected = {'menuitem_name': 'Tacos', 'order_id': 1, 'quantity': 3}
-        order_menuitem_association = OrderMenuItemAssociation(order=active_order, menuitem=menuitem,
+        order_menuitem_association = OrderMenuItemAssociation(order=order, menuitem=menuitem,
                                                               quantity=3)
         db.session.add(order_menuitem_association)
         db.session.commit()
@@ -115,15 +144,53 @@ class TestOrderMenuItemAssociationSchema:
 
 class TestOrderSchema:
     # An order returned by a query is serializable.
-    def test_serialize_order(self, db, active_order, menuitem):
+    def test_serialize_order(self, db, order, menuitem):
+        # when an order is in the database
         expected = {'status': 'Preparing',
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
                     'table_number': 10, 'id': 1, 'confirmed_waiter': False}
-        active_order.menuitem_associations.append(
+        order.menuitem_associations.append(
             OrderMenuItemAssociation(menuitem=menuitem, quantity=3))
-        db.session.add(active_order)
+        db.session.add(order)
         db.session.commit()
 
+        # then serialize the queried order
         queried_order = db.session.query(Order).first()
         serialized_order = OrderSchema().dump(queried_order)
+
+        # assert the serialized queried order has the same value with the expected order
+        expected['time_created'] = serialized_order['time_created']
         assert serialized_order == expected
+
+
+class TestPathField:
+    # Path field should serialize a relative path to an url.
+    def test_serialize_path(self, app, client):
+        # when a path points to an existing file
+        abstract_path = pathlib.PurePath("static/tacos-placeholder.jpg")
+        concrete_path = pathlib.Path(abstract_path)
+        assert concrete_path.exists() == True
+
+        # convert the local relative path to an url
+        url = schema.Path()._serialize(str(abstract_path))
+
+        # check if the url is in the format of "protocol + host + port + abstract_path"
+        with app.test_request_context():
+            expected = request.host_url[:-1] + ":" + app.config["PORT"] + "/" + urllib.parse.quote(
+                str(abstract_path))
+        assert url == expected
+
+    # Path field should deserialize to an url to a relative path.
+    def test_deserialize_path(self, app, client):
+        # when an url is consumed
+        abstract_path = pathlib.PurePath("static/tacos_placeholder.jpg")
+        with app.test_request_context():
+            url = request.host_url[:-1] + ":" + app.config["PORT"] + "/" + urllib.parse.unquote(
+                str(abstract_path))
+        expected = str(abstract_path)
+
+        # convert the url to a local relative path
+        image_path = schema.Path()._deserialize(url)
+
+        # check if the image path equals to the string of the abstract path
+        assert image_path == expected

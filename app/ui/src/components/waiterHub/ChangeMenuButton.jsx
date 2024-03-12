@@ -1,3 +1,4 @@
+{/*Button that allows the waiter to change menu items via the ChangeMenu page.*/}
 function ChangeMenuButton() {
   return (
 

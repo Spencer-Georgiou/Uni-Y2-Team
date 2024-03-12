@@ -110,13 +110,3 @@ def table():
 @pytest.fixture
 def order(table):
     return Order(table=table)
-
-
-@pytest.fixture
-def active_order(table):
-    return Order(table=table, status=Order.Status.PREPARING)
-
-
-@pytest.fixture
-def inactive_order(table):
-    return Order(table=table, status=Order.Status.FINISHED)

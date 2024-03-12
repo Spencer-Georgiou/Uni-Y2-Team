@@ -1,6 +1,6 @@
 'use client'
 
-
+{/*Button which allows waiters to cancel an order.*/}
 function CancelButton() {
     return (
   
