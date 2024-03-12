@@ -5,7 +5,7 @@ from flask.views import MethodView
 from src.models import MenuItem
 from src.models import db
 
-@apidoc.route("/menuitem/available")
+@apidoc.route("/menuitem")
 class Available(MethodView):
     def patch(self):
         try:

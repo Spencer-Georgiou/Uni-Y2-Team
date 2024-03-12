@@ -6,7 +6,7 @@ class TestLogin:
         db.session.add_all([menuitem])
         db.session.commit()
 
-        available_response = client.patch("/api/menuitem/available", json={
+        available_response = client.patch("/api/menuitem", json={
             "name": "Tacos",
             "available": "false"
         })
@@ -22,7 +22,7 @@ class TestLogin:
         db.session.add_all([menuitem])
         db.session.commit()
 
-        response = client.patch("/api/menuitem/available", json={
+        response = client.patch("/api/menuitem", json={
             "name": "does_not_exist",
             "available": "false"
         })
