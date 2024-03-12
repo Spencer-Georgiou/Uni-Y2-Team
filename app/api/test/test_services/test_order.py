@@ -70,7 +70,7 @@ class TestOrder:
         assert response.status_code == 404
         assert response.get_json()["message"] == services.Order.MSG_NO_SUCH_ORDER
 
-    def test_get_order_by_id(self, client, db, order):
+    def test_get_order_by_valid_id(self, client, db, order):
         # when an order in the database
         db.session.add(order)
         db.session.commit()
@@ -83,3 +83,13 @@ class TestOrder:
         expected = OrderSchema().dump(order)
         assert response.status_code == 200
         assert response.get_json() == expected
+
+    def test_get_order_by_invalid_id(self, client, db, order):
+        # when no order in the database
+        # then send a get request to /api/order
+        query = {"id": order.id}
+        response = client.get("/api/order", query_string=query)
+
+        # check whether the response is 404 indicating no such an order
+        assert response.status_code == 404
+        assert response.get_json()["message"] == services.Order.MSG_NO_SUCH_ORDER
