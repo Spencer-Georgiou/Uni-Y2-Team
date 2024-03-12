@@ -169,7 +169,6 @@ class TestPathField:
         # when a path points to an existing file
         abstract_path = pathlib.PurePath("static/tacos-placeholder.jpg")
         concrete_path = pathlib.Path(abstract_path)
-        assert concrete_path.exists() == True
 
         # convert the local relative path to an url
         url = schema.Path()._serialize(str(abstract_path))

@@ -55,7 +55,9 @@ class Order(MethodView):
             db.session.delete(order_in_db)
             db.session.commit()
 
-    def patch(self, order_to_update, order_from_request):
+    @apidoc.arguments(schema=OrderSchema(only=("id","status", "confirmed_waiter")), location="json", required=False)
+    @apidoc.response(status_code=200, schema=OrderSchema)
+    def patch(self, order_from_request):
         """
         Partially update an order.
 
@@ -64,22 +66,17 @@ class Order(MethodView):
         - Returns 404 if the order is not found.
         - Returns 403 if the user does not have the required permissions.
         """
-
-        # Retrieve token from cookie and validate user role
-        token =  request.cookies.get("token")  # Replace with actual token retrieval
-        role = validateToken.post(token)  # Replace with actual role validation logic
+        if order_from_request.id is None:
+            abort(422,
+                  message=Order.MSG_INCORRECT_POST_DATA)
 
         order_in_db = db.session.query(models.Order).get(order_from_request.id)
         if order_in_db is None:
             abort(404, message=Order.MSG_NO_SUCH_ORDER)
 
-        if role not in ["waiter", "kitchen"]:
-            abort(403, message="Unauthorized to update order")
+        order_in_db.status = order_from_request.status
+        order_in_db.confirmed_waiter = order_from_request.confirmed_waiter
 
-        if role == "waiter":
-            order_in_db.waiter_confirmation = order_to_update.waiter_confirmation
-        if role in ["waiter", "kitchen"]:
-            order_in_db.order_status = order_to_update.order_status
-
+        db.session.add(order_in_db)
         db.session.commit()
         return order_in_db

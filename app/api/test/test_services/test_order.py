@@ -69,3 +69,24 @@ class TestOrder:
         # check the response is 404, and the instance is deleted from the database
         assert response.status_code == 404
         assert response.get_json()["message"] == services.Order.MSG_NO_SUCH_ORDER
+
+    # A patch request to "api/order" should update the status of the order if the status is given.
+    def test_update_order_status(self, client, db, order):
+        # when order in the database
+        db.session.add(order)
+        db.session.commit()
+
+        # then send a patch request to update the status of the order
+        request_json = {
+            "id": order.id,
+            "status": models.Order.Status.DELIVERED.value
+        }
+        response = client.patch("/api/order", json=request_json)
+
+        # check the response code is 200
+        # expected response body
+        expected_order = order
+        expected_order.status = models.Order.Status.DELIVERED
+        expected_json = OrderSchema().dump(expected_order)
+        assert response.status_code == 200
+        assert response.get_json() == expected_json
