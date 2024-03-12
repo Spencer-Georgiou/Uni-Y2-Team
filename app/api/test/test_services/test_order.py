@@ -83,10 +83,28 @@ class TestOrder:
         }
         response = client.patch("/api/order", json=request_json)
 
-        # check the response code is 200
-        # expected response body
+        # check the response code is 200 and returned order has updated order status
         expected_order = order
         expected_order.status = models.Order.Status.DELIVERED
+        expected_json = OrderSchema().dump(expected_order)
+        assert response.status_code == 200
+        assert response.get_json() == expected_json
+
+    def test_update_waiter_confirmed(self, client, db, order):
+        # when order in database
+        db.session.add(order)
+        db.session.commit()
+
+        # then send a patch request to update waiter_confirmed
+        request_json = {
+            "id": order.id,
+            "confirmed_waiter": True
+        }
+        response = client.patch("/api/order", json=request_json)
+
+        # check the response code is 200 and returned order has updated confirmed_waiter
+        expected_order = order
+        expected_order.confirmed_waiter = True
         expected_json = OrderSchema().dump(expected_order)
         assert response.status_code == 200
         assert response.get_json() == expected_json
