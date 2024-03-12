@@ -54,3 +54,16 @@ class Order(MethodView):
         else:
             db.session.delete(order_in_db)
             db.session.commit()
+
+    @apidoc.arguments(schema=OrderSchema(only=("id",)), location="query")
+    @apidoc.response(status_code=200, schema=OrderSchema)
+    def get(self, order_from_request):
+        """
+        Return an order.
+
+        - Return an order with the given ID if it exists in the database.
+        - Return 404 if the order is not found in the database.
+        """
+
+        order_in_db = db.session.query(models.Order).get(order_from_request.id)
+        return order_in_db
