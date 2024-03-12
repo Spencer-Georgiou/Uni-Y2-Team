@@ -87,6 +87,7 @@ class TestOrder:
 
         # check the response code is 200 and returned order has updated order status
         expected_order = copy.deepcopy(order)
+        assert expected_order
         expected_order.status = models.Order.Status.DELIVERED
         expected_json = OrderSchema().dump(expected_order)
         assert response.status_code == 200
@@ -166,5 +167,28 @@ class TestOrder:
         response = client.patch("/api/order", json=request_json)
 
         # check response code is 404
+        assert response.status_code == 404
+        assert response.get_json()["message"] == services.Order.MSG_NO_SUCH_ORDER
+    def test_get_order_by_valid_id(self, client, db, order):
+        # when an order in the database
+        db.session.add(order)
+        db.session.commit()
+
+        # then send a get request with ID in query
+        query = {"id": order.id}
+        response = client.get("/api/order", query_string=query)
+
+        # check whether the response contains the jsonified order
+        expected = OrderSchema().dump(order)
+        assert response.status_code == 200
+        assert response.get_json() == expected
+
+    def test_get_order_by_invalid_id(self, client, db, order):
+        # when no order in the database
+        # then send a get request to /api/order
+        query = {"id": order.id}
+        response = client.get("/api/order", query_string=query)
+
+        # check whether the response is 404 indicating no such an order
         assert response.status_code == 404
         assert response.get_json()["message"] == services.Order.MSG_NO_SUCH_ORDER

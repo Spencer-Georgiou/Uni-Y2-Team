@@ -71,7 +71,7 @@ class TestMenuItemSchema:
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'}, 'allergens': [],
                     'name': 'Tacos', 'image_path': None,
                     'description': 'Crispy tacos filled with cheese',
-                    'calorie': 600, 'price': 5.00}
+                    'calorie': 600, 'price': 5.00, 'available': True}
 
         menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
                             calorie=600, price=5.00, menugroup=menugroup)
@@ -89,7 +89,7 @@ class TestMenuItemSchema:
                     'allergens': [{'name': 'Gluten'}], 'name': 'Tacos',
                     'description': 'Crispy tacos filled with cheese',
                     'image_path': None, 'calorie': 600,
-                    'price': 5.00}
+                    'price': 5.00, 'available': True}
 
         allergen = Allergen(name="Gluten")
         menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
@@ -113,7 +113,7 @@ class TestMenuItemSchema:
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'}, 'allergens': [],
                     'name': 'Tacos', 'image_path': None,
                     'description': 'Crispy tacos filled with cheese',
-                    'calorie': 600, 'price': 5.00}
+                    'calorie': 600, 'price': 5.00, 'available': True}
         expected['image_path'] = schema.Path()._serialize(menuitem.image_path)
 
         # add it to the empty database then serialize the only menuitem found in database
