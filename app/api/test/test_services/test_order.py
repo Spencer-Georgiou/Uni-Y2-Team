@@ -1,6 +1,8 @@
 """
 Testing order apis.
 """
+import copy
+
 from src import services
 from src import models
 from src.schema import OrderSchema
@@ -84,7 +86,7 @@ class TestOrder:
         response = client.patch("/api/order", json=request_json)
 
         # check the response code is 200 and returned order has updated order status
-        expected_order = order
+        expected_order = copy.deepcopy(order)
         expected_order.status = models.Order.Status.DELIVERED
         expected_json = OrderSchema().dump(expected_order)
         assert response.status_code == 200
@@ -103,7 +105,7 @@ class TestOrder:
         response = client.patch("/api/order", json=request_json)
 
         # check the response code is 200 and returned order has updated confirmed_waiter
-        expected_order = order
+        expected_order = copy.deepcopy(order)
         expected_order.confirmed_waiter = True
         expected_json = OrderSchema().dump(expected_order)
         assert response.status_code == 200
@@ -125,13 +127,15 @@ class TestOrder:
         response = client.patch("/api/order", json=request_json)
 
         # check the response code is 200 and returned order has updated confirmed_waiter and status
-        expected_order = order
+        expected_order = copy.deepcopy(order)
         expected_order.confirmed_waiter = True
         expected_order.status = models.Order.Status.DELIVERED
         expected_json = OrderSchema().dump(expected_order)
         assert response.status_code == 200
         assert response.get_json() == expected_json
 
+    # A patch request to "api/order" with no order id will return
+    # a 422 code and appropriate error message
     def test_update_with_absent_order_id(self, client, order, db):
         # when order in database
         db.session.add(order)
@@ -143,7 +147,24 @@ class TestOrder:
         }
         response = client.patch("/api/order", json=request_json)
 
-        #check the response code is 422
+        # check the response code is 422
         assert response.status_code == 422
         assert response.get_json()["message"] == services.Order.MSG_INCORRECT_DATA
-        
+
+    # A patch request to "api/order" with an incorrect id will
+    # return a 404 code and appropriate error message
+    def test_update_with_incorrect_order_id(self, client, order, db):
+        # when order in database
+        db.session.add(order)
+        db.session.commit()
+
+        # then send patch request with incorrect order id
+        request_json = {
+            "id": 5,
+            "confirmed_waiter": True
+        }
+        response = client.patch("/api/order", json=request_json)
+
+        # check response code is 404
+        assert response.status_code == 404
+        assert response.get_json()["message"] == services.Order.MSG_NO_SUCH_ORDER
