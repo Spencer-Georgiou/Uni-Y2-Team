@@ -11,7 +11,6 @@ from sqlalchemy import ForeignKeyConstraint
 from sqlalchemy import Integer
 from sqlalchemy import Numeric
 from sqlalchemy import String
-from sqlalchemy import Boolean
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
@@ -52,10 +51,9 @@ class MenuItem(db.Model):
                                                                  secondary="menuitem_allergen")
     menugroup: Mapped["MenuGroup"] = relationship(back_populates="menuitems",
                                                   foreign_keys=[menugroup_type, menugroup_category])
-    available: Mapped[bool] = mapped_column(Boolean, default=True)
     order_associations: Mapped[List["OrderMenuItemAssociation"]] = relationship(
         back_populates="menuitem")
 
     def __repr__(self):
         return (f"MenuItem(name={self.name!r}, description={self.description!r}, "
-                f"calorie={self.calorie!r}, price={self.price!r}, available={self.available!r})")
+                f"calorie={self.calorie!r}, price={self.price!r})")
