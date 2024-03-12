@@ -93,6 +93,7 @@ class TestOrder:
         assert response.status_code == 200
         assert response.get_json() == expected_json
 
+    # A patch request to "api/order" should update the waiter_confirmed of the order.
     def test_update_waiter_confirmed(self, client, db, order):
         # when order in database
         db.session.add(order)
@@ -169,6 +170,8 @@ class TestOrder:
         # check response code is 404
         assert response.status_code == 404
         assert response.get_json()["message"] == services.Order.MSG_NO_SUCH_ORDER
+
+    # A get request to "api/order" should return the order with the given ID if it exists.
     def test_get_order_by_valid_id(self, client, db, order):
         # when an order in the database
         db.session.add(order)
@@ -183,7 +186,8 @@ class TestOrder:
         assert response.status_code == 200
         assert response.get_json() == expected
 
-    def test_get_order_by_invalid_id(self, client, db, order):
+    # A get request to "api/order" should return a 404 if the order does not exist.
+    def test_get_order_by_invalid_id(self, client, order):
         # when no order in the database
         # then send a get request to /api/order
         query = {"id": order.id}
