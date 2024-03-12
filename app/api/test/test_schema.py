@@ -167,7 +167,7 @@ class TestPathField:
     # Path field should serialize a relative path to an url.
     def test_serialize_path(self, app, client):
         # when a path points to an existing file
-        abstract_path = pathlib.PurePath("test/static/tacos-placeholder.jpg")
+        abstract_path = pathlib.PurePath("static/tacos-placeholder.jpg")
         concrete_path = pathlib.Path(abstract_path)
         assert concrete_path.exists() == True
 
