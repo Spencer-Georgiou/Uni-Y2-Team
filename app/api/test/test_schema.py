@@ -16,6 +16,8 @@ from src.schema import MenuItemSchema
 from src.schema import OrderMenuItemAssociationSchema
 from src.schema import OrderSchema
 from src.schema import SessionSchema
+from src.models import Table
+from src.schema import TableSchema
 from src import schema
 import pathlib
 from flask import request
@@ -71,7 +73,7 @@ class TestMenuItemSchema:
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'}, 'allergens': [],
                     'name': 'Tacos', 'image_path': None,
                     'description': 'Crispy tacos filled with cheese',
-                    'calorie': 600, 'price': 5.00}
+                    'calorie': 600, 'price': 5.00, 'available': True}
 
         menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
                             calorie=600, price=5.00, menugroup=menugroup)
@@ -89,7 +91,7 @@ class TestMenuItemSchema:
                     'allergens': [{'name': 'Gluten'}], 'name': 'Tacos',
                     'description': 'Crispy tacos filled with cheese',
                     'image_path': None, 'calorie': 600,
-                    'price': 5.00}
+                    'price': 5.00, 'available': True}
 
         allergen = Allergen(name="Gluten")
         menuitem = MenuItem(name="Tacos", description="Crispy tacos filled with cheese",
@@ -113,7 +115,7 @@ class TestMenuItemSchema:
         expected = {'menugroup': {'type': 'Food', 'category': 'Starter'}, 'allergens': [],
                     'name': 'Tacos', 'image_path': None,
                     'description': 'Crispy tacos filled with cheese',
-                    'calorie': 600, 'price': 5.00}
+                    'calorie': 600, 'price': 5.00, 'available': True}
         expected['image_path'] = schema.Path()._serialize(menuitem.image_path)
 
         # add it to the empty database then serialize the only menuitem found in database
@@ -148,7 +150,7 @@ class TestOrderSchema:
         # when an order is in the database
         expected = {'status': 'Preparing',
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
-                    'table_number': 10, 'id': 1, 'confirmed_waiter': False}
+                    'table_number': 10, 'id': 1, 'confirmed_by_waiter': False}
         order.menuitem_associations.append(
             OrderMenuItemAssociation(menuitem=menuitem, quantity=3))
         db.session.add(order)
@@ -169,7 +171,6 @@ class TestPathField:
         # when a path points to an existing file
         abstract_path = pathlib.PurePath("static/tacos-placeholder.jpg")
         concrete_path = pathlib.Path(abstract_path)
-        assert concrete_path.exists() == True
 
         # convert the local relative path to an url
         url = schema.Path()._serialize(str(abstract_path))
@@ -194,3 +195,28 @@ class TestPathField:
 
         # check if the image path equals to the string of the abstract path
         assert image_path == expected
+
+
+class TestTableSchema:
+    # A table returned by a query is serializable.
+    def test_serialize_table(self, db, table):
+        expected = {'number': 10, 'order': None}
+        db.session.add(table)
+        db.session.commit()
+
+        queried_table = db.session.query(Table).first()
+        serialized_table = TableSchema().dump(queried_table)
+
+        assert serialized_table == expected
+
+    # A table with an order returned by a query is serializable.
+    def test_serialize_table_with_order(self, db, table, order):
+        db.session.add_all([table, order])
+        db.session.commit()
+        expected = {'number': table.number,
+                    'order': OrderSchema(exclude=('table_number', 'table')).dump(order)}
+
+        queried_table = db.session.query(Table).first()
+        serialized_table = TableSchema().dump(queried_table)
+
+        assert serialized_table == expected

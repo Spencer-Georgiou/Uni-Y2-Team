@@ -7,3 +7,5 @@ from src.services.demo import Demo
 from src.services.login import Login
 from src.services.menu import Menu
 from src.services.order import Order
+from src.services.available import Available
+from src.services.table import Table
