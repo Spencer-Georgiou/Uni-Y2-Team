@@ -15,7 +15,7 @@ class TestWaiter:
         assert waiter.session is session_for_waiter
 
     # A session should be deleted when the associated user is deleted.
-    def test_cascade_delete_sessionr(self, db, waiter, session_for_waiter):
+    def test_cascade_delete_session(self, db, waiter, session_for_waiter):
         # when a waiter and its session in the database
         db.session.add_all([waiter, session_for_waiter])
         db.session.commit()

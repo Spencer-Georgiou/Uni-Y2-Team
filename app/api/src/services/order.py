@@ -16,7 +16,7 @@ class Order(MethodView):
     """
     Class that provide apis to manipulate order instances at "/order".
     """
-    MSG_INCORRECT_POST_DATA = "The order cannot be created because the data provided is incorrect."
+    MSG_INCORRECT_DATA = "The values of arguments are incorrect from the request."
     MSG_NO_SUCH_ORDER = "Order does not exist."
 
     @apidoc.arguments(schema=OrderSchema(only=("table_number", "menuitem_associations",)),
@@ -36,7 +36,7 @@ class Order(MethodView):
         # when input values are not fit to the db constraints
         except IntegrityError:
             abort(422,
-                  message=Order.MSG_INCORRECT_POST_DATA)
+                  message=Order.MSG_INCORRECT_DATA)
 
     @apidoc.response(204)
     @apidoc.arguments(schema=OrderSchema(only=("id",)), location="query", )
@@ -51,9 +51,36 @@ class Order(MethodView):
         # raise 404 when order is not found
         if order_in_db is None:
             abort(404, message=Order.MSG_NO_SUCH_ORDER)
+        else:
+            db.session.delete(order_in_db)
+            db.session.commit()
 
-        db.session.delete(order_in_db)
+    @apidoc.arguments(schema=OrderSchema(only=("id", "status", "confirmed_by_waiter")),
+                      location="json", required=False)
+    @apidoc.response(status_code=200, schema=OrderSchema)
+    def patch(self, order_from_request):
+        """
+        Partially update an order.
+
+        - Updates specified fields of an order based on user role.
+        - Validates user role using a token in the cookie.
+        - Returns 404 if the order is not found.
+        - Returns 403 if the user does not have the required permissions.
+        """
+        if order_from_request.id is None:
+            abort(422,
+                  message=Order.MSG_INCORRECT_DATA)
+
+        order_in_db = db.session.query(models.Order).get(order_from_request.id)
+        if order_in_db is None:
+            abort(404, message=Order.MSG_NO_SUCH_ORDER)
+
+        order_in_db.status = order_from_request.status
+        order_in_db.confirmed_by_waiter = order_from_request.confirmed_by_waiter
+
+        db.session.add(order_in_db)
         db.session.commit()
+        return order_in_db
 
     @apidoc.arguments(schema=OrderSchema(only=("id",)), location="query")
     @apidoc.response(status_code=200, schema=OrderSchema)
@@ -65,7 +92,7 @@ class Order(MethodView):
         - Return 404 if the order is not found in the database.
         """
         order_in_db = db.session.query(models.Order).get(order_from_request.id)
-        
+
         # raise 404 when order is not found
         if order_in_db is None:
             abort(404, message=Order.MSG_NO_SUCH_ORDER)
