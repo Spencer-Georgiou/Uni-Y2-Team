@@ -2,12 +2,13 @@
 Testing Login API.
 """
 from src.services import Login
+from src.models import Session
 
 
 class TestLogin:
     # A post to "api/login" should ...
     def test_waiter_success(self, client, db, waiter):
-        db.session.add_all([waiter])
+        db.session.add(waiter)
         db.session.commit()
 
         response = client.post("/api/login", json={
@@ -20,7 +21,7 @@ class TestLogin:
         assert response.get_json()["role"] == "waiter"
 
     def test_kitchen_success(self, client, db, kitchen):
-        db.session.add_all([kitchen])
+        db.session.add(kitchen)
         db.session.commit()
 
         response = client.post("/api/login", json={
@@ -43,3 +44,27 @@ class TestLogin:
 
         assert response.status_code == 401
         assert response.get_json()["error_message"] == "Invalid credentials"
+
+    def test_new_session(self, client, db, kitchen):
+        db.session.add(kitchen)
+        db.session.commit()
+
+        client.post("/api/login", json={
+            "username": "Jenny",
+            "password": "123456"
+        })
+
+        sessions1 = db.session.query(Session).filter_by(user_username="Jenny").all()
+        token1 = sessions1[0].token
+
+
+        client.post("/api/login", json={
+            "username": "Jenny",
+            "password": "123456"
+        })
+        
+        sessions2 = db.session.query(Session).filter_by(user_username="Jenny").all()
+        token2 = sessions2[0].token
+
+        assert len(sessions1) == len(sessions2) == 1
+        assert token1 != token2
