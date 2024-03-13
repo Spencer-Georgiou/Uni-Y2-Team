@@ -117,7 +117,7 @@ class MenuItemSchema(SQLAlchemyAutoSchema):
     # Convert python Decimal.Decimal() to float type since the previous one cannot be parsed to json
     price = fields.Float()
     image_path = Path()
-    menugroup = Nested(MenuGroupSchema, exclude=("menuitems",))
+    menugroup = Nested(MenuGroupSchema(), exclude=("menuitems",))
     allergens = Nested(AllergenSchema(many=True), exclude=("menuitems",))
 
 
@@ -145,4 +145,4 @@ class TableSchema(SQLAlchemyAutoSchema):
         model = Table
         include_relationships = True
 
-    order = fields.Nested(OrderSchema, exclude=("table_number", "table",))
+    order = fields.Nested(OrderSchema(), exclude=("table_number", "table",))

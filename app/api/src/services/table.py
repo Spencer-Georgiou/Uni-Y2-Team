@@ -15,6 +15,7 @@ class Table(MethodView):
     """
     Class that provide apis to manipulate table instances at "/table".
     """
+    MSG_NO_SUCH_TABLE = "Table does not exist."
 
     @apidoc.arguments(schema=TableSchema(only=("number",)), location="query")
     @apidoc.response(status_code=200, schema=TableSchema)
@@ -27,4 +28,9 @@ class Table(MethodView):
         """
 
         table_in_db = db.session.query(models.Table).get(table_from_request.number)
+
+        # raise 404 when order is not found
+        if table_in_db is None:
+            abort(404, message=Table.MSG_NO_SUCH_TABLE)
+
         return table_in_db
