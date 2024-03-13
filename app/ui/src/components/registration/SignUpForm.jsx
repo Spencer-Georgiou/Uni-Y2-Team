@@ -32,11 +32,11 @@ const SignUpForm = () => {
     fetch("/api/register", postingData)
       .then((response) => {
         if (response.status === 200) return response.json();
-        else alert("error here");
+        else alert("Details already exist");
       })
       .then()
       .catch((error) => {
-        console.error("there was an error", error);
+        console.error("Error - please try again later", error);
       });
   };
 
@@ -61,12 +61,12 @@ const SignUpForm = () => {
     {/*Input field that allows users to input their password*/}
     <div className="mb-5 ">
       <b>
-        {/*When user submits form, assign input to username variable*/}
+        {/*When user submits form, assign input to email variable*/}
         <input
           type="text"
           id="password"
           value={password}
-          onChange={handleEmailChange}
+          onChange={handlePasswordChange}
           name="password"
           className="text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5"
           placeholder="Password"
