@@ -1,4 +1,3 @@
-//Registration Page
 import { Button, Navbar, Checkbox, Label, TextInput } from 'flowbite-react'
 import SignUpForm from "../../components/registration/SignUpForm"
 

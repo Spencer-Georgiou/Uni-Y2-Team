@@ -19,7 +19,7 @@ class Menu(MethodView):
     @apidoc.response(200, schema=MenuItemSchema(many=True), description="A list of menu items.")
     def get(self):
         """
-        Return a list of menu items in json format when a get request is received.
+        Return a list of menu items.
         """
         all_menu_items = db.session.query(MenuItem).all()
         return all_menu_items

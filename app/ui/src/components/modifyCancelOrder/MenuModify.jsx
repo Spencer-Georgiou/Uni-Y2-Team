@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal } from "flowbite-react";
 
-// Buttons which waiter presses to filter menu
+{/*Buttons which waiter presses to filter menu*/}
 const filterButtons = [
   {
     name: "All",

@@ -2,6 +2,7 @@
 
 import { Link } from 'react-router-dom';
 
+{/*Button that allows waiters to create a new order via the NewOrder page.*/}
 function NewOrderButton() {
   return (
 
