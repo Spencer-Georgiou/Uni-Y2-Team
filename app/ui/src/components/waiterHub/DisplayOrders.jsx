@@ -12,12 +12,12 @@ function DisplayOrders() {
         fetchTables();
     }, []);
 
-    const fetchTables = () => {        
+    const fetchTables = () => {
         tableNumbers.forEach(tableNumber => {
-            
+
             fetchTable(tableNumber)
                 .then(table => {
-                        setTables(prevTables => [...prevTables, table]);
+                    setTables(prevTables => [...prevTables, table]);
                 })
                 .catch(error => {
                     console.error(`Error fetching table ${tableNumber}:`, error);
@@ -48,43 +48,40 @@ function DisplayOrders() {
     const fetchOrder = (tableId) => {
         return fetch(`/api/order?id=${tableId}`)
             .then(response => response.json())
-            .then(json => 
+            .then(json =>
                 setOrders(prevOrders => [...prevOrders, json]))
     };
 
 
 
-  return (
-    <div className="flex flex-col space-y-1 w-full mt-5">
-        <div className="ml-4">
-            Orders
-            </div>
-        <div className="h-1 bg-redder"></div>
+    return (
+        <div className="flex flex-col space-y-2">
 
-
-        {orders.map((order) => (
-                <div className="flex font-sans font-bold mt-5 ml-2" key={order.id}>
-                    <div className="w-full text-cherry justify-start text-xl break-words space-y-2 list-disc">
-                        {order.number}
-                        <br />
-                        <div className="flex justify-center w-full text-black text-lg ">
-                            table number: {order.number}
+            {orders.map((order) => (
+                <div className="flex font-sans" key={order.id}>
+                    <div className="flex flex-col w-full text-black mt-8 space-y-2">
+                        <div className="flex ml-4 text-redder text-xl font-bold">
+                            Table Number: {order.table_number}
+                        </div>
+                        <div className="flex ml-14 text-lg font-semibold">
                             Status: {order.status}
-                            <br />
+                        </div>
+
+                        <div className="flex ml-14 text-lg font-semibold">
                             TimeCreated: {order.time_created}
                         </div>
                     </div>
-                    <br />
+
                 </div>
             ))}
 
 
 
-    </div>
+        </div>
 
 
 
-  );
+    );
 }
 
 export default DisplayOrders
