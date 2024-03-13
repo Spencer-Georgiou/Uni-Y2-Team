@@ -1,12 +1,12 @@
-// StockButtons.js
 import { useState } from "react";
 
 const StockButtons = ({ itemId, available, toggleAvailability }) => {
     const [isAvailable, setIsAvailable] = useState(available);
 
     const handleClick = () => {
-        setIsAvailable(!isAvailable);
-        toggleAvailability(itemId);
+        const newAvailability = !isAvailable;
+        setIsAvailable(newAvailability);
+        toggleAvailability(itemId, newAvailability);
     };
 
     return (
@@ -16,6 +16,7 @@ const StockButtons = ({ itemId, available, toggleAvailability }) => {
                 className="font-sans font-bold py-2 px-4 my-2 rounded-lg"
                 style={{ backgroundColor: isAvailable ? "green" : "transparent" }}
                 onClick={handleClick}
+                disabled={isAvailable}
             >
                 Available
             </button>
@@ -24,6 +25,7 @@ const StockButtons = ({ itemId, available, toggleAvailability }) => {
                 className="font-sans font-bold py-2 px-4 my-2 rounded-lg"
                 style={{ backgroundColor: isAvailable ? "transparent" : "red" }}
                 onClick={handleClick}
+                disabled={!isAvailable}
             >
                 Unavailable
             </button>
@@ -32,3 +34,9 @@ const StockButtons = ({ itemId, available, toggleAvailability }) => {
 };
 
 export default StockButtons;
+
+
+
+
+
+

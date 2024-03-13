@@ -23,7 +23,6 @@ const NewOrder = () => {
         setTotalPrice(newTotalPrice);
 
     }
-    // console.log(tableNumber);
 
 
 
