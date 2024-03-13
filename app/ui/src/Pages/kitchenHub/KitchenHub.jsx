@@ -10,7 +10,7 @@ const KitchenHub = () => {
             <div className="flex h-5/6 w-5/6 bg-lemon flex-col space-y-1 mt-5 text-xl text-redder font-semibold">
                 <div className="ml-4">Confirmed Orders</div>
                 <div className="h-1 bg-redder"></div>
-                <div className="flex">
+                <div className="flex overflow-y-scroll">
                     <DisplayOrders readyButton={true} />
                 </div>
             </div>
