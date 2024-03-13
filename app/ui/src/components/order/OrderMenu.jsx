@@ -5,10 +5,6 @@ import { useDispatch } from "react-redux";
 
 const filterButtons = [
   {
-    name: "All",
-    value: "All",
-  },
-  {
     name: "Starter",
     value: "Starter",
   },
@@ -26,7 +22,7 @@ const filterButtons = [
   },
 ];
 
-const OrderMenu = ({ gluten, dairy }) => {
+const OrderMenu = () => {
   const dispatch = useDispatch();
   const [food, setFood] = useState({
     name: "",
@@ -41,6 +37,8 @@ const OrderMenu = ({ gluten, dairy }) => {
   const [loading, setLoding] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [filtered, setFiltered] = useState([]);
+  const [currentType, setCurrentType] = useState("");
+  const [previous, setPrevious] = useState([]);
 
   // Fetches menu data from api and sets it in json format
   useEffect(() => {
@@ -50,72 +48,64 @@ const OrderMenu = ({ gluten, dairy }) => {
   }, []);
 
   function hanldeMenu(e) {
+    //set loading state
+    setLoding(true);
+
+    //add the available items to filtered
     const temp = data.filter((f) => f.available === true);
     setFiltered(temp);
-
-    let filterType = e.target.value;
-    if (filterType === "All") {
-      setLoding(true);
-      //If waiter wants to display the entire menu, it will set the
-      setMenu(filtered); // filtered menu state as just the entire data
-      setLoding(false);
-      console.log("loading All");
+    //to display specfic category
+    handleType();
+    if (menu.length === 0) {
+      console.log("loading false");
     }
-    if (filterType === "Drink") {
-      setLoding(true);
+
+    setLoding(false);
+  }
+
+  function handleType() {
+    if (currentType === "Drink") {
       // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
       let filterfood = filtered.filter(
         (item) => item.menugroup.type === "Drink"
       );
       setMenu(filterfood);
-      setLoding(false);
-      console.log("loading" + filterType);
-    }
-    if (filterType === "Starter") {
-      setLoding(true);
-      // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
+    } else {
       let filterfood = filtered.filter(
-        (item) => item.menugroup.category === "Starter"
+        (item) => item.menugroup.category === currentType
       );
       setMenu(filterfood);
-      setLoding(false);
-      console.log("loading" + filterType);
     }
-    if (filterType === "Main") {
-      setLoding(true);
-      // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
-      let filterfood = filtered.filter(
-        (item) => item.menugroup.type === "Main"
-      );
-      setMenu(filterfood);
-      setLoding(false);
-      console.log("loading" + filterType);
-    }
-    if (filterType === "Dessert") {
-      setLoding(true);
-      // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
-      let filterfood = filtered.filter(
-        (item) => item.menugroup.type === "Dessert"
-      );
-      setMenu(filterfood);
-      setLoding(false);
-      console.log("loading" + filterType);
-    }
+    console.log("loading" + currentType);
+  }
 
-    if (!gluten) {
-      let a = menu.filter(
-        (f) =>
-          f.name === "Tacos" &&
-          f.name === "Bean Tostadas" &&
-          f.name === "Corona"
-      );
-      setMenu(a);
-    }
-    if (!dairy) {
-      let b = menu.filter(
-        (f) => f.name !== "Tacos" && f.name !== "Fanta Naranja"
-      );
-      setMenu(b);
+  //the state of allery list
+  const allergy = ["Gluten", "Dairy", "Nuts", "Egg", "Mollusk"];
+  // the function to set the state to control menu display
+  function handleAllergy(e) {
+    //get the name and value of the element
+    let { value } = e.target;
+    setPrevious(menu);
+
+    const { checked } = e.target;
+    if (checked) {
+      if (value === "Gluten") {
+        let a = menu.filter(
+          (f) =>
+            f.name !== "Tacos" &&
+            f.name !== "Bean Tostadas" &&
+            f.name !== "Corona"
+        );
+        setMenu(a);
+      }
+      if (value === "Dairy") {
+        let b = menu.filter(
+          (f) => f.name !== "Tacos" && f.name !== "Fanta Naranja"
+        );
+        setMenu(b);
+      }
+    } else {
+      setMenu(previous);
     }
   }
 
@@ -132,12 +122,61 @@ const OrderMenu = ({ gluten, dairy }) => {
 
   return (
     <div>
+      <div class="m-2 p-3">
+        <h3 class="my-2 text-xl text-cherry">
+          <b>Dietary Filter</b>
+        </h3>
+        <ul class="items-center w-full text-sm text-lemon bg-cherry border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+          {Object.keys(allergy).map((al) => (
+            <li
+              class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+              key={allergy[al]}
+            >
+              <div class="flex items-center ps-3">
+                <input
+                  onChange={handleAllergy}
+                  id="checkbox-list"
+                  type="checkbox"
+                  value={allergy[al]}
+                  class="w-4 h-4 text-lemon border-gray-300 rounded "
+                />
+                <label
+                  for="checkbox-list"
+                  class="w-full py-3 ms-2 text-sm font-medium text-lemon"
+                >
+                  <b>{allergy[al]}</b>
+                </label>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
       <ul class="ml-24 my-4 flex flex-wrap text-lg font-medium text-center">
+        <li class="me-2">
+          <button
+            onClick={() => {
+              setLoding(true);
+              setCurrentType("All");
+              const temp = data.filter((f) => f.available === true);
+              setMenu(temp);
+              setLoding(false);
+            }}
+            value="All"
+            type="button"
+            href="#"
+            class="bg-amber inline-block px-5 py-3 rounded-lg hover:text-amber hover:bg-gray-100 text-lemon"
+          >
+            <b>All</b>
+          </button>
+        </li>
         {filterButtons.map((m, index) => (
           <li class="me-2" key={index}>
             <button
-              onClick={hanldeMenu}
-              value={m.name}
+              onClick={(e) => {
+                setCurrentType(e.target.value);
+                hanldeMenu(e);
+              }}
+              value={m.value}
               type="button"
               href="#"
               class="bg-amber inline-block px-5 py-3 rounded-lg hover:text-amber hover:bg-gray-100 text-lemon"
@@ -147,6 +186,7 @@ const OrderMenu = ({ gluten, dairy }) => {
           </li>
         ))}
       </ul>
+
       <Modal
         size="4xl"
         dismissible
@@ -230,9 +270,7 @@ const OrderMenu = ({ gluten, dairy }) => {
             </tr>
           </thead>
           <tbody>
-            {loading ? (
-              <p className="ml-6">loading...</p>
-            ) : (
+            {!loading && menu.length > 0 ? (
               menu.map((item) => (
                 <tr
                   key={item.id}
@@ -273,6 +311,10 @@ const OrderMenu = ({ gluten, dairy }) => {
                   </td>
                 </tr>
               ))
+            ) : (
+              <p className="ml-6 text-xl ">
+                loading...try again or refresh the webpage
+              </p>
             )}
           </tbody>
         </table>
