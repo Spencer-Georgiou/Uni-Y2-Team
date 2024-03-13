@@ -8,7 +8,7 @@ class TestLogin:
 
         available_response = client.patch("/api/menuitem", json={
             "name": "Tacos",
-            "available": "false"
+            "available": False
         })
 
         menu_response = client.get("/api/menu")
@@ -24,7 +24,7 @@ class TestLogin:
 
         response = client.patch("/api/menuitem", json={
             "name": "does_not_exist",
-            "available": "false"
+            "available": False
         })
         assert response.status_code == 400
         assert response.get_json()["error_message"] == "Menu item not found"
