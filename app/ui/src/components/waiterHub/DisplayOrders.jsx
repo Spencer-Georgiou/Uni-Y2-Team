@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import ReadyButton from "../kitchenHub/ReadyButton";
 
 
-function DisplayOrders() {
+function DisplayOrders({ readyButton }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -72,26 +73,44 @@ function DisplayOrders() {
         });
     }
 
+    const showMenuItems = (menuItems) => {
+        return menuItems.map((item, index) => (
+            <div className="flex text-lg font-semibold">
+                <div className="flex flex-col ml-4 space-y-2">
+                    <div className="flex ml-4 text-amber">
+                        Item-Name: {item.menuitem_name}
+                    </div>
+
+                    <div className="flex ml-6">
+                        Quantity: {item.quantity}
+                    </div>
+                </div>
+            </div>
+        ));
+    }
+
 
 
     return (
         <div className="flex flex-col space-y-2">
 
             {sortingOrderTimes([...orders]).map((order) => (
-                <div className="flex font-sans" key={order.id}>
+                <div className="flex flex-row font-sans" key={order.id}>
                     <div className="flex flex-col w-full text-black mt-8 space-y-2">
                         <div className="flex ml-4 text-redder text-xl font-bold">
                             Table Number: {order.table_number}
                         </div>
-                        <div className="flex ml-14 text-lg font-semibold">
+                        {showMenuItems(order.menuitem_associations)}
+                        <div className="flex ml-4 text-lg font-semibold">
                             Status: {order.status}
                         </div>
-
-                        <div className="flex ml-14 text-lg font-semibold">
+                        <div className="flex ml-4 text-lg font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
                     </div>
-
+                    <div className="">
+                        {readyButton && <ReadyButton orderId={order.id} />}
+                    </div>
                 </div>
             ))}
 
