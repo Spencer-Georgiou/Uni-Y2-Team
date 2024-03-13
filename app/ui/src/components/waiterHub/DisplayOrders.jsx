@@ -64,12 +64,20 @@ function DisplayOrders() {
 
     };
 
+    const sortingOrderTimes = (orders) => {
+        return orders.sort((a, b) => { //this method takes a comparison function that contains orders, it will take each order and compare them with their times and returns a value for each pair of comparisons
+            const date_a = new Date(a.time_created);
+            const date_b = new Date(b.time_created);
+            return date_a - date_b; // if a is less than b then there will be a negative difference meaning a should come before b, if they are equal the difference is 0 so the order doesnt change and if the difference is positive then a should come after b
+        });
+    }
+
 
 
     return (
         <div className="flex flex-col space-y-2">
 
-            {orders.map((order) => (
+            {sortingOrderTimes([...orders]).map((order) => (
                 <div className="flex font-sans" key={order.id}>
                     <div className="flex flex-col w-full text-black mt-8 space-y-2">
                         <div className="flex ml-4 text-redder text-xl font-bold">

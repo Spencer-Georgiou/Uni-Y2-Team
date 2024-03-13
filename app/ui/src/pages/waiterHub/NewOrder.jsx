@@ -52,7 +52,7 @@ const NewOrder = () => {
                                     <div className="flex justify-center w-full text-black text-lg ">
                                         Quantity: {order.quantity}
                                         <br />
-                                        Price: £{order.price * order.quantity}
+                                        Price: £{(order.price * order.quantity).toFixed(2)}
                                     </div>
                                 </div>
                                 <br />
@@ -60,7 +60,7 @@ const NewOrder = () => {
                         ))}
                     </div>
                     <div className="flex justify-start h-10 w-full font-sans font-bold text-2xl">
-                        Total Price : £{totalPrice}
+                        Total Price : £{totalPrice.toFixed(2)}
                     </div>
                     <ConfirmOrderButton addedOrder={addedOrder} tableNumber={tableNumber} />
 

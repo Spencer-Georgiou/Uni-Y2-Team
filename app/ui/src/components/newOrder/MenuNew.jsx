@@ -112,18 +112,18 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
 
 
 
-        const handleTableNumber = (e) => {
+    const handleTableNumber = (e) => {
         const newTableNumber = e.target.value;
-        if (newTableNumber > 0 && newTableNumber <= 20){
+        if (newTableNumber > 0 && newTableNumber <= 20) {
             setTableNumber(e.target.value);
             updateTableNum(e.target.value);
         } else {
             // Handle invalid input (for example, display an error message)
             alert('Please enter a table number between 1 and 20');
-          }
+        }
     }
 
- 
+
 
     const updateTableNum = (tableNum) => {
         onSetTableNumber(tableNum);
@@ -211,7 +211,7 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
                     {filteredMenu.map((item) => (
                         <tr key={item.id} className="text-sans text-2xl bg-lemon border-b dark:bg-gray-800 dark:border-gray-700">
                             <td className="px-6 py-4">{item.name}</td>
-                            <td className="px-6 py-4">{item.price}</td>
+                            <td className="px-6 py-4">{item.price.toFixed(2)}</td>
                             <td className="px-6 py-4">{item.calorie}</td>
                             <td className="px-6 py-4">
                                 <button
