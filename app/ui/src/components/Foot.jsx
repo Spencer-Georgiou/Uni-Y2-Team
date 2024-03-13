@@ -2,7 +2,7 @@
 
 import { Footer } from 'flowbite-react';
 
-
+{/*Footer which contains links to restaurant information.*/}
 function Foot() {
     return(
         <Footer container className="bg-cherry border-t-4 border-lemon">

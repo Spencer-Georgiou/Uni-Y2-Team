@@ -8,3 +8,4 @@ from src.services.login import Login
 from src.services.menu import Menu
 from src.services.order import Order
 from src.services.user import User
+from src.services.available import Available

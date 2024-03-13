@@ -755,11 +755,11 @@ sketch
 
 ### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
+# !.vscode/settings.json
+# !.vscode/tasks.json
+# !.vscode/launch.json
+# !.vscode/extensions.json
+# !.vscode/*.code-snippets
 
 # Local History for Visual Studio Code
 .history/
@@ -875,5 +875,8 @@ $RECYCLE.BIN/
 
 # GitKeep used as directory placeholders
 .gitkeep
+
+# Gitlab-CI-Local runner files
+.gitlab-ci-local/
 
 # End of https://www.toptal.com/developers/gitignore/api/git,node,flask,linux,macos,react,python,eclipse,pycharm,windows,intellij,webstorm,visualstudiocode,notepadpp,libreoffice,microsoftoffice

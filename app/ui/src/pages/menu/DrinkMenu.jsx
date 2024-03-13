@@ -1,7 +1,7 @@
 
 import DrinkFilterMenu from "../../components/menu/DrinkFilterMenu";
 
-//this is the menu page which combine all the components
+{/*this is the menu page which combine all the components*/}
 
 const DrinkMenu = () => {
     return (
