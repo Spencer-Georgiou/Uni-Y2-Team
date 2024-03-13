@@ -157,6 +157,9 @@ const DrinkFilterMenu = () => {
         This menu will display all drinks for reference only, availability is
         subject to actual conditions.
       </b>
+      <p className="ml-20">
+        If the menu item isn't display, click on the blue block
+      </p>
 
       <div class="flex flex-wrap justify-between mx-auto w-full h-128 px-7 my-3">
         <div

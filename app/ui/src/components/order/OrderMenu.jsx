@@ -51,47 +51,71 @@ const OrderMenu = ({ gluten, dairy }) => {
 
   function hanldeMenu(e) {
     const temp = data.filter((f) => f.available === true);
-
-    if (!gluten) {
-      let a = temp.filter(
-        (f) =>
-          f.name === "Tacos" &&
-          f.name === "Bean Tostadas" &&
-          f.name === "Corona"
-      );
-      setFiltered(a);
-    }
-    if (!dairy) {
-      let b = temp.filter(
-        (f) => f.name !== "Tacos" && f.name !== "Fanta Naranja"
-      );
-      setFiltered(b);
-    }
+    setFiltered(temp);
 
     let filterType = e.target.value;
     if (filterType === "All") {
       setLoding(true);
       //If waiter wants to display the entire menu, it will set the
-      setMenu(temp); // filtered menu state as just the entire data
+      setMenu(filtered); // filtered menu state as just the entire data
       setLoding(false);
       console.log("loading All");
     }
     if (filterType === "Drink") {
       setLoding(true);
       // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
-      let filterfood = temp.filter((item) => item.menugroup.type === "Drink");
-      setMenu(filterfood);
-      setLoding(false);
-      console.log("loading" + filterType);
-    } else {
-      setLoding(true);
-      // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
-      let filterfood = temp.filter(
-        (item) => item.menugroup.category === filterType
+      let filterfood = filtered.filter(
+        (item) => item.menugroup.type === "Drink"
       );
       setMenu(filterfood);
       setLoding(false);
       console.log("loading" + filterType);
+    }
+    if (filterType === "Starter") {
+      setLoding(true);
+      // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
+      let filterfood = filtered.filter(
+        (item) => item.menugroup.category === "Starter"
+      );
+      setMenu(filterfood);
+      setLoding(false);
+      console.log("loading" + filterType);
+    }
+    if (filterType === "Main") {
+      setLoding(true);
+      // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
+      let filterfood = filtered.filter(
+        (item) => item.menugroup.type === "Main"
+      );
+      setMenu(filterfood);
+      setLoding(false);
+      console.log("loading" + filterType);
+    }
+    if (filterType === "Dessert") {
+      setLoding(true);
+      // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
+      let filterfood = filtered.filter(
+        (item) => item.menugroup.type === "Dessert"
+      );
+      setMenu(filterfood);
+      setLoding(false);
+      console.log("loading" + filterType);
+    }
+
+    if (!gluten) {
+      let a = menu.filter(
+        (f) =>
+          f.name === "Tacos" &&
+          f.name === "Bean Tostadas" &&
+          f.name === "Corona"
+      );
+      setMenu(a);
+    }
+    if (!dairy) {
+      let b = menu.filter(
+        (f) => f.name !== "Tacos" && f.name !== "Fanta Naranja"
+      );
+      setMenu(b);
     }
   }
 
@@ -136,7 +160,11 @@ const OrderMenu = ({ gluten, dairy }) => {
           <Modal.Body>
             <div class="flex flex-wrap justify-start">
               <div>
-                <img src={food.image_path} alt="picture" className="mx-5" />
+                <img
+                  src={food.image_path}
+                  alt="picture"
+                  className="ml-5 mr-[100px]"
+                />
               </div>
               <div>
                 <p className="text-xl">{food.description}</p>
