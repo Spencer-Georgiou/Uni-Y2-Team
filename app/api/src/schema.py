@@ -17,6 +17,7 @@ from .models import OrderMenuItemAssociation
 from .models import Session
 from .models import db
 from .models import User
+from src.models import Customer
 
 
 # pylint: disable=missing-class-docstring
@@ -143,10 +144,19 @@ class OrderSchema(SQLAlchemyAutoSchema):
 
 class UserSchema(SQLAlchemyAutoSchema):
     """
-    Schema for User that shows its session.
+    Schema for User that shows its role and session.
     """
     class Meta(BaseMeta):
         model = User
         include_relationships = True
 
+    role = fields.Enum(User.Role, by_value=True)
     session = Nested(SessionSchema, exclude=("user",))
+
+class CustomerSchema(UserSchema):
+    """
+    Schema for Customer that inherits all the properties of the User schema.
+    """
+    class Meta(BaseMeta):
+        model = Customer
+        include_relationships = True
