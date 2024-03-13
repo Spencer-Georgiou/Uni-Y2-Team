@@ -34,6 +34,7 @@ const OrderMenu = ({ gluten, dairy }) => {
     allergens: "",
     calorie: "",
     price: "",
+    image_path: "",
   });
   const [data, setData] = useState([]);
   const [menu, setMenu] = useState([]);
@@ -46,11 +47,15 @@ const OrderMenu = ({ gluten, dairy }) => {
     fetch("/api/menu")
       .then((response) => response.json())
       .then((json) => setData(json));
+    data.map((m) => console.log(m));
   }, []);
 
   function hanldeMenu(e) {
-    if (gluten === false) {
-      let a = data.filter(
+    const temp = data.filter((f) => f.available === true);
+    setFiltered(temp);
+
+    if (!gluten) {
+      let a = filtered.filter(
         (f) =>
           f.name !== "Tacos" &&
           f.name !== "Bean Tostadas" &&
@@ -63,8 +68,6 @@ const OrderMenu = ({ gluten, dairy }) => {
         (f) => f.name !== "Tacos" && f.name !== "Fanta Naranja"
       );
       setFiltered(b);
-    } else {
-      setFiltered(data);
     }
 
     let filterType = e.target.value;
@@ -73,15 +76,13 @@ const OrderMenu = ({ gluten, dairy }) => {
       //If waiter wants to display the entire menu, it will set the
       setMenu(filtered); // filtered menu state as just the entire data
       setLoding(false);
-      console.log("loading all");
+      console.log("loading All");
     }
     if (filterType === "Drink") {
       setLoding(true);
       // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
       let filterfood = filtered.filter(
-        (item) =>
-          item.menugroup.category === "Alcoholic" ||
-          item.menugroup.category === "Non-Alcoholic"
+        (item) => item.menugroup.type === "Drink"
       );
       setMenu(filterfood);
       setLoding(false);
@@ -98,13 +99,14 @@ const OrderMenu = ({ gluten, dairy }) => {
     }
   }
 
-  function handleFood(name, description, allergens, calorie, price) {
+  function handleFood(item) {
     setFood({
-      name: name,
-      description: description,
-      allergens: allergens,
-      calorie: calorie,
-      price: price,
+      name: item.name,
+      description: item.description,
+      allergens: item.allergens,
+      calorie: item.calorie,
+      price: item.price,
+      image_path: item.image_path,
     });
   }
 
@@ -136,8 +138,11 @@ const OrderMenu = ({ gluten, dairy }) => {
             <b>{food.name}</b>
           </Modal.Header>
           <Modal.Body>
-            <div class="flex flex-wrap justify-end">
-              <div className="space-y-3 w-2/3">
+            <div class="flex flex-wrap justify-start">
+              <div>
+                <img src={food.image_path} alt="picture" className="mx-5" />
+              </div>
+              <div>
                 <p className="text-xl">{food.description}</p>
                 <p className="text-black text-sans text-base">
                   {food.calorie} calories
@@ -149,9 +154,6 @@ const OrderMenu = ({ gluten, dairy }) => {
                       Allergen: {food.name}
                     </p>
                   ))}
-              </div>
-              <div>
-                <img src="/menu/taco.jpg" alt="picture" className="mr-4" />
               </div>
             </div>
           </Modal.Body>

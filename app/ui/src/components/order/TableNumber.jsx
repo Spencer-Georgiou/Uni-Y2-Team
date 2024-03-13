@@ -49,22 +49,62 @@ function TableNumber({ openModal, setOpenModal, setShowProgress }) {
       });
   }
 
-    return (
-        <div class="w-full h-screen bg-fixed bg-center bg-cover flex justify-center items-center relative" style={{ backgroundImage: "url('/images/TableNumberBanner.png')" }}>
-            <form className="h-[300px] w-[500px] rounded-[25px] py-5 m-auto bg-cherry px-6">
-            <div className="text-2xl text-lemon font-sans font-semibold text-center mb-4">
-                Order
+  return (
+    <>
+      <Modal
+        show={openModal}
+        size="lg"
+        onClose={() => setOpenModal(false)}
+        popup
+      >
+        <div
+          class="bg-cover w-full h-full"
+          style={{ backgroundImage: "url('/images/TableNumberBanner.png')" }}
+        >
+          <Modal.Header />
+
+          <Modal.Body>
+            <div className="text-center">
+              <p className="text-2xl text-lemon font-sans font-semibold text-center mb-4">
+                Enter Your Table Number
+              </p>
+
+              <div className="mb-5 ">
+                <b>
+                  <input
+                    type="number"
+                    onChange={(e) =>
+                      setOrder({
+                        ...order,
+                        table_number: parseInt(e.target.value),
+                      })
+                    }
+                    id="tableNumber"
+                    name="tableNumber"
+                    className="text-xl text-dark font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5 focus:ring-4 focus:ring-amber"
+                    placeholder="Table Number"
+                    required
+                  />
+                </b>
+              </div>
+              <div className="flex justify-center gap-4">
+                <Button
+                  color="red"
+                  onClick={() => {
+                    setOpenModal(false);
+                    handleCheckOut();
+                    handleSubmit();
+                    setShowProgress(true);
+                  }}
+                >
+                  <b>Order now</b>
+                </Button>
+                <Button color="green" onClick={() => setOpenModal(false)}>
+                  <b>cancel</b>
+                </Button>
+              </div>
             </div>
-            <div className="text-2xl text-lemon font-sans font-semibold text-center mb-4">
-                Please Enter Your Table Number
-            </div>
-            <div className="mb-5 ">
-                <b><input type="text" id="tableNumber" value={tableNumber} onChange={handleTableNumber} name="tableNumber" className="text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5 focus:ring-4 focus:ring-amber" placeholder="Table Number" required /></b>
-            </div>
-            <div className="flex justify-center">
-                <Button type="submit" className="h-16 font-sans font-semibold bg-lemon rounded-lg text-xl w-40 rounded-2xl px-5 py-2.5 text-center text-cherry hover:ring-4 hover:ring-amber focus:ring-amber">Enter</Button>
-            </div>
-            </form>
+          </Modal.Body>
         </div>
       </Modal>
     </>
