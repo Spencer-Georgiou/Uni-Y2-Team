@@ -33,10 +33,12 @@ function DisplayOrders() {
                     throw new Error(`Failed to fetch table ${tableNumber}`);
                 }
                 return response.json();
+
             })
-            .then(response => {
-                fetchOrder(response.order.id); // Fetch order for the fetched table
-                return response.json();
+            .then(table => {
+                fetchOrder(table.order.id); // Fetch order for the fetched table
+                return table;
+
             })
             .catch(error => {
                 console.error(`Error fetching order ${tableNumber}:`, error);
@@ -50,6 +52,16 @@ function DisplayOrders() {
             .then(response => response.json())
             .then(json =>
                 setOrders(prevOrders => [...prevOrders, json]))
+    };
+
+    const formatTime = (time) => {
+        const date = new Date(time);
+        return new Intl.DateTimeFormat('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: 'UTC'
+        }).format(date);
+
     };
 
 
@@ -68,7 +80,7 @@ function DisplayOrders() {
                         </div>
 
                         <div className="flex ml-14 text-lg font-semibold">
-                            TimeCreated: {order.time_created}
+                            TimeCreated: {formatTime(order.time_created)}
                         </div>
                     </div>
 
