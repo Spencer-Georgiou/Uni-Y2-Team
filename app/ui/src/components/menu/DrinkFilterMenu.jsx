@@ -1,7 +1,7 @@
 //the combination of filter and starters
 //combine them is because they need a same state to control the content, will solve it later
 
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 
 const DrinkFilterMenu = () => {
   //the state of allery list
@@ -13,6 +13,28 @@ const DrinkFilterMenu = () => {
     gluten: true,
     dairy: true,
   });
+
+  const [data, setData] = useState([]);
+  const [menu, setMenu] = useState([]);
+
+  // Fetches menu data from api and sets it in json format
+  useEffect(() => {
+    fetch("/api/menu")
+      .then((response) => response.json())
+      .then((json) => setData(json));
+    let temp = data.filter((f) => f.menugroup.type === "Drink");
+    setMenu(temp);
+    menu.map((m) => console.log(m));
+  }, []);
+
+  function display() {
+    fetch("/api/menu")
+      .then((response) => response.json())
+      .then((json) => setData(json));
+    let temp = data.filter((f) => f.menugroup.type === "Drink");
+    setMenu(temp);
+    menu.map((m) => console.log(m));
+  }
 
   // the function to set the state to control menu display
   function handleAllergy(e) {
@@ -131,163 +153,61 @@ const DrinkFilterMenu = () => {
           </div>
         </div>
       </div>
-      {allergy.nonAlcoholic && (
-        <div class="bg-lemon border-gray-200 dark:bg-gray-900">
-          <div class="flex flex-wrap justify-between mx-auto w-full h-128 px-7">
-            <img
-              src="/menu/nonAlcoholic.png"
-              alt="picture"
-              class="w-1/2 h-16 ml-80 mt-7"
-            />
-            <div class="w-10/12 h-90 bg-ocean ml-24">
-              <div class="relative overflow-x-auto">
-                <table class="w-full text-lg text-left text-lemon">
-                  <thead class="text-xl text-lemon uppercase bg-ocean">
-                    <tr>
-                      <th scope="col" class="px-6 py-3">
-                        Name
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Calories
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Category
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Price
-                      </th>
-                    </tr>
-                  </thead>
+      <b className="ml-20 text-lg my-2">
+        This menu will display all drinks for reference only, availability is
+        subject to actual conditions.
+      </b>
 
-                  <tbody>
+      <div class="flex flex-wrap justify-between mx-auto w-full h-128 px-7 my-3">
+        <div
+          onClick={display}
+          class="w-10/12 h-[450px] bg-ocean ml-24 overflow-x-auto round-xl border border-2 "
+        >
+          <div class="relative overflow-x-auto">
+            <table class="w-full text-lg text-left text-lemon">
+              <thead class="text-xl text-lemon uppercase bg-ocean">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Name
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Calories
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Category
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Price
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {menu.map((item) => (
+                  <Fragment>
                     <tr class="bg-ocean">
                       <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                        <b>Peach iced tea</b>
+                        <b>{item.name}</b>
                         <p class="text-gray-900">
-                          {allergy.fruit && <p>Homemade with fresh peaches</p>}
+                          <p>{item.description}</p>
                         </p>
                       </th>
-                      <td class="px-6 py-4 text-gray-900">150 kcal</td>
-                      <td class="px-6 py-4 text-gray-900">Fruit</td>
+                      <td class="px-6 py-4 text-gray-900">{item.calorie}</td>
+                      <td class="px-6 py-4 text-gray-900">
+                        {item.menugroup.category}
+                      </td>
                       <td class="px-6 py-4 text-gray-900">
                         <b>￡3.00</b>
                       </td>
                     </tr>
-                    <tr class="bg-ocean">
-                      <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                        <b>Fanta Naranja</b>
-                        {allergy.fruit && (
-                          <p class="text-gray-900">Orange Fanta</p>
-                        )}
-                      </th>
-                      <td class="px-6 py-4 text-gray-900">6 kcal</td>
-                      <td class="px-6 py-4 text-gray-900">Fruit</td>
-                      <td class="px-6 py-4 text-gray-900">
-                        <b>￡2.00</b>
-                      </td>
-                    </tr>
-                    <tr class="bg-ocean">
-                      <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                        <b>Hot chocolate</b>
-
-                        <p class="text-gray-900">
-                          Thick hot chocolate served with a galleta
-                        </p>
-                        {allergy.dairy && (
-                          <Fragment>
-                            <p class="text-gray-900">• with cream</p>
-                            <p class="text-gray-900">• with milk</p>
-                          </Fragment>
-                        )}
-                        <p class="text-gray-900">• with oreo cookie crumbs</p>
-                      </th>
-                      <td class="px-6 py-4 text-gray-900">250 kcal</td>
-                      <td class="px-6 py-4 text-gray-900">Dairy</td>
-                      <td class="px-6 py-4 text-gray-900">
-                        <b>￡3.00</b>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                    <br></br>
+                  </Fragment>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
-      )}
-      {allergy.alcoholic && (
-        <div class="bg-lemon border-gray-200 dark:bg-gray-900">
-          <div class="flex flex-wrap justify-between mx-auto w-full h-128 px-7">
-            <img
-              src="/menu/alcoholic.png"
-              alt="picture"
-              class="w-1/2 h-16 ml-80 mt-7"
-            />
-            <div class="w-10/12 h-90 bg-cherry ml-24">
-              <div class="relative overflow-x-auto">
-                <table class="w-full text-lg text-left text-lemon">
-                  <thead class="text-xl text-lemon uppercase bg-cherry">
-                    <tr>
-                      <th scope="col" class="px-6 py-3">
-                        Name
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Calories
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Category
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Price
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="bg-cherry">
-                      <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                        <b>Tequila Blanco</b>
-
-                        <p class="text-gray-900">Blue agave</p>
-                      </th>
-                      <td class="px-6 py-4 text-gray-900">450 kcal</td>
-                      <td class="px-6 py-4 text-gray-900"> ------ </td>
-                      <td class="px-6 py-4 text-gray-900">
-                        <b>￡4.00</b>
-                      </td>
-                    </tr>
-                    <tr class="bg-cherry">
-                      <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                        <b>Corona</b>
-                        {allergy.gluten && <p class="text-gray-900">Beer</p>}
-                      </th>
-                      <td class="px-6 py-4 text-gray-900">300 kcal</td>
-                      <td class="px-6 py-4 text-gray-900">Gluten</td>
-                      <td class="px-6 py-4 text-gray-900">
-                        <b>￡3.00</b>
-                      </td>
-                    </tr>
-                    <tr class="bg-cherry">
-                      <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                        <b>Pina Colada</b>
-                        {allergy.fruit && (
-                          <Fragment>
-                            <p class="text-gray-900">Pineapple cocktail</p>
-                            <p class="text-gray-900">Lemon cocktail</p>
-                          </Fragment>
-                        )}
-                      </th>
-                      <td class="px-6 py-4 text-gray-900">400 kcal</td>
-                      <td class="px-6 py-4 text-gray-900">Fruit</td>
-                      <td class="px-6 py-4 text-gray-900">
-                        <b>￡2.50</b>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 };
