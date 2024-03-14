@@ -5,7 +5,7 @@ import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton"
 
 
-function DisplayOrders({ readyButton }) {
+function DisplayOrders({ confirmingButton, readyButton  }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -98,7 +98,7 @@ function DisplayOrders({ readyButton }) {
 
     const checkConfirming = (status) => {
         if (status === "Confirming"){
-            <ConfirmedButton />
+            return confirmingButton && <ConfirmedButton />
         }
     }
 
@@ -137,6 +137,10 @@ function DisplayOrders({ readyButton }) {
 }
 
 export default DisplayOrders
+
+
+
+
 
 
 
