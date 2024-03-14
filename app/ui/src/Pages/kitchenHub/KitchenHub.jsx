@@ -1,6 +1,5 @@
 // import ReadyAndOrderDisplay from "../../components/kitchenHub/ReadyAndOrderDisplay";
-import DisplayOrders from "../../components/waiterHub/DisplayOrders";
-import ReadyButton from "../../components/kitchenHub/ReadyButton";
+import DisplayKitchen from "../../components/kitchenHub/DisplayKitchen";
 
 
 
@@ -11,7 +10,7 @@ const KitchenHub = () => {
                 <div className="ml-4">Confirmed Orders</div>
                 <div className="h-2 bg-redder"></div>
                 <div className="flex overflow-y-scroll">
-                    <DisplayOrders readyButton={true} />
+                    <DisplayKitchen />
                 </div>
             </div>
         </div>

@@ -33,7 +33,7 @@ const WaiterHub = () => {
                     <div className="flex flex-col space-y-1 w-full mt-5 overflow-y-scroll">
                         <div className="ml-4">Delivered</div>
                         <div className="h-1 bg-redder">
-                            <DisplayDelivered finishedButton={true} />
+                            <DisplayDelivered />
                         </div>
                     </div>
                 </div>

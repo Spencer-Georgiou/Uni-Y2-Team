@@ -1,10 +1,11 @@
-'use client'
+"use client";
 
 import { useState, useEffect } from "react";
-import FinishedButton from "../../components/waiterHub/FinishedButton";
+import ReadyButton from "../kitchenHub/ReadyButton";
+import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
 
 
-function DisplayDelivered() {
+function DisplayKitchen() {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -14,68 +15,63 @@ function DisplayDelivered() {
     }, []);
 
     const fetchTables = () => {
-        tableNumbers.forEach(tableNumber => {
-
+        tableNumbers.forEach((tableNumber) => {
             fetchTable(tableNumber)
-                .then(table => {
-                    setTables(prevTables => [...prevTables, table]);
+                .then((table) => {
+                    setTables((prevTables) => [...prevTables, table]);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(`Error fetching table ${tableNumber}:`, error);
                 });
         });
     };
 
     const fetchTable = (tableNumber) => {
-
         return fetch(`/api/table?number=${tableNumber}`)
-            .then(response => {
+            .then((response) => {
                 if (!response.ok) {
                     throw new Error(`Failed to fetch table ${tableNumber}`);
                 }
                 return response.json();
-
             })
-            .then(table => {
+            .then((table) => {
                 fetchOrder(table.order.id); // Fetch order for the fetched table
                 return table;
-
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(`Error fetching order ${tableNumber}:`, error);
                 return null;
             });
     };
 
-
     const fetchOrder = (tableId) => {
         return fetch(`/api/order?id=${tableId}`)
-            .then(response => response.json())
-            .then(json => {
-                // Only add orders with status "Delivered"
-                if (json.status === "Delivered") {
-                    setOrders(prevOrders => [...prevOrders, json]);
+            .then((response) => response.json())
+            .then((json) => {
+                // Only add orders with status "Preparing"
+                if (json.status === "Preparing") {
+                    setOrders((prevOrders) => [...prevOrders, json]);
                 }
-            })
+            });
     };
 
     const formatTime = (time) => {
         const date = new Date(time);
-        return new Intl.DateTimeFormat('en-GB', {
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZone: 'UTC'
+        return new Intl.DateTimeFormat("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+            timeZone: "UTC",
         }).format(date);
-
     };
 
     const sortingOrderTimes = (orders) => {
-        return orders.sort((a, b) => { //this method takes a comparison function that contains orders, it will take each order and compare them with their times and returns a value for each pair of comparisons
+        return orders.sort((a, b) => {
+            //this method takes a comparison function that contains orders, it will take each order and compare them with their times and returns a value for each pair of comparisons
             const date_a = new Date(a.time_created);
             const date_b = new Date(b.time_created);
             return date_a - date_b; // if a is less than b then there will be a negative difference meaning a should come before b, if they are equal the difference is 0 so the order doesnt change and if the difference is positive then a should come after b
         });
-    }
+    };
 
     const showMenuItems = (menuItems) => {
         return menuItems.map((item, index) => (
@@ -83,17 +79,14 @@ function DisplayDelivered() {
                 <div className="flex flex-col ml-4 space-y-2">
                     <div className="flex ml-4 text-amber">
                         Item-Name: {item.menuitem_name}
+                        {/* <span className="text-black">  Quantity: {item.quantity}</span> */}
                     </div>
 
-                    <div className="flex ml-6">
-                        Quantity: {item.quantity}
-                    </div>
-
-
+                    <div className="flex ml-6">Quantity: {item.quantity}</div>
                 </div>
             </div>
         ));
-    }
+    };
 
 
 
@@ -108,16 +101,15 @@ function DisplayDelivered() {
                             Table Number: {order.table_number}
                         </div>
                         {showMenuItems(order.menuitem_associations)}
+
                         <div className="flex ml-4 text-lg font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
-
-                        <div className="flex ml-4">
-                            <FinishedButton orderId={order.id} />
-
+                        <div className="flex ml-8">
+                            <ReadyButton orderId={order.id} />
                         </div>
-
                     </div>
+
                 </div>
             ))}
 
@@ -128,8 +120,7 @@ function DisplayDelivered() {
 
 
     );
-}
 
-export default DisplayDelivered
+};
 
-
+export default DisplayKitchen;
