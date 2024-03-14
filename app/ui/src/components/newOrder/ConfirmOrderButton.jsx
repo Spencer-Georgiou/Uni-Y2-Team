@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom";
 
 function ConfirmOrderButton({ addedOrder, tableNumber }) {
+  const navigate = useNavigate();
+
+
   const handleConfirmOrder = () => {
 
 
@@ -39,7 +43,8 @@ function ConfirmOrderButton({ addedOrder, tableNumber }) {
         return response.json();
       })
       .then(data => {
-        console.log('Order confirmed successfully:', data);
+        alert('Order confirmed successfully:', data);
+        navigate('/WaiterHub');
       })
       .catch(error => {
         alert('There was a problem confirming the order: ' + error.message, error);
@@ -58,3 +63,6 @@ function ConfirmOrderButton({ addedOrder, tableNumber }) {
 }
 
 export default ConfirmOrderButton;
+
+
+
