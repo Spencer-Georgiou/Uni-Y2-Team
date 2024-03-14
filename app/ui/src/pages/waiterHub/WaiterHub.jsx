@@ -2,6 +2,7 @@ import NewOrderButton from "../../components/waiterHub/NewOrderButton";
 import ModifyCancelOrderButton from "../../components/waiterHub/ModifyCancelOrderButton";
 import ChangeMenuButton from "../../components/waiterHub/ChangeMenuButton";
 import DisplayOrders from "../../components/waiterHub/DisplayOrders";
+import DisplayDelivering from "../../components/waiterHub/DisplayDelivering";
 
 
 const WaiterHub = () => {
@@ -20,8 +21,10 @@ const WaiterHub = () => {
 
                 <div class="flex w-80 mt-12 bg-lemon rounded-[25px]">
                     <div className="flex flex-col space-y-1 w-full mt-5">
-                        <div className="ml-4">Ready</div>
-                        <div className="h-1 bg-redder"></div>
+                        <div className="ml-4">Ready to Deliver</div>
+                        <div className="h-1 bg-redder">
+                            <DisplayDelivering />
+                        </div>
                     </div>
                 </div>
 

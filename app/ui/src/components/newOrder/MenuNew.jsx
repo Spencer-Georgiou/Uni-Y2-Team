@@ -35,6 +35,29 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
       .then((json) => setData(json));
   }, []);
 
+  // Filter menu iteams
+  const filterMenu = (filterType) => {
+    if (filterType === "All") {
+      // Filter the data to include only available items
+      let filteredFood = data.filter((item) => item.available === true);
+      setFilteredMenu(filteredFood);
+    } else {
+      // Filter the data based on category and availability
+      let filteredFood = data.filter(
+        (item) =>
+          item.menugroup.category === filterType && item.available === true
+      );
+      setFilteredMenu(filteredFood);
+    }
+  };
+
+  // Fetches menu data from api and sets it in json format
+  useEffect(() => {
+    fetch("/api/menu")
+      .then((response) => response.json())
+      .then((json) => setData(json));
+  }, []);
+
   // Filter menu item
   const filterMenu = (filterType) => {
     //The argument filterType is the filter waiter wants to display
@@ -198,7 +221,7 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
               className="text-sans text-2xl bg-lemon border-b dark:bg-gray-800 dark:border-gray-700"
             >
               <td className="px-6 py-4">{item.name}</td>
-              <td className="px-6 py-4">{item.price}</td>
+              <td className="px-6 py-4">{item.price.toFixed(2)}</td>
               <td className="px-6 py-4">{item.calorie}</td>
               <td className="px-6 py-4">
                 <button
