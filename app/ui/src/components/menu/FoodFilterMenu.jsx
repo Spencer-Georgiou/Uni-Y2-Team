@@ -153,8 +153,8 @@ const FilterMenu = () => {
       <div class="bg-lemon border-gray-200 dark:bg-gray-900">
         <div class="flex flex-wrap justify-between mx-auto w-full h-128 px-7">
           <b className="ml-20 text-lg my-1">
-            This menu will display all foods for reference only, availability is
-            subject to actual conditions.
+            This menu will display all foods for reference only, subject to
+            availability.
           </b>
           <img
             src="/menu/starters.png"

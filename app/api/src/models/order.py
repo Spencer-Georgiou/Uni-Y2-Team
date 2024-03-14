@@ -45,12 +45,13 @@ class Order(db.Model):
         PREPARING = "Preparing"
         DELIVERING = "Delivering"
         DELIVERED = "Delivered"
+        CONFIRMING = "Confirming"
 
     __tablename__ = "order"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     table_number: Mapped[int] = mapped_column(ForeignKey("table.number"), unique=True)
-    status: Mapped[Status] = mapped_column(Enum(Status), default=Status.PREPARING)
+    status: Mapped[Status] = mapped_column(Enum(Status), default=Status.CONFIRMING)
     confirmed_by_waiter: Mapped[bool] = mapped_column(Boolean, default=False)
     # use lambda to set default to a dynamically value
     time_created: Mapped[datetime] = mapped_column((DateTime(timezone=True)),

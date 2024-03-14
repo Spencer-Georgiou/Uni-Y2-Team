@@ -100,6 +100,7 @@ const OrderMenu = () => {
       price: item.price,
       image_path: item.image_path,
     });
+    console.log(item.image_path);
   }
 
   return (
@@ -165,26 +166,20 @@ const OrderMenu = () => {
             <b>{food.name}</b>
           </Modal.Header>
           <Modal.Body>
-            <div class="flex flex-wrap justify-start">
-              <div>
+            <div>
+              <div className="float-left">
                 <img
                   src={food.image_path}
                   alt="picture"
-                  className="ml-5 mr-[100px]"
+                  className="ml-5 mr-5 w-[200px] h-[150px]"
                 />
               </div>
               <div>
                 <p className="text-xl">{food.description}</p>
-                <p className="text-black text-sans text-base">
-                  {food.calorie} calories
+                <p className="mt-3">{food.calorie} calories</p>
+                <p className="mt-3">
+                  <b>Price: ￡{food.price} each</b>
                 </p>
-
-                {food.allergens &&
-                  food.allergens.map((food) => (
-                    <p key={food.id} className="text-base m-0">
-                      Allergen: {food.name}
-                    </p>
-                  ))}
               </div>
             </div>
           </Modal.Body>
