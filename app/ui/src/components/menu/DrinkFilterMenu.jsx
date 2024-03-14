@@ -154,8 +154,8 @@ const DrinkFilterMenu = () => {
         </div>
       </div>
       <b className="ml-20 text-lg my-2">
-        This menu will display all drinks for reference only, availability is
-        subject to actual conditions.
+        This menu will display all drinks for reference only, subject to
+        availability.
       </b>
       <p className="ml-20">
         If the menu item isn't display, click on the blue block
