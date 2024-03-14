@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal } from "flowbite-react";
 
-{/*Buttons which waiter presses to filter menu*/}
+{
+  /*Buttons which waiter presses to filter menu*/
+}
 const filterButtons = [
   {
     name: "All",
@@ -146,7 +148,21 @@ const MenuModify = () => {
                 <Modal.Footer>
                   <button
                     type="button"
-                    className="bg-lemon text-black font-sans font-bold py-2 px-4 my-2 rounded-lg"
+                    className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full"
+                  >
+                    -
+                  </button>
+
+                  <button
+                    type="button"
+                    className="bg-lemon text-black text-3xl font-sans font-bold py-2 px-4 my-2 rounded-full"
+                  >
+                    +
+                  </button>
+
+                  <button
+                    type="button"
+                    className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg"
                   >
                     Add to order
                   </button>
