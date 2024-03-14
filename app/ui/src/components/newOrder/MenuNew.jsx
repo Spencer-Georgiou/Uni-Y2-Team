@@ -35,22 +35,6 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
       .then((json) => setData(json));
   }, []);
 
-  // Filter menu iteams
-  const filterMenu = (filterType) => {
-    if (filterType === "All") {
-      // Filter the data to include only available items
-      let filteredFood = data.filter((item) => item.available === true);
-      setFilteredMenu(filteredFood);
-    } else {
-      // Filter the data based on category and availability
-      let filteredFood = data.filter(
-        (item) =>
-          item.menugroup.category === filterType && item.available === true
-      );
-      setFilteredMenu(filteredFood);
-    }
-  };
-
   // Fetches menu data from api and sets it in json format
   useEffect(() => {
     fetch("/api/menu")

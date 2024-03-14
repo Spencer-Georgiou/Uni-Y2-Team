@@ -280,7 +280,7 @@ const OrderMenu = () => {
                 </tr>
               ))
             ) : (
-              <p className="ml-6 text-xl ">try again or refresh the webpage</p>
+              <p className="ml-6 text-xl ">please click on the menu buttons</p>
             )}
           </tbody>
         </table>
