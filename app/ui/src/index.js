@@ -10,10 +10,10 @@ import { store } from './components/order/redux/Store'
 //* it takes our Redux store as a prop so all the components in our app can access and use the global state. */ 
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </React.StrictMode>,
+
+    <Provider store={store}>
+        <App />
+    </Provider>,
+
     document.getElementById('root')
 );

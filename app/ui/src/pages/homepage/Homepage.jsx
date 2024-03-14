@@ -13,13 +13,11 @@ const homepage = () => {
           src="/homepage/HomeBannerBackground_2048.jpg"
         ></img>
       </div>
-      //Image of restaurant slogan
       <div>
         <img
           class="h-auto w-full bg-center items-center  "
           src="/homepage/Slogan_without_shadow.jpg"
         ></img>
-        //Image that describes order process
         <img
           class="h-auto w-full bg-center items-center  "
           src="/homepage/OrderProcess.png"
