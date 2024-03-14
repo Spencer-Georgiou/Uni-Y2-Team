@@ -3,12 +3,12 @@ import React, {useState} from "react";
 
 {/*Form that allows new customers to register an account*/}
 const SignUpForm = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   {/*Change Email to user input*/}
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
   };
 
   {/*Change Password to user input*/}
@@ -25,14 +25,14 @@ const SignUpForm = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: email,
+        username: username,
         password: password,
       }),
     };
-    fetch("/api/register", postingData)
+    fetch("/api/customer", postingData)
       .then((response) => {
         if (response.status === 200) return response.json();
-        else alert("Details already exist");
+        else alert("Successfully signed up");
       })
       .then()
       .catch((error) => {
@@ -48,12 +48,12 @@ const SignUpForm = () => {
         {/*When user submits form, assign input to email variable*/}
         <input
           type="text"
-          id="email"
-          value={email}
-          onChange={handleEmailChange}
-          name="email"
+          id="text"
+          value={username}
+          onChange={handleUsernameChange}
+          name="username"
           className=" text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5"
-          placeholder="Email"
+          placeholder="Username"
           required
         />
       </b>
