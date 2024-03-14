@@ -1,31 +1,29 @@
-from flask import request
-from sqlalchemy.exc import SQLAlchemyError
 from src.apidoc import apidoc
+from flask_smorest import abort
 from flask.views import MethodView
-
-from src.models import MenuItem
+from src import models
+from src.apidoc import apidoc
 from src.models import db
+from src.schema import MenuItemSchema
+
 
 @apidoc.route("/menuitem")
 class Available(MethodView):
-    def patch(self):
-        try:
-            data = request.get_json()
-            
-            item_name = data.get('name')
-            available = data.get('available')
+    MSG_NO_SUCH_MENUITEM = "Menu item not found."
+    @apidoc.arguments(schema=MenuItemSchema(only=("name", "available",)), location="json")
+    @apidoc.response(204)
+    def patch(self, menuitem_from_request):
+        """
+        Partially update a menuitem.
 
-            item = db.session.query(MenuItem).filter_by(name=item_name).first()
+        - 204 When there is a menuitem in the database
+        - 404 If the requested menuitem does not exist in the database
+        """
+        menuitem_in_db = db.session.query(models.MenuItem).get(menuitem_from_request.name)
+        if not menuitem_in_db:
+                abort(404, message=Available.MSG_NO_SUCH_MENUITEM)
 
-            if item:
-                item.available = available
-                db.session.commit()
-            else:
-                return {"error_message": "Menu item not found"}, 400
+        menuitem_in_db.available = menuitem_from_request.available
 
-            return {"error_message": None}
-            
-        except SQLAlchemyError:
-            return {"error_message": "Database error occurred"}, 500
-        except Exception as e:
-            return {"error_message": str(e)}, 500
+        db.session.add(menuitem_in_db)
+        db.session.commit()
