@@ -29,6 +29,7 @@ class MenuItem(db.Model):
     :cvar calorie: Amount of energy the menu item contains in Kcal. Must be positive.
     :cvar image_path: Image URL of the menu
     :cvar price: Price of the menu item. Must be positive.
+    :cvar available: Availability of the menu item. Default to True.
     :cvar allergens: A list of allergens the menu item contains
     :cvar menugroup: Menu group the menu item belongs to
     :cvar order_associations: Association with its orders

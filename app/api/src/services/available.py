@@ -1,4 +1,5 @@
 from flask import request
+from sqlalchemy.exc import SQLAlchemyError
 from src.apidoc import apidoc
 from flask.views import MethodView
 
@@ -12,10 +13,7 @@ class Available(MethodView):
             data = request.get_json()
             
             item_name = data.get('name')
-            if data.get('available').lower() == "true": # .lower() in case frontend use "True"
-                available = True
-            else:
-                available = False 
+            available = data.get('available')
 
             item = db.session.query(MenuItem).filter_by(name=item_name).first()
 
