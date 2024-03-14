@@ -19,7 +19,6 @@ import NavBarStaff from './components/login/NavBarStaff';
 import NavBarCustomer from './components/login/NavBarCustomer';
 import NavBarRegistration from './components/registration/NavBarRegistration';
 import NewOrder from './pages/waiterHub/NewOrder';
-import OrderNavBar from './components/order/OrderNavBar';
 import KitchenHub from './pages/kitchenHub/KitchenHub'
 import NavBarKitchenHub from './components/kitchenHub/NavBarKitchenHub';
 import ChangeMenu from './pages/waiterHub/ChangeMenu';
