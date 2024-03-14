@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import ReadyButton from "../kitchenHub/ReadyButton";
+import ConfirmedButton from "../../components/waiterHub/ConfirmedButton"
 
 
 function DisplayOrders({ readyButton }) {
@@ -53,8 +54,7 @@ function DisplayOrders({ readyButton }) {
             .then(response => response.json())
             .then(json => {
                 // Only add orders with status "Preparing"
-                // if (json.status === "Preparing" && json.status === "Confirming") {
-                if (json.status === "Preparing") {
+                if (json.status === "Confirming" || json.status === "Preparing") {
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
             })
@@ -96,6 +96,13 @@ function DisplayOrders({ readyButton }) {
     }
 
 
+    const checkConfirming = (status) => {
+        if (status === "Confirming"){
+            <ConfirmedButton />
+        }
+    }
+
+
 
     return (
         <div className="flex flex-col space-y-2">
@@ -113,7 +120,7 @@ function DisplayOrders({ readyButton }) {
                         </div>
                         <div className="flex ml-8">
                             {readyButton && <ReadyButton orderId={order.id} />}
-                            {/* {confirmedButton <ConfirmedButton={order.id} />} */}
+                            {checkConfirming(order.status)}
                         </div>
                     </div>
 
@@ -130,5 +137,8 @@ function DisplayOrders({ readyButton }) {
 }
 
 export default DisplayOrders
+
+
+
 
 
