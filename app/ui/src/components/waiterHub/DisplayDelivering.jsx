@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import DeliveredButton from "../../components/waiterHub/DeliveredButton";
 
 
-function DisplayDelivering({ readyButton }) {
+function DisplayDelivering() {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -105,11 +106,13 @@ function DisplayDelivering({ readyButton }) {
                             Table Number: {order.table_number}
                         </div>
                         {showMenuItems(order.menuitem_associations)}
-                        {/* <div className="flex ml-4 text-lg font-semibold">
-                            Status: {order.status}
-                        </div> */}
                         <div className="flex ml-4 text-lg font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
+                        </div>
+
+                        <div className="flex ml-4">
+                            <DeliveredButton />
+
                         </div>
 
                     </div>
