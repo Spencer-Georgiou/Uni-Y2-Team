@@ -31,7 +31,7 @@ class Migration:
         """
         abstract_path = pathlib.PurePath(directory, filename)
         concrete_path = pathlib.Path(abstract_path)
-        return str(concrete_path)
+        return str(concrete_path.as_posix())
 
     def migrate(self):
         """
