@@ -1,10 +1,13 @@
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import React, {useState} from "react";
+import { useNavigate } from 'react-router-dom';
 
 {/*Form that allows new customers to register an account*/}
 const SignUpForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   {/*Change Email to user input*/}
   const handleUsernameChange = (e) => {
@@ -34,7 +37,7 @@ const SignUpForm = () => {
         if (response.status === 200) return response.json();
         else alert("Successfully signed up");
       })
-      .then()
+      .then(navigate('/'))
       .catch((error) => {
         console.error("Error - please try again later", error);
       });
