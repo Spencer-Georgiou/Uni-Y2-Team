@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import ReadyButton from "../kitchenHub/ReadyButton";
+import FinishedButton from "../../components/waiterHub/FinishedButton";
 
 
-function DisplayOrders({ readyButton }) {
+function DisplayDelivered({ readyButton }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -52,9 +52,8 @@ function DisplayOrders({ readyButton }) {
         return fetch(`/api/order?id=${tableId}`)
             .then(response => response.json())
             .then(json => {
-                // Only add orders with status "Preparing"
-                // if (json.status === "Preparing" && json.status === "Confirming") {
-                if (json.status === "Preparing") {
+                // Only add orders with status "Delivered"
+                if (json.status === "Delivered") {
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
             })
@@ -84,12 +83,13 @@ function DisplayOrders({ readyButton }) {
                 <div className="flex flex-col ml-4 space-y-2">
                     <div className="flex ml-4 text-amber">
                         Item-Name: {item.menuitem_name} 
-                        {/* <span className="text-black">  Quantity: {item.quantity}</span> */}
                     </div>
 
                     <div className="flex ml-6">
                         Quantity: {item.quantity}
                     </div>
+
+
                 </div>
             </div>
         ));
@@ -107,16 +107,16 @@ function DisplayOrders({ readyButton }) {
                             Table Number: {order.table_number}
                         </div>
                         {showMenuItems(order.menuitem_associations)}
-
                         <div className="flex ml-4 text-lg font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
-                        <div className="flex ml-8">
-                            {readyButton && <ReadyButton orderId={order.id} />}
-                            {/* {confirmedButton <ConfirmedButton={order.id} />} */}
-                        </div>
-                    </div>
 
+                        <div className="flex ml-4">
+                            <FinishedButton />
+
+                        </div>
+
+                    </div>
                 </div>
             ))}
 
@@ -129,6 +129,6 @@ function DisplayOrders({ readyButton }) {
     );
 }
 
-export default DisplayOrders
+export default DisplayDelivered
 
 
