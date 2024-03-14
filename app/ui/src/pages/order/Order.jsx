@@ -7,16 +7,18 @@ import TableNumber from "../../components/order/TableNumber";
 const Order = () => {
   const [openModal, setOpenModal] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
+  const [tableNumber, setTableNumber] = useState(0);
 
   return (
     <div class="flex flex-wrap justify-end w-screen h-auto">
       <div class="w-2/3 bg-lemon h-auto">
-        {showProgress && <OrderProgress />}
+        {showProgress && <OrderProgress tableNumber={tableNumber} />}
         <OrderMenu />
         <TableNumber
           openModal={openModal}
           setOpenModal={setOpenModal}
           setShowProgress={setShowProgress}
+          setTableNumber={setTableNumber}
         />
       </div>
       <Cart setOpenModal={setOpenModal} />
