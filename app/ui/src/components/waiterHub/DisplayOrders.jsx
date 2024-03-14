@@ -88,42 +88,44 @@ function DisplayOrders({ confirmingButton, readyButton }) {
         ));
     };
 
-    const checkConfirming = (status) => {
+    const checkConfirming = (status, orderId) => {
         if (status === "Confirming") {
-            return confirmingButton && <ConfirmedButton />
+            return confirmingButton && <ConfirmedButton orderId={orderId} />
         }
     }
-};
 
-return (
-    <div className="flex flex-col space-y-2">
 
-        {sortingOrderTimes([...orders]).map((order) => (
-            <div className="flex flex-row font-sans" key={order.id}>
-                <div className="flex flex-col w-full text-black mt-8 space-y-2">
-                    <div className="flex ml-4 text-redder text-xl font-bold">
-                        Table Number: {order.table_number}
-                    </div>
-                    {showMenuItems(order.menuitem_associations)}
+    return (
+        <div className="flex flex-col space-y-2">
 
-                    <div className="flex ml-4 text-lg font-semibold">
-                        TimeCreated: {formatTime(order.time_created)}
+            {sortingOrderTimes([...orders]).map((order) => (
+                <div className="flex flex-row font-sans" key={order.id}>
+                    <div className="flex flex-col w-full text-black mt-8 space-y-2">
+                        <div className="flex ml-4 text-redder text-xl font-bold">
+                            Table Number: {order.table_number}
+                        </div>
+                        {showMenuItems(order.menuitem_associations)}
+
+                        <div className="flex ml-4 text-lg font-semibold">
+                            TimeCreated: {formatTime(order.time_created)}
+                        </div>
+                        <div className="flex ml-8">
+                            {readyButton && <ReadyButton orderId={order.id} />}
+                            {checkConfirming(order.status, order.id)}
+                        </div>
                     </div>
-                    <div className="flex ml-8">
-                        {readyButton && <ReadyButton orderId={order.id} />}
-                        {checkConfirming(order.status, order.id)}
-                    </div>
+
                 </div>
-
-            </div>
-        ))}
+            ))}
 
 
 
-    </div>
+        </div>
 
 
 
-);
+    );
+
+};
 
 export default DisplayOrders;
