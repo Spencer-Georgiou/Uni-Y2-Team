@@ -4,22 +4,14 @@ import { addToCart } from "./redux/cartSlice";
 import { useDispatch } from "react-redux";
 
 const filterButtons = [
-  {
-    name: "Starter",
-    value: "Starter",
-  },
-  {
-    name: "Main",
-    value: "Main",
-  },
-  {
-    name: "Dessert",
-    value: "Dessert",
-  },
-  {
-    name: "Drink",
-    value: "Drink",
-  },
+  { name: "All", value: "All" },
+  { name: "Starter", value: "Starter" },
+  { name: "Main", value: "Main" },
+  { name: "Dessert", value: "Dessert" },
+  { name: "Soft Drink", value: "Soft Drink" },
+  { name: "Beer", value: "Beer" },
+  { name: "Cocktail", value: "Cocktail" },
+  { name: "Hot Drink", value: "Hot Drink" },
 ];
 
 const OrderMenu = () => {
@@ -34,10 +26,8 @@ const OrderMenu = () => {
   });
   const [data, setData] = useState([]);
   const [menu, setMenu] = useState([]);
-  const [loading, setLoding] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [filtered, setFiltered] = useState([]);
-  const [currentType, setCurrentType] = useState("");
   const [previous, setPrevious] = useState([]);
 
   // Fetches menu data from api and sets it in json format
@@ -47,36 +37,28 @@ const OrderMenu = () => {
       .then((json) => setData(json));
   }, []);
 
-  function hanldeMenu(e) {
-    //set loading state
-    setLoding(true);
-
+  function hanldeMenu(name) {
     //add the available items to filtered
     const temp = data.filter((f) => f.available === true);
     setFiltered(temp);
+    setMenu(temp);
     //to display specfic category
-    handleType();
+    handleType(name);
     if (menu.length === 0) {
       console.log("loading false");
     }
-
-    setLoding(false);
   }
 
-  function handleType() {
-    if (currentType === "Drink") {
-      // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
-      let filterfood = filtered.filter(
-        (item) => item.menugroup.type === "Drink"
-      );
-      setMenu(filterfood);
+  function handleType(name) {
+    if (name === "All") {
+      setMenu(filtered);
     } else {
       let filterfood = filtered.filter(
-        (item) => item.menugroup.category === currentType
+        (item) => item.menugroup.category === name
       );
       setMenu(filterfood);
     }
-    console.log("loading" + currentType);
+    console.log("loading" + name);
   }
 
   //the state of allery list
@@ -122,6 +104,7 @@ const OrderMenu = () => {
 
   return (
     <div>
+      {/* allergens filterButtons */}
       <div class="m-2 p-3">
         <h3 class="my-2 text-xl text-cherry">
           <b>Dietary Filter</b>
@@ -151,30 +134,13 @@ const OrderMenu = () => {
           ))}
         </ul>
       </div>
+      {/* Menu buttons*/}
       <ul class="ml-24 my-4 flex flex-wrap text-lg font-medium text-center">
-        <li class="me-2">
-          <button
-            onClick={() => {
-              setLoding(true);
-              setCurrentType("All");
-              const temp = data.filter((f) => f.available === true);
-              setMenu(temp);
-              setLoding(false);
-            }}
-            value="All"
-            type="button"
-            href="#"
-            class="bg-amber inline-block px-5 py-3 rounded-lg hover:text-amber hover:bg-gray-100 text-lemon"
-          >
-            <b>All</b>
-          </button>
-        </li>
         {filterButtons.map((m, index) => (
           <li class="me-2" key={index}>
             <button
-              onClick={(e) => {
-                setCurrentType(e.target.value);
-                hanldeMenu(e);
+              onClick={() => {
+                hanldeMenu(m.name);
               }}
               value={m.value}
               type="button"
@@ -187,6 +153,7 @@ const OrderMenu = () => {
         ))}
       </ul>
 
+      {/* Display modal of food details after hitting on Add button */}
       <Modal
         size="4xl"
         dismissible
@@ -250,6 +217,7 @@ const OrderMenu = () => {
         </Modal.Footer>
       </Modal>
 
+      {/* Menu */}
       <div className="mx-24 rounded-2xl bg-amber w-[780px] h-[530px] overflow-x-auto p-2">
         <table className="w-full h-full text-lg text-left rtl:text-right">
           <thead>
@@ -270,7 +238,7 @@ const OrderMenu = () => {
             </tr>
           </thead>
           <tbody>
-            {!loading && menu.length > 0 ? (
+            {menu.length > 0 ? (
               menu.map((item) => (
                 <tr
                   key={item.id}
@@ -312,9 +280,7 @@ const OrderMenu = () => {
                 </tr>
               ))
             ) : (
-              <p className="ml-6 text-xl ">
-                loading...try again or refresh the webpage
-              </p>
+              <p className="ml-6 text-xl ">please click on the menu buttons</p>
             )}
           </tbody>
         </table>
