@@ -1,10 +1,9 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import ReadyButton from "../kitchenHub/ReadyButton";
 
 
-function DisplayOrders({ readyButton }) {
+function DisplayDelivering({ readyButton }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -53,7 +52,7 @@ function DisplayOrders({ readyButton }) {
             .then(response => response.json())
             .then(json => {
                 // Only add orders with status "Preparing"
-                if (json.status === "Preparing") {
+                if (json.status === "Delivering") {
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
             })
@@ -112,13 +111,8 @@ function DisplayOrders({ readyButton }) {
                         <div className="flex ml-4 text-lg font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
-                        <div className="flex ml-8">
-                            {readyButton && <ReadyButton orderId={order.id} />}
-                        </div>
+
                     </div>
-                    {/* <div className="">
-                        {readyButton && <ReadyButton orderId={order.id} />}
-                    </div> */}
                 </div>
             ))}
 
@@ -131,6 +125,6 @@ function DisplayOrders({ readyButton }) {
     );
 }
 
-export default DisplayOrders
+export default DisplayDelivering
 
 
