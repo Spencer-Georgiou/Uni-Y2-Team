@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
 
-function DisplayOrders({ readyButton }) {
-  const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
-  const [tables, setTables] = useState([]);
-  const [orders, setOrders] = useState([]);
+function DisplayOrders({ confirmingButton, readyButton  }) {
+    const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
+    const [tables, setTables] = useState([]);
+    const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     fetchTables();
@@ -87,9 +87,10 @@ function DisplayOrders({ readyButton }) {
     ));
   };
 
-  const checkConfirming = (status) => {
-    if (status === "Confirming") {
-      <ConfirmedButton />;
+    const checkConfirming = (status) => {
+        if (status === "Confirming"){
+            return confirmingButton && <ConfirmedButton />
+        }
     }
   };
 
@@ -116,4 +117,13 @@ function DisplayOrders({ readyButton }) {
   );
 }
 
-export default DisplayOrders;
+export default DisplayOrders
+
+
+
+
+
+
+
+
+

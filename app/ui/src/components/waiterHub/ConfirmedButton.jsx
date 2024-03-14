@@ -1,7 +1,14 @@
 import { Button } from 'flowbite-react';
+import { useState } from 'react';
 
 function ConfirmedButton({ orderId }) {
+  const [buttonColour, setButtonColour] = useState('green');
+  const [textColour, setTextColour] = useState('white');
+  
   const handleReady = () => {
+    setButtonColour('transparent');
+    setTextColour('transparent');
+
     const patchData = {
       id: orderId,
       status: 'Preparing',
@@ -28,8 +35,12 @@ function ConfirmedButton({ orderId }) {
   };
 
   return (
-    <Button color="success" onClick={handleReady}>Confirmed</Button>
+    <Button  style={{ backgroundColor: buttonColour, color: textColour }} onClick={handleReady}>Confirm Order</Button>
   );
 }
 
 export default ConfirmedButton;
+
+
+
+
