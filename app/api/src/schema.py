@@ -17,6 +17,8 @@ from src.models import OrderMenuItemAssociation
 from src.models import Session
 from src.models import db
 from src.models import Table
+from src.models import User
+from src.models import Customer
 
 
 # pylint: disable=missing-class-docstring
@@ -28,12 +30,14 @@ class BaseMeta:
 
 class SessionSchema(SQLAlchemyAutoSchema):
     """
-    Schema for Session that hides the ID attribute.
+    Schema for Session that hides the ID attribute and shows which user owns the session.
     """
 
     class Meta(BaseMeta):
         model = Session
         exclude = ("id",)
+    
+    user = Nested("UserSchema", exclude=("session",))
 
 
 class MenuGroupSchema(SQLAlchemyAutoSchema):
@@ -146,3 +150,22 @@ class TableSchema(SQLAlchemyAutoSchema):
         include_relationships = True
 
     order = fields.Nested(OrderSchema(), exclude=("table_number", "table",))
+
+class UserSchema(SQLAlchemyAutoSchema):
+    """
+    Schema for User that shows its role and session.
+    """
+    class Meta(BaseMeta):
+        model = User
+        include_relationships = True
+
+    role = fields.Enum(User.Role, by_value=True)
+    session = Nested(SessionSchema, exclude=("user",))
+
+class CustomerSchema(UserSchema):
+    """
+    Schema for Customer that inherits all the properties of the User schema.
+    """
+    class Meta(BaseMeta):
+        model = Customer
+        include_relationships = True
