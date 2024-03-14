@@ -63,7 +63,7 @@ const SignUpForm = () => {
       <b>
         {/*When user submits form, assign input to email variable*/}
         <input
-          type="text"
+          type="password"
           id="password"
           value={password}
           onChange={handlePasswordChange}
