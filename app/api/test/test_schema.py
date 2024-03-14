@@ -148,7 +148,7 @@ class TestOrderSchema:
     # An order returned by a query is serializable.
     def test_serialize_order(self, db, order, menuitem):
         # when an order is in the database
-        expected = {'status': 'Preparing',
+        expected = {'status': 'Confirming',
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
                     'table_number': 10, 'id': 1, 'confirmed_by_waiter': False}
         order.menuitem_associations.append(
