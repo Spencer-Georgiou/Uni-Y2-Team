@@ -1,7 +1,11 @@
 import { Button } from 'flowbite-react';
 
-function DelieveredButton({ orderId }) {
+
+function DeliveredButton({ orderId }) {
+
+
   const handleReady = () => {
+
     const patchData = {
       id: orderId,
       status: 'Delivered',
@@ -35,4 +39,4 @@ function DelieveredButton({ orderId }) {
   );
 }
 
-export default DelieveredButton;
+export default DeliveredButton;

@@ -4,7 +4,7 @@ import { Button, Modal } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-function TableNumber({ openModal, setOpenModal, setShowProgress }) {
+function TableNumber({ openModal, setOpenModal, setTableNumber }) {
   const cart = useSelector((state) => state.cart);
   //  This is the final order for posting to back-end
   const [order, setOrder] = useState({
@@ -21,11 +21,11 @@ function TableNumber({ openModal, setOpenModal, setShowProgress }) {
         quantity: parseInt(item.quantity),
       })
     );
-    console.log(order);
   }
 
   //post the data to back-end
   function handleSubmit() {
+    setTableNumber(order.table_number);
     //the information in the head
     const postingData = {
       method: "POST",
@@ -94,7 +94,6 @@ function TableNumber({ openModal, setOpenModal, setShowProgress }) {
                     setOpenModal(false);
                     handleCheckOut();
                     handleSubmit();
-                    setShowProgress(true);
                   }}
                 >
                   <b>Order now</b>

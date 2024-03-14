@@ -100,7 +100,6 @@ const OrderMenu = () => {
       price: item.price,
       image_path: item.image_path,
     });
-    console.log(item.image_path);
   }
 
   return (
@@ -171,7 +170,7 @@ const OrderMenu = () => {
                 <img
                   src={food.image_path}
                   alt="picture"
-                  className="ml-5 mr-5 w-[200px] h-[150px]"
+                  className="ml-5 mr-5 w-[220px] h-[150px]"
                 />
               </div>
               <div>

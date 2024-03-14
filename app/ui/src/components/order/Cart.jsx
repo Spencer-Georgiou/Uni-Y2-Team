@@ -8,7 +8,7 @@ const Cart = ({ setOpenModal }) => {
   const length = cart.length;
   return (
     <div class="w-1/3 bg-amber h-auto">
-      <div class="mt-20 bg-lemon w-10/12 h-[600px] ml-8 rounded-3xl p-6 overflow-x-auto">
+      <div class="mt-[250px] bg-lemon w-10/12 h-[620px] ml-8 rounded-3xl p-6 overflow-x-auto">
         {cart?.map((item) => (
           <CartItem
             name={item.name}
