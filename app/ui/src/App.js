@@ -19,7 +19,6 @@ import NavBarStaff from './components/login/NavBarStaff';
 import NavBarCustomer from './components/login/NavBarCustomer';
 import NavBarRegistration from './components/registration/NavBarRegistration';
 import NewOrder from './pages/waiterHub/NewOrder';
-import OrderNavBar from './components/order/OrderNavBar';
 import ChangeMenu from './pages/waiterHub/ChangeMenu';
 
 /**Picks which NavBar to display depending on what page is active.
