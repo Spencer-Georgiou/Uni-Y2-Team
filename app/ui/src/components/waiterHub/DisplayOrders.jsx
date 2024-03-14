@@ -51,8 +51,12 @@ function DisplayOrders({ readyButton }) {
     const fetchOrder = (tableId) => {
         return fetch(`/api/order?id=${tableId}`)
             .then(response => response.json())
-            .then(json =>
-                setOrders(prevOrders => [...prevOrders, json]))
+            .then(json => {
+                // Only add orders with status "Preparing"
+                if (json.status === "Preparing") {
+                    setOrders(prevOrders => [...prevOrders, json]);
+                }
+            })
     };
 
     const formatTime = (time) => {
@@ -78,7 +82,8 @@ function DisplayOrders({ readyButton }) {
             <div className="flex text-lg font-semibold">
                 <div className="flex flex-col ml-4 space-y-2">
                     <div className="flex ml-4 text-amber">
-                        Item-Name: {item.menuitem_name}
+                        Item-Name: {item.menuitem_name} 
+                        {/* <span className="text-black">  Quantity: {item.quantity}</span> */}
                     </div>
 
                     <div className="flex ml-6">
@@ -107,10 +112,13 @@ function DisplayOrders({ readyButton }) {
                         <div className="flex ml-4 text-lg font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
+                        <div className="flex ml-8">
+                            {readyButton && <ReadyButton orderId={order.id} />}
+                        </div>
                     </div>
-                    <div className="">
+                    {/* <div className="">
                         {readyButton && <ReadyButton orderId={order.id} />}
-                    </div>
+                    </div> */}
                 </div>
             ))}
 
@@ -124,3 +132,5 @@ function DisplayOrders({ readyButton }) {
 }
 
 export default DisplayOrders
+
+
