@@ -16,7 +16,7 @@ class Order(MethodView):
     """
     Class that provide apis to manipulate order instances at "/order".
     """
-    MSG_INCORRECT_DATA = "The order cannot be created because the data provided is incorrect."
+    MSG_INCORRECT_DATA = "The values of arguments are incorrect from the request."
     MSG_NO_SUCH_ORDER = "Order does not exist."
 
     @apidoc.arguments(schema=OrderSchema(only=("table_number", "menuitem_associations",)),
@@ -55,7 +55,8 @@ class Order(MethodView):
             db.session.delete(order_in_db)
             db.session.commit()
 
-    @apidoc.arguments(schema=OrderSchema(only=("id", "status", "confirmed_waiter")), location="json", required=False)
+    @apidoc.arguments(schema=OrderSchema(only=("id", "status", "confirmed_by_waiter")),
+                      location="json", required=False)
     @apidoc.response(status_code=200, schema=OrderSchema)
     def patch(self, order_from_request):
         """
@@ -75,7 +76,7 @@ class Order(MethodView):
             abort(404, message=Order.MSG_NO_SUCH_ORDER)
 
         order_in_db.status = order_from_request.status
-        order_in_db.confirmed_waiter = order_from_request.confirmed_waiter
+        order_in_db.confirmed_by_waiter = order_from_request.confirmed_by_waiter
 
         db.session.add(order_in_db)
         db.session.commit()
@@ -91,7 +92,7 @@ class Order(MethodView):
         - Return 404 if the order is not found in the database.
         """
         order_in_db = db.session.query(models.Order).get(order_from_request.id)
-        
+
         # raise 404 when order is not found
         if order_in_db is None:
             abort(404, message=Order.MSG_NO_SUCH_ORDER)
