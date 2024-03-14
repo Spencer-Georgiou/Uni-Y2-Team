@@ -5,7 +5,7 @@ import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton"
 
 
-function DisplayOrders({ confirmingButton, readyButton  }) {
+function DisplayOrders({ confirmingButton, readyButton }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -83,7 +83,7 @@ function DisplayOrders({ confirmingButton, readyButton  }) {
             <div className="flex text-lg font-semibold">
                 <div className="flex flex-col ml-4 space-y-2">
                     <div className="flex ml-4 text-amber">
-                        Item-Name: {item.menuitem_name} 
+                        Item-Name: {item.menuitem_name}
                         {/* <span className="text-black">  Quantity: {item.quantity}</span> */}
                     </div>
 
@@ -96,9 +96,9 @@ function DisplayOrders({ confirmingButton, readyButton  }) {
     }
 
 
-    const checkConfirming = (status) => {
-        if (status === "Confirming"){
-            return confirmingButton && <ConfirmedButton />
+    const checkConfirming = (status, orderID) => {
+        if (status === "Confirming") {
+            return confirmingButton && <ConfirmedButton orderId={orderID} />
         }
     }
 
@@ -120,7 +120,7 @@ function DisplayOrders({ confirmingButton, readyButton  }) {
                         </div>
                         <div className="flex ml-8">
                             {readyButton && <ReadyButton orderId={order.id} />}
-                            {checkConfirming(order.status)}
+                            {checkConfirming(order.status, order.id)}
                         </div>
                     </div>
 

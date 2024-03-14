@@ -82,7 +82,7 @@ function DisplayDelivering() {
             <div className="flex text-lg font-semibold">
                 <div className="flex flex-col ml-4 space-y-2">
                     <div className="flex ml-4 text-amber">
-                        Item-Name: {item.menuitem_name} 
+                        Item-Name: {item.menuitem_name}
                         {/* <span className="text-black">  Quantity: {item.quantity}</span> */}
                     </div>
 
@@ -111,7 +111,7 @@ function DisplayDelivering() {
                         </div>
 
                         <div className="flex ml-4">
-                            <DeliveredButton />
+                            <DeliveredButton orderId={order.id} />
 
                         </div>
 

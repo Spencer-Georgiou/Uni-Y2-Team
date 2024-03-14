@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import FinishedButton from "../../components/waiterHub/FinishedButton";
 
 
-function DisplayDelivered({ readyButton }) {
+function DisplayDelivered({ finishedButton }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -55,6 +55,7 @@ function DisplayDelivered({ readyButton }) {
                 // Only add orders with status "Delivered"
                 if (json.status === "Delivered") {
                     setOrders(prevOrders => [...prevOrders, json]);
+                    console.log(orders);
                 }
             })
     };
@@ -82,7 +83,7 @@ function DisplayDelivered({ readyButton }) {
             <div className="flex text-lg font-semibold">
                 <div className="flex flex-col ml-4 space-y-2">
                     <div className="flex ml-4 text-amber">
-                        Item-Name: {item.menuitem_name} 
+                        Item-Name: {item.menuitem_name}
                     </div>
 
                     <div className="flex ml-6">
@@ -93,6 +94,12 @@ function DisplayDelivered({ readyButton }) {
                 </div>
             </div>
         ));
+    }
+    const checkDelivered = (status) => {
+        if (status === "Delivered") {
+            console.log(status);
+            return finishedButton && <FinishedButton />
+        }
     }
 
 
@@ -112,7 +119,7 @@ function DisplayDelivered({ readyButton }) {
                         </div>
 
                         <div className="flex ml-4">
-                            <FinishedButton />
+                            {finishedButton && <FinishedButton orderID={order.id} />}
 
                         </div>
 
