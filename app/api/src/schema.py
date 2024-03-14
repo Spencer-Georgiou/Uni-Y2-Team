@@ -9,14 +9,15 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
 from marshmallow_sqlalchemy.fields import fields
 
-from .models import Allergen
-from .models import MenuGroup
-from .models import MenuItem
-from .models import Order
-from .models import OrderMenuItemAssociation
-from .models import Session
-from .models import db
-from .models import User
+from src.models import Allergen
+from src.models import MenuGroup
+from src.models import MenuItem
+from src.models import Order
+from src.models import OrderMenuItemAssociation
+from src.models import Session
+from src.models import db
+from src.models import Table
+from src.models import User
 from src.models import Customer
 
 
@@ -120,7 +121,7 @@ class MenuItemSchema(SQLAlchemyAutoSchema):
     # Convert python Decimal.Decimal() to float type since the previous one cannot be parsed to json
     price = fields.Float()
     image_path = Path()
-    menugroup = Nested(MenuGroupSchema, exclude=("menuitems",))
+    menugroup = Nested(MenuGroupSchema(), exclude=("menuitems",))
     allergens = Nested(AllergenSchema(many=True), exclude=("menuitems",))
 
 
@@ -141,6 +142,14 @@ class OrderSchema(SQLAlchemyAutoSchema):
     table_number = fields.Int()
     status = fields.Enum(Order.Status, by_value=True)
     menuitem_associations = Nested(OrderMenuItemAssociationSchema(many=True), exclude=("order_id",))
+
+
+class TableSchema(SQLAlchemyAutoSchema):
+    class Meta(BaseMeta):
+        model = Table
+        include_relationships = True
+
+    order = fields.Nested(OrderSchema(), exclude=("table_number", "table",))
 
 class UserSchema(SQLAlchemyAutoSchema):
     """

@@ -9,3 +9,4 @@ from src.services.menu import Menu
 from src.services.order import Order
 from src.services.customer import Customer
 from src.services.available import Available
+from src.services.table import Table
