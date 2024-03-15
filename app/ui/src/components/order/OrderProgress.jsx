@@ -25,16 +25,25 @@ function OrderProgress({ tableNumber }) {
     console.log(currentState);
     if (currentState === "Confirming") {
       setconfirm(true);
+      setDelivering(false);
+      setDelivered(false);
+      setPrepare(false);
     }
     if (currentState === "Preparing") {
       setconfirm(false);
       setPrepare(true);
+      setDelivered(false);
+      setDelivering(false);
     }
     if (currentState === "Delivering") {
       setPrepare(false);
       setDelivering(true);
+      setDelivered(false);
+      setconfirm(false);
     }
     if (currentState === "Delivered") {
+      setconfirm(false);
+      setPrepare(false);
       setDelivering(false);
       setDelivered(true);
     }
