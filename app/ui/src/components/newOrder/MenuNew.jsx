@@ -44,18 +44,19 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
 
   // Filter menu item
   const filterMenu = (filterType) => {
-    //The argument filterType is the filter waiter wants to display
     if (filterType === "All") {
-      //If waiter wants to display the entire menu, it will set the
-      setFilteredMenu(data); // filtered menu state as just the entire data
+        // Filter the data to include only available items
+        let filteredFood = data.filter(item => item.available === true);
+        setFilteredMenu(filteredFood);
     } else {
-      // Otherwise, it will filter the data (data.filter) checking if the filterType argument is the same as the item (from api data) category
-      let filteredFood = data.filter(
-        (item) => item.menugroup.category === filterType
-      );
-      setFilteredMenu(filteredFood);
+        // Filter the data based on category and availability
+        let filteredFood = data.filter(item => 
+            item.menugroup.category === filterType && item.available === true
+        );
+        setFilteredMenu(filteredFood);
     }
-  };
+}
+
 
   const increaseQuantity = (quant) => {
     setOrderQuantity((prevState) => ({
