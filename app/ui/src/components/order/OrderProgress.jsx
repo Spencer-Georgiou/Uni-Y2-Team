@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from "react";
   /*Timeline that shows the live progress of a customer's order*/
 }
 function OrderProgress({ tableNumber }) {
-  const [confirm, setconfirm] = useState(true);
+  const [confirm, setconfirm] = useState(false);
   const [prepare, setPrepare] = useState(false);
   const [delivering, setDelivering] = useState(false);
   const [delivered, setDelivered] = useState(false);
@@ -16,7 +16,7 @@ function OrderProgress({ tableNumber }) {
 
   useEffect(() => {
     handleProgress();
-  });
+  }, [tableNumber]);
 
   function handleProgress() {
     fetchTable(tableNumber);
