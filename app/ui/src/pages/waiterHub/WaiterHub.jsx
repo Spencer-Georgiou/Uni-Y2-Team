@@ -3,6 +3,7 @@ import ModifyCancelOrderButton from "../../components/waiterHub/ModifyCancelOrde
 import ChangeMenuButton from "../../components/waiterHub/ChangeMenuButton";
 import DisplayOrders from "../../components/waiterHub/DisplayOrders";
 import DisplayDelivering from "../../components/waiterHub/DisplayDelivering";
+import DisplayDelivered from "../../components/waiterHub/DisplayDelivered";
 
 
 const WaiterHub = () => {
@@ -13,7 +14,7 @@ const WaiterHub = () => {
                     <div className="flex flex-col space-y-1 w-full mt-5 overflow-y-scroll">
                         <div className="ml-4">Orders</div>
                         <div className="h-1 bg-redder">
-                            <DisplayOrders confirmingButton = {true} />
+                            <DisplayOrders confirmingButton={true} />
                         </div>
                     </div>
                 </div>
@@ -32,7 +33,7 @@ const WaiterHub = () => {
                     <div className="flex flex-col space-y-1 w-full mt-5 overflow-y-scroll">
                         <div className="ml-4">Delivered</div>
                         <div className="h-1 bg-redder">
-                            <DisplayDelivering />
+                            <DisplayDelivered />
                         </div>
                     </div>
                 </div>

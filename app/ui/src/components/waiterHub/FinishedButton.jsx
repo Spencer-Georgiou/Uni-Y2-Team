@@ -1,35 +1,42 @@
 import { Button } from 'flowbite-react';
 
-function DelieveredButton({ orderId }) {
+function FinishedButton({ orderId }) {
   const handleReady = () => {
-    const patchData = {
-      id: orderId,
-      status: 'Delivered',
-      confirmed_by_waiter: true
-    };
 
-    fetch(`/api/order`, {
-      method: 'PATCH',
+
+    fetch(`/api/order?id=${orderId}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(patchData)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to mark order as ready');
       }
-      // Handle success, maybe display a success message
     })
-    .catch(error => {
-      console.error('Error marking order as ready:', error);
-      // Handle error, display an error message to the user
-    });
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to delete order');
+        }
+        // Handle success, maybe display a success message
+      })
+      .catch(error => {
+        console.log('Error from api:', error);
+        // Handle error, display an error message to the user
+      });
   };
+
+
+
+  // return delete(`/api/order?id=${orderId}`)
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //         // Only add orders with status "Preparing"
+  //         if (json.status === "Confirming" || json.status === "Preparing") {
+  //             setOrders((prevOrders) => [...prevOrders, json]);
+  //         }
+  //     });
+
 
   return (
     <Button color="success" onClick={handleReady}>Finished Order</Button>
   );
 }
 
-export default DelieveredButton;
+export default FinishedButton;
