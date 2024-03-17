@@ -32,6 +32,8 @@ function DeliveredButton({ orderId }) {
         console.error('Error marking order as ready:', error);
         // Handle error, display an error message to the user
       });
+
+      window.location.reload();
   };
 
   return (

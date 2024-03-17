@@ -9,6 +9,7 @@ function ConfirmedButton({ orderId }) {
     setButtonColour('transparent');
     setTextColour('transparent');
 
+
     const patchData = {
       id: orderId,
       status: 'Preparing',
@@ -32,10 +33,12 @@ function ConfirmedButton({ orderId }) {
         console.error('Error marking order as ready:', error);
         // Handle error, display an error message to the user
       });
+
+      window.location.reload();
   };
 
   return (
-    <Button  style={{ backgroundColor: buttonColour, color: textColour }} onClick={handleReady}>Confirm Order</Button>
+    <Button  style={{ backgroundColor: buttonColour, color: textColour, outline:'transparent' }} onClick={handleReady}>Confirm Order</Button>
   );
 }
 
