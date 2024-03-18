@@ -1,6 +1,10 @@
-from src.services import Available
+"""
+Testing menuitem apis.
+"""
+from src.services import MenuItem
 
-class TestAvailable:
+
+class TestMenuItem:
     # A PATCH to /api/menuitem should update available field.
     def test_update_success(self, client, db, menuitem):
         db.session.add_all([menuitem])
@@ -13,7 +17,6 @@ class TestAvailable:
         assert response.status_code == 204
         assert menuitem.available is False
 
-
     # Useful error message should be returned when item name doesn't exist
     def test_invalid_name(self, client, db, menuitem):
         db.session.add_all([menuitem])
@@ -24,6 +27,4 @@ class TestAvailable:
             "available": False
         })
         assert response.status_code == 404
-        assert response.get_json()["message"] == Available.MSG_NO_SUCH_MENUITEM
-        
-
+        assert response.get_json()["message"] == MenuItem.MSG_NO_SUCH_MENUITEM

@@ -8,8 +8,13 @@ from src.schema import MenuItemSchema
 
 
 @apidoc.route("/menuitem")
-class Available(MethodView):
+class MenuItem(MethodView):
+    """
+    Class that provide apis to manipulate menuitem instances at "/menuitem".
+    """
+
     MSG_NO_SUCH_MENUITEM = "Menu item not found."
+
     @apidoc.arguments(schema=MenuItemSchema(only=("name", "available",)), location="json")
     @apidoc.response(204)
     def patch(self, menuitem_from_request):
@@ -21,7 +26,7 @@ class Available(MethodView):
         """
         menuitem_in_db = db.session.query(models.MenuItem).get(menuitem_from_request.name)
         if not menuitem_in_db:
-                abort(404, message=Available.MSG_NO_SUCH_MENUITEM)
+            abort(404, message=MenuItem.MSG_NO_SUCH_MENUITEM)
 
         menuitem_in_db.available = menuitem_from_request.available
 
