@@ -38,7 +38,7 @@ const FormCustomer = () => {
         if (response.status === 200) return response.json();
         else alert("error here");
       })
-      .then(navigate('/'))
+      .then(navigate("/"))
       .catch((error) => {
         console.error("there was an error", error);
       });
