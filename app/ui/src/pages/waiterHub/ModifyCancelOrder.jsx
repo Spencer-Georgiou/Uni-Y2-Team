@@ -11,6 +11,7 @@ const ModifyCancelOrder = () => {
     const [tableNumber, setTableNumber] = useState(null);
     const [fetchedOrder, setFetchedOrder] = useState(null);
     const [orderStatus, setOrderStatus] = useState(null);
+    const [orderId, setOrderId] = useState(null);
 
 
 
@@ -29,7 +30,9 @@ const ModifyCancelOrder = () => {
                 return response.json();
             })
             .then((table) => {
+                setOrderId(table.order.id);
                 fetchOrder(table.order.id); // Fetch order for the fetched table
+
                 return table;
             })
             .catch((error) => {
@@ -77,7 +80,7 @@ const ModifyCancelOrder = () => {
     const checkCancelButton = (orderStatus) => {
         console.log(orderStatus);
         if (orderStatus === "Confirming") {
-            return <CancelButton />
+            return <CancelButton orderId={orderId} />
         } else {
             return <NoCancellingAllowedButton />
         }
