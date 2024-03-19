@@ -56,7 +56,6 @@ class Order(db.Model):
     table_number: Mapped[int] = mapped_column(ForeignKey("table.number"), unique=True)
     waiter_username: Mapped[Optional[str]] = mapped_column(ForeignKey("waiter.username"))
     status: Mapped[Status] = mapped_column(Enum(Status), default=Status.CONFIRMING)
-    confirmed_by_waiter: Mapped[bool] = mapped_column(Boolean, default=False)
     # use lambda to set default to a dynamically value
     time_created: Mapped[datetime] = mapped_column((DateTime(timezone=True)),
                                                    default=lambda: datetime.now())
