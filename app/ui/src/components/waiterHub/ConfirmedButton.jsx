@@ -1,14 +1,18 @@
 import { Button } from 'flowbite-react';
+import { useState } from 'react';
 
-
-function DeliveredButton({ orderId }) {
-
-
+function ConfirmedButton({ orderId }) {
+  const [buttonColour, setButtonColour] = useState('green');
+  const [textColour, setTextColour] = useState('white');
+  
   const handleReady = () => {
+    setButtonColour('transparent');
+    setTextColour('transparent');
+
 
     const patchData = {
       id: orderId,
-      status: 'Delivered',
+      status: 'Preparing',
       confirmed_by_waiter: true
     };
 
@@ -21,10 +25,7 @@ function DeliveredButton({ orderId }) {
     })
       .then(response => {
         if (!response.ok) {
-          console.log(patchData);
-          console.log(orderId);
           throw new Error('Failed to mark order as ready');
-
         }
         // Handle success, maybe display a success message
       })
@@ -37,8 +38,12 @@ function DeliveredButton({ orderId }) {
   };
 
   return (
-    <Button color="success" onClick={handleReady}>Delivered</Button>
+    <Button  style={{ backgroundColor: buttonColour, color: textColour, outline:'transparent' }} onClick={handleReady}>Confirm Order</Button>
   );
 }
 
-export default DeliveredButton;
+export default ConfirmedButton;
+
+
+
+
