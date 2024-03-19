@@ -1,5 +1,6 @@
 import UpdateOrderButton from "../../components/modifyCancelOrder/UpdateOrderButton";
 import CancelButton from "../../components/modifyCancelOrder/CancelButton";
+import NoCancellingAllowedButton from "../../components/modifyCancelOrder/NoCancellingAllowedButton";
 import MenuModify from "../../components/modifyCancelOrder/MenuModify";
 import MenuNew from "../../components/newOrder/MenuNew";
 import { useState, useEffect } from "react";
@@ -9,6 +10,7 @@ const ModifyCancelOrder = () => {
 
     const [tableNumber, setTableNumber] = useState(null);
     const [fetchedOrder, setFetchedOrder] = useState(null);
+    const [orderStatus, setOrderStatus] = useState(null);
 
 
 
@@ -40,7 +42,7 @@ const ModifyCancelOrder = () => {
         return fetch(`/api/order?id=${tableId}`)
             .then((response) => response.json())
             .then((order) => {
-
+                setOrderStatus(order.status);
                 setFetchedOrder(order);
 
             })
@@ -70,6 +72,15 @@ const ModifyCancelOrder = () => {
                 </div>
             </div>
         ));
+    };
+
+    const checkCancelButton = (orderStatus) => {
+        console.log(orderStatus);
+        if (orderStatus === "Confirming") {
+            return <CancelButton />
+        } else {
+            return <NoCancellingAllowedButton />
+        }
     };
 
 
@@ -107,7 +118,7 @@ const ModifyCancelOrder = () => {
                     </div>
 
                     <UpdateOrderButton />
-                    <CancelButton />
+                    {checkCancelButton(orderStatus)}
                 </div>
             </div>
         </div>
