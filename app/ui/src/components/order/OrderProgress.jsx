@@ -14,10 +14,6 @@ function OrderProgress({ tableNumber }) {
   const [order, setOrder] = useState([]);
   const [currentState, setCurrentState] = useState("");
 
-  useEffect(() => {
-    handleProgress();
-  }, [tableNumber]);
-
   function handleProgress() {
     fetchTable(tableNumber);
     order.map((m) => console.log(m));

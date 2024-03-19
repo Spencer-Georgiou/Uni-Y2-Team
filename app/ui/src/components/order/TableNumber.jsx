@@ -41,7 +41,7 @@ function TableNumber({ openModal, setOpenModal, setTableNumber }) {
         if (response.status === 200) {
           alert("order sucessfully!");
           return response.json();
-        } else alert("error here");
+        } else console.log("error");
       })
       .then()
       .catch((error) => {
