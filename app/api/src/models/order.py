@@ -28,7 +28,6 @@ class Order(db.Model):
     :cvar waiter_username: Username of the waiter who is assigned to the order
     :cvar status: State of the order, including "Confirming", "Preparing", "Delivering" and
     "Delivered"; defaults to "Confirming"
-    :cvar confirmed_by_waiter: Indicator that whether the order is confirmed by a waiter
     :cvar time_created: Time when the order was created
     :cvar table: Table associated with the order
     :cvar menuitem_associations: Association with menuitems
@@ -68,6 +67,6 @@ class Order(db.Model):
 
     def __repr__(self):
         return (
-            f"Order(id={self.id!r}, table_number={self.table_number!r}, status={self.status!r}, "
-            f"confirmed_by_waiter="
-            f"{self.confirmed_by_waiter!r})")
+            f"Order(id={self.id!r}, table_number={self.table_number!r}, waiter_username="
+            f"{self.waiter_username!r}, status={self.status!r}, time_created="
+            f"{self.time_created!r})")
