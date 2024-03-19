@@ -1,15 +1,10 @@
-'use client'
-
-import { Link } from 'react-router-dom';
-
+{/*Button that allows the waiter to change menu items via the ChangeMenu page.*/}
 function ChangeMenuButton() {
   return (
 
-    <Link to="/ChangeMenu" className="flex items-center justify-center">
-      <button type="button" className="bg-amber text-lemon font-sans font-bold py-2 px-4 rounded-lg hover:text-yellow-200">
-        Change Menu
-      </button>
-    </Link>
+    <button class="bg-amber text-lemon font-sans font-bold py-2 px-4 rounded-lg">
+      Change Menu
+    </button>
 
   );
 }

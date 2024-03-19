@@ -1,113 +1,50 @@
-"use client";
+'use client';
+import { Button } from 'flowbite-react';
+import React, { useState } from 'react';
 
-import { Button, Modal } from "flowbite-react";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+{/*Pop up that allows users to enter their table number.*/}
+function TableNumber() {
 
-function TableNumber({ openModal, setOpenModal, setTableNumber }) {
-  const cart = useSelector((state) => state.cart);
-  //  This is the final order for posting to back-end
-  const [order, setOrder] = useState({
-    table_number: 0,
-    //stores all the item name and quantity
-    menuitem_associations: [],
-  });
+    const [tableNumber, setTableNumber] = useState('');
 
-  //to form the data in final order
-  function handleCheckOut() {
-    cart.map((item) =>
-      order.menuitem_associations.push({
-        menuitem_name: item.name,
-        quantity: parseInt(item.quantity),
-      })
-    );
-  }
+    {/*Change table number to user input*/}
+    const handleTableNumber = (e) => {
+        setTableNumber(e.target.value);
+    }
 
-  //post the data to back-end
-  function handleSubmit() {
-    setTableNumber(order.table_number);
-    //the information in the head
-    const postingData = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(order),
-    };
-
-    //post the data and get the response
-    fetch("/api/order", postingData)
-      .then((response) => {
-        if (response.status === 200) {
-          alert("order sucessfully!");
-          return response.json();
-        } else alert("error here");
-      })
-      .then()
-      .catch((error) => {
-        console.error("there was an error", error);
-      });
-  }
-
-  return (
-    <>
-      <Modal
-        show={openModal}
-        size="lg"
-        onClose={() => setOpenModal(false)}
-        popup
-      >
-        <div
-          class="bg-cover w-full h-full"
-          style={{ backgroundImage: "url('/images/TableNumberBanner.png')" }}
-        >
-          <Modal.Header />
-
-          <Modal.Body>
-            <div className="text-center">
-              <p className="text-2xl text-lemon font-sans font-semibold text-center mb-4">
-                Enter Your Table Number
-              </p>
-
-              <div className="mb-5 ">
-                <b>
-                  <input
-                    type="number"
-                    onChange={(e) =>
-                      setOrder({
-                        ...order,
-                        table_number: parseInt(e.target.value),
-                      })
-                    }
-                    id="tableNumber"
-                    name="tableNumber"
-                    className="text-xl text-dark font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5 focus:ring-4 focus:ring-amber"
-                    placeholder="Table Number"
-                    required
-                  />
-                </b>
-              </div>
-              <div className="flex justify-center gap-4">
-                <Button
-                  color="red"
-                  onClick={() => {
-                    setOpenModal(false);
-                    handleCheckOut();
-                    handleSubmit();
-                  }}
-                >
-                  <b>Order now</b>
-                </Button>
-                <Button color="green" onClick={() => setOpenModal(false)}>
-                  <b>cancel</b>
-                </Button>
-              </div>
+    return (
+        <div class="w-full h-screen bg-fixed bg-center bg-cover flex justify-center items-center relative" style={{ backgroundImage: "url('/images/TableNumberBanner.png')" }}>
+            <form className="h-[300px] w-[500px] rounded-[25px] py-5 m-auto bg-cherry px-6">
+            {/*Input field that allows users to input their table number*/}
+            <div className="text-2xl text-lemon font-sans font-semibold text-center mb-4">
+                Order
             </div>
-          </Modal.Body>
+            <div className="text-2xl text-lemon font-sans font-semibold text-center mb-4">
+                Please Enter Your Table Number
+            </div>
+            <div className="mb-5 ">
+                <b>
+                    {/*When user submits form, assign input to table number variable*/}
+                    <input 
+                        type="text" 
+                        id="tableNumber" 
+                        value={tableNumber} 
+                        onChange={handleTableNumber} 
+                        name="tableNumber" 
+                        className="text-xl text-black font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5 focus:ring-4 focus:ring-amber" 
+                        placeholder="Table Number" 
+                        required 
+                    />
+                </b>
+            </div>
+            {/*Button to submit form*/}
+            <div className="flex justify-center">
+                <Button type="submit" className="h-16 font-sans font-semibold bg-lemon rounded-lg text-xl w-40 rounded-2xl px-5 py-2.5 text-center text-cherry hover:ring-4 hover:ring-amber focus:ring-amber">Enter</Button>
+            </div>
+            </form>
         </div>
-      </Modal>
-    </>
-  );
+    );
 }
 
-export default TableNumber;
+
+export default TableNumber
