@@ -27,6 +27,7 @@ class Order(db.Model):
     :cvar status: State of the order, including "Confirming", "Preparing", "Delivering" and
     "Delivered"; defaults to "Confirming"
     :cvar confirmed_by_waiter: Indicator that whether the order is confirmed by a waiter
+    :cvar calling_waiter: Indicator of whether the customer is calling their waiter
     :cvar time_created: Time when the order was created
     :cvar table: Table associated with the order
     :cvar menuitem_associations: Association with menuitems
@@ -57,6 +58,7 @@ class Order(db.Model):
     # use lambda to set default to a dynamically value
     time_created: Mapped[datetime] = mapped_column((DateTime(timezone=True)),
                                                    default=lambda: datetime.now())
+    calling_waiter: Mapped[bool] = mapped_column(Boolean, default=False)
 
     table: Mapped["Table"] = relationship(back_populates="order")
     menuitem_associations: Mapped[List["OrderMenuItemAssociation"]] = relationship(
@@ -65,5 +67,5 @@ class Order(db.Model):
     def __repr__(self):
         return (
             f"Order(id={self.id!r}, table_number={self.table_number!r}, status={self.status!r}, "
-            f"confirmed_by_waiter="
+            f"calling_waiter={self.calling_waiter!r}, confirmed_by_waiter="
             f"{self.confirmed_by_waiter!r})")
