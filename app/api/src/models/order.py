@@ -24,8 +24,8 @@ class Order(db.Model):
 
     :cvar id: Identifier of the order
     :cvar table_number: Table number assigned to the order
-    :cvar status: State of the order, including "Preparing", "Delivering" and
-    "Delivered"; defaults to "Preparing"
+    :cvar status: State of the order, including "Confirming", "Preparing", "Delivering" and
+    "Delivered"; defaults to "Confirming"
     :cvar confirmed_by_waiter: Indicator that whether the order is confirmed by a waiter
     :cvar time_created: Time when the order was created
     :cvar table: Table associated with the order
@@ -38,14 +38,15 @@ class Order(db.Model):
         An active order means its status is not finished.
         An inactive order means its status is finished.
 
+        :cvar CONFIRMING: When the order is waiting for confirmation by a waiter
         :cvar PREPARING: When the kitchen is preparing for the order
         :cvar DELIVERING: When the order is ready for a waiter to deliver
         :cvar DELIVERED: When the order has been delivered
         """
+        CONFIRMING = "Confirming"
         PREPARING = "Preparing"
         DELIVERING = "Delivering"
         DELIVERED = "Delivered"
-        CONFIRMING = "Confirming"
 
     __tablename__ = "order"
 
