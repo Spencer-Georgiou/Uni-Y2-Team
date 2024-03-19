@@ -5,11 +5,11 @@ class TestTable:
         db.session.commit()
 
     # A table can be associated with at most one order.
-    def test_relationship_order(self, db, table, order):
-        db.session.add_all([table, order])
+    def test_relationship_order(self, db, table, order_confirming):
+        db.session.add_all([table, order_confirming])
         db.session.commit()
 
-        assert order is table.order
+        assert order_confirming is table.order
 
     # An empty table should be available.
     def test_empty_table_available(self, db, table):
@@ -19,8 +19,8 @@ class TestTable:
         assert True is table.is_available()
 
     # A table with an order should be unavailable.
-    def test_occupied_table_available(self, db, table, order):
-        db.session.add_all([table, order])
+    def test_occupied_table_available(self, db, table, order_confirming):
+        db.session.add_all([table, order_confirming])
         db.session.commit()
 
         assert False is table.is_available()
