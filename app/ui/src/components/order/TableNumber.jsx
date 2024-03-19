@@ -3,11 +3,20 @@
 import { Button, Modal } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addTableNumber } from "./redux/cartSlice";
 
-function TableNumber({ openModal, setOpenModal, setTableNumber }) {
+// this is the component for user to enter table number
+function TableNumber({ openModal, setOpenModal, setconfirm }) {
+  //get the cart state from redux
   const cart = useSelector((state) => state.cart);
+  //the table number
+  const number = useSelector((state) => state.table);
+  //the hook to use the function in redux
+  const dispatch = useDispatch();
   //  This is the final order for posting to back-end
   const [order, setOrder] = useState({
+    //the initial table number
     table_number: 0,
     //stores all the item name and quantity
     menuitem_associations: [],
@@ -25,7 +34,8 @@ function TableNumber({ openModal, setOpenModal, setTableNumber }) {
 
   //post the data to back-end
   function handleSubmit() {
-    setTableNumber(order.table_number);
+    console.log(order.table_number);
+    console.log(number);
     //the information in the head
     const postingData = {
       method: "POST",
@@ -51,6 +61,7 @@ function TableNumber({ openModal, setOpenModal, setTableNumber }) {
 
   return (
     <>
+      {/* the open modal of entering table number */}
       <Modal
         show={openModal}
         size="lg"
@@ -71,14 +82,17 @@ function TableNumber({ openModal, setOpenModal, setTableNumber }) {
 
               <div className="mb-5 ">
                 <b>
+                  {/* the input text field */}
                   <input
                     type="number"
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      // set the user input to final order and tableNumber in cart
+                      dispatch(addTableNumber(e.target.value));
                       setOrder({
                         ...order,
                         table_number: parseInt(e.target.value),
-                      })
-                    }
+                      });
+                    }}
                     id="tableNumber"
                     name="tableNumber"
                     className="text-xl text-dark font-semibold text-center h-14 bg-lemon border border-lemon rounded-2xl block w-full p-2.5 focus:ring-4 focus:ring-amber"
@@ -88,16 +102,19 @@ function TableNumber({ openModal, setOpenModal, setTableNumber }) {
                 </b>
               </div>
               <div className="flex justify-center gap-4">
+                {/* button to order */}
                 <Button
                   color="red"
                   onClick={() => {
                     setOpenModal(false);
                     handleCheckOut();
                     handleSubmit();
+                    setconfirm(true);
                   }}
                 >
                   <b>Order now</b>
                 </Button>
+                {/* button to close the windows */}
                 <Button color="green" onClick={() => setOpenModal(false)}>
                   <b>cancel</b>
                 </Button>

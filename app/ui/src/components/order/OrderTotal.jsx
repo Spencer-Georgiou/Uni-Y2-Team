@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
 
+//This component is to display the total prices and amounts
 const OrderTotal = () => {
   //useSelector hook to get the cart state from our store
   const cart = useSelector((state) => state.cart);
-  //@return the total price and quantity
+
+  //to calculate and return the total price and quantities
   const getTotal = () => {
     //initial state is 0
     let totalQuantity = 0;
@@ -13,7 +15,7 @@ const OrderTotal = () => {
       totalQuantity += item.quantity;
       totalPrice += item.price * item.quantity;
     });
-
+    //return the total price and quantity
     return { totalPrice, totalQuantity };
   };
 
