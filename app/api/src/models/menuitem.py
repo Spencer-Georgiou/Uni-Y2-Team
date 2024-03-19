@@ -11,6 +11,7 @@ from sqlalchemy import ForeignKeyConstraint
 from sqlalchemy import Integer
 from sqlalchemy import Numeric
 from sqlalchemy import String
+from sqlalchemy import Boolean
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
@@ -28,6 +29,7 @@ class MenuItem(db.Model):
     :cvar calorie: Amount of energy the menu item contains in Kcal. Must be positive.
     :cvar image_path: Image URL of the menu
     :cvar price: Price of the menu item. Must be positive.
+    :cvar available: Availability of the menu item. Default to True.
     :cvar allergens: A list of allergens the menu item contains
     :cvar menugroup: Menu group the menu item belongs to
     :cvar order_associations: Association with its orders
@@ -46,7 +48,7 @@ class MenuItem(db.Model):
     image_path: Mapped[Optional[str]] = mapped_column(String)
     menugroup_type: Mapped[MenuGroup.Type] = mapped_column(Enum(MenuGroup.Type))
     menugroup_category: Mapped[MenuGroup.Category] = mapped_column(Enum(MenuGroup.Category))
-
+    available: Mapped[bool] = mapped_column(Boolean, default=True)
     allergens: Mapped[Optional[List["Allergen"]]] = relationship(back_populates="menuitems",
                                                                  secondary="menuitem_allergen")
     menugroup: Mapped["MenuGroup"] = relationship(back_populates="menuitems",
@@ -56,4 +58,4 @@ class MenuItem(db.Model):
 
     def __repr__(self):
         return (f"MenuItem(name={self.name!r}, description={self.description!r}, "
-                f"calorie={self.calorie!r}, price={self.price!r})")
+                f"calorie={self.calorie!r}, price={self.price!r}, available={self.available!r})")

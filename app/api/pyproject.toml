@@ -3,6 +3,7 @@ name = "OAXACA-API"
 version = "0.0.1"
 
 [tool.pytest.ini_options]
+pythonpath = ["./"]
 # ignore Deprecation warnings
 filterwarnings = ["ignore::DeprecationWarning"]
 addopts = ["--import-mode=importlib"]
