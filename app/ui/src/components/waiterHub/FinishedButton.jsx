@@ -20,18 +20,14 @@ function FinishedButton({ orderId }) {
         console.log('Error from api:', error);
         // Handle error, display an error message to the user
       });
+
+
+      window.location.reload();
   };
 
 
 
-  // return delete(`/api/order?id=${orderId}`)
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //         // Only add orders with status "Preparing"
-  //         if (json.status === "Confirming" || json.status === "Preparing") {
-  //             setOrders((prevOrders) => [...prevOrders, json]);
-  //         }
-  //     });
+
 
 
   return (
