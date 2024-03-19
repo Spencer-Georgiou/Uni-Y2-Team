@@ -37,7 +37,7 @@ function NavBarWaiterHub() {
             </div>
             {/*The avatar icon with a dropdown displaying log out which takes you back to StaffLogin*/}
             <div className="flex flex-1 justify-end items-center">
-                <Dropdown className="bg-lemon" label={
+                <Dropdown className="bg-lemon border-lemon" label={
                     <Avatar rounded />
                 }>
                     <Dropdown.Item onClick={handleLogOut} className="focus:bg-lemon font-semibold text-cherry">
