@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Button, Modal } from "flowbite-react";
-import { addToCart } from "./redux/cartSlice";
+import { addToCart, removeAllItem } from "./redux/cartSlice";
 import { useDispatch } from "react-redux";
 
+// this is the menu button with different type
 const filterButtons = [
   { name: "All", value: "All" },
   { name: "Starter", value: "Starter" },
@@ -14,8 +15,11 @@ const filterButtons = [
   { name: "Hot Drink", value: "Hot Drink" },
 ];
 
+// this is the menu component
 const OrderMenu = () => {
+  // dispatch redux function
   const dispatch = useDispatch();
+  // this state is to store modal food details when hitting the 'Add' button
   const [food, setFood] = useState({
     name: "",
     description: "",
@@ -24,31 +28,39 @@ const OrderMenu = () => {
     price: "",
     image_path: "",
   });
+  //to store the completed item data
   const [data, setData] = useState([]);
+  //the data of the menu item to be displayed
   const [menu, setMenu] = useState([]);
+  //control the open and close of the modal
   const [openModal, setOpenModal] = useState(false);
+  //to store the filtered menu item
   const [filtered, setFiltered] = useState([]);
+  //the preious data before allergens filtered
   const [previous, setPrevious] = useState([]);
 
-  // Fetches menu data from api and sets it in json format
+  //the first item user open the order page, Fetches menu data from api and sets it to data
   useEffect(() => {
     fetch("/api/menu")
       .then((response) => response.json())
       .then((json) => setData(json));
+    dispatch(removeAllItem());
   }, []);
 
+  //this function is to control the display of menu item
   function hanldeMenu(name) {
-    //add the available items to filtered
+    //only add the available items to filtered state
     const temp = data.filter((f) => f.available === true);
     setFiltered(temp);
-    setMenu(temp);
     //to display specfic category
     handleType(name);
+    //to check if menu item is empty
     if (menu.length === 0) {
       console.log("loading false");
     }
   }
 
+  //This function is to control the dispkay of pointed category
   function handleType(name) {
     if (name === "All") {
       setMenu(filtered);
@@ -65,12 +77,14 @@ const OrderMenu = () => {
   const allergy = ["Gluten", "Dairy", "Nuts", "Egg", "Mollusk"];
   // the function to set the state to control menu display
   function handleAllergy(e) {
-    //get the name and value of the element
+    //get the allergen name
     let { value } = e.target;
     setPrevious(menu);
 
     const { checked } = e.target;
+    //if hitting the checkbox
     if (checked) {
+      //to filter gluten food
       if (value === "Gluten") {
         let a = menu.filter(
           (f) =>
@@ -80,17 +94,20 @@ const OrderMenu = () => {
         );
         setMenu(a);
       }
+      //to filter dairy food
       if (value === "Dairy") {
         let b = menu.filter(
           (f) => f.name !== "Tacos" && f.name !== "Fanta Naranja"
         );
         setMenu(b);
       }
+      //if release the allergy checkbox, set the menu item back
     } else {
       setMenu(previous);
     }
   }
 
+  //this function is to set the display of food details
   function handleFood(item) {
     setFood({
       name: item.name,

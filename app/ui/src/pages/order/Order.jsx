@@ -6,17 +6,17 @@ import TableNumber from "../../components/order/TableNumber";
 
 const Order = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [tableNumber, setTableNumber] = useState(0);
+  const [confirm, setconfirm] = useState(false);
 
   return (
     <div class="flex flex-wrap justify-end w-screen h-auto">
       <div class="w-2/3 bg-lemon h-auto">
-        <OrderProgress tableNumber={tableNumber} />
+        <OrderProgress setconfirm={setconfirm} confirm={confirm} />
         <OrderMenu />
         <TableNumber
           openModal={openModal}
           setOpenModal={setOpenModal}
-          setTableNumber={setTableNumber}
+          setconfirm={setconfirm}
         />
       </div>
       <Cart setOpenModal={setOpenModal} />
