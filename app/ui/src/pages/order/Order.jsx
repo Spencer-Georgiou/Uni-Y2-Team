@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import OrderMenu from "../../components/order/OrderMenu";
 import OrderProgress from "../../components/order/OrderProgress";
 import TableNumber from "../../components/order/TableNumber";
+import Payment from "../../components/order/Payment";
 
 const Order = () => {
   const [openModal, setOpenModal] = useState(false);
   const [confirm, setconfirm] = useState(false);
+  const [openPay, setOpenPay] = useState(false);
 
   return (
     <div class="flex flex-wrap justify-end w-screen h-auto">
@@ -18,8 +20,13 @@ const Order = () => {
           setOpenModal={setOpenModal}
           setconfirm={setconfirm}
         />
+        <Payment
+          openPay={openPay}
+          setOpenPay={setOpenPay}
+          setOpenModal={setOpenModal}
+        />
       </div>
-      <Cart setOpenModal={setOpenModal} />
+      <Cart setOpenPay={setOpenPay} />
     </div>
   );
 };

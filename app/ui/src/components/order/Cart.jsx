@@ -4,7 +4,7 @@ import OrderTotal from "./OrderTotal";
 
 // This class is the cart component.
 //Displays cart area and checkout button.
-const Cart = ({ setOpenModal }) => {
+const Cart = ({ setOpenPay }) => {
   //useSelector hook to get the cart state from our store
   const cart = useSelector((state) => state.cart);
   // the length of the cart
@@ -30,7 +30,7 @@ const Cart = ({ setOpenModal }) => {
         onClick={() => {
           // if the cart is not empty, allows user to checkout. If not, display warning alert.
           if (length > 0) {
-            setOpenModal(true);
+            setOpenPay(true);
           } else {
             alert("Cannot checkout with no order!!!");
           }
