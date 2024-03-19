@@ -91,3 +91,11 @@ class TestOrder:
         # check the involved menuitem is not deleted
         menuitem_in_db = db.session.query(MenuItem).get(menuitem.name)
         assert menuitem_in_db is not None
+
+    # An order can be assigned with a waiter.
+    def test_relationship_waiter(self, db, order, waiter):
+        order.waiter = waiter
+        db.session.add(order)
+        db.session.commit()
+
+        assert order.waiter is waiter
