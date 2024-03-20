@@ -4,6 +4,10 @@ stages:
   # check if an app is runnable
   - build
 
+default:
+  retry:
+    max: 1
+
 # enviroment variables for the pipeline
 variables:
   # the path to the flask project

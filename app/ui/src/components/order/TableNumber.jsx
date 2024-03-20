@@ -120,11 +120,10 @@ function TableNumber({ openModal, setOpenModal, setconfirm }) {
                 </Button>
               </div>
             </div>
-          </Modal.Body>
+            </form>
         </div>
-      </Modal>
-    </>
-  );
+    );
 }
 
-export default TableNumber;
+
+export default TableNumber
