@@ -1,6 +1,10 @@
 import { Button } from 'flowbite-react';
 
+import {useState} from 'react';
+
 function ReadyButton({ orderId }) {
+  const [isPressed, setIsPressed] = useState(false);
+
   const handleReady = () => {
     const patchData = {
       id: orderId,
@@ -26,11 +30,13 @@ function ReadyButton({ orderId }) {
       // Handle error, display an error message to the user
     });
 
+    setIsPressed(true);
     window.location.reload();
+
   };
 
   return (
-    <Button color="success" onClick={handleReady}>Ready</Button>
+    <Button color="success" setIsPressed={setIsPressed} onClick={handleReady} >Ready</Button>
   );
 }
 

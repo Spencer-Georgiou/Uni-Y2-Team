@@ -6,7 +6,7 @@ import MenuNew from "../../components/newOrder/MenuNew";
 import { useState, useEffect } from "react";
 
 
-const ModifyCancelOrder = () => {
+const ModifyCancelOrder = ({ orderNewItem }) => {
 
     const [tableNumber, setTableNumber] = useState(null);
     const [fetchedOrder, setFetchedOrder] = useState(null);
@@ -92,7 +92,7 @@ const ModifyCancelOrder = () => {
 
             <div className="h-5/6 w-5/6 bg-lemon p-4 flex flex-row space-x-4">
                 <div className="flex justify-start flex-nowrap">
-                    <MenuModify onSetTableNumber={handleSetTableNumber} />
+                    <MenuModify orderNewItem={orderNewItem} onSetTableNumber={handleSetTableNumber} />
                     {/* This will be the menu section. This will be the menu section. This will be the menu section. This will be the menu section.  */}
                 </div>
 
