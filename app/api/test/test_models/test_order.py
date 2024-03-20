@@ -9,16 +9,16 @@ from sqlalchemy.exc import IntegrityError
 
 class TestOrder:
     # An instance of order can be created and stored in the database.
-    def test_create_order(self, db, order_confirming):
-        db.session.add(order_confirming)
+    def test_create_order(self, db, order):
+        db.session.add(order)
         db.session.commit()
 
     # An order must be associated with exactly one table.
-    def test_relationship_table(self, db, table, order_confirming):
-        db.session.add_all([table, order_confirming])
+    def test_relationship_table(self, db, table, order):
+        db.session.add_all([table, order])
         db.session.commit()
 
-        assert order_confirming.table is table
+        assert order.table is table
 
     # An order raises an IntegrityError when the table number does not exist.
     def test_relationship_incorrect_table_number(self, db):
@@ -41,14 +41,14 @@ class TestOrder:
             db.session.commit()
 
     # An order can add one menuitem as well as the quantity.
-    def test_add_an_menuitem_association(self, db, order_confirming, menuitem):
+    def test_add_an_menuitem_association(self, db, order, menuitem):
         association = OrderMenuItemAssociation(menuitem=menuitem, quantity=2)
-        order_confirming.menuitem_associations.append(association)
-        db.session.add(order_confirming)
+        order.menuitem_associations.append(association)
+        db.session.add(order)
         db.session.commit()
 
     # An order can add multiple menuitems as well as their quantities.
-    def test_add_menuitem_associations(self, db, order_confirming, menuitem, menugroup):
+    def test_add_menuitem_associations(self, db, order, menuitem, menugroup):
         # when we have two menuitems and two associations
         another_menuitem = MenuItem(name="Jalapeno Poppers", description="With cream cheese",
                                     calorie=450, price=3.50, menugroup=menugroup)
@@ -56,32 +56,32 @@ class TestOrder:
         another_association = OrderMenuItemAssociation(menuitem=another_menuitem, quantity=4)
 
         # add them to the order in database
-        order_confirming.menuitem_associations.extend([association, another_association])
-        db.session.add(order_confirming)
+        order.menuitem_associations.extend([association, another_association])
+        db.session.add(order)
         db.session.commit()
 
     # Two orders cannot associate with the same table.
-    def test_avoid_relationship_occupied_table(self, db, order_confirming):
+    def test_avoid_relationship_occupied_table(self, db, order):
         # when an order in the database
-        db.session.add(order_confirming)
+        db.session.add(order)
         db.session.commit()
 
         # create another order pointing to the same table should raise an error
         with pytest.raises(IntegrityError):
-            another_order = Order(table_number=order_confirming.table_number)
+            another_order = Order(table_number=order.table_number)
             db.session.add(another_order)
             db.session.commit()
 
     # The association between Order and MenuItem should be deleted when the order is deleted.
-    def test_cascade_delete_association_menuitem(self, db, order_confirming, menuitem):
+    def test_cascade_delete_association_menuitem(self, db, order, menuitem):
         # when a waiter and its session in the database
         association = OrderMenuItemAssociation(menuitem=menuitem, quantity=2)
-        order_confirming.menuitem_associations.append(association)
-        db.session.add_all([order_confirming, menuitem])
+        order.menuitem_associations.append(association)
+        db.session.add_all([order, menuitem])
         db.session.commit()
 
         # then delete the order
-        db.session.delete(order_confirming)
+        db.session.delete(order)
         db.session.commit()
 
         # check whether the session in the database is removed
@@ -91,11 +91,3 @@ class TestOrder:
         # check the involved menuitem is not deleted
         menuitem_in_db = db.session.query(MenuItem).get(menuitem.name)
         assert menuitem_in_db is not None
-
-    # An order can be assigned with a waiter.
-    def test_relationship_waiter(self, db, order_confirming, waiter):
-        order_confirming.waiter = waiter
-        db.session.add(order_confirming)
-        db.session.commit()
-
-        assert order_confirming.waiter is waiter

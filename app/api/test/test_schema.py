@@ -131,10 +131,9 @@ class TestMenuItemSchema:
 
 class TestOrderMenuItemAssociationSchema:
     # An association between an order and menuitem returned by a query is serializable.
-    def test_serialize_order_menuitem_association(self, db, order_confirming, menuitem):
+    def test_serialize_order_menuitem_association(self, db, order, menuitem):
         expected = {'menuitem_name': 'Tacos', 'order_id': 1, 'quantity': 3}
-        order_menuitem_association = OrderMenuItemAssociation(order=order_confirming,
-                                                              menuitem=menuitem,
+        order_menuitem_association = OrderMenuItemAssociation(order=order, menuitem=menuitem,
                                                               quantity=3)
         db.session.add(order_menuitem_association)
         db.session.commit()
@@ -147,14 +146,14 @@ class TestOrderMenuItemAssociationSchema:
 
 class TestOrderSchema:
     # An order returned by a query is serializable.
-    def test_serialize_order(self, db, order_confirming, menuitem):
+    def test_serialize_order(self, db, order, menuitem):
         # when an order is in the database
         expected = {'status': 'Confirming',
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
-                    'table_number': 10, 'id': 1, 'waiter_username': None}
-        order_confirming.menuitem_associations.append(
+                    'table_number': 10, 'id': 1, 'confirmed_by_waiter': False}
+        order.menuitem_associations.append(
             OrderMenuItemAssociation(menuitem=menuitem, quantity=3))
-        db.session.add(order_confirming)
+        db.session.add(order)
         db.session.commit()
 
         # then serialize the queried order
@@ -211,11 +210,11 @@ class TestTableSchema:
         assert serialized_table == expected
 
     # A table with an order returned by a query is serializable.
-    def test_serialize_table_with_order(self, db, table, order_confirming):
-        db.session.add_all([table, order_confirming])
+    def test_serialize_table_with_order(self, db, table, order):
+        db.session.add_all([table, order])
         db.session.commit()
         expected = {'number': table.number,
-                    'order': OrderSchema(exclude=('table_number', 'table')).dump(order_confirming)}
+                    'order': OrderSchema(exclude=('table_number', 'table')).dump(order)}
 
         queried_table = db.session.query(Table).first()
         serialized_table = TableSchema().dump(queried_table)

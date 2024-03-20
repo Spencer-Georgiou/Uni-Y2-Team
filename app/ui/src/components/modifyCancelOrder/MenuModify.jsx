@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { Modal } from "flowbite-react";
@@ -7,30 +7,14 @@ import NewOrder from "../../pages/waiterHub/NewOrder";
 
 // Buttons which waiter presses to filter menu
 const filterButtons = [
-    {
-        name: "All",
-        value: "All"
-    },
-    {
-        name: "Starter",
-        value: "Starter"
-    },
-    {
-        name: "Main",
-        value: "Main"
-    },
-    {
-        name: "Dessert",
-        value: "Dessert"
-    },
-    {
-        name: "Non-Alcoholic",
-        value: "Non-Alcoholic"
-    },
-    {
-        name: "Alcoholic",
-        value: "Alcoholic"
-    }
+    { name: "All", value: "All" },
+    { name: "Starter", value: "Starter" },
+    { name: "Main", value: "Main" },
+    { name: "Dessert", value: "Dessert" },
+    { name: "Soft Drink", value: "Soft Drink" },
+    { name: "Beer", value: "Beer" },
+    { name: "Cocktail", value: "Cocktail" },
+    { name: "Hot Drink", value: "Hot Drink" },
 ];
 
 const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
@@ -54,9 +38,9 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
     // Fetches menu data from api and sets it in json format
     useEffect(() => {
         fetch("/api/menu")
-          .then((response) => response.json())
-          .then((json) => setData(json));
-      }, []);  
+            .then((response) => response.json())
+            .then((json) => setData(json));
+    }, []);
 
     // Filter menu item
     const filterMenu = (filterType) => {
@@ -222,7 +206,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
                             className="text-sans text-2xl bg-lemon border-b dark:bg-gray-800 dark:border-gray-700"
                         >
                             <td className="px-6 py-4">{item.name}</td>
-                            <td className="px-6 py-4">{item.price}</td>
+                            <td className="px-6 py-4">{item.price.toFixed(2)}</td>
                             <td className="px-6 py-4">{item.calorie}</td>
                             <td className="px-6 py-4">
                                 <button

@@ -2,9 +2,6 @@
 Module for the Session model.
 """
 
-import hashlib
-import random
-import time
 from datetime import datetime
 from datetime import timedelta
 
@@ -17,18 +14,6 @@ from sqlalchemy.orm import relationship
 
 from src.models.base import db
 from src.models.user import User
-
-
-def generate_token(context):
-    # unique to username and time created with extra randomness
-    salt = "a2dec157bd01"  # difficult to guess
-    curr_time = time.time()
-    rand = random.randint(9, 99999)
-    # hash the username of the associated user
-    username = context.get_current_parameters()["user_username"]
-    to_hash = salt + username + str(int(curr_time * rand))
-
-    return hashlib.sha256(to_hash.encode("utf-8")).hexdigest()
 
 
 class Session(db.Model):
@@ -46,7 +31,7 @@ class Session(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     user_username: Mapped[str] = mapped_column(ForeignKey("user.username"),
                                                unique=True)
-    token: Mapped[str] = mapped_column(String(128), default=generate_token)
+    token: Mapped[str] = mapped_column(String(128))
     # use lambda to set default to a dynamically value
     expires: Mapped[datetime] = mapped_column((DateTime(timezone=True)),
                                               default=lambda: datetime.now() + timedelta(days=1))

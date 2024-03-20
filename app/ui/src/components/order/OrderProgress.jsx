@@ -109,40 +109,47 @@ function OrderProgress({ confirm, setconfirm }) {
   };
 
   return (
-    <Timeline
-      horizontal
-      className="h-[180px] w-full bg-amber justify-center pl-5"
-    >
-      {/*Item in timeline, highlights when item is completed*/}
-      <Timeline.Item>
-        <Timeline.Content>
-          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
-            Waiting For Confirmation
-          </Timeline.Title>
-        </Timeline.Content>
-      </Timeline.Item>
-      <Timeline.Item>
-        <Timeline.Content>
-          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
-            Preparing
-          </Timeline.Title>
-        </Timeline.Content>
-      </Timeline.Item>
-      <Timeline.Item>
-        <Timeline.Content>
-          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
-            Delivering
-          </Timeline.Title>
-        </Timeline.Content>
-      </Timeline.Item>
-      <Timeline.Item>
-        <Timeline.Content>
-          <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
-            Enjoy!
-          </Timeline.Title>
-        </Timeline.Content>
-      </Timeline.Item>
-    </Timeline>
+    <div>
+      <Timeline
+        horizontal
+        className="h-[180px] w-full bg-amber justify-center pl-5"
+        onClick={handleProgress}
+      >
+        {/*Item in timeline, highlights when item is completed*/}
+        <Timeline.Item>
+          <Timeline.Content>
+            <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
+              Waiting For Confirmation
+              {confirm && <Here />}
+            </Timeline.Title>
+          </Timeline.Content>
+        </Timeline.Item>
+        <Timeline.Item>
+          <Timeline.Content>
+            <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
+              Preparing
+              {prepare && <Here />}
+            </Timeline.Title>
+          </Timeline.Content>
+        </Timeline.Item>
+        <Timeline.Item>
+          <Timeline.Content>
+            <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
+              Delivering
+              {delivering && <Here />}
+            </Timeline.Title>
+          </Timeline.Content>
+        </Timeline.Item>
+        <Timeline.Item>
+          <Timeline.Content>
+            <Timeline.Title className="h-[150px] w-[150px] bg-lemon rounded text-center text-cherry">
+              Enjoy!
+              {delivered && <Here />}
+            </Timeline.Title>
+          </Timeline.Content>
+        </Timeline.Item>
+      </Timeline>
+    </div>
   );
 }
 
