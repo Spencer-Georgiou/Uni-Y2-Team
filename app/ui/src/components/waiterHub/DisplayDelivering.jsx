@@ -1,30 +1,51 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import DeliveredButton from "../../components/waiterHub/DeliveredButton";
 
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
 
 function DisplayDelivering() {
-    const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
-    const [tables, setTables] = useState([]);
-    const [orders, setOrders] = useState([]);
+  const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
+  const [tables, setTables] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
 
-    useEffect(() => {
-        fetchTables();
-    }, []);
+  useEffect(() => {
+    fetchTables();
+  }, []);
 
-    const fetchTables = () => {
-        tableNumbers.forEach(tableNumber => {
+  useInterval(() => {
+    fetchTables();
+  }, 5000); 
 
-            fetchTable(tableNumber)
-                .then(table => {
-                    setTables(prevTables => [...prevTables, table]);
-                })
-                .catch(error => {
-                    console.error(`Error fetching table ${tableNumber}:`, error);
-                });
+  const fetchTables = () => {
+    tableNumbers.forEach((tableNumber) => {
+      fetchTable(tableNumber)
+        .then((table) => {
+          setTables((prevTables) => [...prevTables, table]);
+        })
+        .catch((error) => {
+          console.error(`Error fetching table ${tableNumber}:`, error);
         });
-    };
+    });
+  };
 
     const fetchTable = (tableNumber) => {
 
@@ -39,8 +60,7 @@ function DisplayDelivering() {
             .then(table => {
                 fetchOrder(table.order.id); // Fetch order for the fetched table
                 return table;
-
-            })
+              })
             .catch(error => {
                 console.error(`Error fetching order ${tableNumber}:`, error);
                 return null;
@@ -52,11 +72,24 @@ function DisplayDelivering() {
         return fetch(`/api/order?id=${tableId}`)
             .then(response => response.json())
             .then(json => {
-                // Only add orders with status "Preparing"
-                if (json.status === "Delivering") {
+                // Only add orders with status "Delivering"
+                if (json.status !== "Delivering" && fetchedOrderIds.has(json.id)) {
+                    const newFetchedOrderIds = new Set(fetchedOrderIds);
+                    newFetchedOrderIds.delete(json.id);
+                    setFetchedOrderIds(newFetchedOrderIds);
+                    setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
+                }
+                if (json.status === "Delivering" && !fetchedOrderIds.has(json.id)) {
+                    
+                    setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
+                    console.log(json.number)
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
             })
+    };
+
+    const handleOrderDelivered = (orderId) => {
+        setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     };
 
     const formatTime = (time) => {
@@ -111,7 +144,7 @@ function DisplayDelivering() {
                         </div>
 
                         <div className="flex ml-4">
-                            <DeliveredButton orderId={order.id} />
+                            <DeliveredButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
 
                         </div>
 

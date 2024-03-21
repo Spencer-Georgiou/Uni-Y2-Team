@@ -1,11 +1,9 @@
+'use client';
+
 import { Button } from 'flowbite-react';
 
-
-function DeliveredButton({ orderId }) {
-
-
+function DeliveredButton({ orderId, onOrderDelivered }) {
   const handleReady = () => {
-
     const patchData = {
       id: orderId,
       status: 'Delivered',
@@ -21,19 +19,14 @@ function DeliveredButton({ orderId }) {
     })
       .then(response => {
         if (!response.ok) {
-          console.log(patchData);
-          console.log(orderId);
           throw new Error('Failed to mark order as ready');
-
         }
-        // Handle success, maybe display a success message
+        // Call the callback function to update orders
+        onOrderDelivered(orderId);
       })
       .catch(error => {
         console.error('Error marking order as ready:', error);
-        // Handle error, display an error message to the user
       });
-
-      window.location.reload();
   };
 
   return (
@@ -41,4 +34,4 @@ function DeliveredButton({ orderId }) {
   );
 }
 
-export default DeliveredButton;
+export default DeliveredButton

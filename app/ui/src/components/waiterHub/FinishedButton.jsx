@@ -1,6 +1,6 @@
 import { Button } from 'flowbite-react';
 
-function FinishedButton({ orderId }) {
+function FinishedButton({ orderId, onOrderDelivered }) {
   const handleReady = () => {
 
 
@@ -20,9 +20,10 @@ function FinishedButton({ orderId }) {
         console.log('Error from api:', error);
         // Handle error, display an error message to the user
       });
+      onOrderDelivered(orderId);
 
 
-      window.location.reload();
+      // window.location.reload();
   };
 
 
