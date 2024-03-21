@@ -18,6 +18,7 @@ from src.schema import OrderSchema
 from src.schema import SessionSchema
 from src.models import Table
 from src.schema import TableSchema
+from src.schema import PaymentSchema
 from src import schema
 import pathlib
 from flask import request
@@ -221,3 +222,14 @@ class TestTableSchema:
         serialized_table = TableSchema().dump(queried_table)
 
         assert serialized_table == expected
+
+
+class TestPaymentSchema():
+    # A payment is serializable.
+    def test_serialize_payment(self):
+        # when a payment is generated
+        payment = {"payment_url": "foo.bar"}
+
+        # assert the format is json
+        expected = {"payment_url": "foo.bar"}
+        assert PaymentSchema().dump(payment) == expected
