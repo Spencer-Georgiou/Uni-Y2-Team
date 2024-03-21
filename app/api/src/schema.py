@@ -8,7 +8,7 @@ from flask import request
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
 from marshmallow_sqlalchemy.fields import fields
-
+from marshmallow import Schema
 from src.models import Allergen
 from src.models import MenuGroup
 from src.models import MenuItem
@@ -175,3 +175,14 @@ class CustomerSchema(UserSchema):
     class Meta(BaseMeta):
         model = Customer
         include_relationships = True
+
+
+class PaymentSchema(Schema):
+    """
+    Schema for Payment that contains a url to the payment page.
+    """
+
+    class Meta(BaseMeta):
+        pass
+
+    payment_url = fields.URL(required=True)
