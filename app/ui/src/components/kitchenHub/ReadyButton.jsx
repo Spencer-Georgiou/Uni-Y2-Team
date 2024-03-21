@@ -31,7 +31,7 @@ function ReadyButton({ orderId }) {
     });
 
     setIsPressed(true);
-    window.location.reload();
+    // window.location.reload();
 
   };
 

@@ -22,7 +22,7 @@ function FinishedButton({ orderId }) {
       });
 
 
-      window.location.reload();
+      // window.location.reload();
   };
 
 

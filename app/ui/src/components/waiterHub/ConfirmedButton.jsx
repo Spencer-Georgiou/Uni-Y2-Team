@@ -34,7 +34,7 @@ function ConfirmedButton({ orderId }) {
         // Handle error, display an error message to the user
       });
 
-      window.location.reload();
+      // window.location.reload();
   };
 
   return (
