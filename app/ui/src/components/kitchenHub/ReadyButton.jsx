@@ -2,7 +2,7 @@ import { Button } from 'flowbite-react';
 
 import {useState} from 'react';
 
-function ReadyButton({ orderId }) {
+function ReadyButton({ orderId, onOrderDelivered }) {
   const [isPressed, setIsPressed] = useState(false);
 
   const handleReady = () => {
@@ -31,6 +31,7 @@ function ReadyButton({ orderId }) {
     });
 
     setIsPressed(true);
+    onOrderDelivered(orderId);
     // window.location.reload();
 
   };
