@@ -5,9 +5,10 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addTableNumber } from "./redux/cartSlice";
+import { redirect } from "react-router-dom";
 
 // this is the component for user to enter table number
-function TableNumber({ openModal, setOpenModal, setconfirm }) {
+function CheckOut({ openModal, setOpenModal, setconfirm }) {
   //get the cart state from redux
   const cart = useSelector((state) => state.cart);
   //the table number
@@ -22,20 +23,24 @@ function TableNumber({ openModal, setOpenModal, setconfirm }) {
     menuitem_associations: [],
   });
 
-  //to form the data in final order
   function handleCheckOut() {
+    handleSubmit();
+    console.log(number);
+    fetchTable(number);
+
+    setconfirm(true);
+  }
+
+  //post the data to back-end
+  function handleSubmit() {
+    //to form the data in final order
     cart.map((item) =>
       order.menuitem_associations.push({
         menuitem_name: item.name,
         quantity: parseInt(item.quantity),
       })
     );
-  }
 
-  //post the data to back-end
-  function handleSubmit() {
-    console.log(order.table_number);
-    console.log(number);
     //the information in the head
     const postingData = {
       method: "POST",
@@ -51,6 +56,53 @@ function TableNumber({ openModal, setOpenModal, setconfirm }) {
         if (response.status === 200) {
           alert("order sucessfully!");
           return response.json();
+        } else console.log("error");
+      })
+      .then()
+      .catch((error) => {
+        console.error("there was an error", error);
+      });
+  }
+
+  //useing table number to fetch order id from the database
+  async function fetchTable(tableNumber) {
+    return fetch(`/api/table?number=${tableNumber}`)
+      .then((response) => {
+        //if the request failed, throw error
+        if (!response.ok) {
+          throw new Error(`Failed to fetch table ${tableNumber}`);
+        }
+        return response.json();
+      })
+      .then((table) => {
+        handlePayment(table.order.id); // Fetch specfic order for the fetched table
+        return table;
+      })
+      .catch((error) => {
+        console.error(`Error fetching order ${tableNumber}:`, error);
+        return null;
+      });
+  }
+
+  function handlePayment(orderId) {
+    const id = { id: orderId };
+    console.log(id);
+    //the information in the head
+    const postingData = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(id),
+    };
+
+    //post the data and get the response
+    fetch("/api/payment", postingData)
+      .then((response) => {
+        if (response.status === 200) {
+          alert("payment sucessfully!");
+          console.log(response.json());
+          return redirect(response.json());
         } else console.log("error");
       })
       .then()
@@ -108,8 +160,6 @@ function TableNumber({ openModal, setOpenModal, setconfirm }) {
                   onClick={() => {
                     setOpenModal(false);
                     handleCheckOut();
-                    handleSubmit();
-                    setconfirm(true);
                   }}
                 >
                   <b>Order now</b>
@@ -127,4 +177,4 @@ function TableNumber({ openModal, setOpenModal, setconfirm }) {
   );
 }
 
-export default TableNumber;
+export default CheckOut;
