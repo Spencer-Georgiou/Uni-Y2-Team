@@ -10,3 +10,4 @@ from src.services.order import Order
 from src.services.customer import Customer
 from src.services.available import Available
 from src.services.table import Table
+from src.services.payment import Payment

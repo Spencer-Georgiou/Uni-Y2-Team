@@ -43,7 +43,7 @@ const FormStaff = () => {
                 return response.json();
             } else {
                 return response.json().then(error => {
-                    throw new Error(error.error_message);
+                    throw new Error(error.message);
                 });
             }
         }).then(data => {

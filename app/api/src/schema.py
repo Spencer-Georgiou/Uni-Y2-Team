@@ -162,6 +162,12 @@ class UserSchema(SQLAlchemyAutoSchema):
     role = fields.Enum(User.Role, by_value=True)
     session = Nested(SessionSchema, exclude=("user",))
 
+
+class UnassociatedUser(SQLAlchemyAutoSchema):
+    username = fields.String(required=True)
+    password = fields.String(required=True)
+
+
 class CustomerSchema(UserSchema):
     """
     Schema for Customer that inherits all the properties of the User schema.
