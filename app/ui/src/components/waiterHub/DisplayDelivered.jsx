@@ -1,30 +1,53 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FinishedButton from "../../components/waiterHub/FinishedButton";
 
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+  
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+  
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
 
 function DisplayDelivered() {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
+
+    
 
     useEffect(() => {
         fetchTables();
-    }, []);
-
-    const fetchTables = () => {
-        tableNumbers.forEach(tableNumber => {
-
-            fetchTable(tableNumber)
-                .then(table => {
-                    setTables(prevTables => [...prevTables, table]);
-                })
-                .catch(error => {
-                    console.error(`Error fetching table ${tableNumber}:`, error);
-                });
+      }, []);
+    
+      useInterval(() => {
+        fetchTables();
+      }, 5000); 
+    
+      const fetchTables = () => {
+        tableNumbers.forEach((tableNumber) => {
+          fetchTable(tableNumber)
+            .then((table) => {
+              setTables((prevTables) => [...prevTables, table]);
+            })
+            .catch((error) => {
+              console.error(`Error fetching table ${tableNumber}:`, error);
+            });
         });
-    };
+      };
 
     const fetchTable = (tableNumber) => {
 
@@ -53,10 +76,23 @@ function DisplayDelivered() {
             .then(response => response.json())
             .then(json => {
                 // Only add orders with status "Delivered"
-                if (json.status === "Delivered") {
+                if (json.status !== "Delivered" && fetchedOrderIds.has(json.id)) {
+                    const newFetchedOrderIds = new Set(fetchedOrderIds);
+                    newFetchedOrderIds.delete(json.id);
+                    setFetchedOrderIds(newFetchedOrderIds);
+                    setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
+                }
+                if (json.status === "Delivered" && !fetchedOrderIds.has(json.id)) {
+                    
+                    setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
+                    console.log(json.number)
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
             })
+    };
+
+    const handleOrderDelivered = (orderId) => {
+        setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     };
 
     const formatTime = (time) => {
@@ -113,7 +149,7 @@ function DisplayDelivered() {
                         </div>
 
                         <div className="flex ml-4">
-                            <FinishedButton orderId={order.id} />
+                            <FinishedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
 
                         </div>
 

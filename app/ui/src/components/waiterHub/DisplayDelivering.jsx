@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import DeliveredButton from "../../components/waiterHub/DeliveredButton";
 
 function useInterval(callback, delay) {
@@ -33,7 +33,7 @@ function DisplayDelivering() {
 
   useInterval(() => {
     fetchTables();
-  }, 10000); 
+  }, 5000); 
 
   const fetchTables = () => {
     tableNumbers.forEach((tableNumber) => {
@@ -72,7 +72,7 @@ function DisplayDelivering() {
         return fetch(`/api/order?id=${tableId}`)
             .then(response => response.json())
             .then(json => {
-                // Only add orders with status "Preparing"
+                // Only add orders with status "Delivering"
                 if (json.status !== "Delivering" && fetchedOrderIds.has(json.id)) {
                     const newFetchedOrderIds = new Set(fetchedOrderIds);
                     newFetchedOrderIds.delete(json.id);
