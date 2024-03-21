@@ -1,5 +1,4 @@
 "use client";
-
 import { Navbar, Dropdown, Button } from "flowbite-react";
 import { Link } from "react-router-dom";
 
@@ -63,7 +62,15 @@ function NavBar() {
         </Link>
       </div>
 
-      <div className="flex gap-2 md:order-2 font-sans font-medium font-semibold text-lemon">
+      <div className="flex gap-3 md:order-2 font-sans font-medium font-semibold text-lemon">
+        <button 
+          type="button"
+          onClick={() => {
+
+          }}
+          className="px-1.5 font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber focus:ring-amber rounded">Call Waiter
+          </button>
+  
         <Dropdown label="Log In" inline className='text-lemon bg-lemon border-lemon' dismissOnClick={false}>
           <Dropdown.Item as={Link} to="/StaffLogin" className="focus:bg-amber">Staff Login</Dropdown.Item>
           <Dropdown.Item as={Link} to="/CustomerLogin" className="focus:bg-amber">Customer Login</Dropdown.Item>
