@@ -83,7 +83,6 @@ function DisplayKitchen() {
                   if (json.status === "Preparing" && !fetchedOrderIds.has(json.id)) {
                       
                       setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
-                      console.log(json.number)
                       setOrders(prevOrders => [...prevOrders, json]);
                   }
               })

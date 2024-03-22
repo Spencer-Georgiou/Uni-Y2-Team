@@ -72,20 +72,30 @@ function DisplayOrders({ confirmingButton, readyButton }) {
             .then(json => {
                 // Only add orders with status "Confirming" or "Preparing"
                 if ((json.status !== "Confirming" && json.status !== "Preparing") && fetchedOrderIds.has(json.id)) {
+                    console.log("£££££££££££££££££")
+                    const newFetchedOrderIds = new Set(fetchedOrderIds);
+                    newFetchedOrderIds.delete(json.id);
+                    setFetchedOrderIds(newFetchedOrderIds);
+                    setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
+                }
+                if ((json.status === "Preparing") && fetchedOrderIds.has(json.id)) {
                     const newFetchedOrderIds = new Set(fetchedOrderIds);
                     newFetchedOrderIds.delete(json.id);
                     setFetchedOrderIds(newFetchedOrderIds);
                     setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
                 }
                 if (json.status === "Confirming" && !fetchedOrderIds.has(json.id)){
+                    console.log("?????????????????")
                 // if ((json.status === "Confirming" && !fetchedOrderIds.has(json.id)) || (json.status === "Preparing" && fetchedOrderIds.has(json.id))) {
                     setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
-                // if ((json.status === "Preparing") && !fetchedOrderIds.has(json.id)) {
-                //     setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
-                //     setOrders(prevOrders => [...prevOrders, json]);
-                // }
+                if ((json.status === "Preparing") && fetchedOrderIds.has(json.id)) {
+                    console.log(json.number)
+                    console.log("!!!!!!!!!!!!")
+                    setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
+                    setOrders(prevOrders => [...prevOrders, json]);
+                }
             });
     };
 
@@ -126,11 +136,11 @@ function DisplayOrders({ confirmingButton, readyButton }) {
         ));
     };
 
-    // const checkConfirming = (status, orderId) => {
-    //     if (status === "Confirming") {
-    //         return confirmingButton && <ConfirmedButton orderId={orderId} />
-    //     }
-    // }
+    const checkConfirming = (status, orderId) => {
+        if (status === "Confirming") {
+            return confirmingButton && <ConfirmedButton orderId={orderId} onOrderDelivered={handleOrderDelivered} />
+        }
+    }
 
 
     return (
@@ -148,9 +158,9 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
                         <div className="flex ml-8">
-                        <ConfirmedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
-                            {/* {readyButton && <ReadyButton orderId={order.id} />}
-                            {checkConfirming(order.status, order.id)} */}
+                        {/* <ConfirmedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} /> */}
+                            {/* {/* {readyButton && <ReadyButton orderId={order.id} />} */}
+                            {checkConfirming(order.status, order.id)}
                         </div>
                     </div>
 
