@@ -26,7 +26,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
     const [orderQuantity, setOrderQuantity] = useState({});
 
     const [openModal, setOpenModal] = useState(true);
-    const [tableNumber, setTableNumber] = useState("");
+    const [tableNumber, setTableNumber] = useState(null);
 
     // Fetches menu data from api and sets it in json format
     useEffect(() => {
@@ -102,16 +102,16 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
     const handleTableNumber = (e) => {
         const newTableNumber = e.target.value;
         if (newTableNumber > 0 && newTableNumber <= 20) {
-            setTableNumber(e.target.value);
-            updateTableNum(e.target.value);
+            setTableNumber(newTableNumber);
         } else {
             // Handle invalid input (for example, display an error message)
             alert("Please enter a table number between 1 and 20");
         }
     };
 
-    const updateTableNum = (tableNum) => {
-        onSetTableNumber(tableNum);
+    const handleSubmitTableNumber = () => {
+        setOpenModal(false);
+        onSetTableNumber(tableNumber);
     };
 
     return (
@@ -127,7 +127,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
                     <div
                         class="bg-cover w-full h-full"
                         style={{
-                            backgroundImage: "url('/images/CustomerLoginBackground.png')",
+                            backgroundImage: "url('/images/CustomerLoginBackground_1024.jpg')",
                         }}
                     >
                         <Modal.Header />
@@ -159,7 +159,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
                                     <button
                                         type="button"
                                         className="bg-lemon text-black font-sans font-bold py-2 px-4 my-2 rounded-lg  hover:bg-cherry hover:text-lemon"
-                                        onClick={() => setOpenModal(false)}
+                                        onClick={handleSubmitTableNumber}
                                     >
                                         Done
                                     </button>
