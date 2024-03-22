@@ -127,7 +127,7 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
           <div
             class="bg-cover w-full h-full"
             style={{
-              backgroundImage: "url('/images/CustomerLoginBackground.png')",
+              backgroundImage: "url('/images/CustomerLoginBackground_1024.jpg')",
             }}
           >
             <Modal.Header />
