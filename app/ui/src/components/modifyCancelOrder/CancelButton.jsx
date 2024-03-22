@@ -1,7 +1,10 @@
 'use client'
+import { useNavigate } from "react-router-dom";
 
 {/*Button which allows waiters to cancel an order.*/ }
 function CancelButton({ orderId }) {
+
+  const navigate = useNavigate();
 
   const handleCancelling = () => {
     fetch(`/api/order?id=${orderId}`, {
@@ -22,7 +25,7 @@ function CancelButton({ orderId }) {
       });
 
     alert("order cancelled");
-    window.location.reload();
+    navigate("/WaiterHub");
   }
 
 

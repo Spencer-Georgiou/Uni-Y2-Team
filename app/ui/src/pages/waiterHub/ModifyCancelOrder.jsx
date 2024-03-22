@@ -6,7 +6,7 @@ import MenuNew from "../../components/newOrder/MenuNew";
 import { useState, useEffect } from "react";
 
 
-const ModifyCancelOrder = ({ orderNewItem }) => {
+const ModifyCancelOrder = () => {
 
     const [tableNumber, setTableNumber] = useState(null);
     const [fetchedOrder, setFetchedOrder] = useState(null);
@@ -16,9 +16,9 @@ const ModifyCancelOrder = ({ orderNewItem }) => {
 
 
 
-    useEffect(() => {
-        fetchTable();
-    }, []);
+    //useEffect(() => {
+    //fetchTable(tableNumber);
+    //}, []);
 
 
     const fetchTable = (tableNumber) => {
@@ -30,12 +30,15 @@ const ModifyCancelOrder = ({ orderNewItem }) => {
                 return response.json();
             })
             .then((table) => {
+                console.log("order id", table.order.id);
                 setOrderId(table.order.id);
                 fetchOrder(table.order.id); // Fetch order for the fetched table
 
                 return table;
             })
             .catch((error) => {
+                alert('no order associated with this table');
+                window.location.reload();
                 console.error(`Error fetching order ${tableNumber}:`, error);
                 return null;
             });
@@ -58,7 +61,9 @@ const ModifyCancelOrder = ({ orderNewItem }) => {
 
 
     const handleSetTableNumber = (number) => {
+        console.log(number);
         setTableNumber(number);
+        console.log(tableNumber);
         fetchTable(number);
     };
 
@@ -92,7 +97,7 @@ const ModifyCancelOrder = ({ orderNewItem }) => {
 
             <div className="h-5/6 w-5/6 bg-lemon p-4 flex flex-row space-x-4">
                 <div className="flex justify-start flex-nowrap">
-                    <MenuModify orderNewItem={orderNewItem} onSetTableNumber={handleSetTableNumber} />
+                    <MenuModify onSetTableNumber={handleSetTableNumber} />
                     {/* This will be the menu section. This will be the menu section. This will be the menu section. This will be the menu section.  */}
                 </div>
 
