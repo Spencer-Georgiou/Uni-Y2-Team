@@ -1,18 +1,40 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
 
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+  
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+  
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
 
 function DisplayOrders({ confirmingButton, readyButton }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
 
     useEffect(() => {
         fetchTables();
-    }, []);
+      }, []);
+    
+      useInterval(() => {
+        fetchTables();
+      }, 5000);
 
     const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {
@@ -47,12 +69,28 @@ function DisplayOrders({ confirmingButton, readyButton }) {
     const fetchOrder = (tableId) => {
         return fetch(`/api/order?id=${tableId}`)
             .then((response) => response.json())
-            .then((json) => {
-                // Only add orders with status "Preparing"
-                if (json.status === "Confirming" || json.status === "Preparing") {
-                    setOrders((prevOrders) => [...prevOrders, json]);
+            .then(json => {
+                // Only add orders with status "Confirming" or "Preparing"
+                if ((json.status !== "Confirming" && json.status !== "Preparing") && fetchedOrderIds.has(json.id)) {
+                    const newFetchedOrderIds = new Set(fetchedOrderIds);
+                    newFetchedOrderIds.delete(json.id);
+                    setFetchedOrderIds(newFetchedOrderIds);
+                    setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
                 }
+                if (json.status === "Confirming" && !fetchedOrderIds.has(json.id)){
+                // if ((json.status === "Confirming" && !fetchedOrderIds.has(json.id)) || (json.status === "Preparing" && fetchedOrderIds.has(json.id))) {
+                    setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
+                    setOrders(prevOrders => [...prevOrders, json]);
+                }
+                // if ((json.status === "Preparing") && !fetchedOrderIds.has(json.id)) {
+                //     setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
+                //     setOrders(prevOrders => [...prevOrders, json]);
+                // }
             });
+    };
+
+    const handleOrderDelivered = (orderId) => {
+        setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     };
 
     const formatTime = (time) => {
@@ -88,11 +126,11 @@ function DisplayOrders({ confirmingButton, readyButton }) {
         ));
     };
 
-    const checkConfirming = (status, orderId) => {
-        if (status === "Confirming") {
-            return confirmingButton && <ConfirmedButton orderId={orderId} />
-        }
-    }
+    // const checkConfirming = (status, orderId) => {
+    //     if (status === "Confirming") {
+    //         return confirmingButton && <ConfirmedButton orderId={orderId} />
+    //     }
+    // }
 
 
     return (
@@ -110,8 +148,9 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
                         <div className="flex ml-8">
-                            {readyButton && <ReadyButton orderId={order.id} />}
-                            {checkConfirming(order.status, order.id)}
+                        <ConfirmedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
+                            {/* {readyButton && <ReadyButton orderId={order.id} />}
+                            {checkConfirming(order.status, order.id)} */}
                         </div>
                     </div>
 
