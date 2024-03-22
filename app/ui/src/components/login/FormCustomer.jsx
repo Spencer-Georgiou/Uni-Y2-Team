@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 //import Cookies from "js-cookie";
 
 {/*Form that allows users to input their username and password to log in.*/}
 const FormCustomer = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   {/*Change Username to user input*/}
   const handleUsernameChange = (e) => {
@@ -35,7 +38,7 @@ const FormCustomer = () => {
         if (response.status === 200) return response.json();
         else alert("error here");
       })
-      .then()
+      .then(navigate("/"))
       .catch((error) => {
         console.error("there was an error", error);
       });

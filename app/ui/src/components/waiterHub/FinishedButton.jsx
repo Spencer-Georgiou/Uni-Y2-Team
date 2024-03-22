@@ -1,9 +1,9 @@
-'use client'
+import { Button } from 'flowbite-react';
 
-{/*Button which allows waiters to cancel an order.*/ }
-function CancelButton({ orderId }) {
+function FinishedButton({ orderId, onOrderDelivered }) {
+  const handleReady = () => {
 
-  const handleCancelling = () => {
+
     fetch(`/api/order?id=${orderId}`, {
       method: 'DELETE',
       headers: {
@@ -20,21 +20,20 @@ function CancelButton({ orderId }) {
         console.log('Error from api:', error);
         // Handle error, display an error message to the user
       });
+      onOrderDelivered(orderId);
 
-    alert("order cancelled");
-    window.location.reload();
-  }
+
+      // window.location.reload();
+  };
+
+
 
 
 
 
   return (
-
-    <button type="button" onClick={handleCancelling} className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg hover:bg-yellow-200 hover:text-cherry">
-      Cancel Order
-    </button>
-
+    <Button color="success" onClick={handleReady}>Finished Order</Button>
   );
 }
 
-export default CancelButton
+export default FinishedButton;
