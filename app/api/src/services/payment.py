@@ -5,13 +5,21 @@ from src.schema import PaymentSchema
 from src.models import db, Order, MenuItem
 from src.services.order import Order as OrderService
 from flask_smorest import abort
+from flask import request, redirect
 import stripe
+import hashlib
+
+
+def order_hash(order_id):
+    salt = "d26eae8f6e11"  # difficult to guess
+    to_hash = str(order_id) + salt
+    return hashlib.sha256(to_hash.encode("utf-8")).hexdigest()
 
 
 @apidoc.route("/payment")
 class Payment(MethodView):
     """
-    A class that provides a POST API to make a payment
+    A class that provides APIs to make a payment and verify that a payment has been made.
     """
 
     stripe.api_key = \
@@ -53,9 +61,33 @@ class Payment(MethodView):
                     'quantity': 1,
                 }],
                 mode='payment',
-                success_url='http://localhost:3000/',
-                cancel_url='http://localhost:3000/',
+                success_url=f'http://localhost:5000/api/payment?id={order_hash(order_db.id)}&order={order_db.id}',
+                cancel_url='http://localhost:5000/api/payment?',
             )
             return {"payment_url": session.url}
         except stripe.error.StripeError as e:
             abort(500, message="Stripe Error: " + str(e))
+
+    @apidoc.response(303)
+    def get(self):
+        """
+        Updates order paid status. Not for frontend use.
+
+        Redirect from Stripe-hosted page after successful login.
+        """
+
+        id = request.args.get("id")
+        order = request.args.get("order")
+
+        # verify id
+        if id == order_hash(order):
+            order_db = db.session.query(Order).get(int(order))
+            if order_db is None:
+                abort(404, message=OrderService.MSG_NO_SUCH_ORDER)
+
+            order_db.paid = True  # update order's paid status
+            db.session.commit()
+
+            return redirect("http://localhost:3000"), 303  # redirect 'See Other'
+
+        abort(401, message="Invalid ID")  # unauthorised

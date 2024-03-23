@@ -60,9 +60,11 @@ class Order(db.Model):
     table: Mapped["Table"] = relationship(back_populates="order")
     menuitem_associations: Mapped[List["OrderMenuItemAssociation"]] = relationship(
         back_populates="order", cascade="all, delete-orphan")
+    waiter: Mapped[Optional["Waiter"]] = relationship(back_populates="orders")
+    paid: Mapped[bool] = mapped_column(Boolean, default=False)
 
     def __repr__(self):
         return (
-            f"Order(id={self.id!r}, table_number={self.table_number!r}, status={self.status!r}, "
-            f"confirmed_by_waiter="
-            f"{self.confirmed_by_waiter!r})")
+            f"Order(id={self.id!r}, table_number={self.table_number!r}, waiter_username="
+            f"{self.waiter_username!r}, status={self.status!r}, time_created="
+            f"{self.time_created!r}, paid={self.paid!r})")
