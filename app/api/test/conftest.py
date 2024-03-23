@@ -107,6 +107,13 @@ def table():
     return Table(number=10)
 
 
+# an order that is created but not confirmed yet
 @pytest.fixture
-def order(table):
+def order_confirming(table):
     return Order(table=table)
+
+
+# an order in preparing that is confirmed by and assigned to a waiter
+@pytest.fixture
+def order_preparing(table, waiter):
+    return Order(table=table, waiter=waiter)

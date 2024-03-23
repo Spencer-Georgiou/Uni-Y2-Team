@@ -55,7 +55,7 @@ class Order(MethodView):
             db.session.delete(order_in_db)
             db.session.commit()
 
-    @apidoc.arguments(schema=OrderSchema(only=("id", "status", "confirmed_by_waiter")),
+    @apidoc.arguments(schema=OrderSchema(only=("id", "status", "waiter_username")),
                       location="json", required=False)
     @apidoc.response(status_code=200, schema=OrderSchema)
     def patch(self, order_from_request):
@@ -75,8 +75,11 @@ class Order(MethodView):
         if order_in_db is None:
             abort(404, message=Order.MSG_NO_SUCH_ORDER)
 
-        order_in_db.status = order_from_request.status
-        order_in_db.confirmed_by_waiter = order_from_request.confirmed_by_waiter
+        # prohibit a non-confirming order has no waiter assigned to it
+        if (order_from_request.status is not models.Order.Status.CONFIRMING and
+                order_from_request.waiter_username is None and
+                order_in_db.waiter_username is None):
+            abort(422, message=Order.MSG_INCORRECT_DATA)
 
         db.session.add(order_in_db)
         db.session.commit()

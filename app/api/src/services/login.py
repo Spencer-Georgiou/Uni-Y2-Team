@@ -14,29 +14,20 @@ from src.models import db
 from src.schema import UnassociatedUser
 
 
-# unique to username and time created with extra randomness
-def generate_token(username):
-    salt = "a2dec157bd01" # difficult to guess
-    curr_time = time.time()
-    rand = random.randint(9, 99999)
-    to_hash = salt + username + str(int(curr_time * rand))
-
-    return hashlib.sha256(to_hash.encode("utf-8")).hexdigest()
-
 def create_session(username):
     # delete existing session 
     old_session = db.session.query(Session).filter_by(user_username=username).first()
     if old_session:
         db.session.delete(old_session)
         db.session.commit()
-    
+
     # create new session
-    new_token = generate_token(username)
-    new_session = Session(user_username=username, token=new_token)
+    new_session = Session(user_username=username)
     db.session.add(new_session)
     db.session.commit()
 
-    return new_token
+    return new_session.token
+
 
 @apidoc.route("/login")
 class Login(MethodView):
