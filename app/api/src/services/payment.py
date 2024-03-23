@@ -5,7 +5,7 @@ from src.schema import PaymentSchema
 from src.models import db, Order, MenuItem
 from src.services.order import Order as OrderService
 from flask_smorest import abort
-from flask import request, redirect
+from flask import request
 import stripe
 import hashlib
 
@@ -68,7 +68,6 @@ class Payment(MethodView):
         except stripe.error.StripeError as e:
             abort(500, message="Stripe Error: " + str(e))
 
-    @apidoc.response(303)
     def get(self):
         """
         Updates order paid status. Not for frontend use.
@@ -88,6 +87,6 @@ class Payment(MethodView):
             order_db.paid = True  # update order's paid status
             db.session.commit()
 
-            return redirect("http://localhost:3000"), 303  # redirect 'See Other'
+            return "[placeholder] redirect here", 200
 
         abort(401, message="Invalid ID")  # unauthorised
