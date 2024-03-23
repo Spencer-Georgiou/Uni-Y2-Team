@@ -13,7 +13,7 @@ from src.schema import MenuItemSchema
 @apidoc.route("/menu")
 class Menu(MethodView):
     """
-    A menu that is accessible at "/menu".
+    A menu that is accessible via the given api.
     """
 
     @apidoc.response(200, schema=MenuItemSchema(many=True), description="A list of menu items.")

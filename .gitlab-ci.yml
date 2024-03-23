@@ -2,10 +2,6 @@ stages:
   # trigger child pipelines for different sub-projects
  - trigger
 
-default:
-  retry:
-    max: 1
-
 # trigger the pipeline for the flask project
 trigger_flask_pipeline:
   stage: trigger

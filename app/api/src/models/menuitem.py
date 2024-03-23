@@ -5,13 +5,13 @@ Module for the MenuItem model.
 from typing import List
 from typing import Optional
 
-from sqlalchemy import Boolean
 from sqlalchemy import CheckConstraint
 from sqlalchemy import Enum
 from sqlalchemy import ForeignKeyConstraint
 from sqlalchemy import Integer
 from sqlalchemy import Numeric
 from sqlalchemy import String
+from sqlalchemy import Boolean
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship

@@ -36,7 +36,7 @@ class SessionSchema(SQLAlchemyAutoSchema):
     class Meta(BaseMeta):
         model = Session
         exclude = ("id",)
-
+    
     user = Nested("UserSchema", exclude=("session",))
 
 
@@ -137,10 +137,9 @@ class OrderSchema(SQLAlchemyAutoSchema):
     class Meta(BaseMeta):
         model = Order
         include_relationships = True
-        exclude = ("table", "waiter")
+        exclude = ("table",)
 
     table_number = fields.Int()
-    waiter_username = fields.Str()
     status = fields.Enum(Order.Status, by_value=True)
     menuitem_associations = Nested(OrderMenuItemAssociationSchema(many=True), exclude=("order_id",))
 
@@ -152,12 +151,10 @@ class TableSchema(SQLAlchemyAutoSchema):
 
     order = fields.Nested(OrderSchema(), exclude=("table_number", "table",))
 
-
 class UserSchema(SQLAlchemyAutoSchema):
     """
     Schema for User that shows its role and session.
     """
-
     class Meta(BaseMeta):
         model = User
         include_relationships = True
@@ -175,7 +172,6 @@ class CustomerSchema(UserSchema):
     """
     Schema for Customer that inherits all the properties of the User schema.
     """
-
     class Meta(BaseMeta):
         model = Customer
         include_relationships = True
