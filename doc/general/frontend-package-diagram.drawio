@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net" modified="2024-03-23T18:02:31.715Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" version="23.1.2" etag="fM4wDd6B1tCdxNfYNKZj" type="device">
+  <diagram id="ocsPRMyXQLXalsJEt5Vr" name="Page-1">
+    <mxGraphModel dx="1163" dy="805" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tY2KCHktQyx05fnSytjY-10" value="Interface" style="shape=folder;xSize=90;align=left;spacingLeft=10;align=left;verticalAlign=top;spacingLeft=5;spacingTop=-4;tabWidth=70;tabHeight=20;tabPosition=left;html=1;recursiveResize=0;" parent="1" vertex="1">
+          <mxGeometry x="140" y="280" width="1080" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="tY2KCHktQyx05fnSytjY-18" value="&lt;p style=&quot;margin:0px;margin-top:4px;margin-left:10px;text-align:left;&quot;&gt;Web Page&lt;/p&gt;" style="html=1;shape=mxgraph.sysml.package;html=1;overflow=fill;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="180" y="320" width="960" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="tY2KCHktQyx05fnSytjY-19" value="&lt;p style=&quot;margin:0px;margin-top:4px;margin-left:10px;text-align:left;&quot;&gt;Component&lt;/p&gt;" style="html=1;shape=mxgraph.sysml.package;html=1;overflow=fill;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="180" y="410" width="960" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="tY2KCHktQyx05fnSytjY-22" value="Home" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="190" y="350" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tY2KCHktQyx05fnSytjY-28" value="About Us" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="300" y="350" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tY2KCHktQyx05fnSytjY-29" value="Buttons" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="190" y="440" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tY2KCHktQyx05fnSytjY-30" value="Forms" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="300" y="440" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i9ES5G_ljrj-M4yzb7WQ-1" value="Login" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="413" y="350" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i9ES5G_ljrj-M4yzb7WQ-2" value="Registration" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="530" y="350" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i9ES5G_ljrj-M4yzb7WQ-3" value="Menu" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="640" y="350" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i9ES5G_ljrj-M4yzb7WQ-4" value="Order" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="750" y="350" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i9ES5G_ljrj-M4yzb7WQ-5" value="WaiterHub" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="860" y="350" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i9ES5G_ljrj-M4yzb7WQ-7" value="Tables" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="414" y="440" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i9ES5G_ljrj-M4yzb7WQ-8" value="Filters" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="530" y="440" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i9ES5G_ljrj-M4yzb7WQ-10" value="Footer" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="640" y="440" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i9ES5G_ljrj-M4yzb7WQ-12" value="Navigation Bar" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="750" y="440" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="i9ES5G_ljrj-M4yzb7WQ-13" value="KitchenHub" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="970" y="350" width="100" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
