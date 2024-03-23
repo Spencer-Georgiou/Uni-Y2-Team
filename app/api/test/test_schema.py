@@ -152,7 +152,7 @@ class TestOrderSchema:
         # when an order is in the database
         expected = {'status': 'Confirming',
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
-                    'table_number': 10, 'id': 1, 'waiter_username': None}
+                    'table_number': 10, 'id': 1, 'waiter_username': None, 'paid': False}
         order_confirming.menuitem_associations.append(
             OrderMenuItemAssociation(menuitem=menuitem, quantity=3))
         db.session.add(order_confirming)
