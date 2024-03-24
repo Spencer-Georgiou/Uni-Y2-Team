@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addTableNumber } from "./redux/cartSlice";
-import { redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import Payment from "./Payment";
 
 // this is the component for user to enter table number
 function CheckOut({ openModal, setOpenModal, setconfirm }) {
@@ -22,12 +23,14 @@ function CheckOut({ openModal, setOpenModal, setconfirm }) {
     //stores all the item name and quantity
     menuitem_associations: [],
   });
+  const [url, setUrl] = useState({});
+  const [openPay, setOpenPay] = useState(false);
 
   function handleCheckOut() {
     handleSubmit();
     console.log(number);
     fetchTable(number);
-
+    setOpenPay(true);
     setconfirm(true);
   }
 
@@ -100,12 +103,13 @@ function CheckOut({ openModal, setOpenModal, setconfirm }) {
     fetch("/api/payment", postingData)
       .then((response) => {
         if (response.status === 200) {
-          alert("payment sucessfully!");
-          console.log(response.json());
-          return redirect(response.json());
+          return response.json();
         } else console.log("error");
       })
-      .then()
+      .then((json) => {
+        console.log(json.payment_url);
+        setUrl(json);
+      })
       .catch((error) => {
         console.error("there was an error", error);
       });
@@ -173,6 +177,11 @@ function CheckOut({ openModal, setOpenModal, setconfirm }) {
           </Modal.Body>
         </div>
       </Modal>
+      <Payment
+        openPay={openPay}
+        setOpenPay={setOpenPay}
+        url={url.payment_url}
+      />
     </>
   );
 }
