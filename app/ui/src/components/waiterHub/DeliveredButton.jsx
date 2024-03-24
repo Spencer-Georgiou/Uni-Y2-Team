@@ -1,12 +1,17 @@
 'use client';
-
+import Cookies from 'js-cookie';
 import { Button } from 'flowbite-react';
 
 function DeliveredButton({ orderId, onOrderDelivered }) {
   const handleReady = () => {
+
+    const cookieUsername = Cookies.get('username');
+    console.log('username of cookie', cookieUsername);
+
     const patchData = {
       id: orderId,
       status: 'Delivered',
+      username: cookieUsername
     };
 
     fetch(`/api/order`, {

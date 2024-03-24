@@ -49,7 +49,9 @@ const FormStaff = () => {
         }).then(data => {
             const session_key = data.session_key; {/*extracts the session key from the server response data*/ }
             Cookies.set('session_key', session_key, { expires: 1 }); {/*sets the session key as a cookie for future reference and sets the expiry to be after 1 day(24 hours)*/ }
+            Cookies.set('username', username, { expires: 1 });
             console.log("set cookie");
+            console.log(username);
             alert("login success!");
             if (data.role === "waiter") {
                 navigate('/WaiterHub');
