@@ -7,7 +7,6 @@ function DeliveredButton({ orderId, onOrderDelivered }) {
     const patchData = {
       id: orderId,
       status: 'Delivered',
-      confirmed_by_waiter: true
     };
 
     fetch(`/api/order`, {

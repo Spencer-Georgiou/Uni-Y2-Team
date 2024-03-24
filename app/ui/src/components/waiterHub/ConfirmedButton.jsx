@@ -12,7 +12,6 @@ function ConfirmedButton({ orderId, onOrderDelivered }) {
     const patchData = {
       id: orderId,
       status: 'Preparing',
-      confirmed_by_waiter: true
     };
 
     fetch(`/api/order`, {

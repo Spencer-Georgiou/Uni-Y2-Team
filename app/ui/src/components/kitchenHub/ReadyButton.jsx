@@ -9,7 +9,6 @@ function ReadyButton({ orderId, onOrderDelivered }) {
     const patchData = {
       id: orderId,
       status: 'Delivering',
-      confirmed_by_waiter: true
     };
 
     fetch(`/api/order`, {
