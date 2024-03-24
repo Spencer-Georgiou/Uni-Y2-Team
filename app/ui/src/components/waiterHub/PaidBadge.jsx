@@ -5,7 +5,7 @@ import { Badge } from "flowbite-react";
 function PaidBadge() {
 
     return (
-        <Badge className="bg-success text-black" color="success">PAID</Badge>
+        <Badge className="bg-amber text-black" color="success">PAID</Badge>
     );
 }
 
