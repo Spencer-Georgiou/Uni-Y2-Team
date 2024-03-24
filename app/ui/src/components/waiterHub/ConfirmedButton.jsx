@@ -14,10 +14,11 @@ function ConfirmedButton({ orderId, onOrderDelivered }) {
     const cookieUsername = Cookies.get('username');
     console.log('username of cookie', cookieUsername);
 
+
     const patchData = {
       id: orderId,
       status: 'Preparing',
-      username: cookieUsername
+      waiter_username: cookieUsername
     };
 
     fetch(`/api/order`, {

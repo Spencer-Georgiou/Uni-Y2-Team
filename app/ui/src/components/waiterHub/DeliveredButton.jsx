@@ -11,7 +11,7 @@ function DeliveredButton({ orderId, onOrderDelivered }) {
     const patchData = {
       id: orderId,
       status: 'Delivered',
-      username: cookieUsername
+      waiter_username: cookieUsername
     };
 
     fetch(`/api/order`, {
