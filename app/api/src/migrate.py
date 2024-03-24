@@ -4,13 +4,15 @@ Module creating database entries.
 import pathlib
 
 from src.models import Table
-from src.models.allergen import Allergen
-from src.models.base import db
-from src.models.kitchen import Kitchen
-from src.models.menugroup import MenuGroup
-from src.models.menuitem import MenuItem
-from src.models.session import Session
-from src.models.waiter import Waiter
+from src.models import Allergen
+from src.models import db
+from src.models import Kitchen
+from src.models import MenuGroup
+from src.models import MenuItem
+from src.models import Session
+from src.models import Waiter
+from src.models import Order
+from src.models import OrderMenuItemAssociation
 
 
 class Migration:
@@ -31,7 +33,7 @@ class Migration:
         """
         abstract_path = pathlib.PurePath(directory, filename)
         concrete_path = pathlib.Path(abstract_path)
-        return str(concrete_path)
+        return str(concrete_path.as_posix())
 
     def migrate(self):
         """
@@ -189,7 +191,7 @@ class Migration:
             MenuItem(name="Agua de Jamaica", description="tangy and sweet hibiscus flower tea",
                      calorie=90, price=1.2,
                      menugroup=menugroups["hot_drink"], allergens=[],
-                     image_path="agua-de-jamaica.jpg")
+                     image_path="agua-de-jamaica.jpg"),
         ]
         for menuitem in menuitems:
             if menuitem.image_path is not None:
@@ -198,16 +200,76 @@ class Migration:
         db.session.add_all(menuitems)
 
         # initialize users with their sessions
-        waiter = Waiter(username="Kate", password="123456")
-        kitchen = Kitchen(username="Jenny", password="123456")
-        db.session.add_all([waiter, kitchen])
-
-        db.session.add_all([
-            Session(user=waiter, token="abcde"),
-            Session(user=kitchen, token="abcde"),
-        ])
+        waiters = [
+            Waiter(username="Kate", password="123456", session=Session()),
+            Waiter(username="Ava", password="123456", session=Session()),
+            Waiter(username="Jack", password="123456", session=Session()),
+            Waiter(username="Sam", password="123456"),
+            Waiter(username="Lucy", password="123456"),
+        ]
+        kitchens = [
+            Kitchen(username="Jenny", password="123456", session=Session()),
+            Kitchen(username="Ben", password="123456"),
+            Kitchen(username="Zoe", password="123456"),
+        ]
+        db.session.add_all(waiters + kitchens)
 
         # initialize tables
         for number in range(1, 20 + 1):
             db.session.add(Table(number=number))
+
+        # initialize orders
+        orders = [
+            Order(table_number=1, status=Order.Status.CONFIRMING,
+                  menuitem_associations=[
+                      OrderMenuItemAssociation(menuitem_name="Tacos", quantity=2),
+                  ]),
+            Order(table_number=2, status=Order.Status.CONFIRMING,
+                  menuitem_associations=[
+                      OrderMenuItemAssociation(menuitem_name="Chorizo Quesadilla", quantity=4),
+                      OrderMenuItemAssociation(menuitem_name="Mexican Mule", quantity=4),
+                  ]),
+            Order(table_number=3, status=Order.Status.PREPARING,
+                  menuitem_associations=[
+                      OrderMenuItemAssociation(menuitem_name="Burrito", quantity=2),
+                      OrderMenuItemAssociation(menuitem_name="Peach Iced Tea", quantity=2),
+                  ],
+                  waiter_username="Kate"),
+            Order(table_number=4, status=Order.Status.PREPARING,
+                  menuitem_associations=[
+                      OrderMenuItemAssociation(menuitem_name="Crispy Cauliflower Bites",
+                                               quantity=5),
+                      OrderMenuItemAssociation(menuitem_name="Margarita", quantity=4),
+                      OrderMenuItemAssociation(menuitem_name="Horchata", quantity=1),
+                  ],
+                  waiter_username="Ava"),
+            Order(table_number=5, status=Order.Status.DELIVERING,
+                  menuitem_associations=[
+                      OrderMenuItemAssociation(menuitem_name="Sweet Fried Plantains", quantity=3),
+                      OrderMenuItemAssociation(menuitem_name="Ice Cream", quantity=5),
+                  ],
+                  waiter_username="Jack"),
+            Order(table_number=6, status=Order.Status.DELIVERING,
+                  menuitem_associations=[
+                      OrderMenuItemAssociation(menuitem_name="Halloumi Skewers", quantity=3),
+                      OrderMenuItemAssociation(menuitem_name="Tequila Sunrise", quantity=3),
+                  ],
+                  waiter_username="Kate"),
+            Order(table_number=7, status=Order.Status.DELIVERED,
+                  menuitem_associations=[
+                      OrderMenuItemAssociation(menuitem_name="Bean Tostadas", quantity=2),
+                      OrderMenuItemAssociation(menuitem_name="Paloma", quantity=2),
+                  ],
+                  waiter_username="Ava"),
+            Order(table_number=8, status=Order.Status.DELIVERED,
+                  menuitem_associations=[
+                      OrderMenuItemAssociation(menuitem_name="Burrito", quantity=5),
+                      OrderMenuItemAssociation(menuitem_name="Bean Tostadas", quantity=5),
+                      OrderMenuItemAssociation(menuitem_name="Mineral Water", quantity=2),
+                      OrderMenuItemAssociation(menuitem_name="Atole", quantity=4),
+                      OrderMenuItemAssociation(menuitem_name="Corona Extra", quantity=2)
+                  ],
+                  waiter_username="Jack"),
+        ]
+        db.session.add_all(orders)
         db.session.commit()

@@ -19,7 +19,9 @@ import NavBarStaff from './components/login/NavBarStaff';
 import NavBarCustomer from './components/login/NavBarCustomer';
 import NavBarRegistration from './components/registration/NavBarRegistration';
 import NewOrder from './pages/waiterHub/NewOrder';
-import OrderNavBar from './components/order/OrderNavBar';
+
+import KitchenHub from './pages/kitchenHub/KitchenHub'
+import NavBarKitchenHub from './components/kitchenHub/NavBarKitchenHub';
 import ChangeMenu from './pages/waiterHub/ChangeMenu';
 
 /**Picks which NavBar to display depending on what page is active.
@@ -37,7 +39,9 @@ function PickNavBar() {
     case "/ChangeMenu":
       return <NavBarWaiterHub />;
 
-    //Staff Login NavBar which removes Sign Up and Log In buttons from general NavBar
+    case "/KitchenHub":
+      return <NavBarKitchenHub />;
+
     case "/StaffLogin":
       return <NavBarStaff />;
 
@@ -48,10 +52,6 @@ function PickNavBar() {
     //Registration NavBar which removes Sign Up butotns from general NavBar
     case "/Registration":
       return <NavBarRegistration />;
-
-    //Order NavBar which adds a Call Waiter button to the general NavBar
-    case "/Order":
-      return <OrderNavBar />
 
     default:
       return <NavBar />;
@@ -79,6 +79,7 @@ function App() {
           <Route path="/WaiterHub" element={<WaiterHub />} />
           <Route path="/ModifyCancelOrder" element={<ModifyCancelOrder />} />
           <Route path="/NewOrder" element={<NewOrder />} />
+          <Route path="/KitchenHub" element={<KitchenHub />} />
           <Route path="/ChangeMenu" element={<ChangeMenu />} />
         </Routes>
         <Foot />

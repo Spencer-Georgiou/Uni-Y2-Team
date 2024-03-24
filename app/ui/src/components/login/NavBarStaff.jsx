@@ -29,9 +29,6 @@ function NavBarStaff() {
                 <Link to="/Order" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
                     <span>Order</span>
                 </Link>
-                <Link to="/Contact" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
-                    <span>Contact Us</span>
-                </Link>
             </Navbar.Collapse>
         </Navbar>
     );
