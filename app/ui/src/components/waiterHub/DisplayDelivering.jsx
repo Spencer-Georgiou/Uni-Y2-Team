@@ -157,8 +157,11 @@ function DisplayDelivering() {
                             Table Number: {order.table_number}
                         </div>
                         {showMenuItems(order.menuitem_associations)}
-                        <div className="flex ml-4 text-lg font-semibold">
+                        <div className="flex ml-4 text-sm font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
+                        </div>
+                        <div className="flex ml-4 text-sm font-semibold">
+                            Waiter: {order.waiter_username}
                         </div>
                         <div className="flex flex-row">
                             <div className="flex ml-4">
