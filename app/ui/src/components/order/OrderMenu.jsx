@@ -229,7 +229,7 @@ const OrderMenu = () => {
       </Modal>
 
       {/* Menu */}
-      <div className="mx-20 rounded-2xl bg-amber w-[670px] h-[500px] overflow-x-auto p-2">
+      <div className="mx-20 rounded-2xl bg-amber w-10/12 h-[500px] overflow-x-auto p-2">
         <table className="w-full h-full text-lg text-left rtl:text-right">
           <thead>
             <tr className="bg-amber text-xl text-sans">
