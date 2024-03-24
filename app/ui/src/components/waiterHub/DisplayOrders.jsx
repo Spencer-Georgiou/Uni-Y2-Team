@@ -3,9 +3,12 @@
 import { useState, useEffect, useRef } from "react";
 import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
+import PaidBadge from "./PaidBadge";
+import NotPaidBadge from "./NotPaidBadge";
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
+    return;
 
     useEffect(() => {
         savedCallback.current = callback;
@@ -27,14 +30,15 @@ function DisplayOrders({ confirmingButton, readyButton }) {
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
     const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
+    const [paid, setPaid] = useState(false);
 
     useEffect(() => {
         fetchTables();
     }, []);
 
-    useInterval(() => {
-        fetchTables();
-    }, 5000);
+    //useInterval(() => {
+    //fetchTables();
+    // }, 5000);
 
     const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {
@@ -96,6 +100,11 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                     setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
+                if (json.paid === true) {
+                    setPaid(true);
+                } else {
+                    setPaid(false);
+                }
             });
     };
 
@@ -142,6 +151,14 @@ function DisplayOrders({ confirmingButton, readyButton }) {
         }
     }
 
+    const checkPaid = (paid) => {
+        if (paid === true) {
+            return <PaidBadge />
+        } else {
+            return <NotPaidBadge />
+        }
+    }
+
 
     return (
         <div className="flex flex-col space-y-2">
@@ -157,10 +174,15 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                         <div className="flex ml-4 text-lg font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
-                        <div className="flex ml-8">
-                            {/* <ConfirmedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} /> */}
-                            {/* {/* {readyButton && <ReadyButton orderId={order.id} />} */}
-                            {checkConfirming(order.status, order.id)}
+                        <div className="flex flex-row">
+                            <div className="flex ml-8">
+                                {/* <ConfirmedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} /> */}
+                                {/* {/* {readyButton && <ReadyButton orderId={order.id} />} */}
+                                {checkConfirming(order.status, order.id)}
+                            </div>
+                            <div className="flex ml-10">
+                                {checkPaid(order.paid)}
+                            </div>
                         </div>
                     </div>
 

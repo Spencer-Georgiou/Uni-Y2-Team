@@ -2,52 +2,55 @@
 
 import { useState, useEffect, useRef } from "react";
 import FinishedButton from "../../components/waiterHub/FinishedButton";
+import PaidBadge from "./PaidBadge";
+import NotPaidBadge from "./NotPaidBadge";
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
-  
+    return;
     useEffect(() => {
-      savedCallback.current = callback;
+        savedCallback.current = callback;
     }, [callback]);
-  
+
     useEffect(() => {
-      function tick() {
-        savedCallback.current();
-      }
-      if (delay !== null) {
-        let id = setInterval(tick, delay);
-        return () => clearInterval(id);
-      }
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
     }, [delay]);
-  }
+}
 
 function DisplayDelivered() {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
     const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
+    const [paid, setPaid] = useState(false);
 
-    
+
 
     useEffect(() => {
         fetchTables();
-      }, []);
-    
-      useInterval(() => {
-        fetchTables();
-      }, 5000); 
-    
-      const fetchTables = () => {
+    }, []);
+
+    //useInterval(() => {
+    //fetchTables();
+    //}, 5000); 
+
+    const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {
-          fetchTable(tableNumber)
-            .then((table) => {
-              setTables((prevTables) => [...prevTables, table]);
-            })
-            .catch((error) => {
-              console.error(`Error fetching table ${tableNumber}:`, error);
-            });
+            fetchTable(tableNumber)
+                .then((table) => {
+                    setTables((prevTables) => [...prevTables, table]);
+                })
+                .catch((error) => {
+                    console.error(`Error fetching table ${tableNumber}:`, error);
+                });
         });
-      };
+    };
 
     const fetchTable = (tableNumber) => {
 
@@ -83,10 +86,15 @@ function DisplayDelivered() {
                     setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
                 }
                 if (json.status === "Delivered" && !fetchedOrderIds.has(json.id)) {
-                    
+
                     setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
                     console.log(json.number)
                     setOrders(prevOrders => [...prevOrders, json]);
+                }
+                if (json.paid === true) {
+                    setPaid(true);
+                } else {
+                    setPaid(false);
                 }
             })
     };
@@ -131,6 +139,14 @@ function DisplayDelivered() {
         ));
     }
 
+    const checkPaid = (paid) => {
+        if (paid === true) {
+            return <PaidBadge />
+        } else {
+            return <NotPaidBadge />
+        }
+    }
+
 
 
 
@@ -147,9 +163,14 @@ function DisplayDelivered() {
                         <div className="flex ml-4 text-lg font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
+                        <div className="flex flex-row">
+                            <div className="flex ml-4">
+                                <FinishedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
 
-                        <div className="flex ml-4">
-                            <FinishedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
+                            </div>
+                            <div className="flex ml-10">
+                                {checkPaid(order.paid)}
+                            </div>
 
                         </div>
 
