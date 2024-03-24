@@ -17,7 +17,7 @@ class TestOrder:
         # expected response body
         expected = {'id': 1,
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
-                    'status': 'Confirming', 'table_number': 10, 'waiter_username': None}
+                    'status': 'Confirming', 'table_number': 10, 'waiter_username': None, 'paid': False}
 
         # when a post request is sent
         request_json = {

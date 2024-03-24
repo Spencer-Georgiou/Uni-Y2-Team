@@ -6,21 +6,21 @@ import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
-  
+
     useEffect(() => {
-      savedCallback.current = callback;
+        savedCallback.current = callback;
     }, [callback]);
-  
+
     useEffect(() => {
-      function tick() {
-        savedCallback.current();
-      }
-      if (delay !== null) {
-        let id = setInterval(tick, delay);
-        return () => clearInterval(id);
-      }
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
     }, [delay]);
-  }
+}
 
 function DisplayOrders({ confirmingButton, readyButton }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -30,11 +30,11 @@ function DisplayOrders({ confirmingButton, readyButton }) {
 
     useEffect(() => {
         fetchTables();
-      }, []);
-    
-      useInterval(() => {
+    }, []);
+
+    useInterval(() => {
         fetchTables();
-      }, 5000);
+    }, 5000);
 
     const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {
@@ -84,9 +84,9 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                     setFetchedOrderIds(newFetchedOrderIds);
                     setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
                 }
-                if (json.status === "Confirming" && !fetchedOrderIds.has(json.id)){
+                if (json.status === "Confirming" && !fetchedOrderIds.has(json.id)) {
                     console.log("?????????????????")
-                // if ((json.status === "Confirming" && !fetchedOrderIds.has(json.id)) || (json.status === "Preparing" && fetchedOrderIds.has(json.id))) {
+                    // if ((json.status === "Confirming" && !fetchedOrderIds.has(json.id)) || (json.status === "Preparing" && fetchedOrderIds.has(json.id))) {
                     setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
@@ -158,7 +158,7 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
                         <div className="flex ml-8">
-                        {/* <ConfirmedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} /> */}
+                            {/* <ConfirmedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} /> */}
                             {/* {/* {readyButton && <ReadyButton orderId={order.id} />} */}
                             {checkConfirming(order.status, order.id)}
                         </div>

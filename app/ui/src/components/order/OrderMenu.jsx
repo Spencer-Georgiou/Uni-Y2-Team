@@ -152,7 +152,7 @@ const OrderMenu = () => {
         </ul>
       </div>
       {/* Menu buttons*/}
-      <ul class="ml-20 my-4 flex flex-wrap text-lg font-medium text-center">
+      <ul class="ml-24 my-4 flex flex-wrap text-lg font-medium text-center">
         {filterButtons.map((m, index) => (
           <li class="me-2" key={index}>
             <button
@@ -229,7 +229,7 @@ const OrderMenu = () => {
       </Modal>
 
       {/* Menu */}
-      <div className="mx-20 rounded-2xl bg-amber w-[670px] h-[500px] overflow-x-auto p-2">
+      <div className="mx-24 rounded-2xl bg-amber w-[780px] h-[530px] overflow-x-auto p-2">
         <table className="w-full h-full text-lg text-left rtl:text-right">
           <thead>
             <tr className="bg-amber text-xl text-sans">
