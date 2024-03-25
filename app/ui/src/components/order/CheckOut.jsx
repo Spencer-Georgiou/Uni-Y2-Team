@@ -100,7 +100,7 @@ function CheckOut({ openModal, setOpenModal, setconfirm }) {
     };
 
     //post the data and get the response
-    fetch("/api/payment", postingData)
+    fetch("api/payment", postingData)
       .then((response) => {
         if (response.status === 200) {
           return response.json();

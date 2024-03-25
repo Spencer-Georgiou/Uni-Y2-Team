@@ -30,9 +30,10 @@ const ModifyCancelOrder = () => {
                 return response.json();
             })
             .then((table) => {
-                console.log("order id", table.order.id);
                 setOrderId(table.order.id);
                 fetchOrder(table.order.id); // Fetch order for the fetched table
+                
+
 
                 return table;
             })
@@ -61,29 +62,24 @@ const ModifyCancelOrder = () => {
 
 
     const handleSetTableNumber = (number) => {
-        console.log(number);
         setTableNumber(number);
-        console.log(tableNumber);
         fetchTable(number);
     };
 
     const showMenuItems = (menuItems) => {
         return menuItems.map((item, index) => (
-            <div className="flex text-lg font-semibold">
-                <div className="flex flex-col ml-4 space-y-2">
-                    <div className="flex ml-4 text-amber">
-                        Item-Name: {item.menuitem_name}
-                        {/* <span className="text-black">  Quantity: {item.quantity}</span> */}
-                    </div>
-
-                    <div className="flex ml-6">Quantity: {item.quantity}</div>
+            <div className="w-full space-y-2 text-cherry justify-start text-xl break-words list-disc">
+                {item.menuitem_name && <span>{item.menuitem_name}</span>}
+                {item.name && <span>{item.name}</span>}
+                <br />
+                <div className="flex justify-center w-full text-black text-lg ">
+                    Quantity: {item.quantity}
                 </div>
             </div>
         ));
     };
 
     const checkCancelButton = (orderStatus) => {
-        console.log(orderStatus);
         if (orderStatus === "Confirming") {
             return <CancelButton orderId={orderId} />
         } else {
@@ -91,13 +87,21 @@ const ModifyCancelOrder = () => {
         }
     };
 
+    const orderNewItem = (extraItem) => {
+        if (fetchedOrder) {
+            const updatedOrder = { ...fetchedOrder };
+            updatedOrder.menuitem_associations.push(extraItem);
+            setFetchedOrder(updatedOrder);
+        }
+    }
+
 
     return (
         <div className="w-screen h-screen bg-redder flex items-center justify-center">
 
             <div className="h-5/6 w-5/6 bg-lemon p-4 flex flex-row space-x-4">
                 <div className="flex justify-start flex-nowrap">
-                    <MenuModify onSetTableNumber={handleSetTableNumber} />
+                    <MenuModify orderNewItem={orderNewItem} onSetTableNumber={handleSetTableNumber} />
                     {/* This will be the menu section. This will be the menu section. This will be the menu section. This will be the menu section.  */}
                 </div>
 
@@ -107,25 +111,19 @@ const ModifyCancelOrder = () => {
                     </div>
 
                     <div className="flex flex-col flex-nowrap h-full w-60 bg-yellow-200 rounded-[25px] space-y-10 overflow-auto">
-                        <div className="flex flex-col space-y-2">
+                        {fetchedOrder &&
+                            <div className="flex font-sans font-bold mt-5 ml-2" key={fetchedOrder.id}>
 
-                            {fetchedOrder &&
-                                <div className="flex flex-row font-sans" key={fetchedOrder.id}>
-                                    <div className="flex flex-col w-full text-black mt-8 space-y-2">
-                                        <div className="flex ml-4 text-redder text-xl font-bold">
-                                            Table Number: {fetchedOrder.table_number}
-                                        </div>
-                                        {showMenuItems(fetchedOrder.menuitem_associations)}
-                                    </div>
-
+                                <div className="flex flex-col w-full text-black space-y-8">
+                                    {showMenuItems(fetchedOrder.menuitem_associations)}
                                 </div>
-                            }
-                        </div>
 
+                            </div>
+                        }
 
                     </div>
 
-                    <UpdateOrderButton />
+                    <UpdateOrderButton orderId={orderId} fetchedOrder={fetchedOrder} />
                     {checkCancelButton(orderStatus)}
                 </div>
             </div>
