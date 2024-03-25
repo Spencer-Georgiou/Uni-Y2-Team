@@ -6,6 +6,30 @@ import { Link } from "react-router-dom";
   /* Navigation bar component that allows users to easily select, and be taken to, pages they wish to view */
 }
 function NavBar() {
+  const CallWaiter = () => {
+    const patchData = {
+      table_number: 1,
+      calling_waiter: true
+    };
+
+    fetch('/api/order', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(patchData)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to call a waiter');
+        }
+        alert("A waiter will be with you shortly")
+      })
+      .catch(error => {
+        console.error('Error calling waiter:', error);
+      });
+  }
+
   return (
     <Navbar className="bg-cherry w-full">
       {/* Any items within collapse tags will 'disappear' on smaller windows */}
@@ -65,9 +89,7 @@ function NavBar() {
       <div className="flex gap-3 md:order-2 font-sans font-medium font-semibold text-lemon">
         <button 
           type="button"
-          onClick={() => {
-
-          }}
+          onClick={CallWaiter}
           className="px-1.5 font-sans font-semibold text-cherry bg-lemon hover:ring-4 hover:ring-amber focus:ring-amber rounded">Call Waiter
           </button>
   
