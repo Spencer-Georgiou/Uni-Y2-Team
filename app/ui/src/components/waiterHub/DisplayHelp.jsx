@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import DeliveredButton from "../../components/waiterHub/DeliveredButton";
+import SolvedButton from "../../components/waiterHub/SolvedButton";
 
 
 function DisplayHelp() {
@@ -107,7 +107,7 @@ function DisplayHelp() {
                         </div>
 
                         <div className="flex ml-4">
-                            <DeliveredButton orderId={order.id} />
+                            <SolvedButton orderId={order.id} />
                         </div>
 
                     </div>
