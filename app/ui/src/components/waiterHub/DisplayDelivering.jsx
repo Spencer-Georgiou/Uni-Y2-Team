@@ -1,25 +1,51 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import DeliveredButton from "../../components/waiterHub/DeliveredButton";
+import PaidBadge from "./PaidBadge";
+import NotPaidBadge from "./NotPaidBadge";
 
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+    return;
 
-function DisplayDelivering({ readyButton }) {
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
+
+function DisplayDelivering() {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
+    const [paid, setPaid] = useState(false);
 
     useEffect(() => {
         fetchTables();
     }, []);
 
-    const fetchTables = () => {
-        tableNumbers.forEach(tableNumber => {
+    //useInterval(() => {
+    // fetchTables();
+    // }, 5000); 
 
+    const fetchTables = () => {
+        tableNumbers.forEach((tableNumber) => {
             fetchTable(tableNumber)
-                .then(table => {
-                    setTables(prevTables => [...prevTables, table]);
+                .then((table) => {
+                    setTables((prevTables) => [...prevTables, table]);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(`Error fetching table ${tableNumber}:`, error);
                 });
         });
@@ -38,7 +64,6 @@ function DisplayDelivering({ readyButton }) {
             .then(table => {
                 fetchOrder(table.order.id); // Fetch order for the fetched table
                 return table;
-
             })
             .catch(error => {
                 console.error(`Error fetching order ${tableNumber}:`, error);
@@ -51,11 +76,30 @@ function DisplayDelivering({ readyButton }) {
         return fetch(`/api/order?id=${tableId}`)
             .then(response => response.json())
             .then(json => {
-                // Only add orders with status "Preparing"
-                if (json.status === "Delivering") {
+                // Only add orders with status "Delivering"
+                if (json.status !== "Delivering" && fetchedOrderIds.has(json.id)) {
+                    const newFetchedOrderIds = new Set(fetchedOrderIds);
+                    newFetchedOrderIds.delete(json.id);
+                    setFetchedOrderIds(newFetchedOrderIds);
+                    setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
+                }
+                if (json.status === "Delivering" && !fetchedOrderIds.has(json.id)) {
+
+                    setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
+                    console.log(json.number)
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
+
+                if (json.paid === true) {
+                    setPaid(true);
+                } else {
+                    setPaid(false);
+                }
             })
+    };
+
+    const handleOrderDelivered = (orderId) => {
+        setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     };
 
     const formatTime = (time) => {
@@ -81,7 +125,7 @@ function DisplayDelivering({ readyButton }) {
             <div className="flex text-lg font-semibold">
                 <div className="flex flex-col ml-4 space-y-2">
                     <div className="flex ml-4 text-amber">
-                        Item-Name: {item.menuitem_name} 
+                        Item-Name: {item.menuitem_name}
                         {/* <span className="text-black">  Quantity: {item.quantity}</span> */}
                     </div>
 
@@ -91,6 +135,14 @@ function DisplayDelivering({ readyButton }) {
                 </div>
             </div>
         ));
+    }
+
+    const checkPaid = (paid) => {
+        if (paid === true) {
+            return <PaidBadge />
+        } else {
+            return <NotPaidBadge />
+        }
     }
 
 
@@ -105,11 +157,19 @@ function DisplayDelivering({ readyButton }) {
                             Table Number: {order.table_number}
                         </div>
                         {showMenuItems(order.menuitem_associations)}
-                        {/* <div className="flex ml-4 text-lg font-semibold">
-                            Status: {order.status}
-                        </div> */}
-                        <div className="flex ml-4 text-lg font-semibold">
+                        <div className="flex ml-4 text-sm font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
+                        </div>
+                        <div className="flex ml-4 text-sm font-semibold">
+                            Waiter: {order.waiter_username}
+                        </div>
+                        <div className="flex flex-row">
+                            <div className="flex ml-4">
+                                <DeliveredButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
+                            </div>
+                            <div className="flex ml-10">
+                                {checkPaid(order.paid)}
+                            </div>
                         </div>
 
                     </div>
