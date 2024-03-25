@@ -17,7 +17,7 @@ class TestOrder:
         # expected response body
         expected = {'id': 1,
                     'menuitem_associations': [{'menuitem_name': 'Tacos', 'quantity': 3}],
-                    'status': 'Confirming', 'table_number': 10, 'waiter_username': None, 'paid': False}
+                    'status': 'Confirming', 'table_number': 10, 'calling_waiter': False,  'waiter_username': None, 'paid': False}
 
         # when a post request is sent
         request_json = {
@@ -179,3 +179,23 @@ class TestOrder:
         # check whether the response is 404 indicating no such an order
         assert response.status_code == 404
         assert response.get_json()["message"] == services.Order.MSG_NO_SUCH_ORDER
+
+    # A patch request to "api/order" should update the calling_waiter of the order.
+    def test_update_calling_waiter(self, client, db, order):
+        # when order in database
+        db.session.add(order)
+        db.session.commit()
+
+        # then send a patch request to update calling_waiter
+        request_json = {
+            "id": order.id,
+            "calling_waiter": True
+        }
+        response = client.patch("/api/order", json=request_json)
+
+        # check the response code is 200 and returned order has updated calling_waiter
+        expected_order = copy.deepcopy(order)
+        expected_order.calling_waiter = True
+        expected_json = OrderSchema().dump(expected_order)
+        assert response.status_code == 200
+        assert response.get_json() == expected_json
