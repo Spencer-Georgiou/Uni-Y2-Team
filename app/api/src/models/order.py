@@ -29,6 +29,7 @@ class Order(db.Model):
     :cvar status: State of the order, including "Confirming", "Preparing", "Delivering" and
     "Delivered"; defaults to "Confirming"
     :cvar time_created: Time when the order was created
+    :cvar paid: Situation whether the order is paid or not. Defaults to False.
     :cvar table: Table associated with the order
     :cvar menuitem_associations: Association with menuitems
     :cvar waiter: Waiter who is assigned to the order
@@ -59,12 +60,12 @@ class Order(db.Model):
     # use lambda to set default to a dynamically value
     time_created: Mapped[datetime] = mapped_column((DateTime(timezone=True)),
                                                    default=lambda: datetime.now())
+    paid: Mapped[bool] = mapped_column(Boolean, default=False)
 
     table: Mapped["Table"] = relationship(back_populates="order")
     menuitem_associations: Mapped[List["OrderMenuItemAssociation"]] = relationship(
         back_populates="order", cascade="all, delete-orphan")
     waiter: Mapped[Optional["Waiter"]] = relationship(back_populates="orders")
-    paid: Mapped[bool] = mapped_column(Boolean, default=False)
 
     def __repr__(self):
         return (
