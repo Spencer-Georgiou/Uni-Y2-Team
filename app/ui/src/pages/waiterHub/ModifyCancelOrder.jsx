@@ -1,6 +1,7 @@
 import UpdateOrderButton from "../../components/modifyCancelOrder/UpdateOrderButton";
 import CancelButton from "../../components/modifyCancelOrder/CancelButton";
 import NoCancellingAllowedButton from "../../components/modifyCancelOrder/NoCancellingAllowedButton";
+import NoModifyingAllowedButton from "../../components/modifyCancelOrder/NoModifyingAllowedButton";
 import MenuModify from "../../components/modifyCancelOrder/MenuModify";
 import MenuNew from "../../components/newOrder/MenuNew";
 import { useState, useEffect } from "react";
@@ -87,6 +88,16 @@ const ModifyCancelOrder = () => {
         }
     };
 
+    const checkModifyButton = (orderStatus) => {
+        if (orderStatus === "Confirming" || orderStatus === "Preparing") {
+            return <UpdateOrderButton orderId={orderId} fetchedOrder={fetchedOrder} />
+        } else {
+            return <NoModifyingAllowedButton />
+        }
+    };
+
+
+
     const orderNewItem = (extraItem) => {
         if (fetchedOrder) {
             const updatedOrder = { ...fetchedOrder };
@@ -123,7 +134,7 @@ const ModifyCancelOrder = () => {
 
                     </div>
 
-                    <UpdateOrderButton orderId={orderId} fetchedOrder={fetchedOrder} />
+                    {checkModifyButton(orderStatus)}
                     {checkCancelButton(orderStatus)}
                 </div>
             </div>
