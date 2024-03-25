@@ -4,7 +4,7 @@ import ChangeMenuButton from "../../components/waiterHub/ChangeMenuButton";
 import DisplayOrders from "../../components/waiterHub/DisplayOrders";
 import DisplayDelivering from "../../components/waiterHub/DisplayDelivering";
 import DisplayDelivered from "../../components/waiterHub/DisplayDelivered";
-import DisplayHelp from "../../components/waiterHub/DisplayDelivered";
+import DisplayHelp from "../../components/waiterHub/DisplayHelp";
 
 
 const WaiterHub = () => {

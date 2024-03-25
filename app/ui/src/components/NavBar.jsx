@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 function NavBar() {
   const CallWaiter = () => {
     const patchData = {
-      table_number: 1,
+      id: 1,
       calling_waiter: true
     };
 

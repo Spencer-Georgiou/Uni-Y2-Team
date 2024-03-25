@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import FinishedButton from "../../components/waiterHub/FinishedButton";
+import DeliveredButton from "../../components/waiterHub/DeliveredButton";
 
 
 function DisplayHelp() {
@@ -52,8 +52,8 @@ function DisplayHelp() {
         return fetch(`/api/order?id=${tableId}`)
             .then(response => response.json())
             .then(json => {
-                // Only add orders with status "Delivered"
-                if (json.status === "Delivered") {
+                // Only add orders with status "Preparing"
+                if (json.calling_waiter === true) {
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
             })
@@ -83,18 +83,16 @@ function DisplayHelp() {
                 <div className="flex flex-col ml-4 space-y-2">
                     <div className="flex ml-4 text-amber">
                         Item-Name: {item.menuitem_name}
+                        {/* <span className="text-black">  Quantity: {item.quantity}</span> */}
                     </div>
 
                     <div className="flex ml-6">
                         Quantity: {item.quantity}
                     </div>
-
-
                 </div>
             </div>
         ));
     }
-
 
 
 
@@ -107,14 +105,9 @@ function DisplayHelp() {
                         <div className="flex ml-4 text-redder text-xl font-bold">
                             Table Number: {order.table_number}
                         </div>
-                        {showMenuItems(order.menuitem_associations)}
-                        <div className="flex ml-4 text-lg font-semibold">
-                            TimeCreated: {formatTime(order.time_created)}
-                        </div>
 
                         <div className="flex ml-4">
-                            <FinishedButton orderId={order.id} />
-
+                            <DeliveredButton orderId={order.id} />
                         </div>
 
                     </div>
@@ -131,5 +124,3 @@ function DisplayHelp() {
 }
 
 export default DisplayHelp
-
-
