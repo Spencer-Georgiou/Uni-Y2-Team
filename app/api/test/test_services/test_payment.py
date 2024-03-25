@@ -18,3 +18,11 @@ class TestPayment():
         response = client.post('/api/payment', json=request_json)
         assert response.status_code == 200
         assert "payment_url" in response.get_json()
+
+    def test_invalid_order(self, client):
+        # when no order in db
+
+        # when a post request is sent
+        request_json = {"id": -1}
+        response = client.post('/api/payment', json=request_json)
+        assert response.status_code == 404
