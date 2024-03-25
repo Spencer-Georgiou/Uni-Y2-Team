@@ -8,6 +8,7 @@ const cartSlice = createSlice({
     //initial state
     initialState: {
         cart: [],
+        table: 0,
     },
 
     //returns the action creators to be dispatched, and the reducer configures the Redux store.
@@ -48,6 +49,14 @@ const cartSlice = createSlice({
             const removeItem = state.cart.filter((item) => item.name !== action.payload);
             state.cart = removeItem;
         },
+        //store the table number when user checkout
+        addTableNumber: (state, action) => {
+            state.table = action.payload;
+        },
+        //remove all the cart item when user reopen our website
+        removeAllItem: (state) => {
+            state.cart = [];
+        }
 
     },
 });
@@ -60,4 +69,6 @@ export const {
     incrementQuantity,
     decrementQuantity,
     removeItem,
+    addTableNumber,
+    removeAllItem,
 } = cartSlice.actions;

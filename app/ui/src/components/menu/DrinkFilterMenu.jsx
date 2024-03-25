@@ -1,7 +1,73 @@
 //the combination of filter and starters
 //combine them is because they need a same state to control the content, will solve it later
 
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState } from "react";
+
+const drinkMenu = [
+  { name: "Corona Extra", description: "light, refreshing with wedge of lime", calorie: 300, price: 3, menugroup: "Beer", image_path: "corona-extra.jpg" },
+  { name: "Modelo Especial", description: "balanced flavour profile, and smooth, crisp finish", calorie: 150, price: 2, menugroup: "Beer", image_path: "modelo-especial.jpg" },
+  { name: "Pacifico", description: "crisp taste with a touch of malt sweetness", calorie: 150, price: 2.3, menugroup: "Beer", image_path: "pacifico.jpg" },
+  {
+    name: "Dos Equis", description: "smooth flavour with hints of toasted malt",
+    calorie: 180, price: 3,
+    menugroup: "beer", image_path: "dos-equis.jpg"
+  },
+  {
+    name: "Margarita",
+    description: "classic cocktail featuring tequila, lime juice, and orange liqueur served over ice and often rimmed with salt",
+    calorie: 290, price: 8, menugroup: "cocktail",
+    image_path: "margarita.jpg"
+  },
+  {
+    name: "Paloma",
+    description: "refreshing Mexican cocktail made with tequila, grapefruit soda, lime juice, and a pinch of salt, served over ice",
+    calorie: 250, price: 9, menugroup: "cocktail",
+    image_path: "paloma.jpg"
+  },
+  {
+    name: "Michelada",
+    description: "spicy and savory Mexican beer cocktail made with beer, lime juice, assorted sauces, spices, and chili peppers, served over ice with a salted rim",
+    calorie: 140, price: 11, menugroup: "cocktail",
+    image_path: "michelada.jpg"
+  },
+  {
+    name: "Tequila Sunrise",
+    description: "made with tequila, orange juice, and grenadine, creating a gradient of colors resembling a sunrise",
+    calorie: 300, price: 8, menugroup: "cocktail",
+    image_path: "tequila-sunrise.jpg"
+  },
+  {
+    name: "Mexican Mule",
+    description: "variation of the classic Moscow Mule cocktail, made with tequila, lime juice, and ginger beer, served over ice with a wedge of lime",
+    calorie: 240, price: 10, menugroup: "cocktail",
+    image_path: "mexican-mule.jpg"
+  },
+  {
+    name: "Mexican Hot Chocolate",
+    description: "hot chocolate spiced with cinnamon and chili", calorie: 300,
+    price: 4.5, menugroup: "hot_drink",
+    image_path: "mexican-hot-chocolate.jpg"
+  },
+  {
+    name: "Cafe de Olla",
+    description: "coffee brewed with cinnamon and piloncillo- unrefined cane sugar",
+    calorie: 180, price: 3, menugroup: "hot_drink",
+    image_path: "cafe-de-olla.jpg"
+  },
+  {
+    name: "Atole",
+    description: "comforting beverage made from masa harina (corn flour), water or milk, sweeteners, and spices",
+    calorie: 130, price: 2.5, menugroup: "hot_drink",
+    image_path: "attole.jpg"
+  },
+  {
+    name: "Agua de Jamaica", description: "tangy and sweet hibiscus flower tea",
+    calorie: 90, price: 1.2,
+    menugroup: "hot_drink",
+    image_path: "agua-de-jamaica.jpg"
+  },
+]
+
 
 const DrinkFilterMenu = () => {
   //the state of allery list
@@ -13,28 +79,6 @@ const DrinkFilterMenu = () => {
     gluten: true,
     dairy: true,
   });
-
-  const [data, setData] = useState([]);
-  const [menu, setMenu] = useState([]);
-
-  // Fetches menu data from api and sets it in json format
-  useEffect(() => {
-    fetch("/api/menu")
-      .then((response) => response.json())
-      .then((json) => setData(json));
-    let temp = data.filter((f) => f.menugroup.type === "Drink");
-    setMenu(temp);
-    menu.map((m) => console.log(m));
-  }, []);
-
-  function display() {
-    fetch("/api/menu")
-      .then((response) => response.json())
-      .then((json) => setData(json));
-    let temp = data.filter((f) => f.menugroup.type === "Drink");
-    setMenu(temp);
-    menu.map((m) => console.log(m));
-  }
 
   // the function to set the state to control menu display
   function handleAllergy(e) {
@@ -163,7 +207,7 @@ const DrinkFilterMenu = () => {
 
       <div class="flex flex-wrap justify-between mx-auto w-full h-128 px-7 my-3">
         <div
-          onClick={display}
+
           class="w-10/12 h-[450px] bg-ocean ml-24 overflow-x-auto round-xl border border-2 "
         >
           <div class="relative overflow-x-auto">
@@ -186,7 +230,7 @@ const DrinkFilterMenu = () => {
               </thead>
 
               <tbody>
-                {menu.map((item) => (
+                {drinkMenu.map((item) => (
                   <Fragment>
                     <tr class="bg-ocean">
                       <th scope="row" class="px-6 h-5 font-medium text-lemon">
@@ -197,10 +241,10 @@ const DrinkFilterMenu = () => {
                       </th>
                       <td class="px-6 py-4 text-gray-900">{item.calorie}</td>
                       <td class="px-6 py-4 text-gray-900">
-                        {item.menugroup.category}
+                        {item.menugroup}
                       </td>
                       <td class="px-6 py-4 text-gray-900">
-                        <b>￡3.00</b>
+                        <b>￡{item.price}</b>
                       </td>
                     </tr>
                     <br></br>

@@ -1,18 +1,54 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
+import PaidBadge from "./PaidBadge";
+import NotPaidBadge from "./NotPaidBadge";
+import { useSelector } from "react-redux";
 
+
+// function useInterval(callback, delay) {
+//     const savedCallback = useRef();
+//     return;
+
+//     useEffect(() => {
+//         savedCallback.current = callback;
+//     }, [callback]);
+
+//     useEffect(() => {
+//         function tick() {
+//             savedCallback.current();
+//         }
+//         if (delay !== null) {
+//             let id = setInterval(tick, delay);
+//             return () => clearInterval(id);
+//         }
+//     }, [delay]);
+// }
 
 function DisplayOrders({ confirmingButton, readyButton }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
+    const [paid, setPaid] = useState(false);
+    const status = useSelector((state) => state.status);
+
+
+    // useEffect(() => {
+    //     fetchTables();
+    // }, []);
 
     useEffect(() => {
-        fetchTables();
-    }, []);
+        fetchTables()
+        console.log(status)
+    }, [status])
+
+
+    //useInterval(() => {
+    //fetchTables();
+    // }, 5000);
 
     const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {
@@ -47,12 +83,44 @@ function DisplayOrders({ confirmingButton, readyButton }) {
     const fetchOrder = (tableId) => {
         return fetch(`/api/order?id=${tableId}`)
             .then((response) => response.json())
-            .then((json) => {
-                // Only add orders with status "Preparing"
-                if (json.status === "Confirming" || json.status === "Preparing") {
-                    setOrders((prevOrders) => [...prevOrders, json]);
+            .then(json => {
+                // Only add orders with status "Confirming" or "Preparing"
+                if ((json.status !== "Confirming" && json.status !== "Preparing") && fetchedOrderIds.has(json.id)) {
+                    console.log("£££££££££££££££££")
+                    const newFetchedOrderIds = new Set(fetchedOrderIds);
+                    newFetchedOrderIds.delete(json.id);
+                    setFetchedOrderIds(newFetchedOrderIds);
+                    setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
+                }
+                if ((json.status === "Preparing") && fetchedOrderIds.has(json.id)) {
+                    const newFetchedOrderIds = new Set(fetchedOrderIds);
+                    newFetchedOrderIds.delete(json.id);
+                    setFetchedOrderIds(newFetchedOrderIds);
+                    setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
+                }
+                if (json.status === "Confirming" && !fetchedOrderIds.has(json.id)) {
+                    console.log("?????????????????")
+                    // if ((json.status === "Confirming" && !fetchedOrderIds.has(json.id)) || (json.status === "Preparing" && fetchedOrderIds.has(json.id))) {
+                    setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
+                    setOrders(prevOrders => [...prevOrders, json]);
+                }
+                if ((json.status === "Preparing") && fetchedOrderIds.has(json.id)) {
+                    console.log(json.number)
+                    console.log("!!!!!!!!!!!!")
+                    setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
+                    setOrders(prevOrders => [...prevOrders, json]);
+                }
+                if (json.paid === true) {
+                    setPaid(true);
+                } else {
+                    setPaid(false);
                 }
             });
+
+    };
+
+    const handleOrderDelivered = (orderId) => {
+        setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     };
 
     const formatTime = (time) => {
@@ -90,7 +158,15 @@ function DisplayOrders({ confirmingButton, readyButton }) {
 
     const checkConfirming = (status, orderId) => {
         if (status === "Confirming") {
-            return confirmingButton && <ConfirmedButton orderId={orderId} />
+            return confirmingButton && <ConfirmedButton orderId={orderId} onOrderDelivered={handleOrderDelivered} />
+        }
+    }
+
+    const checkPaid = (paid) => {
+        if (paid === true) {
+            return <PaidBadge />
+        } else {
+            return <NotPaidBadge />
         }
     }
 
@@ -106,12 +182,21 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                         </div>
                         {showMenuItems(order.menuitem_associations)}
 
-                        <div className="flex ml-4 text-lg font-semibold">
+                        <div className="flex ml-4 text-sm font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
-                        <div className="flex ml-8">
-                            {readyButton && <ReadyButton orderId={order.id} />}
-                            {checkConfirming(order.status, order.id)}
+                        <div className="flex ml-4 text-sm font-semibold">
+                            Waiter: {order.waiter_username}
+                        </div>
+                        <div className="flex flex-row">
+                            <div className="flex ml-8">
+                                {/* <ConfirmedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} /> */}
+                                {/* {/* {readyButton && <ReadyButton orderId={order.id} />} */}
+                                {checkConfirming(order.status, order.id)}
+                            </div>
+                            <div className="flex ml-10">
+                                {checkPaid(order.paid)}
+                            </div>
                         </div>
                     </div>
 

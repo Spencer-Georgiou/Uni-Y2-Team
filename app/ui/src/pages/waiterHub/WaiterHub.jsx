@@ -7,7 +7,14 @@ import DisplayDelivered from "../../components/waiterHub/DisplayDelivered";
 import DisplayHelp from "../../components/waiterHub/DisplayHelp";
 
 
-const WaiterHub = () => {
+const WaiterHub = ({ setIsPressed }) => {
+
+    console.log(setIsPressed);
+    if (setIsPressed === true){
+        
+        alert("New order ready to be delivered!");
+    }
+
     return (
         <div className="flex flex-col space-y-16 w-full h-screen bg-redder">
             <div className="flex justify-evenly flex-nowrap flex-row h-3/4 text-xl text-redder font-semibold">

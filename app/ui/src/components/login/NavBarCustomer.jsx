@@ -36,12 +36,6 @@ function NavBarCustomer() {
                 <Link to="/Order" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
                     <span>Order</span>
                 </Link>
-
-                {/* Link to Contact Us Page */}
-                <Link to="/Contact" className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline">
-                    <span>Contact Us</span>
-                </Link>
-
             </Navbar.Collapse>
 
             <div className="flex gap-2 md:order-2 ">

@@ -15,7 +15,7 @@ const ModalNew = ({ item, openModal, setOpenModal, decreaseQuantity, orderQuanti
         >
             <div
                 class="bg-cover w-full h-full"
-                style={{ backgroundImage: "url('/images/modal.jpg')" }}
+                style={{ backgroundImage: "url('/images/modal_1024.jpg')" }}
             // style={{ backgroundColor: 'goldenrod'}}
             >
                 <Modal.Header className="text-5xl text-white text-sans text-base">{name}</Modal.Header>

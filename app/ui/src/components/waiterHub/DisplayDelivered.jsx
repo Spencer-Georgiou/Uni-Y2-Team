@@ -1,26 +1,52 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FinishedButton from "../../components/waiterHub/FinishedButton";
+import PaidBadge from "./PaidBadge";
+import NotPaidBadge from "./NotPaidBadge";
 
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+    return;
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
 
 function DisplayDelivered() {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
+    const [paid, setPaid] = useState(false);
+
+
 
     useEffect(() => {
         fetchTables();
     }, []);
 
-    const fetchTables = () => {
-        tableNumbers.forEach(tableNumber => {
+    //useInterval(() => {
+    //fetchTables();
+    //}, 5000); 
 
+    const fetchTables = () => {
+        tableNumbers.forEach((tableNumber) => {
             fetchTable(tableNumber)
-                .then(table => {
-                    setTables(prevTables => [...prevTables, table]);
+                .then((table) => {
+                    setTables((prevTables) => [...prevTables, table]);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(`Error fetching table ${tableNumber}:`, error);
                 });
         });
@@ -53,10 +79,28 @@ function DisplayDelivered() {
             .then(response => response.json())
             .then(json => {
                 // Only add orders with status "Delivered"
-                if (json.status === "Delivered") {
+                if (json.status !== "Delivered" && fetchedOrderIds.has(json.id)) {
+                    const newFetchedOrderIds = new Set(fetchedOrderIds);
+                    newFetchedOrderIds.delete(json.id);
+                    setFetchedOrderIds(newFetchedOrderIds);
+                    setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
+                }
+                if (json.status === "Delivered" && !fetchedOrderIds.has(json.id)) {
+
+                    setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
+                    console.log(json.number)
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
+                if (json.paid === true) {
+                    setPaid(true);
+                } else {
+                    setPaid(false);
+                }
             })
+    };
+
+    const handleOrderDelivered = (orderId) => {
+        setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     };
 
     const formatTime = (time) => {
@@ -95,6 +139,14 @@ function DisplayDelivered() {
         ));
     }
 
+    const checkPaid = (paid) => {
+        if (paid === true) {
+            return <PaidBadge />
+        } else {
+            return <NotPaidBadge />
+        }
+    }
+
 
 
 
@@ -108,12 +160,20 @@ function DisplayDelivered() {
                             Table Number: {order.table_number}
                         </div>
                         {showMenuItems(order.menuitem_associations)}
-                        <div className="flex ml-4 text-lg font-semibold">
+                        <div className="flex ml-4 text-sm font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
+                        <div className="flex ml-4 text-sm font-semibold">
+                            Waiter: {order.waiter_username}
+                        </div>
+                        <div className="flex flex-row">
+                            <div className="flex ml-4">
+                                <FinishedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
 
-                        <div className="flex ml-4">
-                            <FinishedButton orderId={order.id} />
+                            </div>
+                            <div className="flex ml-10">
+                                {checkPaid(order.paid)}
+                            </div>
 
                         </div>
 

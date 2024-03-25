@@ -24,7 +24,12 @@ const homepage = () => {
         ></img>
         <OrderButton />
       </div>
-      <CarouselHomepage />
+      <div className="flex flex-col items-center justify-center w-full text-lemon font-bold bg-amber">
+        <h1 className="text-3xl mt-3">Gallery</h1>
+        <div className="w-full">
+          <CarouselHomepage />
+        </div>
+      </div>
     </div>
   );
 };

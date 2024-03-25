@@ -233,29 +233,34 @@ class Migration:
                   menuitem_associations=[
                       OrderMenuItemAssociation(menuitem_name="Burrito", quantity=2),
                       OrderMenuItemAssociation(menuitem_name="Peach Iced Tea", quantity=2),
-                  ]),
+                  ],
+                  waiter_username="Kate"),
             Order(table_number=4, status=Order.Status.PREPARING,
                   menuitem_associations=[
                       OrderMenuItemAssociation(menuitem_name="Crispy Cauliflower Bites",
                                                quantity=5),
                       OrderMenuItemAssociation(menuitem_name="Margarita", quantity=4),
                       OrderMenuItemAssociation(menuitem_name="Horchata", quantity=1),
-                  ]),
+                  ],
+                  waiter_username="Ava"),
             Order(table_number=5, status=Order.Status.DELIVERING,
                   menuitem_associations=[
                       OrderMenuItemAssociation(menuitem_name="Sweet Fried Plantains", quantity=3),
                       OrderMenuItemAssociation(menuitem_name="Ice Cream", quantity=5),
-                  ]),
+                  ],
+                  waiter_username="Jack"),
             Order(table_number=6, status=Order.Status.DELIVERING,
                   menuitem_associations=[
                       OrderMenuItemAssociation(menuitem_name="Halloumi Skewers", quantity=3),
                       OrderMenuItemAssociation(menuitem_name="Tequila Sunrise", quantity=3),
-                  ]),
+                  ],
+                  waiter_username="Kate"),
             Order(table_number=7, status=Order.Status.DELIVERED,
                   menuitem_associations=[
                       OrderMenuItemAssociation(menuitem_name="Bean Tostadas", quantity=2),
                       OrderMenuItemAssociation(menuitem_name="Paloma", quantity=2),
-                  ]),
+                  ],
+                  waiter_username="Ava"),
             Order(table_number=8, status=Order.Status.DELIVERED,
                   menuitem_associations=[
                       OrderMenuItemAssociation(menuitem_name="Burrito", quantity=5),
@@ -263,7 +268,8 @@ class Migration:
                       OrderMenuItemAssociation(menuitem_name="Mineral Water", quantity=2),
                       OrderMenuItemAssociation(menuitem_name="Atole", quantity=4),
                       OrderMenuItemAssociation(menuitem_name="Corona Extra", quantity=2)
-                  ]),
+                  ],
+                  waiter_username="Jack"),
         ]
         db.session.add_all(orders)
         db.session.commit()

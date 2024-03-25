@@ -5,18 +5,20 @@ import {
 } from "./redux/cartSlice";
 import { useDispatch } from "react-redux";
 
-//display cart items
+//display all the cart items by loop render
 //@param item name which is also id, item description, item price, set initial quantity to 0
 function CartItem({ name, description, price, quantity = 0 }) {
   const dispatch = useDispatch();
   return (
     <div className="mt-3">
+      {/* the item information */}
       <p class="text-lg">
         <b>{name}</b>
       </p>
       <p>{description}</p>
       <span>
         Price: <b>￡{price} </b>
+        {/* the button to decrease the quantity*/}
         <div className="float-right mx-2">
           <button
             onClick={() => dispatch(decrementQuantity(name))}
@@ -39,7 +41,9 @@ function CartItem({ name, description, price, quantity = 0 }) {
               />
             </svg>
           </button>
+          {/* display the quantity */}
           <b className="text-lg">{quantity}</b>
+          {/* the button to increase quantity */}
           <button
             onClick={() => dispatch(incrementQuantity(name))}
             type="button"
@@ -61,6 +65,7 @@ function CartItem({ name, description, price, quantity = 0 }) {
               />
             </svg>
           </button>
+          {/* the button to remove this cart item */}
           <button
             type="button"
             class="text-sm ml-1 underline hover:text-cherry"

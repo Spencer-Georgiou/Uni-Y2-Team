@@ -1,18 +1,40 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
 
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
 
 function DisplayKitchen() {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
 
     useEffect(() => {
         fetchTables();
     }, []);
+
+    useInterval(() => {
+        fetchTables();
+    }, 5000);
 
     const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {
@@ -27,32 +49,47 @@ function DisplayKitchen() {
     };
 
     const fetchTable = (tableNumber) => {
+
         return fetch(`/api/table?number=${tableNumber}`)
-            .then((response) => {
+            .then(response => {
                 if (!response.ok) {
                     throw new Error(`Failed to fetch table ${tableNumber}`);
                 }
                 return response.json();
+
             })
-            .then((table) => {
+            .then(table => {
                 fetchOrder(table.order.id); // Fetch order for the fetched table
                 return table;
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error(`Error fetching order ${tableNumber}:`, error);
                 return null;
             });
     };
 
+
     const fetchOrder = (tableId) => {
         return fetch(`/api/order?id=${tableId}`)
-            .then((response) => response.json())
-            .then((json) => {
-                // Only add orders with status "Preparing"
-                if (json.status === "Preparing") {
-                    setOrders((prevOrders) => [...prevOrders, json]);
+            .then(response => response.json())
+            .then(json => {
+                // Only add orders with status "Delivering"
+                if (json.status !== "Preparing" && fetchedOrderIds.has(json.id)) {
+                    const newFetchedOrderIds = new Set(fetchedOrderIds);
+                    newFetchedOrderIds.delete(json.id);
+                    setFetchedOrderIds(newFetchedOrderIds);
+                    setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
                 }
-            });
+                if (json.status === "Preparing" && !fetchedOrderIds.has(json.id)) {
+
+                    setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
+                    setOrders(prevOrders => [...prevOrders, json]);
+                }
+            })
+    };
+
+    const handleOrderDelivered = (orderId) => {
+        setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     };
 
     const formatTime = (time) => {
@@ -102,11 +139,11 @@ function DisplayKitchen() {
                         </div>
                         {showMenuItems(order.menuitem_associations)}
 
-                        <div className="flex ml-4 text-lg font-semibold">
+                        <div className="flex ml-4 text-sm font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
                         <div className="flex ml-8">
-                            <ReadyButton orderId={order.id} />
+                            <ReadyButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
                         </div>
                     </div>
 

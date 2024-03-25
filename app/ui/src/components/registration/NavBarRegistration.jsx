@@ -36,18 +36,11 @@ const NavBarRegistration = () => {
                 <Link to="/Order" className="font-sans font-medium font-semibold text-lemon hover:text-cherry hover:underline">
                     <span>Order</span>
                 </Link>
-
-                {/* Link to Contact Us Page */}
-                <Link to="/Contact" className="font-sans font-medium font-semibold text-lemon hover:text-cherry hover:underline">
-                    <span>Contact Us</span>
-                </Link>
-
             </Navbar.Collapse>
 
             <div className="flex gap-2 md:order-2 font-sans font-medium font-semibold text-lemon">
                 <Dropdown label="Log In" inline className='text-lemon bg-lemon border-lemon' dismissOnClick={false}>
-                <Dropdown.Item as={Link} to="/StaffLogin" className="focus:bg-amber">Staff Login</Dropdown.Item>
-                <Dropdown.Item as={Link} to="/CustomerLogin" className="focus:bg-amber">Customer Login</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/CustomerLogin" className="focus:bg-amber">Customer Login</Dropdown.Item>
                 </Dropdown>
                 {/* Page navigation options disappear into hamburger dropdown button on smaller screens */}
                 <Navbar.Toggle className="text-cherry bg-lemon ring-lemon focus:ring-amber hover:bg-amber" />
