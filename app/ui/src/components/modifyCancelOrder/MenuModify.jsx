@@ -35,13 +35,6 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
             .then((json) => setData(json));
     }, []);
 
-    // Fetches menu data from api and sets it in json format
-    useEffect(() => {
-        fetch("/api/menu")
-            .then((response) => response.json())
-            .then((json) => setData(json));
-    }, []);
-
     // Filter menu item
     const filterMenu = (filterType) => {
         if (filterType === "All") {

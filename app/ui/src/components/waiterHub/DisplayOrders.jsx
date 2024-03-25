@@ -5,25 +5,27 @@ import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
 import PaidBadge from "./PaidBadge";
 import NotPaidBadge from "./NotPaidBadge";
+import { useSelector } from "react-redux";
 
-function useInterval(callback, delay) {
-    const savedCallback = useRef();
-    return;
 
-    useEffect(() => {
-        savedCallback.current = callback;
-    }, [callback]);
+// function useInterval(callback, delay) {
+//     const savedCallback = useRef();
+//     return;
 
-    useEffect(() => {
-        function tick() {
-            savedCallback.current();
-        }
-        if (delay !== null) {
-            let id = setInterval(tick, delay);
-            return () => clearInterval(id);
-        }
-    }, [delay]);
-}
+//     useEffect(() => {
+//         savedCallback.current = callback;
+//     }, [callback]);
+
+//     useEffect(() => {
+//         function tick() {
+//             savedCallback.current();
+//         }
+//         if (delay !== null) {
+//             let id = setInterval(tick, delay);
+//             return () => clearInterval(id);
+//         }
+//     }, [delay]);
+// }
 
 function DisplayOrders({ confirmingButton, readyButton }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -31,10 +33,18 @@ function DisplayOrders({ confirmingButton, readyButton }) {
     const [orders, setOrders] = useState([]);
     const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
     const [paid, setPaid] = useState(false);
+    const status = useSelector((state) => state.status);
+
+
+    // useEffect(() => {
+    //     fetchTables();
+    // }, []);
 
     useEffect(() => {
-        fetchTables();
-    }, []);
+        fetchTables()
+        console.log(status)
+    }, [status])
+
 
     //useInterval(() => {
     //fetchTables();
@@ -106,6 +116,7 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                     setPaid(false);
                 }
             });
+
     };
 
     const handleOrderDelivered = (orderId) => {
