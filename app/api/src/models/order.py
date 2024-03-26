@@ -28,11 +28,8 @@ class Order(db.Model):
     :cvar waiter_username: Username of the waiter who is assigned to the order
     :cvar status: State of the order, including "Confirming", "Preparing", "Delivering" and
     "Delivered"; defaults to "Confirming"
-<<<<<<< app/api/src/models/order.py
     :cvar confirmed_by_waiter: Indicator that whether the order is confirmed by a waiter
     :cvar calling_waiter: Indicator of whether the customer is calling their waiter
-=======
->>>>>>> app/api/src/models/order.py
     :cvar time_created: Time when the order was created
     :cvar table: Table associated with the order
     :cvar menuitem_associations: Association with menuitems
@@ -76,5 +73,5 @@ class Order(db.Model):
         return (
             f"Order(id={self.id!r}, table_number={self.table_number!r}, waiter_username="
             f"{self.waiter_username!r}, status={self.status!r}, calling_waiter="
-            f"{self.calling_waiter!r}, paid={self.paid!r}, confirmed_by_waiter="
-            f"{self.confirmed_by_waiter!r, time_created=self.time_created!r})")
+            f"{self.calling_waiter!r}, paid={self.paid!r},"
+            f"time_created={self.time_created!r})")

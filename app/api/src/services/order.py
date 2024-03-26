@@ -55,7 +55,7 @@ class Order(MethodView):
             db.session.delete(order_in_db)
             db.session.commit()
 
-    @apidoc.arguments(schema=OrderSchema(only=("id", "status", "confirmed_by_waiter", "calling_waiter", "waiter_username")),
+    @apidoc.arguments(schema=OrderSchema(only=("id", "status", "calling_waiter", "waiter_username")),
                       location="json", required=False)
     @apidoc.response(status_code=200, schema=OrderSchema)
     def patch(self, order_from_request):
