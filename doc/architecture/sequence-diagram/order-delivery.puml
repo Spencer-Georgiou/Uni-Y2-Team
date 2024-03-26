@@ -1,0 +1,41 @@
+' This diagram is written in plantuml with the aid of
+' jebbs' [PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) plugin in VSCode
+@startuml
+' diagram format
+skinparam sequenceArrowThickness 1
+skinparam maxmessagesize 200
+skinparam BoxPadding 50
+skinparam SequenceMessageAlign first
+!pragma teoz true
+
+title Order Delivery
+
+' actors
+actor Waiter
+actor Kitchen
+actor Customer
+' frontend entities
+box Frontend
+boundary WaiterHub
+boundary KitchenHub
+boundary OrderPage
+end box
+' backend entities
+box Backend
+entity "/api/order" as OrderAPI
+end box
+' database entities
+database Database
+
+Waiter -> WaiterHub: the order is delivered
+WaiterHub -> OrderAPI: PATCH with the order id and status "Delivered"
+OrderAPI -> Database: update the order with the given status
+Database -> OrderAPI: done
+OrderAPI -> WaiterHub: the order is updated
+WaiterHub -> WaiterHub: render the order to "Deliverd"
+& OrderPage -> OrderPage: render progress to "Enjoy!"
+& KitchenHub -> KitchenHub: not render the order
+WaiterHub -> Waiter: display the order in 
+& KitchenHub -> Kitchen: not display the order
+& OrderPage -> Customer: display the progress at "Enjoy!"
+@enduml

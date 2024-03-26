@@ -1,0 +1,36 @@
+' This diagram is written in plantuml with the aid of
+' jebbs' [PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) plugin in VSCode
+@startuml
+' diagram format
+skinparam sequenceArrowThickness 1
+skinparam maxmessagesize 200
+skinparam BoxPadding 50
+skinparam SequenceMessageAlign first
+!pragma teoz true
+
+title Resolving Help
+
+' actors
+actor Waiter
+actor Kitchen
+actor Customer
+' frontend entities
+box Frontend
+boundary WaiterHub
+end box
+' backend entities
+box Backend
+entity "/api/order" as OrderAPI
+end box
+' database entities
+database Database
+
+Waiter -> WaiterHub: click "Problem solved" button
+WaiterHub -> OrderAPI: PATCH with the order id and calling_waiter as False
+OrderAPI -> Database: update the order with the given id and calling_waiter value
+Database -> OrderAPI: Done
+WaiterHub -> OrderAPI: GET to get all order info
+OrderAPI -> WaiterHub: return all order info
+WaiterHub -> WaiterHub: not render the table number the order has in "Customers need help" Column
+WaiterHub -> Waiter: no longer display the table in "Customers need help" Column
+@enduml

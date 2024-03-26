@@ -1,0 +1,37 @@
+' This diagram is written in plantuml with the aid of
+' jebbs' [PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) plugin in VSCode
+@startuml
+' diagram format
+skinparam sequenceArrowThickness 1
+skinparam maxmessagesize 200
+skinparam BoxPadding 50
+skinparam SequenceMessageAlign first
+!pragma teoz true
+
+title Calling Help
+
+' actors
+actor Waiter
+actor Customer
+' frontend entities
+box Frontend
+boundary WaiterHub
+boundary OrderPage
+boundary FoodMenuPage
+end box
+' backend entities
+box Backend
+entity "/api/order" as OrderAPI
+end box
+' database entities
+database Database
+
+Customer -> OrderPage: click "Call Waiter" button
+OrderPage -> OrderAPI: PATCH with the order id and calling_waiter as True
+OrderAPI -> Database: update the order with the given id and calling_waiter value
+Database -> OrderAPI: Done
+WaiterHub -> OrderAPI: GET to get all order info
+OrderAPI -> WaiterHub: return all order info
+WaiterHub -> WaiterHub: render the table number  the order has in "Customers need help" Column
+WaiterHub -> Waiter: display a table needs help
+@enduml
