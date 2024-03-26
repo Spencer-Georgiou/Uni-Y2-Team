@@ -1,8 +1,12 @@
 'use client'
+import { useNavigate } from "react-router-dom";
 
 {/*Button which allows waiters to cancel an order.*/ }
 function CancelButton({ orderId }) {
 
+  const navigate = useNavigate();
+
+  // Sending the request to teh api to delete the order.
   const handleCancelling = () => {
     fetch(`/api/order?id=${orderId}`, {
       method: 'DELETE',
@@ -22,11 +26,9 @@ function CancelButton({ orderId }) {
       });
 
     alert("order cancelled");
-    window.location.reload();
+    // Once the alert is closed, it will take the waiter to the Waiter Hub.
+    navigate("/WaiterHub");
   }
-
-
-
 
   return (
 
@@ -35,6 +37,6 @@ function CancelButton({ orderId }) {
     </button>
 
   );
-}
+};
 
-export default CancelButton
+export default CancelButton;

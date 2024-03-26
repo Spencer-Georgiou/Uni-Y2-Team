@@ -1,3 +1,4 @@
+// Button that will allow the waiter to change the stock availability via the ChangeMenu page.
 'use client'
 
 import { Link } from 'react-router-dom';

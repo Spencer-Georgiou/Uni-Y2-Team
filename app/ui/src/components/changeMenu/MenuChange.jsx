@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import StockButtons from "./StockButtons";
+import { applyMiddleware } from "@reduxjs/toolkit";
 
 
-
+// This file displays and changes the stock availability of all food items.
 const MenuChange = () => {
     const [data, setData] = useState([]);
 
+    // This will immediately fetch all the menu items from the api 
+    // as soon as the page is loaded.
     useEffect(() => {
         fetch('/api/menu')
             .then(response => response.json())
@@ -15,7 +18,7 @@ const MenuChange = () => {
     }, []);
 
 
-
+    // The function which sends the request to the api to change the stock availability.
     const toggleAvailability = (itemId, newAvailability) => {
         const updatedMenu = data.map(item => {
             if (item.name === itemId) {

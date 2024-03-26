@@ -4,20 +4,20 @@ import ChangeMenuButton from "../../components/waiterHub/ChangeMenuButton";
 import DisplayOrders from "../../components/waiterHub/DisplayOrders";
 import DisplayDelivering from "../../components/waiterHub/DisplayDelivering";
 import DisplayDelivered from "../../components/waiterHub/DisplayDelivered";
+import DisplayHelp from "../../components/waiterHub/DisplayHelp";
 
 
 const WaiterHub = ({ setIsPressed }) => {
 
     console.log(setIsPressed);
-    if (setIsPressed === true){
-        
+    if (setIsPressed === true) {
         alert("New order ready to be delivered!");
     }
 
     return (
         <div className="flex flex-col space-y-16 w-full h-screen bg-redder">
             <div className="flex justify-evenly flex-nowrap flex-row h-3/4 text-xl text-redder font-semibold">
-                <div class="flex w-80 mt-12 bg-lemon rounded-[25px]">
+                <div className="flex w-80 mt-12 bg-lemon rounded-[25px]">
                     <div className="flex flex-col space-y-1 w-full mt-5 overflow-y-scroll">
                         <div className="ml-4">Orders</div>
                         <div className="h-1 bg-redder">
@@ -27,7 +27,7 @@ const WaiterHub = ({ setIsPressed }) => {
                 </div>
 
 
-                <div class="flex w-80 mt-12 bg-lemon rounded-[25px]">
+                <div className="flex w-80 mt-12 bg-lemon rounded-[25px]">
                     <div className="flex flex-col space-y-1 w-full mt-5 overflow-y-scroll">
                         <div className="ml-4">Ready to Deliver</div>
                         <div className="h-1 bg-redder">
@@ -36,7 +36,7 @@ const WaiterHub = ({ setIsPressed }) => {
                     </div>
                 </div>
 
-                <div class="flex w-80 mt-12 bg-lemon rounded-[25px]">
+                <div className="flex w-80 mt-12 bg-lemon rounded-[25px]">
                     <div className="flex flex-col space-y-1 w-full mt-5 overflow-y-scroll">
                         <div className="ml-4">Delivered</div>
                         <div className="h-1 bg-redder">
@@ -45,10 +45,12 @@ const WaiterHub = ({ setIsPressed }) => {
                     </div>
                 </div>
 
-                <div class="flex w-80 mt-12 bg-lemon rounded-[25px]">
-                    <div className="flex flex-col space-y-1 w-full mt-5">
+                <div className="flex w-80 mt-12 bg-lemon rounded-[25px]">
+                    <div className="flex flex-col space-y-1 w-full mt-5 overflow-y-scroll">
                         <div className="ml-4">Customers need help</div>
-                        <div className="h-1 bg-redder"></div>
+                        <div className="h-1 bg-redder">
+                            <DisplayHelp />
+                        </div>
                     </div>
                 </div>
             </div>
