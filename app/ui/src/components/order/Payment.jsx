@@ -2,6 +2,30 @@ import { Button, Modal } from "flowbite-react";
 import { Link } from "react-router-dom";
 
 const Payment = ({ openPay, setOpenPay, url }) => {
+  const CallWaiter = () => {
+    const patchData = {
+      id: 1,
+      calling_waiter: true
+    };
+
+    fetch('/api/order', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(patchData)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to call a waiter');
+        }
+        alert("A waiter will be with you shortly")
+      })
+      .catch(error => {
+        console.error('Error calling waiter:', error);
+      });
+  }
+
   return (
     <>
       {/* the open modal of entering table number */}
@@ -22,9 +46,9 @@ const Payment = ({ openPay, setOpenPay, url }) => {
           </div>
           <div className="w-auto h-auto bg-yellow-100 px-[30px] p-3">
             <p>
-              <b className="text-amber ">Pay direactly</b>
+              <b className="text-amber ">Pay directly</b>
             </p>
-            <p className="underline hover:text-cherry">Call Waiter</p>
+            <p className="underline hover:text-cherry" onClick={CallWaiter}>Call Waiter</p>
           </div>
         </Modal.Body>
       </Modal>
