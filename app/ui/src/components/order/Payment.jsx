@@ -1,10 +1,13 @@
 import { Button, Modal } from "flowbite-react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Payment = ({ openPay, setOpenPay, url }) => {
+  const tableNumber = useSelector((state) => state.table);
+
   const CallWaiter = () => {
     const patchData = {
-      id: 1,
+      id: tableNumber,
       calling_waiter: true
     };
 

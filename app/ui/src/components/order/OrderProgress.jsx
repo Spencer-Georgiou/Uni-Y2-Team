@@ -49,7 +49,7 @@ function OrderProgress({ confirm, setconfirm }) {
     }
   }
 
-  //useing table number to fetch order id from the database
+  //using table number to fetch order id from the database
   async function fetchTable(tableNumber) {
     return fetch(`/api/table?number=${tableNumber}`)
       .then((response) => {
