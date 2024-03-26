@@ -171,7 +171,7 @@ function DisplayDelivered() {
 
                             </div>
                             <div className="flex ml-10">
-                                {checkPaid(paid)}
+                                {checkPaid(order.paid)}
                             </div>
                         </div>
                     </div>

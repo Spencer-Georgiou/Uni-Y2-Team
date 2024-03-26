@@ -178,7 +178,7 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                                 {checkConfirming(order.status, order.id)}
                             </div>
                             <div className="flex ml-10">
-                                {checkPaid(paid)}
+                                {checkPaid(order.paid)}
                             </div>
                         </div>
                     </div>

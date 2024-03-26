@@ -166,7 +166,7 @@ function DisplayDelivering() {
                                 <DeliveredButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
                             </div>
                             <div className="flex ml-10">
-                                {checkPaid(paid)}
+                                {checkPaid(order.paid)}
                             </div>
                         </div>
 
