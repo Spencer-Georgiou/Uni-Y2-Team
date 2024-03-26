@@ -7,11 +7,7 @@ function NavBarKitchenHub() {
     return (
         <Navbar className="bg-cherry flex items-center justify-between">
             <div className=" flex flex-1 flex-nowrap">
-                <Link to="/WaiterHub">
-                    <span className="self-center text-xl text-lemon font-semibold underline">Kitchen Hub</span>
-                </Link>
-
-
+                <span className="self-center text-xl text-lemon font-semibold underline">Kitchen Hub</span>
             </div>
             <div className="flex flex-1 justify-center flex-nowrap">
                 {/* restaurant logo */}

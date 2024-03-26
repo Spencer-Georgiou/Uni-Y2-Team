@@ -162,10 +162,13 @@ function DisplayDelivered() {
                         <div className="flex ml-4 text-lg font-semibold">
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
+                        <div className="flex ml-4 text-sm font-semibold">
+                            Waiter: {order.waiter_username}
+                        </div>
 
                         <div className="flex flex-row">
                             <div className="flex ml-4">
-                                <FinishedButton orderId={order.id} onOrderDelivered={handleOrderDelivered}/>
+                                <FinishedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
 
                             </div>
                             <div className="flex ml-10">
