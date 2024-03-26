@@ -1,7 +1,5 @@
 "use client";
-
 import { useState, useEffect, useRef } from "react";
-import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
 import PaidBadge from "./PaidBadge";
 import NotPaidBadge from "./NotPaidBadge";
