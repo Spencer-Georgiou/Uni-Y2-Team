@@ -1,0 +1,51 @@
+' This diagram is written in plantuml with the aid of
+' jebbs' [PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) plugin in VSCode
+@startuml
+' diagram format
+skinparam sequenceArrowThickness 1
+skinparam maxmessagesize 200
+skinparam BoxPadding 50
+skinparam SequenceMessageAlign first
+!pragma teoz true
+
+title Order Cancellation
+
+' actors
+actor Waiter
+actor Kitchen
+actor Customer
+' frontend entities
+box Frontend
+boundary WaiterHub
+boundary KitchenHub
+boundary OrderPage
+end box
+' backend entities
+box Backend
+entity "/api/order" as OrderAPI
+end box
+' database entities
+database Database
+
+loop routinely
+WaiterHub -> OrderAPI: GET to get an order info
+OrderAPI -> WaiterHub: return the order info
+end loop
+alt order status is "Delivered"
+WaiterHub -> WaiterHub: grey out the cancel button
+WaiterHub -> Waiter: cancellation is unavailable
+else
+WaiterHub -> Waiter: cancellation is available
+Waiter -> WaiterHub: cancel the order
+WaiterHub -> OrderAPI: DELETE with its order id
+OrderAPI -> Database: delete the order with the id
+Database -> OrderAPI: done
+OrderAPI -> WaiterHub: the order is deleted
+WaiterHub -> WaiterHub: not render the order
+& KitchenHub -> KitchenHub: not render the order
+& OrderPage -> OrderPage: delete the page itself
+KitchenHub -> Kitchen: no longer display the order
+& WaiterHub -> Waiter: no longer display the order
+& OrderPage -> Customer: page is inaccessible
+end alt
+@enduml
