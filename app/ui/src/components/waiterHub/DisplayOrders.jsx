@@ -5,27 +5,24 @@ import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
 import PaidBadge from "./PaidBadge";
 import NotPaidBadge from "./NotPaidBadge";
-import { useSelector } from "react-redux";
 
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
 
-// function useInterval(callback, delay) {
-//     const savedCallback = useRef();
-//     return;
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
 
-//     useEffect(() => {
-//         savedCallback.current = callback;
-//     }, [callback]);
-
-//     useEffect(() => {
-//         function tick() {
-//             savedCallback.current();
-//         }
-//         if (delay !== null) {
-//             let id = setInterval(tick, delay);
-//             return () => clearInterval(id);
-//         }
-//     }, [delay]);
-// }
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
 
 function DisplayOrders({ confirmingButton, readyButton }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -33,22 +30,14 @@ function DisplayOrders({ confirmingButton, readyButton }) {
     const [orders, setOrders] = useState([]);
     const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
     const [paid, setPaid] = useState(false);
-    const status = useSelector((state) => state.status);
-
-
-    // useEffect(() => {
-    //     fetchTables();
-    // }, []);
 
     useEffect(() => {
-        fetchTables()
-        console.log(status)
-    }, [status])
+        fetchTables();
+    }, []);
 
-
-    //useInterval(() => {
-    //fetchTables();
-    // }, 5000);
+    useInterval(() => {
+        fetchTables();
+    }, 5000);
 
     const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {
@@ -186,7 +175,7 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
                         <div className="flex ml-4 text-sm font-semibold">
-                            Waiter: {order.waiter_username}
+                             {order.waiter_username}
                         </div>
                         <div className="flex flex-row">
                             <div className="flex ml-8">

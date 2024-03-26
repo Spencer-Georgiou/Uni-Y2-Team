@@ -7,7 +7,6 @@ import NotPaidBadge from "./NotPaidBadge";
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
-    return;
 
     useEffect(() => {
         savedCallback.current = callback;
@@ -35,9 +34,9 @@ function DisplayDelivering() {
         fetchTables();
     }, []);
 
-    //useInterval(() => {
-    // fetchTables();
-    // }, 5000); 
+    useInterval(() => {
+    fetchTables();
+    }, 5000); 
 
     const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {

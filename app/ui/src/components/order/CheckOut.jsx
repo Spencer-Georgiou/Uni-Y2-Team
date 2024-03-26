@@ -1,18 +1,15 @@
 "use client";
 
 import { Button, Modal } from "flowbite-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addTableNumber } from "./redux/cartSlice";
-import { Navigate } from "react-router-dom";
 import Payment from "./Payment";
-import { switchStatus } from "./redux/statusSlice";
 
 // this is the component for user to enter table number
 function CheckOut({ openModal, setOpenModal, setconfirm }) {
   //get the cart state from redux
   const cart = useSelector((state) => state.cart);
-  const status = useSelector((state) => state.status)
   //the table number
   const number = useSelector((state) => state.table);
   //the hook to use the function in redux
@@ -33,8 +30,6 @@ function CheckOut({ openModal, setOpenModal, setconfirm }) {
     fetchTable(number);
     setOpenPay(true);
     setconfirm(true);
-    dispatch(switchStatus());
-    console.log(status);
   }
 
   //post the data to back-end
