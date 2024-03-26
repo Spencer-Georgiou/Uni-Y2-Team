@@ -17,7 +17,6 @@ actor Customer
 box Frontend
 boundary WaiterHub
 boundary OrderPage
-boundary FoodMenuPage
 end box
 ' backend entities
 box Backend

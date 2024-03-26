@@ -27,7 +27,6 @@ database Database
 
 alt order status is "Delivered"
 Waiter -> WaiterHub: completes an order
-WaiterHub -> OrderAPI: DELETE to remove the order
 WaiterHub -> OrderAPI: DELETE with its order id
 OrderAPI -> Database: delete the order with the id
 Database -> OrderAPI: done
