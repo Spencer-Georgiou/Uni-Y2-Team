@@ -181,20 +181,20 @@ class TestOrder:
         assert response.get_json()["message"] == services.Order.MSG_NO_SUCH_ORDER
 
     # A patch request to "api/order" should update the calling_waiter of the order.
-    def test_update_calling_waiter(self, client, db, order):
+    def test_update_calling_waiter(self, client, db, order_preparing):
         # when order in database
-        db.session.add(order)
+        db.session.add(order_preparing)
         db.session.commit()
 
         # then send a patch request to update calling_waiter
         request_json = {
-            "id": order.id,
+            "id": order_preparing.id,
             "calling_waiter": True
         }
         response = client.patch("/api/order", json=request_json)
 
         # check the response code is 200 and returned order has updated calling_waiter
-        expected_order = copy.deepcopy(order)
+        expected_order = copy.deepcopy(order_preparing)
         expected_order.calling_waiter = True
         expected_json = OrderSchema().dump(expected_order)
         assert response.status_code == 200
