@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { cartReducer } from "./cartSlice";
 import storage from 'redux-persist/lib/storage';
-import { statusReducer } from "./statusSlice";
 import {
     persistStore,
     persistReducer,
@@ -21,7 +20,7 @@ const persistConfig = {
     storage,
 }
 
-const persistedReducer = persistReducer(persistConfig, cartReducer, statusReducer)
+const persistedReducer = persistReducer(persistConfig, cartReducer)
 
 //configuration of reducers and allow dispatching actions for the shopping cart functionality.
 export const store = configureStore({

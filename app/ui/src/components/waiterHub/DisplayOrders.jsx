@@ -5,8 +5,6 @@ import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
 import PaidBadge from "./PaidBadge";
 import NotPaidBadge from "./NotPaidBadge";
-import { useSelector } from "react-redux";
-
 
 // function useInterval(callback, delay) {
 //     const savedCallback = useRef();
@@ -33,22 +31,14 @@ function DisplayOrders({ confirmingButton, readyButton }) {
     const [orders, setOrders] = useState([]);
     const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
     const [paid, setPaid] = useState(false);
-    const status = useSelector((state) => state.status);
-
-
-    // useEffect(() => {
-    //     fetchTables();
-    // }, []);
 
     useEffect(() => {
-        fetchTables()
-        console.log(status)
-    }, [status])
+        fetchTables();
+    }, []);
 
-
-    //useInterval(() => {
-    //fetchTables();
-    // }, 5000);
+    useInterval(() => {
+        fetchTables();
+    }, 5000);
 
     const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {
