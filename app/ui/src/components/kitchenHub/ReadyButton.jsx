@@ -1,5 +1,4 @@
 import { Button } from 'flowbite-react';
-import Cookies from 'js-cookie';
 import { useState } from 'react';
 
 function ReadyButton({ orderId , onOrderDelivered}) {
@@ -7,14 +6,11 @@ function ReadyButton({ orderId , onOrderDelivered}) {
 
   const handleReady = () => {
 
-
-
     const patchData = {
       id: orderId,
       status: 'Delivering',
 
     };
-    // console.log(status)
 
     fetch(`/api/order`, {
       method: 'PATCH',
@@ -36,8 +32,6 @@ function ReadyButton({ orderId , onOrderDelivered}) {
 
     setIsPressed(true);
     onOrderDelivered(orderId);
-    window.location.reload();
-
   };
 
   return (
