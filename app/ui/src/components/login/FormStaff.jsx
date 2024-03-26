@@ -25,7 +25,6 @@ const FormStaff = () => {
         e.preventDefault(); {/*prevents the default form from submitting and keeps the page from reloading*/ }
 
         const postingData = {
-
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -38,6 +37,7 @@ const FormStaff = () => {
 
 
         };
+
         fetch('api/login', postingData).then(response => {
             if (response.ok) {
                 return response.json();
@@ -110,8 +110,8 @@ const FormStaff = () => {
 
         </form>
 
-    )
+    );
 
-}
+};
 
-export default FormStaff
+export default FormStaff;

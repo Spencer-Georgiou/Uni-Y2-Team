@@ -1,13 +1,10 @@
 'use client';
-
 import { Navbar, Dropdown, Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
-
 
 function NavBarCustomer() {
     return (
         <Navbar className="bg-amber">
-
             {/* Any items within collapse tags will 'disappear' on smaller windows */}
             <Navbar.Collapse>
                 {/* Link to Home Page */}
@@ -45,7 +42,6 @@ function NavBarCustomer() {
             </div>
         </Navbar>
     );
-}
+};
 
-
-export default NavBarCustomer
+export default NavBarCustomer;

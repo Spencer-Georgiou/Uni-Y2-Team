@@ -1,5 +1,4 @@
 'use client';
-import Cookies from 'js-cookie';
 import { Button } from 'flowbite-react';
 
 function DeliveredButton({ orderId, onOrderDelivered }) {

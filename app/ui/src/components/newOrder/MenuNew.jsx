@@ -1,9 +1,8 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { Modal } from "flowbite-react";
 import ModalNew from "../../components/newOrder/ModalNew";
-import NewOrder from "../../pages/waiterHub/NewOrder";
+
 
 // Buttons which waiter presses to filter menu
 const filterButtons = [

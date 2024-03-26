@@ -1,6 +1,4 @@
-
 'use client';
-
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -12,8 +10,6 @@ function NavBarWaiterHub() {
 
     const handleLogOut = () => {
         Cookies.remove('session_key');
-        console.log('removed cookie');
-
         navigate('/StaffLogin');
     }
 

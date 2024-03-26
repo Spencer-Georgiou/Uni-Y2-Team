@@ -1,5 +1,4 @@
 'use client'
-
 import { useState, useEffect, useRef } from "react";
 import FinishedButton from "../../components/waiterHub/FinishedButton";
 import PaidBadge from "./PaidBadge";
@@ -142,9 +141,9 @@ function DisplayDelivered() {
 
     const checkPaid = (paid) => {
         if (paid === true) {
-            return <PaidBadge />
+            return <PaidBadge /> //if the customer has paid then a green badge displays
         } else {
-            return <NotPaidBadge />
+            return <NotPaidBadge /> //if the customer has not paid then a red badge displays
         }
     }
 
@@ -172,7 +171,7 @@ function DisplayDelivered() {
 
                             </div>
                             <div className="flex ml-10">
-                                {checkPaid(order.paid)}
+                                {checkPaid(paid)}
                             </div>
                         </div>
                     </div>

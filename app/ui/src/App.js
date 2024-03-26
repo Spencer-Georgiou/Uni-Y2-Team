@@ -29,7 +29,6 @@ import Tutorial from './pages/waiterHub/Tutorial';
 function PickNavBar() {
 
   const location = useLocation();
-  console.log(location);
 
   switch (location.pathname) {
     case "/WaiterHub":
@@ -60,12 +59,9 @@ function PickNavBar() {
   }
 }
 
-
 function App() {
   return (
-    //Add in the other paths to the other pages
     <div className="App">
-
       <Router>
         <PickNavBar />
         <Routes>
@@ -89,6 +85,5 @@ function App() {
     </div>
   )
 };
-
 
 export default App

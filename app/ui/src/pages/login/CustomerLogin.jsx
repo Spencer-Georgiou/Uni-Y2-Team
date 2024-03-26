@@ -2,7 +2,6 @@ import FormCustomer from "../../components/login/FormCustomer"
 
 {/*Log In page for customers which requires a username and password.*/ }
 const CustomerLogin = () => {
-
     return (
         <div>
             {/*Background Image*/}

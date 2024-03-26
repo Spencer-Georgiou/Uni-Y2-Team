@@ -1,8 +1,6 @@
 "use client";
-
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import ReadyButton from "../kitchenHub/ReadyButton";
-
 
 function DisplayKitchen() {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -10,13 +8,15 @@ function DisplayKitchen() {
     const [orders, setOrders] = useState([]);
     const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
 
+    /* An array with each table number is looped through and each table is passed to 
+    fetchTable to retrieve the table numbers order id if it exists, the order is then retrieved
+    for the table with the order id using fetchOrder. The orders that are in a preparing state are displayed in
+    the confirmed orders in the kitchen hub. */
+
     useEffect(() => {
         fetchTables();
     }, []);
 
-    // useInterval(() => {
-    //     fetchTables();
-    // }, 5000);
 
     const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {
@@ -98,17 +98,12 @@ function DisplayKitchen() {
                 <div className="flex flex-col ml-4 space-y-2">
                     <div className="flex ml-4 text-amber">
                         Item-Name: {item.menuitem_name}
-                        {/* <span className="text-black">  Quantity: {item.quantity}</span> */}
                     </div>
-
                     <div className="flex ml-6">Quantity: {item.quantity}</div>
                 </div>
             </div>
         ));
     };
-
-
-
 
     return (
         <div className="flex flex-col space-y-2">
@@ -131,15 +126,8 @@ function DisplayKitchen() {
 
                 </div>
             ))}
-
-
-
         </div>
-
-
-
     );
-
 };
 
 export default DisplayKitchen;

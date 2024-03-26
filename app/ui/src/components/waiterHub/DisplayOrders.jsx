@@ -136,9 +136,7 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                 <div className="flex flex-col ml-4 space-y-2">
                     <div className="flex ml-4 text-amber">
                         Item-Name: {item.menuitem_name}
-                        {/* <span className="text-black">  Quantity: {item.quantity}</span> */}
                     </div>
-
                     <div className="flex ml-6">Quantity: {item.quantity}</div>
                 </div>
             </div>
@@ -175,29 +173,21 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
                         <div className="flex ml-4 text-sm font-semibold">
-                             {order.waiter_username}
+                            {order.waiter_username}
                         </div>
                         <div className="flex flex-row">
                             <div className="flex ml-8">
-                                {/* <ConfirmedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} /> */}
-                                {/* {/* {readyButton && <ReadyButton orderId={order.id} />} */}
                                 {checkConfirming(order.status, order.id)}
                             </div>
                             <div className="flex ml-10">
-                                {checkPaid(order.paid)}
+                                {checkPaid(paid)}
                             </div>
                         </div>
                     </div>
 
                 </div>
             ))}
-
-
-
         </div>
-
-
-
     );
 
 };

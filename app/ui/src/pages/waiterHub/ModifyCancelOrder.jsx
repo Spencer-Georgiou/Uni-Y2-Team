@@ -3,7 +3,6 @@ import CancelButton from "../../components/modifyCancelOrder/CancelButton";
 import NoCancellingAllowedButton from "../../components/modifyCancelOrder/NoCancellingAllowedButton";
 import NoModifyingAllowedButton from "../../components/modifyCancelOrder/NoModifyingAllowedButton";
 import MenuModify from "../../components/modifyCancelOrder/MenuModify";
-import MenuNew from "../../components/newOrder/MenuNew";
 import { useState, useEffect } from "react";
 
 
@@ -13,14 +12,6 @@ const ModifyCancelOrder = () => {
     const [fetchedOrder, setFetchedOrder] = useState(null);
     const [orderStatus, setOrderStatus] = useState(null);
     const [orderId, setOrderId] = useState(null);
-
-
-
-
-    //useEffect(() => {
-    //fetchTable(tableNumber);
-    //}, []);
-
 
     const fetchTable = (tableNumber) => {
         return fetch(`/api/table?number=${tableNumber}`)
@@ -33,9 +24,6 @@ const ModifyCancelOrder = () => {
             .then((table) => {
                 setOrderId(table.order.id);
                 fetchOrder(table.order.id); // Fetch order for the fetched table
-                
-
-
                 return table;
             })
             .catch((error) => {
@@ -109,31 +97,24 @@ const ModifyCancelOrder = () => {
 
     return (
         <div className="w-screen h-screen bg-redder flex items-center justify-center">
-
             <div className="h-5/6 w-5/6 bg-lemon p-4 flex flex-row space-x-4">
                 <div className="flex justify-start flex-nowrap">
                     <MenuModify orderNewItem={orderNewItem} onSetTableNumber={handleSetTableNumber} />
                     {/* This will be the menu section. This will be the menu section. This will be the menu section. This will be the menu section.  */}
                 </div>
-
                 <div className="flex flex-col justify-end space-y-4">
                     <div className="flex justify-start h-10 max-w-full text-black text-2xl font-sans font-bold">
                         Table Number : {tableNumber}
                     </div>
-
                     <div className="flex flex-col flex-nowrap h-full w-60 bg-yellow-200 rounded-[25px] space-y-10 overflow-auto">
                         {fetchedOrder &&
                             <div className="flex font-sans font-bold mt-5 ml-2" key={fetchedOrder.id}>
-
                                 <div className="flex flex-col w-full text-black space-y-8">
                                     {showMenuItems(fetchedOrder.menuitem_associations)}
                                 </div>
-
                             </div>
                         }
-
                     </div>
-
                     {checkModifyButton(orderStatus)}
                     {checkCancelButton(orderStatus)}
                 </div>

@@ -1,5 +1,4 @@
 'use client'
-
 import { useState, useEffect, useRef } from "react";
 import DeliveredButton from "../../components/waiterHub/DeliveredButton";
 import PaidBadge from "./PaidBadge";
@@ -35,8 +34,8 @@ function DisplayDelivering() {
     }, []);
 
     useInterval(() => {
-    fetchTables();
-    }, 5000); 
+        fetchTables();
+    }, 5000);
 
     const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {
@@ -167,7 +166,7 @@ function DisplayDelivering() {
                                 <DeliveredButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
                             </div>
                             <div className="flex ml-10">
-                                {checkPaid(order.paid)}
+                                {checkPaid(paid)}
                             </div>
                         </div>
 

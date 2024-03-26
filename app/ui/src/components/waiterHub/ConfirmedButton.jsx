@@ -11,14 +11,12 @@ function ConfirmedButton({ orderId, onOrderDelivered }) {
     setButtonColour('transparent');
     setTextColour('transparent');
 
-    const cookieUsername = Cookies.get('username');
-    console.log('username of cookie', cookieUsername);
-
+    const cookieUsername = Cookies.get('username'); //the cookie set stores the username of the waiter logged in
 
     const patchData = {
       id: orderId,
       status: 'Preparing',
-      waiter_username: cookieUsername
+      waiter_username: cookieUsername //the username stored in the cookie will be sent in the patch request so that the waiter that logged in and confirmed the order will be assigned to that table
     };
 
     fetch(`/api/order`, {

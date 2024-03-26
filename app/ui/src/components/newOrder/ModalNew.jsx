@@ -5,8 +5,6 @@ import { Modal } from 'flowbite-react';
 const ModalNew = ({ item, openModal, setOpenModal, decreaseQuantity, orderQuantity, increaseQuantity, handleOrder }) => {
     const { id, name, description, calorie, allergens, price } = item;
 
-
-
     return (
         <Modal
             size="4xl"
@@ -16,7 +14,6 @@ const ModalNew = ({ item, openModal, setOpenModal, decreaseQuantity, orderQuanti
             <div
                 class="bg-cover w-full h-full"
                 style={{ backgroundImage: "url('/images/modal_1024.jpg')" }}
-            // style={{ backgroundColor: 'goldenrod'}}
             >
                 <Modal.Header className="text-5xl text-white text-sans text-base">{name}</Modal.Header>
                 <Modal.Body>

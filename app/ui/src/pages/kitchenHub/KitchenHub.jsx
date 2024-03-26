@@ -1,7 +1,4 @@
-// import ReadyAndOrderDisplay from "../../components/kitchenHub/ReadyAndOrderDisplay";
 import DisplayKitchen from "../../components/kitchenHub/DisplayKitchen";
-
-
 
 const KitchenHub = () => {
     return (

@@ -20,16 +20,8 @@ function FinishedButton({ orderId, onOrderDelivered }) {
         console.log('Error from api:', error);
         // Handle error, display an error message to the user
       });
-      onOrderDelivered(orderId);
-
-
-      // window.location.reload();
+    onOrderDelivered(orderId);
   };
-
-
-
-
-
 
   return (
     <Button color="success" onClick={handleReady}>Finished Order</Button>

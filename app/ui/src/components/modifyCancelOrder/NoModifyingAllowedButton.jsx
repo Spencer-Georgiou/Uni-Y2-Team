@@ -1,6 +1,4 @@
-
 'use client';
-
 import { Button } from 'flowbite-react';
 
 function NoModifyingAllowedButton() {

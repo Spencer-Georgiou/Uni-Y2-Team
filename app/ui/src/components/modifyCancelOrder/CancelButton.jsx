@@ -28,9 +28,6 @@ function CancelButton({ orderId }) {
     navigate("/WaiterHub");
   }
 
-
-
-
   return (
 
     <button type="button" onClick={handleCancelling} className="bg-cherry text-black font-sans font-bold py-2 px-4 my-2 rounded-lg hover:bg-yellow-200 hover:text-cherry">
@@ -38,6 +35,6 @@ function CancelButton({ orderId }) {
     </button>
 
   );
-}
+};
 
-export default CancelButton
+export default CancelButton;

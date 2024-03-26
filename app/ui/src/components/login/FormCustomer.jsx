@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-//import Cookies from "js-cookie";
 
 {/*Form that allows users to input their username and password to log in.*/ }
 const FormCustomer = () => {

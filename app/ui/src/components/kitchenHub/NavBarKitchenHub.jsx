@@ -1,5 +1,4 @@
 'use client';
-
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
@@ -26,8 +25,7 @@ function NavBarKitchenHub() {
                 </Dropdown>
             </div>
         </Navbar >
-
     );
-}
+};
 
 export default NavBarKitchenHub

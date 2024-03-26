@@ -1,12 +1,10 @@
 'use client';
-
 import MenuChange from "../../components/changeMenu/MenuChange"
 
 const ChangeMenu = () => {
-    return(
+    return (
         <div className="w-screen h-screen bg-redder flex items-center justify-center">
-                <MenuChange />
-
+            <MenuChange />
         </div>
     );
 }
