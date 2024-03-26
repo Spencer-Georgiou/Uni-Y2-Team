@@ -4,23 +4,23 @@ import { useState, useEffect, useRef } from "react";
 import ReadyButton from "../kitchenHub/ReadyButton";
 import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
 
-function useInterval(callback, delay) {
-    const savedCallback = useRef();
+// function useInterval(callback, delay) {
+//     const savedCallback = useRef();
 
-    useEffect(() => {
-        savedCallback.current = callback;
-    }, [callback]);
+//     useEffect(() => {
+//         savedCallback.current = callback;
+//     }, [callback]);
 
-    useEffect(() => {
-        function tick() {
-            savedCallback.current();
-        }
-        if (delay !== null) {
-            let id = setInterval(tick, delay);
-            return () => clearInterval(id);
-        }
-    }, [delay]);
-}
+//     useEffect(() => {
+//         function tick() {
+//             savedCallback.current();
+//         }
+//         if (delay !== null) {
+//             let id = setInterval(tick, delay);
+//             return () => clearInterval(id);
+//         }
+//     }, [delay]);
+// }
 
 function DisplayKitchen() {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -32,9 +32,9 @@ function DisplayKitchen() {
         fetchTables();
     }, []);
 
-    useInterval(() => {
-        fetchTables();
-    }, 5000);
+    // useInterval(() => {
+    //     fetchTables();
+    // }, 5000);
 
     const fetchTables = () => {
         tableNumbers.forEach((tableNumber) => {

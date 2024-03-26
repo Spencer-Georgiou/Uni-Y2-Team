@@ -6,24 +6,23 @@ import ConfirmedButton from "../../components/waiterHub/ConfirmedButton";
 import PaidBadge from "./PaidBadge";
 import NotPaidBadge from "./NotPaidBadge";
 
-// function useInterval(callback, delay) {
-//     const savedCallback = useRef();
-//     return;
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
 
-//     useEffect(() => {
-//         savedCallback.current = callback;
-//     }, [callback]);
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
 
-//     useEffect(() => {
-//         function tick() {
-//             savedCallback.current();
-//         }
-//         if (delay !== null) {
-//             let id = setInterval(tick, delay);
-//             return () => clearInterval(id);
-//         }
-//     }, [delay]);
-// }
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
 
 function DisplayOrders({ confirmingButton, readyButton }) {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -176,7 +175,7 @@ function DisplayOrders({ confirmingButton, readyButton }) {
                             TimeCreated: {formatTime(order.time_created)}
                         </div>
                         <div className="flex ml-4 text-sm font-semibold">
-                            Waiter: {order.waiter_username}
+                             {order.waiter_username}
                         </div>
                         <div className="flex flex-row">
                             <div className="flex ml-8">
