@@ -36,7 +36,7 @@ function NavBar() {
       <Navbar.Collapse>
         {/* Link to Home Page */}
         <Link
-          to="/"
+          to="/Tutorial"
           className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline"
         >
           <span>Home</span>

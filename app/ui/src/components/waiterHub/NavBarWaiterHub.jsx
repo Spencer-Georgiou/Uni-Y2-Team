@@ -17,16 +17,12 @@ function NavBarWaiterHub() {
         navigate('/StaffLogin');
     }
 
-
-
-
     return (
         <Navbar className="bg-cherry flex items-center justify-between w-screen">
             <div className=" flex flex-1 flex-nowrap">
                 <Link to="/WaiterHub">
                     <span className="self-center text-xl text-lemon font-semibold underline">Waiter Hub</span>
                 </Link>
-
 
             </div>
             <div className="flex flex-1 justify-center flex-nowrap">
@@ -40,6 +36,9 @@ function NavBarWaiterHub() {
                 <Dropdown className="bg-lemon border-lemon" label={
                     <Avatar rounded />
                 }>
+                    <Dropdown.Item as={Link} to="/Tutorial" className="focus:bg-lemon font-semibold text-cherry">
+                        Tutorial
+                    </Dropdown.Item>
                     <Dropdown.Item onClick={handleLogOut} className="focus:bg-lemon font-semibold text-cherry">
                         Logout
                     </Dropdown.Item>

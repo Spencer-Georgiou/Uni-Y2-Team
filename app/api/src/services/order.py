@@ -76,7 +76,6 @@ class Order(MethodView):
             abort(404, message=Order.MSG_NO_SUCH_ORDER)
 
         order_in_db.status = order_from_request.status
-        order_in_db.confirmed_by_waiter = order_from_request.confirmed_by_waiter
         order_in_db.calling_waiter = order_from_request.calling_waiter
 
         # prohibit a non-confirming order has no waiter assigned to it
