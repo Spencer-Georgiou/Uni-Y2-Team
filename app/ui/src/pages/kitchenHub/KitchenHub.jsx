@@ -1,3 +1,5 @@
+// Kitchen hub page which displays all orders in state 'preparing'.
+
 import DisplayKitchen from "../../components/kitchenHub/DisplayKitchen";
 
 const KitchenHub = () => {

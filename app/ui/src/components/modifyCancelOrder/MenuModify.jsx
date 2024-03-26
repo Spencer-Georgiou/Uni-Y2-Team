@@ -58,6 +58,8 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
         }));
     };
 
+
+    // This fucntion is to decease the quantity of items, making sure it doesn't go below 0.
     const decreaseQuantity = (quant) => {
         setOrderQuantity((prevState) => ({
             ...prevState,
@@ -65,10 +67,12 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
         }));
     };
 
+    // Setting a state to be the item Id is to make sure the modal only opens for one item at a time.
     const openModalForItem = (itemId) => {
         setSelectedItemId(itemId);
     };
 
+    // Once the modal is closed, the states revert back to their original values.
     const closeModal = () => {
         setSelectedItemId(null);
         setOrderQuantity({});
@@ -160,6 +164,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
                 </Modal>
             </>
 
+            {/* Dsiplaying all the menu catrgories as filter buttons */}
             {filterButtons.map((item, index) => (
                 <button
                     className="bg-redder text-black text-3xl  font-sans font-bold py-5 px-5 my-2 mx-1 space-x-4 rounded-lg hover:bg-amber hover:text-lemon"
@@ -171,6 +176,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
                 </button>
             ))}
 
+            {/* The table in which the menu items will be displayed. */}
             <table border={1} className="w-full text-xl text-left rtl:text-right">
                 <thead>
                     <tr className="bg-amber text-3xl text-sans">
@@ -208,6 +214,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
                                 >
                                     Add to order
                                 </button>
+                                {/* The modal for each item, which allows the waiter to add to order. */}
                                 {selectedItemId !== null && (
                                     <ModalNew
                                         item={filteredMenu[selectedItemId]}

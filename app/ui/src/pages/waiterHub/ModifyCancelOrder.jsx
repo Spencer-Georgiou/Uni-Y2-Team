@@ -1,9 +1,11 @@
+// Page where the waiter can modify or cancel an order.
+
 import UpdateOrderButton from "../../components/modifyCancelOrder/UpdateOrderButton";
 import CancelButton from "../../components/modifyCancelOrder/CancelButton";
 import NoCancellingAllowedButton from "../../components/modifyCancelOrder/NoCancellingAllowedButton";
 import NoModifyingAllowedButton from "../../components/modifyCancelOrder/NoModifyingAllowedButton";
 import MenuModify from "../../components/modifyCancelOrder/MenuModify";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 
 const ModifyCancelOrder = () => {
@@ -13,6 +15,7 @@ const ModifyCancelOrder = () => {
     const [orderStatus, setOrderStatus] = useState(null);
     const [orderId, setOrderId] = useState(null);
 
+    // Fetches the current order at this table, so that it can be displayed and modified
     const fetchTable = (tableNumber) => {
         return fetch(`/api/table?number=${tableNumber}`)
             .then((response) => {
@@ -55,6 +58,7 @@ const ModifyCancelOrder = () => {
         fetchTable(number);
     };
 
+    // Shows both original order items, and newly added items.
     const showMenuItems = (menuItems) => {
         return menuItems.map((item, index) => (
             <div className="w-full space-y-2 text-cherry justify-start text-xl break-words list-disc">
@@ -68,6 +72,7 @@ const ModifyCancelOrder = () => {
         ));
     };
 
+    // Only display the 'cancel' button if it's in state 'Confirming'
     const checkCancelButton = (orderStatus) => {
         if (orderStatus === "Confirming") {
             return <CancelButton orderId={orderId} />
@@ -76,6 +81,7 @@ const ModifyCancelOrder = () => {
         }
     };
 
+    // Only display the 'update order' button is it's in state 'Confirming'/'Preparing'
     const checkModifyButton = (orderStatus) => {
         if (orderStatus === "Confirming" || orderStatus === "Preparing") {
             return <UpdateOrderButton orderId={orderId} fetchedOrder={fetchedOrder} />
@@ -86,6 +92,7 @@ const ModifyCancelOrder = () => {
 
 
 
+    // This is to add new items to the fetched order.
     const orderNewItem = (extraItem) => {
         if (fetchedOrder) {
             const updatedOrder = { ...fetchedOrder };
@@ -100,7 +107,6 @@ const ModifyCancelOrder = () => {
             <div className="h-5/6 w-5/6 bg-lemon p-4 flex flex-row space-x-4">
                 <div className="flex justify-start flex-nowrap">
                     <MenuModify orderNewItem={orderNewItem} onSetTableNumber={handleSetTableNumber} />
-                    {/* This will be the menu section. This will be the menu section. This will be the menu section. This will be the menu section.  */}
                 </div>
                 <div className="flex flex-col justify-end space-y-4">
                     <div className="flex justify-start h-10 max-w-full text-black text-2xl font-sans font-bold">

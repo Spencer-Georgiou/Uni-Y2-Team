@@ -1,3 +1,5 @@
+// Change menu page with displays the menu and its availabilities 
+
 'use client';
 import MenuChange from "../../components/changeMenu/MenuChange"
 

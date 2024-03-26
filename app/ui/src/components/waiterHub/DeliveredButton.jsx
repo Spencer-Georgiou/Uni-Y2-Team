@@ -1,3 +1,5 @@
+// This button is displayed in the "Ready to Deliver" column.
+
 'use client';
 import { Button } from 'flowbite-react';
 
@@ -10,6 +12,7 @@ function DeliveredButton({ orderId, onOrderDelivered }) {
       status: 'Delivered',
     };
 
+    // Sending the request to the api
     fetch(`/api/order`, {
       method: 'PATCH',
       headers: {

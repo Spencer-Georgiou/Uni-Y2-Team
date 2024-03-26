@@ -11,7 +11,7 @@ const AboutUs = () => {
                     <div className="flex flex-grow bg-lemon rounded-[25px] bg-opacity-85 mt-10 mb-10 max-w-[200px] max-h-[90vh]">
                         <div className="flex flex-col space-y-2 m-auto">
                             <div className="relative block group">
-                                <img className="group-hover:blur duration-300 opacity-80 max-w-[100vh] max-h-[16vh]" src="/aboutUs/Enchilada.png" />
+                                <img className="group-hover:blur duration-300 opacity-80 max-w-[190px] max-h-[16vh]" src="/aboutUs/Enchilada.png" />
 
                                 <div className="opacity-0 hover:opacity-100 duration-300 absolute 
                                 inset-0 z-10 flex text-center justify-center items-center tracking-widest leading-normal text-xl 
@@ -20,7 +20,7 @@ const AboutUs = () => {
 
                             </div>
                             <div className="relative block group">
-                                <img className="group-hover:blur duration-300 opacity-80 max-w-[100vh] max-h-[16vh]" src="/aboutUs/Guacamole.png" />
+                                <img className="group-hover:blur duration-300 opacity-80 max-w-[190px] max-h-[16vh]" src="/aboutUs/Guacamole.png" />
 
                                 <div className="opacity-0 hover:opacity-100 duration-300 absolute 
                                 inset-0 z-10 flex text-center justify-center items-center tracking-widest leading-normal text-xl 
@@ -30,7 +30,7 @@ const AboutUs = () => {
 
 
                             <div className="relative block group">
-                                <img className="group-hover:blur duration-300 opacity-80 max-w-[100vh] max-h-[16vh]" src="/aboutUs/HotSauce.png" />
+                                <img className="group-hover:blur duration-300 opacity-80 max-w-[190px] max-h-[16vh]" src="/aboutUs/HotSauce.png" />
 
                                 <div className="opacity-0 hover:opacity-100 duration-300 absolute 
                                 inset-0 z-10 flex text-center justify-center items-center tracking-wider leading-normal text-xl 
@@ -39,7 +39,7 @@ const AboutUs = () => {
                             </div>
 
                             <div className="relative block group">
-                                <img className="group-hover:blur duration-300 opacity-80 max-w-[100vh] max-h-[16vh]" src="/aboutUs/Taco.png" />
+                                <img className="group-hover:blur duration-300 opacity-80 max-w-[190px] max-h-[16vh]" src="/aboutUs/Taco.png" />
 
                                 <div className="opacity-0 hover:opacity-100 duration-300 absolute 
                                 inset-0 z-10 flex text-center justify-center items-center leading-normal text-xl 
@@ -48,7 +48,7 @@ const AboutUs = () => {
                             </div>
 
                             <div className="relative block group">
-                                <img className="group-hover:blur duration-300 opacity-80 max-w-[100vh] max-h-[16vh]" src="/aboutUs/Popsicle.png" />
+                                <img className="group-hover:blur duration-300 opacity-80 max-w-[190px] max-h-[16vh]" src="/aboutUs/Popsicle.png" />
 
                                 <div className="opacity-0 hover:opacity-100 duration-300 absolute 
                                 inset-0 z-10 flex text-center justify-center items-center tracking-wider leading-normal text-xl 
@@ -98,7 +98,7 @@ const AboutUs = () => {
 
                         <div className="flex flex-col space-y-2 m-auto">
                             <div className="relative block group">
-                                <img className="group-hover:blur duration-300 opacity-80 max-w-[100vh] max-h-[16vh]" src="/aboutUs/Taco.png" />
+                                <img className="group-hover:blur duration-300 opacity-80 max-w-[190px] max-h-[16vh]" src="/aboutUs/Taco.png" />
 
                                 <div className="opacity-0 hover:opacity-100 duration-300 absolute 
                                 inset-0 z-10 flex text-center justify-center items-center leading-normal text-xl 
@@ -107,7 +107,7 @@ const AboutUs = () => {
                             </div>
 
                             <div className="relative block group">
-                                <img className="group-hover:blur duration-300 opacity-80 max-w-[100vh] max-h-[16vh]" src="/aboutUs/Popsicle.png" />
+                                <img className="group-hover:blur duration-300 opacity-80 max-w-[190px] max-h-[16vh]" src="/aboutUs/Popsicle.png" />
 
                                 <div className="opacity-0 hover:opacity-100 duration-300 absolute 
                                 inset-0 z-10 flex text-center justify-center items-center leading-normal text-xl 
@@ -116,7 +116,7 @@ const AboutUs = () => {
                             </div>
 
                             <div className="relative block group">
-                                <img className="group-hover:blur duration-300 opacity-80 max-w-[100vh] max-h-[16vh]" src="/aboutUs/Enchilada.png" />
+                                <img className="group-hover:blur duration-300 opacity-80 max-w-[190px] max-h-[16vh]" src="/aboutUs/Enchilada.png" />
 
                                 <div className="opacity-0 hover:opacity-100 duration-300 absolute 
                                 inset-0 z-10 flex text-center justify-center items-center leading-normal text-xl 
@@ -125,7 +125,7 @@ const AboutUs = () => {
                             </div>
 
                             <div className="relative block group">
-                                <img className="group-hover:blur duration-300 opacity-80 max-w-[100vh] max-h-[16vh]" src="/aboutUs/HotSauce.png" />
+                                <img className="group-hover:blur duration-300 opacity-80 max-w-[190px] max-h-[16vh]" src="/aboutUs/HotSauce.png" />
 
                                 <div className="opacity-0 hover:opacity-100 duration-300 absolute 
                                 inset-0 z-10 flex text-center justify-center items-center leading-normal text-xl 
@@ -134,7 +134,7 @@ const AboutUs = () => {
                             </div>
 
                             <div className="relative block group">
-                                <img className="group-hover:blur duration-300 opacity-80 max-w-[100vh] max-h-[16vh]" src="/aboutUs/Guacamole.png" />
+                                <img className="group-hover:blur duration-300 opacity-80 max-w-[190px] max-h-[16vh]" src="/aboutUs/Guacamole.png" />
 
                                 <div className="opacity-0 hover:opacity-100 duration-300 absolute 
                                 inset-0 z-10 flex text-center justify-center items-center leading-normal text-xl 

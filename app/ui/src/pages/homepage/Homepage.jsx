@@ -1,9 +1,7 @@
 import OrderButton from "../../components/homepage/OrderButton";
 import CarouselHomepage from "../../components/homepage/CarouselHomepage";
 
-/**Home page which displays slogan, order explanation and pictures of the restaurant.
- *
- */
+/**Home page which displays slogan, order explanation and pictures of the restaurant.*/
 const homepage = () => {
   return (
     <div>

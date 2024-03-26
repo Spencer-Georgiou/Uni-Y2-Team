@@ -41,7 +41,7 @@ function DisplayKitchen() {
 
             })
             .then(table => {
-                fetchOrder(table.order.id); // Fetch order for the fetched table
+                fetchOrder(table.order.id);
                 return table;
             })
             .catch(error => {
@@ -50,18 +50,22 @@ function DisplayKitchen() {
             });
     };
 
-
+    // The fetchedOrderId state stores the ID's of orders so that one order is not displayed more than once.
     const fetchOrder = (tableId) => {
         return fetch(`/api/order?id=${tableId}`)
             .then(response => response.json())
             .then(json => {
-                // Only add orders with status "Delivering"
+                
+                // If the order is no longer in 'preparing', it will delete this order from the states.
                 if (json.status !== "Preparing" && fetchedOrderIds.has(json.id)) {
                     const newFetchedOrderIds = new Set(fetchedOrderIds);
                     newFetchedOrderIds.delete(json.id);
                     setFetchedOrderIds(newFetchedOrderIds);
                     setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
                 }
+
+                // If the order just entered 'preparing' state, it will add this order to the states,
+                // so it can be displayed
                 if (json.status === "Preparing" && !fetchedOrderIds.has(json.id)) {
 
                     setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
@@ -92,6 +96,7 @@ function DisplayKitchen() {
         });
     };
 
+    // This function makes sure each menu item is displayed above the time created.
     const showMenuItems = (menuItems) => {
         return menuItems.map((item, index) => (
             <div className="flex text-lg font-semibold">

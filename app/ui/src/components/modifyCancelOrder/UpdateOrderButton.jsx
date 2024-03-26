@@ -1,3 +1,4 @@
+// This file sends the PATCH request to the api to modify an order
 import { useNavigate } from "react-router-dom";
 
 function UpdateOrderButton({ orderId, fetchedOrder }) {

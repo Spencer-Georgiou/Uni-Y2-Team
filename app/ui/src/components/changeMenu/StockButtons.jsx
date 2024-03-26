@@ -1,9 +1,12 @@
+// This file contains the toggle buttons the waiter has to click on.
 import { useState } from "react";
 
 const StockButtons = ({ itemId, available, toggleAvailability }) => {
     const [isAvailable, setIsAvailable] = useState(available);
 
     const handleClick = () => {
+        // When the button is persistReducer, it changes the availability of that item
+        // to the opoosite of its current availability, and requests the api to change it also.
         const newAvailability = !isAvailable;
         setIsAvailable(newAvailability);
         toggleAvailability(itemId, newAvailability);

@@ -1,9 +1,13 @@
+// The file which fetches and displays orders that are in state "Delivered"
+
+
 'use client'
 import { useState, useEffect, useRef } from "react";
 import FinishedButton from "../../components/waiterHub/FinishedButton";
 import PaidBadge from "./PaidBadge";
 import NotPaidBadge from "./NotPaidBadge";
 
+// This function is what fetches data at every interval.
 function useInterval(callback, delay) {
     const savedCallback = useRef();
 
@@ -29,6 +33,7 @@ function DisplayDelivered() {
     const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
     const [paid, setPaid] = useState(false);
 
+    // When the page loads, it will call fetchTables().
     useEffect(() => {
         fetchTables();
     }, []);
@@ -37,6 +42,8 @@ function DisplayDelivered() {
         fetchTables();
     }, 5000);
 
+
+    // Fetching the data for every table in the restaurant, even if it's empty.
     const fetchTables = () => {
         tableNumbers.forEach(tableNumber => {
 
@@ -50,6 +57,7 @@ function DisplayDelivered() {
         });
     };
 
+    // Fetching the data from the api.
     const fetchTable = (tableNumber) => {
 
         return fetch(`/api/table?number=${tableNumber}`)
@@ -72,11 +80,12 @@ function DisplayDelivered() {
     };
 
 
+    // Fetching the orders.
     const fetchOrder = (tableId) => {
         return fetch(`/api/order?id=${tableId}`)
             .then(response => response.json())
             .then(json => {
-                // Only add orders with status "Delivering"
+                // Only add orders with status "Deliveed"
                 if (json.status !== "Delivered" && fetchedOrderIds.has(json.id)) {
                     const newFetchedOrderIds = new Set(fetchedOrderIds);
                     newFetchedOrderIds.delete(json.id);
@@ -102,6 +111,7 @@ function DisplayDelivered() {
         setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     };
 
+    // Formatting the time creating for easier readability.
     const formatTime = (time) => {
         const date = new Date(time);
         return new Intl.DateTimeFormat('en-GB', {
@@ -120,6 +130,7 @@ function DisplayDelivered() {
         });
     }
 
+    // Displaying each menu item.
     const showMenuItems = (menuItems) => {
         return menuItems.map((item, index) => (
             <div className="flex text-lg font-semibold">

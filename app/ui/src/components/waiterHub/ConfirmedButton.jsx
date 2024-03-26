@@ -1,3 +1,5 @@
+// This button is displayed in the "Orders" column.
+
 import { Button } from 'flowbite-react';
 import { useState } from 'react';
 import Cookies from 'js-cookie';
@@ -8,6 +10,7 @@ function ConfirmedButton({ orderId, onOrderDelivered }) {
   const [textColour, setTextColour] = useState('white');
 
   const handleReady = () => {
+    // Once it is clicked, it's colours are set to transparent
     setButtonColour('transparent');
     setTextColour('transparent');
 
@@ -19,6 +22,7 @@ function ConfirmedButton({ orderId, onOrderDelivered }) {
       waiter_username: cookieUsername //the username stored in the cookie will be sent in the patch request so that the waiter that logged in and confirmed the order will be assigned to that table
     };
 
+    // Sending the request to teh api.
     fetch(`/api/order`, {
       method: 'PATCH',
       headers: {
@@ -31,7 +35,6 @@ function ConfirmedButton({ orderId, onOrderDelivered }) {
           throw new Error('Failed to mark order as ready');
         }
         onOrderDelivered(orderId);
-        // Handle success, maybe display a success message
       })
       .catch(error => {
         console.error('Error marking order as ready:', error);

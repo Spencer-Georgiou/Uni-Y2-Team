@@ -51,7 +51,6 @@ function DisplayHelp() {
         return fetch(`/api/order?id=${tableId}`)
             .then(response => response.json())
             .then(json => {
-                // Only add orders with status "Preparing"
                 if (json.calling_waiter === true) {
                     setOrders(prevOrders => [...prevOrders, json]);
                 }
