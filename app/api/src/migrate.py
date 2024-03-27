@@ -13,6 +13,7 @@ from src.models import Session
 from src.models import Waiter
 from src.models import Order
 from src.models import OrderMenuItemAssociation
+from src.models.user import hash_pwd
 
 
 class Migration:
@@ -60,7 +61,7 @@ class Migration:
             "dairy": Allergen(name="Dairy"),
             "nut": Allergen(name="Nut"),
             "egg": Allergen(name="Egg"),
-            "mollusk": Allergen(name="Mollusk")}
+            "mollusc": Allergen(name="Mollusc")}
         db.session.add_all(allergens.values())
 
         # initialize menu items with provided allergens and menu groups
@@ -82,7 +83,7 @@ class Migration:
             MenuItem(name="Burrito",
                      description="Rice, beans and cheese wrapped up in a flour tortilla",
                      calorie=350,
-                     price=6.00, menugroup=menugroups["main"], allergens=[allergens["mollusk"]],
+                     price=6.00, menugroup=menugroups["main"], allergens=[allergens["mollusc"]],
                      image_path="burrito.jpg"),
             MenuItem(name="Chorizo Quesadilla",
                      description="Chorizo and cheese toasted in a flour tortilla", calorie=400,
@@ -101,14 +102,14 @@ class Migration:
                      image_path="churros.jpg"),
             MenuItem(name="Sweet Fried Plantains", description="Sugar coated fried plantains",
                      calorie=300, price=3.00, menugroup=menugroups["dessert"],
-                     allergens=[allergens["egg"], allergens["mollusk"]],
+                     allergens=[allergens["egg"], allergens["mollusc"]],
                      image_path="sweet-fried-plantains.jpg"),
             MenuItem(name="Ice Cream", description="2 scoops of vanilla ice cream,", calorie=300,
                      price=2.50,
                      menugroup=menugroups["dessert"], allergens=[], image_path="ice-cream.jpg"),
             # Soft Drinks
             MenuItem(name="Jarritos",
-                     description="fruit flavoured soda- available in lime, pineapple, and mandarin",
+                     description="Fruit flavoured soda- available in lime, pineapple, and mandarin",
                      calorie=200, price=2, menugroup=menugroups["soft_drink"], allergens=[],
                      image_path="jarritos.jpg"),
             MenuItem(name="Peach Iced Tea", description="Homemade with fresh Peaches", calorie=150,
@@ -116,44 +117,44 @@ class Migration:
                      menugroup=menugroups["soft_drink"], allergens=[],
                      image_path="peach-iced-tea.jpg"),
             MenuItem(name="Horchata",
-                     description="creamy and sweet beverage made from rice, almonds, cinnamon, "
+                     description="Creamy and sweet beverage made from rice, almonds, cinnamon, "
                                  "and sugar",
                      calorie=220, price=2.8, menugroup=menugroups["soft_drink"], allergens=[],
                      image_path="horchata.jpg"),
             MenuItem(name="Mineral Water",
-                     description="naturally carbonated water sourced from underground springs",
+                     description="Naturally carbonated water sourced from underground springs",
                      calorie=0, price=2, menugroup=menugroups["soft_drink"], allergens=[],
                      image_path="mineral-water.jpg"),
 
             # Beers
-            MenuItem(name="Corona Extra", description="light, refreshing with wedge of lime",
+            MenuItem(name="Corona Extra", description="Light, refreshing with wedge of lime",
                      calorie=300, price=3,
                      menugroup=menugroups["beer"], allergens=[], image_path="corona-extra.jpg"),
             MenuItem(name="Modelo Especial",
-                     description="balanced flavour profile, and smooth, crisp finish", calorie=150,
+                     description="Balanced flavour profile, and smooth, crisp finish", calorie=150,
                      price=2, menugroup=menugroups["beer"], allergens=[],
                      image_path="modelo-especial.jpg"),
-            MenuItem(name="Pacifico", description="crisp taste with a touch of malt sweetness",
+            MenuItem(name="Pacifico", description="Crisp taste with a touch of malt sweetness",
                      calorie=150, price=2.3,
                      menugroup=menugroups["beer"], allergens=[], image_path="pacifico.jpg"),
-            MenuItem(name="Dos Equis", description="smooth flavour with hints of toasted malt",
+            MenuItem(name="Dos Equis", description="Smooth flavour with hints of toasted malt",
                      calorie=180, price=3,
                      menugroup=menugroups["beer"], allergens=[], image_path="dos-equis.jpg"),
 
             # Cocktails
             MenuItem(name="Margarita",
-                     description="classic cocktail featuring tequila, lime juice, and orange "
+                     description="Classic cocktail featuring tequila, lime juice, and orange "
                                  "liqueur, "
                                  "served over ice and often rimmed with salt",
                      calorie=290, price=8, menugroup=menugroups["cocktail"], allergens=[],
                      image_path="margarita.jpg"),
             MenuItem(name="Paloma",
-                     description="refreshing Mexican cocktail made with tequila, grapefruit soda, "
+                     description="Refreshing Mexican cocktail made with tequila, grapefruit soda, "
                                  "lime juice, and a pinch of salt, served over ice",
                      calorie=250, price=9, menugroup=menugroups["cocktail"], allergens=[],
                      image_path="paloma.jpg"),
             MenuItem(name="Michelada",
-                     description="spicy and savory Mexican beer cocktail made with beer, "
+                     description="Spicy and savory Mexican beer cocktail made with beer, "
                                  "lime juice, "
                                  "assorted sauces, spices, and chili peppers, served over ice "
                                  "with a "
@@ -161,13 +162,13 @@ class Migration:
                      calorie=140, price=11, menugroup=menugroups["cocktail"], allergens=[],
                      image_path="michelada.jpg"),
             MenuItem(name="Tequila Sunrise",
-                     description="made with tequila, orange juice, and grenadine, creating a "
+                     description="Made with tequila, orange juice, and grenadine, creating a "
                                  "gradient "
                                  "of colors resembling a sunrise",
                      calorie=300, price=8, menugroup=menugroups["cocktail"], allergens=[],
                      image_path="tequila-sunrise.jpg"),
             MenuItem(name="Mexican Mule",
-                     description="variation of the classic Moscow Mule cocktail, made with "
+                     description="Variation of the classic Moscow Mule cocktail, made with "
                                  "tequila, "
                                  "lime juice, and ginger beer, served over ice with a wedge of "
                                  "lime",
@@ -176,19 +177,19 @@ class Migration:
 
             # Hot Drinks
             MenuItem(name="Mexican Hot Chocolate",
-                     description="hot chocolate spiced with cinnamon and chili", calorie=300,
+                     description="Hot chocolate spiced with cinnamon and chili", calorie=300,
                      price=4.5, menugroup=menugroups["hot_drink"], allergens=[],
                      image_path="mexican-hot-chocolate.jpg"),
             MenuItem(name="Cafe de Olla",
-                     description="coffee brewed with cinnamon and piloncillo- unrefined cane sugar",
+                     description="Coffee brewed with cinnamon and piloncillo- unrefined cane sugar",
                      calorie=180, price=3, menugroup=menugroups["hot_drink"], allergens=[],
                      image_path="cafe-de-olla.jpg"),
             MenuItem(name="Atole",
-                     description="comforting beverage made from masa harina (corn flour), water or "
+                     description="Comforting beverage made from masa harina (corn flour), water or "
                                  "milk, sweeteners, and spices",
                      calorie=130, price=2.5, menugroup=menugroups["hot_drink"], allergens=[],
                      image_path="attole.jpg"),
-            MenuItem(name="Agua de Jamaica", description="tangy and sweet hibiscus flower tea",
+            MenuItem(name="Agua de Jamaica", description="Tangy and sweet hibiscus flower tea",
                      calorie=90, price=1.2,
                      menugroup=menugroups["hot_drink"], allergens=[],
                      image_path="agua-de-jamaica.jpg"),
@@ -201,16 +202,16 @@ class Migration:
 
         # initialize users with their sessions
         waiters = [
-            Waiter(username="Kate", password="123456", session=Session()),
-            Waiter(username="Ava", password="123456", session=Session()),
-            Waiter(username="Jack", password="123456", session=Session()),
-            Waiter(username="Sam", password="123456"),
-            Waiter(username="Lucy", password="123456"),
+            Waiter(username="Kate", password=hash_pwd("123456"), session=Session()),
+            Waiter(username="Ava", password=hash_pwd("123456"), session=Session()),
+            Waiter(username="Jack", password=hash_pwd("123456"), session=Session()),
+            Waiter(username="Sam", password=hash_pwd("123456")),
+            Waiter(username="Lucy", password=hash_pwd("123456")),
         ]
         kitchens = [
-            Kitchen(username="Jenny", password="123456", session=Session()),
-            Kitchen(username="Ben", password="123456"),
-            Kitchen(username="Zoe", password="123456"),
+            Kitchen(username="Jenny", password=hash_pwd("123456"), session=Session()),
+            Kitchen(username="Ben", password=hash_pwd("123456")),
+            Kitchen(username="Zoe", password=hash_pwd("123456")),
         ]
         db.session.add_all(waiters + kitchens)
 
