@@ -7,6 +7,7 @@ import pytest
 import src.models
 from src import create_app
 from src.config import TestingConfig
+from src.models.user import hash_pwd
 
 
 # the flask application instance
@@ -50,19 +51,19 @@ from src.models import Customer
 @pytest.fixture
 # a Customer instance
 def customer():
-    return Customer(username="Robert", password="123456")
+    return Customer(username="Robert", password=hash_pwd("123456"))
 
 
 # a Waiter instance
 @pytest.fixture
 def waiter():
-    return Waiter(username="Kate", password="123456")
+    return Waiter(username="Kate", password=hash_pwd("123456"))
 
 
 # a Kitchen instance
 @pytest.fixture
 def kitchen():
-    return Kitchen(username="Jenny", password="123456")
+    return Kitchen(username="Jenny", password=hash_pwd("123456"))
 
 
 # a Session instance for customer

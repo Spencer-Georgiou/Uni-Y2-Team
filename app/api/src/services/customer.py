@@ -11,6 +11,7 @@ from src.apidoc import apidoc
 
 from src import models
 from src.models import db
+from src.models.user import hash_pwd
 from src.schema import CustomerSchema
 
 
@@ -35,7 +36,9 @@ class Customer(MethodView):
         existing_customer = db.session.query(models.Customer).get(new_customer.username)
         if existing_customer is not None:
             abort(409, message="Customer already exists.")
-        
+
+        new_customer.password = hash_pwd(new_customer.password)
+
         db.session.add(new_customer)
         db.session.commit()
         return new_customer

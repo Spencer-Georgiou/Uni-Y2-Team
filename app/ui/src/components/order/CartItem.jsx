@@ -17,7 +17,7 @@ function CartItem({ name, description, price, quantity = 0 }) {
       </p>
       <p>{description}</p>
       <span>
-        Price: <b>￡{price} </b>
+        Price: <b>￡{price.toFixed(2)} </b>
         {/* the button to decrease the quantity*/}
         <div className="float-right mx-2">
           <button
