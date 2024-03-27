@@ -34,8 +34,8 @@ const FormCustomer = () => {
     };
     fetch("/api/login", postingData)
       .then((response) => {
-        if (response.status === 200) return response.json();
-        else alert("error here");
+        if (response.status === 200) return alert("Successfully signed in");
+        else alert("Incorrect details provided - Please try again");
       })
       .then(navigate("/"))
       .catch((error) => {

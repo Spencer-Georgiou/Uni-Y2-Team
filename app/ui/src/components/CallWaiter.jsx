@@ -7,7 +7,7 @@ function CallWaiter() {
     
     const SendCall = () => {
         const patchData = {
-        id: tableNumber,
+        id: parseInt(tableNumber),
         calling_waiter: true
     };
 

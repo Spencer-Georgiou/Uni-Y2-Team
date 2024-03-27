@@ -35,6 +35,7 @@ const SignUpForm = () => {
     fetch("/api/customer", postingData)
       .then((response) => {
         if (response.status === 200) return response.json();
+        else if (response.status === 409) return alert("Account already exists");
         else alert("Successfully signed up");
       })
       .then(navigate('/'))
