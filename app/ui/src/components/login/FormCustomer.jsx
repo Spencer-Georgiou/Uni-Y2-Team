@@ -1,24 +1,26 @@
 import React, { useState } from "react";
-//import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
 
-{/*Form that allows users to input their username and password to log in.*/}
+{/*Form that allows users to input their username and password to log in.*/ }
 const FormCustomer = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  {/*Change Username to user input*/}
+  const navigate = useNavigate();
+
+  {/*Change Username to user input*/ }
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
 
-  {/*Change Password to user input*/}
+  {/*Change Password to user input*/ }
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
 
   const handleSubmit = (e) => {
-    e.preventDefault(); {/*prevents the default form from submitting and keeps the page from reloading*/}
+    e.preventDefault(); {/*prevents the default form from submitting and keeps the page from reloading*/ }
 
     const postingData = {
       method: "POST",
@@ -35,7 +37,7 @@ const FormCustomer = () => {
         if (response.status === 200) return response.json();
         else alert("error here");
       })
-      .then()
+      .then(navigate("/"))
       .catch((error) => {
         console.error("there was an error", error);
       });
@@ -64,7 +66,7 @@ const FormCustomer = () => {
         <b>
           {/*When user submits form, assign input to username variable*/}
           <input
-            type="text"
+            type="password"
             id="password"
             value={password}
             onChange={handlePasswordChange}

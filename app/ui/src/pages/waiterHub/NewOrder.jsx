@@ -1,3 +1,5 @@
+// This is the page where the waiter creates a new order.
+
 import MenuNew from "../../components/newOrder/MenuNew";
 import ConfirmOrderButton from "../../components/newOrder/ConfirmOrderButton";
 import { useState } from "react";
@@ -15,6 +17,7 @@ const NewOrder = () => {
     };
 
 
+    // Add each item to the order state.
     const orderNewItem = (newOrder) => {
         const newAddedOrder = [...addedOrder, newOrder];
         setAddedOrder(newAddedOrder);
@@ -32,7 +35,6 @@ const NewOrder = () => {
             <div className="h-5/6 w-5/6 bg-lemon p-4 flex flex-row space-x-4">
                 <div className="flex justify-start flex-nowrap">
                     <MenuNew orderNewItem={orderNewItem} onSetTableNumber={handleSetTableNumber} />
-                    {/* This will be the menu section. This will be the menu section. This will be the menu section. This will be the menu section.  */}
                 </div>
 
 
@@ -42,6 +44,7 @@ const NewOrder = () => {
                         Table Number : {tableNumber}
                     </div>
 
+                    {/* Displaying the order in the side bar */}
                     <div className="flex flex-col flex-nowrap h-full w-60 bg-yellow-200 rounded-[25px] space-y-10 overflow-auto">
                         {addedOrder.map((order, index) => (
                             <div className="flex font-sans font-bold mt-5 ml-2" key={index}>

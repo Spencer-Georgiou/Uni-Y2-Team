@@ -1,21 +1,28 @@
+// This button is displayed in the "Orders" column.
+
 import { Button } from 'flowbite-react';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
 
-function ConfirmedButton({ orderId }) {
+
+function ConfirmedButton({ orderId, onOrderDelivered }) {
   const [buttonColour, setButtonColour] = useState('green');
   const [textColour, setTextColour] = useState('white');
-  
+
   const handleReady = () => {
+    // Once it is clicked, it's colours are set to transparent
     setButtonColour('transparent');
     setTextColour('transparent');
 
+    const cookieUsername = Cookies.get('username'); //the cookie set stores the username of the waiter logged in
 
     const patchData = {
       id: orderId,
       status: 'Preparing',
-      confirmed_by_waiter: true
+      waiter_username: cookieUsername //the username stored in the cookie will be sent in the patch request so that the waiter that logged in and confirmed the order will be assigned to that table
     };
 
+    // Sending the request to teh api.
     fetch(`/api/order`, {
       method: 'PATCH',
       headers: {
@@ -27,23 +34,17 @@ function ConfirmedButton({ orderId }) {
         if (!response.ok) {
           throw new Error('Failed to mark order as ready');
         }
-        // Handle success, maybe display a success message
+        onOrderDelivered(orderId);
       })
       .catch(error => {
         console.error('Error marking order as ready:', error);
         // Handle error, display an error message to the user
       });
-
-      window.location.reload();
   };
 
   return (
-    <Button  style={{ backgroundColor: buttonColour, color: textColour, outline:'transparent' }} onClick={handleReady}>Confirm Order</Button>
+    <Button style={{ backgroundColor: buttonColour, color: textColour, outline: 'transparent' }} onClick={handleReady}>Confirm Order</Button>
   );
 }
 
 export default ConfirmedButton;
-
-
-
-

@@ -1,0 +1,50 @@
+' This diagram is written in plantuml with the aid of
+' jebbs' [PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) plugin in VSCode
+@startuml
+' diagram format
+skinparam sequenceArrowThickness 1
+skinparam maxmessagesize 200
+skinparam BoxPadding 50
+skinparam SequenceMessageAlign first
+!pragma teoz true
+
+title Order Creation
+
+' actors
+actor Waiter
+actor Customer
+' frontend entities
+box Frontend
+boundary WaiterHub
+boundary OrderPage
+end box
+' backend entities
+box Backend
+entity "/api/order" as OrderAPI
+end box
+' database entities
+database Database
+
+group customer creates an order
+Customer -> OrderPage: create an order
+OrderPage -> OrderAPI: POST with the table number and ordered menu items
+OrderAPI -> Database: create an order with status "Confirming" and the content
+Database -> OrderAPI: done
+OrderAPI -> OrderPage: the order is created
+WaiterHub -> WaiterHub: render the order in "Orders" Column
+& OrderPage -> OrderPage: render the progress to "Waiting For Confirmation"
+WaiterHub -> Waiter: display the order in "Orders" Column
+& OrderPage -> Customer: display the progress in "Waiting For Confirmation"
+end group
+group waiter creates an order
+Waiter -> WaiterHub: create an order
+WaiterHub -> OrderAPI: POST with the table number and ordered menu items
+OrderAPI -> Database: create an order with the given status and content
+Database -> OrderAPI: done
+OrderAPI -> WaiterHub: the order is created
+WaiterHub -> WaiterHub: render the order in "Orders" Column
+& OrderPage -> OrderPage: render the progress to "Waiting For Confirmation"
+WaiterHub -> Waiter: display the order in "Orders" Column
+& OrderPage -> Customer: display the progress in "Waiting For Confirmation"
+end group
+@enduml

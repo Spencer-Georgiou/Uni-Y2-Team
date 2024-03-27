@@ -1,6 +1,4 @@
-
 'use client';
-
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -12,13 +10,8 @@ function NavBarWaiterHub() {
 
     const handleLogOut = () => {
         Cookies.remove('session_key');
-        console.log('removed cookie');
-
         navigate('/StaffLogin');
     }
-
-
-
 
     return (
         <Navbar className="bg-cherry flex items-center justify-between w-screen">
@@ -26,7 +19,6 @@ function NavBarWaiterHub() {
                 <Link to="/WaiterHub">
                     <span className="self-center text-xl text-lemon font-semibold underline">Waiter Hub</span>
                 </Link>
-
 
             </div>
             <div className="flex flex-1 justify-center flex-nowrap">
@@ -37,9 +29,12 @@ function NavBarWaiterHub() {
             </div>
             {/*The avatar icon with a dropdown displaying log out which takes you back to StaffLogin*/}
             <div className="flex flex-1 justify-end items-center">
-                <Dropdown className="bg-lemon" label={
+                <Dropdown className="bg-lemon border-lemon" label={
                     <Avatar rounded />
                 }>
+                    <Dropdown.Item as={Link} to="/Tutorial" className="focus:bg-lemon font-semibold text-cherry">
+                        Tutorial
+                    </Dropdown.Item>
                     <Dropdown.Item onClick={handleLogOut} className="focus:bg-lemon font-semibold text-cherry">
                         Logout
                     </Dropdown.Item>

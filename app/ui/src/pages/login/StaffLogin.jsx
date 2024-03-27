@@ -1,7 +1,6 @@
 import FormStaff from "../../components/login/FormStaff"
-// import NavBarStaff from "../../components/Login/NavBarStaff"
 
-{/*Log In page for staff which requires a username and password.*/}
+{/*Log In page for staff which requires a username and password.*/ }
 const StaffLogin = () => {
     return (
         <div>

@@ -1,9 +1,11 @@
+// The button for when the customer is complletly finsihed with their order.
 import { Button } from 'flowbite-react';
 
-function FinishedButton({ orderId }) {
+function FinishedButton({ orderId, onOrderDelivered }) {
   const handleReady = () => {
 
 
+    // Sends request to delete the order form the api.
     fetch(`/api/order?id=${orderId}`, {
       method: 'DELETE',
       headers: {
@@ -20,15 +22,8 @@ function FinishedButton({ orderId }) {
         console.log('Error from api:', error);
         // Handle error, display an error message to the user
       });
-
-
-      window.location.reload();
+    onOrderDelivered(orderId);
   };
-
-
-
-
-
 
   return (
     <Button color="success" onClick={handleReady}>Finished Order</Button>

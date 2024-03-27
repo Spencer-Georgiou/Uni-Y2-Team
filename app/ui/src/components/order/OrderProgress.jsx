@@ -2,26 +2,26 @@
 
 import { Button, Timeline } from "flowbite-react";
 import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 {
   /*Timeline that shows the live progress of a customer's order*/
 }
-function OrderProgress({ tableNumber }) {
-  const [confirm, setconfirm] = useState(false);
+function OrderProgress({ confirm, setconfirm }) {
+  //there state is to control the display of different order status
   const [prepare, setPrepare] = useState(false);
   const [delivering, setDelivering] = useState(false);
   const [delivered, setDelivered] = useState(false);
-  const [order, setOrder] = useState([]);
-  const [currentState, setCurrentState] = useState("");
+  //store the order information
+  const [order, setOrder] = useState({});
+  //the current table number
+  const tableNumber = useSelector((state) => state.table);
 
-  useEffect(() => {
-    handleProgress();
-  }, [tableNumber]);
-
+  //this function is to update the order progress
   function handleProgress() {
+    //to get the latest order status
     fetchTable(tableNumber);
-    order.map((m) => console.log(m));
-    order.map((m) => setCurrentState(m.status));
+    const currentState = order.status;
     console.log(currentState);
     if (currentState === "Confirming") {
       setconfirm(true);
@@ -49,40 +49,42 @@ function OrderProgress({ tableNumber }) {
     }
   }
 
-  //useing table number to fetch from the database to get order id
-  const fetchTable = (tableNumber) => {
+  //using table number to fetch order id from the database
+  async function fetchTable(tableNumber) {
     return fetch(`/api/table?number=${tableNumber}`)
       .then((response) => {
+        //if the request failed, throw error
         if (!response.ok) {
           throw new Error(`Failed to fetch table ${tableNumber}`);
         }
         return response.json();
       })
       .then((table) => {
-        fetchOrder(table.order.id); // Fetch order for the fetched table
+        fetchOrder(table.order.id); // Fetch specfic order for the fetched table
         return table;
       })
       .catch((error) => {
         console.error(`Error fetching order ${tableNumber}:`, error);
         return null;
       });
-  };
+  }
 
   //get the specfic order details by order id
   async function fetchOrder(tableId) {
     return fetch(`/api/order?id=${tableId}`)
       .then((response) => response.json())
       .then((json) => {
-        // Only add orders with status "Preparing"
-
-        setOrder((prevOrders) => [...prevOrders, json]);
+        //once sucessfully find the order, set it to order state
+        setOrder(json);
       });
   }
 
+  // the component of displaying highlight 'you are here' on order progress bar
   const Here = () => {
     return (
       <div>
         <span>
+          {/* the bell icon */}
           <svg
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -94,6 +96,7 @@ function OrderProgress({ tableNumber }) {
           </svg>
         </span>
         <p className="text-ocean mt-1">You Are Here</p>
+        {/* the button to update the ordre progress status */}
         <button
           type="button"
           class="underline text-base text-gray-800 hover:text-cherry"

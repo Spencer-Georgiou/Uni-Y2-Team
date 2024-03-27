@@ -1,14 +1,13 @@
 import FormCustomer from "../../components/login/FormCustomer"
 
-{/*Log In page for customers which requires a username and password.*/}
+{/*Log In page for customers which requires a username and password.*/ }
 const CustomerLogin = () => {
-
     return (
         <div>
             {/*Background Image*/}
             <div
                 className="w-full h-screen bg-no-repeat bg-cover bg-center flex justify-center items-center relative"
-                style={{ backgroundImage: "url('/images/CustomerLoginBackground.png')" }}
+                style={{ backgroundImage: "url('/images/CustomerLoginBackground_1024.jpg')" }}
             >
                 {/*User input form*/}
                 <div className="h-[500px] w-[600px] bg-amber rounded-[25px] py-5 m-auto">
