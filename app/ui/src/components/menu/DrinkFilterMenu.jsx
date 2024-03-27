@@ -1,21 +1,10 @@
 //the combination of filter and starters
 //combine them is because they need a same state to control the content, will solve it later
 
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
-const Beer = [
-  { name: "Corona Extra", description: "light, refreshing with wedge of lime", calorie: 300, price: 3, menugroup: "Beer", image_path: "corona-extra.jpg" },
-  { name: "Modelo Especial", description: "balanced flavour profile, and smooth, crisp finish", calorie: 150, price: 2, menugroup: "Beer", image_path: "modelo-especial.jpg" },
-  { name: "Pacifico", description: "crisp taste with a touch of malt sweetness", calorie: 150, price: 2.3, menugroup: "Beer", image_path: "pacifico.jpg" },
-  {
-    name: "Dos Equis", description: "smooth flavour with hints of toasted malt",
-    calorie: 180, price: 3,
-    menugroup: "beer", image_path: "dos-equis.jpg"
-  },
-]
-
+//the menu items of cocktail
 const cocktail = [
-
   {
     name: "Margarita",
     description: "classic cocktail featuring tequila, lime juice, and orange liqueur served over ice and often rimmed with salt",
@@ -48,6 +37,7 @@ const cocktail = [
   },
 ]
 
+//the menu item of soft drink
 const softDrink = [
   {
     name: "Jarritos",
@@ -71,8 +61,8 @@ const softDrink = [
   },
 ]
 
+//The menu items of hot drinks
 const hotDrink = [
-
   {
     name: "Mexican Hot Chocolate",
     description: "hot chocolate spiced with cinnamon and chili", calorie: 300,
@@ -99,8 +89,20 @@ const hotDrink = [
   },
 ]
 
-
 const DrinkFilterMenu = () => {
+
+  // The menu items of beer
+  const [Beer, setBeer] = useState([
+    { name: "Corona Extra", description: "light, refreshing with wedge of lime", calorie: 300, price: 3, menugroup: "Beer", image_path: "corona-extra.jpg" },
+    { name: "Modelo Especial", description: "balanced flavour profile, and smooth, crisp finish", calorie: 150, price: 2, menugroup: "Beer", image_path: "modelo-especial.jpg" },
+    { name: "Pacifico", description: "crisp taste with a touch of malt sweetness", calorie: 150, price: 2.3, menugroup: "Beer", image_path: "pacifico.jpg" },
+    {
+      name: "Dos Equis", description: "smooth flavour with hints of toasted malt",
+      calorie: 180, price: 3,
+      menugroup: "beer", image_path: "dos-equis.jpg"
+    },
+  ])
+
   //the state of allery list
   const [allergy, setAllergy] = useState({
     //if the state of nonspicy changed to be false, the spicy food won't show out
@@ -112,7 +114,7 @@ const DrinkFilterMenu = () => {
   });
 
   // the function to set the state to control menu display
-  function handleAllergy(e) {
+  const handleAllergy = (e) => {
     //get the name and valu of the element
     let { value } = e.target;
 
@@ -124,11 +126,36 @@ const DrinkFilterMenu = () => {
         ...allergy,
         [value]: false,
       });
+      //update the beer items to filter the item included fruit
+      if (value === "fruit") {
+        setBeer([
+          { name: "Modelo Especial", description: "balanced flavour profile, and smooth, crisp finish", calorie: 150, price: 2, menugroup: "Beer", image_path: "modelo-especial.jpg" },
+          { name: "Pacifico", description: "crisp taste with a touch of malt sweetness", calorie: 150, price: 2.3, menugroup: "Beer", image_path: "pacifico.jpg" },
+          {
+            name: "Dos Equis", description: "smooth flavour with hints of toasted malt",
+            calorie: 180, price: 3,
+            menugroup: "beer", image_path: "dos-equis.jpg"
+          },
+        ])
+      }
     } else {
       setAllergy({
         ...allergy,
         [value]: true,
       });
+      //to recover the original beer menu item
+      if (value === "fruit") {
+        setBeer([
+          { name: "Corona Extra", description: "light, refreshing with wedge of lime", calorie: 300, price: 3, menugroup: "Beer", image_path: "corona-extra.jpg" },
+          { name: "Modelo Especial", description: "balanced flavour profile, and smooth, crisp finish", calorie: 150, price: 2, menugroup: "Beer", image_path: "modelo-especial.jpg" },
+          { name: "Pacifico", description: "crisp taste with a touch of malt sweetness", calorie: 150, price: 2.3, menugroup: "Beer", image_path: "pacifico.jpg" },
+          {
+            name: "Dos Equis", description: "smooth flavour with hints of toasted malt",
+            calorie: 180, price: 3,
+            menugroup: "beer", image_path: "dos-equis.jpg"
+          },
+        ])
+      }
     }
   }
 
