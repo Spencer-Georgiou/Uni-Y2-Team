@@ -111,13 +111,7 @@ function DisplayHelp() {
                     </div>
                 </div>
             ))}
-
-
-
         </div>
-
-
-
     );
 }
 

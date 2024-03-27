@@ -9,7 +9,6 @@ function SolvedButton({ orderId }) {
     setButtonColour('transparent');
     setTextColour('transparent');
 
-
     const patchData = {
       id: orderId,
       calling_waiter: false

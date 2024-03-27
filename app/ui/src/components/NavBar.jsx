@@ -1,14 +1,17 @@
 "use client";
 import { Navbar, Dropdown, Button } from "flowbite-react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 {
   /* Navigation bar component that allows users to easily select, and be taken to, pages they wish to view */
 }
-function NavBar() {
+const NavBar = () => {
+  const tableNumber = useSelector((state) => state.table);
+  
   const CallWaiter = () => {
     const patchData = {
-      id: 1,
+      id: tableNumber,
       calling_waiter: true
     };
 
@@ -36,7 +39,7 @@ function NavBar() {
       <Navbar.Collapse>
         {/* Link to Home Page */}
         <Link
-          to="/Tutorial"
+          to="/"
           className="font-sans font-medium font-semibold text-lemon hover:text-amber hover:underline"
         >
           <span>Home</span>
