@@ -254,64 +254,63 @@ const DrinkFilterMenu = () => {
           </div>
         </div>
       </div>
-      <div class="bg-lemon border-gray-200 dark:bg-gray-900">
-        <div class="flex flex-wrap justify-between my-auto mx-auto w-auto h-auto px-7">
-          <p className="ml-20 text-lg my-1">
-            This menu will display all drinks for reference only, subject to
-            availability.
-          </p>
-          <img
-            src="/menu/beers.jpg"
-            alt="picture"
-            class="w-1/2 h-16 ml-72 mt-4"
-          />
-          <div class="w-10/12 h-90 bg-amber ml-24 rounded-xl p-3 overflow-x-auto  rounded-xl my-4">
+      <div class="bg-lemon border-gray-200 dark:bg-gray-900 w-auto h-auto px-7">
 
-            <table class="w-full text-lg text-left text-lemon">
-              <thead class="text-xl text-lemon uppercase bg-amber">
-                <tr>
-                  <th scope="col" class="px-6 py-3">
-                    Name
+        <p className="ml-24 text-lg my-1">
+          This menu will display all drinks for reference only, subject to
+          availability.
+        </p>
+        <img
+          src="/menu/beers.jpg"
+          alt="picture"
+          class="w-1/2 h-16 ml-72 mt-5"
+        />
+        <div class=" w-10/12 h-90 bg-amber ml-32 rounded-xl p-3 overflow-x-auto rounded-xl">
+          <table class=" text-lg text-left text-lemon">
+            <thead class="text-xl text-lemon uppercase bg-amber">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Calories
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Allergens
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Price
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {Beer.map((item) => (
+                <tr class="bg-amber">
+                  <th scope="row" class="px-6 h-5 font-medium text-lemon">
+                    <b>{item.name}</b>
+                    <p class="text-gray-900">
+                      {item.description}
+                    </p>
                   </th>
-                  <th scope="col" class="px-6 py-3">
-                    Calories
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Allergens
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Price
-                  </th>
+                  <td class="px-6 py-4 text-gray-900">{item.calorie} kcal</td>
+                  <td class="px-6 py-4 text-gray-900">{item.menugroup}</td>
+                  <td class="px-6 py-4 text-gray-900">
+                    <b>￡{item.price}</b>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {Beer.map((item) => (
-                  <tr class="bg-amber">
-                    <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                      <b>{item.name}</b>
-                      <p class="text-gray-900">
-                        {item.description}
-                      </p>
-                    </th>
-                    <td class="px-6 py-4 text-gray-900">{item.calorie} kcal</td>
-                    <td class="px-6 py-4 text-gray-900">{item.menugroup}</td>
-                    <td class="px-6 py-4 text-gray-900">
-                      <b>￡{item.price}</b>
-                    </td>
-                  </tr>
-                ))}
+              ))}
 
-              </tbody>
-            </table>
-          </div>
-
+            </tbody>
+          </table>
         </div>
+
+
         <img
           src="/menu/cocktails.jpg"
           alt="picture"
           class="w-1/2 h-16 ml-72 mt-5"
         />
-        <div class=" w-[940px] h-90 bg-amber ml-32 rounded-xl p-3 overflow-x-auto rounded-xl">
+        <div class=" w-10/12 h-90 bg-amber ml-32 rounded-xl p-3 overflow-x-auto rounded-xl">
           <table class=" text-lg text-left text-lemon">
             <thead class="text-xl text-lemon uppercase bg-amber">
               <tr>
@@ -354,7 +353,7 @@ const DrinkFilterMenu = () => {
           alt="picture"
           class="w-1/2 h-14 ml-72 mt-5"
         />
-        <div class=" w-[940px] h-90 bg-amber ml-32 rounded-xl p-3 overflow-x-auto rounded-xl my-4">
+        <div class=" w-10/12 h-90 bg-amber ml-32 rounded-xl p-3 overflow-x-auto rounded-xl my-4">
           <table class=" text-lg text-left text-lemon">
             <thead class="text-xl text-lemon uppercase bg-amber">
               <tr>
@@ -397,7 +396,7 @@ const DrinkFilterMenu = () => {
           alt="picture"
           class="w-1/2 h-14 ml-72 mt-5"
         />
-        <div class=" w-[940px] h-90 bg-amber ml-32 rounded-xl p-3 overflow-x-auto rounded-xl my-4">
+        <div class=" w-10/12 h-90 bg-amber ml-32 rounded-xl p-3 overflow-x-auto rounded-xl my-4">
           <table class=" text-lg text-left text-lemon">
             <thead class="text-xl text-lemon uppercase bg-amber">
               <tr>
