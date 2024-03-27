@@ -74,7 +74,7 @@ const OrderMenu = () => {
   }
 
   //the state of allery list
-  const allergy = ["Gluten", "Dairy", "Nuts", "Egg", "Mollusk"];
+  const allergy = ["Gluten", "Dairy", "Nuts", "Egg", "Mollusc"];
   // the function to set the state to control menu display
   function handleAllergy(e) {
     //get the allergen name

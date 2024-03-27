@@ -8,7 +8,7 @@ const FilterMenu = () => {
   const [allergy, setAllergy] = useState({
     //if the state of nonspicy changed to be false, the spicy food won't show out
     spicy: true,
-    mollusk: true,
+    mollusc: true,
     egg: true,
     vegetarian: true,
     gluten: true,
@@ -57,7 +57,7 @@ const FilterMenu = () => {
                 <input
                   id="default-checkbox"
                   type="checkbox"
-                  value="mollusk"
+                  value="mollusc"
                   onChange={handleAllergy}
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 ></input>
@@ -65,7 +65,7 @@ const FilterMenu = () => {
                   for="default-checkbox"
                   class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
                 >
-                  <b>Mollusk</b>
+                  <b>Mollusc</b>
                 </label>
               </div>
               <div class="flex items-center mb-5">
@@ -259,7 +259,7 @@ const FilterMenu = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {allergy.mollusk && (
+                  {allergy.mollusc && (
                     <tr class="bg-cherry">
                       <th scope="row" class="px-6 h-5 font-medium text-lemon">
                         <b>Burrito</b>
@@ -269,7 +269,7 @@ const FilterMenu = () => {
                         </p>
                       </th>
                       <td class="px-6 py-4 text-gray-900">350 kcal</td>
-                      <td class="px-6 py-4 text-gray-900">Mollusk</td>
+                      <td class="px-6 py-4 text-gray-900">Mollusc</td>
                       <td class="px-6 py-4 text-gray-900">
                         <b>￡6.00</b>
                       </td>
