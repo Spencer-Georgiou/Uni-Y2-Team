@@ -32,9 +32,6 @@ function NavBarWaiterHub() {
                 <Dropdown className="bg-lemon border-lemon" label={
                     <Avatar rounded />
                 }>
-                    <Dropdown.Item as={Link} to="/Tutorial" className="focus:bg-lemon font-semibold text-cherry">
-                        Tutorial
-                    </Dropdown.Item>
                     <Dropdown.Item onClick={handleLogOut} className="focus:bg-lemon font-semibold text-cherry">
                         Logout
                     </Dropdown.Item>

@@ -22,7 +22,6 @@ import NewOrder from './pages/waiterHub/NewOrder';
 import KitchenHub from './pages/kitchenHub/KitchenHub'
 import NavBarKitchenHub from './components/kitchenHub/NavBarKitchenHub';
 import ChangeMenu from './pages/waiterHub/ChangeMenu';
-import Tutorial from './pages/waiterHub/Tutorial';
 
 /**Picks which NavBar to display depending on what page is active.
  */
@@ -36,7 +35,6 @@ function PickNavBar() {
     //Waiters Hub NavBar which contains a user icon and link back to main hub page
     case "/NewOrder":
     case "/ChangeMenu":
-    case "/Tutorial":
       return <NavBarWaiterHub />;
 
     case "/KitchenHub":
@@ -78,7 +76,6 @@ function App() {
           <Route path="/NewOrder" element={<NewOrder />} />
           <Route path="/KitchenHub" element={<KitchenHub />} />
           <Route path="/ChangeMenu" element={<ChangeMenu />} />
-          <Route path="/Tutorial" element={<Tutorial />} />
         </Routes>
         <Foot />
       </Router>

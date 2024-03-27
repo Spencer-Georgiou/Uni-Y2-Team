@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const Payment = ({ openPay, setOpenPay, url }) => {
   const tableNumber = useSelector((state) => state.table);
 
-  const CallWaiter = () => {
+  const sendCall = () => {
     const patchData = {
       id: tableNumber,
       calling_waiter: true
@@ -51,7 +51,7 @@ const Payment = ({ openPay, setOpenPay, url }) => {
             <p>
               <b className="text-amber ">Pay directly</b>
             </p>
-            <p className="underline hover:text-cherry" onClick={CallWaiter}>Call Waiter</p>
+            <p className="underline hover:text-cherry" onClick={sendCall}>Call Waiter</p>
           </div>
         </Modal.Body>
       </Modal>
