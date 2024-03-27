@@ -1,0 +1,50 @@
+' This diagram is written in plantuml with the aid of
+' jebbs' [PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) plugin in VSCode
+@startuml
+' diagram format
+skinparam sequenceArrowThickness 1
+skinparam maxmessagesize 200
+skinparam BoxPadding 50
+skinparam SequenceMessageAlign first
+!pragma teoz true
+
+title Online Payment
+
+' actors
+actor Waiter
+actor Kitchen
+actor Customer
+' frontend entities
+box Frontend
+boundary WaiterHub
+boundary OrderPage
+end box
+' backend entities
+box Backend
+entity "/api/order" as OrderAPI
+entity "/api/payment" as PaymentAPI
+end box
+' database entities
+boundary StripePage
+database Database
+
+Customer -> OrderPage: pay the order online
+OrderPage -> PaymentAPI: POST with order id
+PaymentAPI -> OrderPage: return the Stripe URL for the order
+OrderPage -> StripePage: open the page with the given URL
+StripePage -> Customer: display the payment
+Customer -> Customer: type payment info
+Customer -> StripePage: submit the payment form
+StripePage -> PaymentAPI: GET with order id
+PaymentAPI -> Database: update the paid status of the order with the given id to true
+Database -> PaymentAPI: done
+WaiterHub -> OrderAPI: GET to get all order info
+OrderAPI -> WaiterHub: return all order info
+alt order is paid
+WaiterHub -> WaiterHub: render a "PAID" icon next to the order
+WaiterHub -> Waiter: display that the order has been paid
+else order is not paid
+WaiterHub -> WaiterHub: render a "NOT PAID" icon next to the order
+WaiterHub -> Waiter: display that the order has not been paid
+end alt
+@enduml

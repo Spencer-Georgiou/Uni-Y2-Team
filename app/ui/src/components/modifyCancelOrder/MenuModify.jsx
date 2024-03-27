@@ -1,9 +1,7 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { Modal } from "flowbite-react";
 import ModalNew from "../../components/newOrder/ModalNew";
-import NewOrder from "../../pages/waiterHub/NewOrder";
 
 // Buttons which waiter presses to filter menu
 const filterButtons = [
@@ -26,14 +24,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
     const [orderQuantity, setOrderQuantity] = useState({});
 
     const [openModal, setOpenModal] = useState(true);
-    const [tableNumber, setTableNumber] = useState("");
-
-    // Fetches menu data from api and sets it in json format
-    useEffect(() => {
-        fetch("/api/menu")
-            .then((response) => response.json())
-            .then((json) => setData(json));
-    }, []);
+    const [tableNumber, setTableNumber] = useState(null);
 
     // Fetches menu data from api and sets it in json format
     useEffect(() => {
@@ -57,7 +48,6 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
         }
     }
 
-
     const increaseQuantity = (quant) => {
         setOrderQuantity((prevState) => ({
             //prev state is the previous state iof ordeQuantity
@@ -68,6 +58,8 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
         }));
     };
 
+
+    // This fucntion is to decease the quantity of items, making sure it doesn't go below 0.
     const decreaseQuantity = (quant) => {
         setOrderQuantity((prevState) => ({
             ...prevState,
@@ -75,10 +67,12 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
         }));
     };
 
+    // Setting a state to be the item Id is to make sure the modal only opens for one item at a time.
     const openModalForItem = (itemId) => {
         setSelectedItemId(itemId);
     };
 
+    // Once the modal is closed, the states revert back to their original values.
     const closeModal = () => {
         setSelectedItemId(null);
         setOrderQuantity({});
@@ -102,16 +96,16 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
     const handleTableNumber = (e) => {
         const newTableNumber = e.target.value;
         if (newTableNumber > 0 && newTableNumber <= 20) {
-            setTableNumber(e.target.value);
-            updateTableNum(e.target.value);
+            setTableNumber(newTableNumber);
         } else {
             // Handle invalid input (for example, display an error message)
             alert("Please enter a table number between 1 and 20");
         }
     };
 
-    const updateTableNum = (tableNum) => {
-        onSetTableNumber(tableNum);
+    const handleSubmitTableNumber = () => {
+        setOpenModal(false);
+        onSetTableNumber(tableNumber);
     };
 
     return (
@@ -127,7 +121,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
                     <div
                         class="bg-cover w-full h-full"
                         style={{
-                            backgroundImage: "url('/images/CustomerLoginBackground.png')",
+                            backgroundImage: "url('/images/CustomerLoginBackground_1024.jpg')",
                         }}
                     >
                         <Modal.Header />
@@ -159,7 +153,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
                                     <button
                                         type="button"
                                         className="bg-lemon text-black font-sans font-bold py-2 px-4 my-2 rounded-lg  hover:bg-cherry hover:text-lemon"
-                                        onClick={() => setOpenModal(false)}
+                                        onClick={handleSubmitTableNumber}
                                     >
                                         Done
                                     </button>
@@ -170,6 +164,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
                 </Modal>
             </>
 
+            {/* Dsiplaying all the menu catrgories as filter buttons */}
             {filterButtons.map((item, index) => (
                 <button
                     className="bg-redder text-black text-3xl  font-sans font-bold py-5 px-5 my-2 mx-1 space-x-4 rounded-lg hover:bg-amber hover:text-lemon"
@@ -181,6 +176,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
                 </button>
             ))}
 
+            {/* The table in which the menu items will be displayed. */}
             <table border={1} className="w-full text-xl text-left rtl:text-right">
                 <thead>
                     <tr className="bg-amber text-3xl text-sans">
@@ -218,6 +214,7 @@ const MenuModify = ({ orderNewItem, onSetTableNumber }) => {
                                 >
                                     Add to order
                                 </button>
+                                {/* The modal for each item, which allows the waiter to add to order. */}
                                 {selectedItemId !== null && (
                                     <ModalNew
                                         item={filteredMenu[selectedItemId]}

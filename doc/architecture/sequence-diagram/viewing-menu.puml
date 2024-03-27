@@ -1,0 +1,43 @@
+' This diagram is written in plantuml with the aid of
+' jebbs' [PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) plugin in VSCode
+@startuml
+' diagram format
+skinparam sequenceArrowThickness 1
+skinparam maxmessagesize 200
+skinparam BoxPadding 50
+skinparam SequenceMessageAlign first
+!pragma teoz true
+
+title Viewing Menu
+
+' actors
+actor Customer
+' frontend entities
+box Frontend
+boundary FoodMenuPage
+end box
+' backend entities
+box Backend
+entity "/api/menu" as MenuAPI
+end box
+' database entities
+database Database
+
+alt viewing food menu
+Customer -> FoodMenuPage: view Food Menu
+FoodMenuPage -> MenuAPI: GET all menu items under category "Food"
+MenuAPI -> Database: fetch info of all menu items
+Database -> MenuAPI: done
+MenuAPI -> FoodMenuPage: return a list of food menu items
+FoodMenuPage -> FoodMenuPage: return the list of menu items
+FoodMenuPage -> Customer: display the list of menu items
+else viewing drink menu
+Customer -> FoodMenuPage: view Drink Menu
+FoodMenuPage -> MenuAPI: GET all menu items under category "Drink"
+MenuAPI -> Database: fetch info of all menu items
+Database -> MenuAPI: done
+MenuAPI -> FoodMenuPage: return a list of drink menu items
+FoodMenuPage -> FoodMenuPage: return the list of menu items
+FoodMenuPage -> Customer: display the list of menu items
+end alt
+@enduml

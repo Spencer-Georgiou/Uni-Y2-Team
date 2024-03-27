@@ -8,7 +8,7 @@ const DrinkMenu = () => {
         <div>
 
             <img
-                src="/menu/drinkMenuBanner.png"
+                src="/menu/drinkMenuBanner.jpg"
                 alt="picture"
                 class="background-size:cover w-full"
             />

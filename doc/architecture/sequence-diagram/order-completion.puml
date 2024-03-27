@@ -1,0 +1,40 @@
+' This diagram is written in plantuml with the aid of
+' jebbs' [PlantUML](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) plugin in VSCode
+@startuml
+' diagram format
+skinparam sequenceArrowThickness 1
+skinparam maxmessagesize 200
+skinparam BoxPadding 50
+skinparam SequenceMessageAlign first
+!pragma teoz true
+
+title Order Completion
+
+' actors
+actor Waiter
+actor Customer
+' frontend entities
+box Frontend
+boundary WaiterHub
+boundary OrderPage
+end box
+' backend entities
+box Backend
+entity "/api/order" as OrderAPI
+end box
+' database entities
+database Database
+
+alt order status is "Delivered"
+Waiter -> WaiterHub: completes an order
+WaiterHub -> OrderAPI: DELETE to remove the order
+WaiterHub -> OrderAPI: DELETE with its order id
+OrderAPI -> Database: delete the order with the id
+Database -> OrderAPI: done
+OrderAPI -> WaiterHub: the order is deleted
+WaiterHub -> WaiterHub: not render the order
+& OrderPage -> OrderPage: delete the page itself
+WaiterHub -> Waiter: no longer display the order
+& OrderPage -> Customer: page is inaccessible
+end
+@enduml
