@@ -13,6 +13,7 @@ from src.models import Session
 from src.models import Waiter
 from src.models import Order
 from src.models import OrderMenuItemAssociation
+from src.models.user import hash_pwd
 
 
 class Migration:
@@ -201,16 +202,16 @@ class Migration:
 
         # initialize users with their sessions
         waiters = [
-            Waiter(username="Kate", password="123456", session=Session()),
-            Waiter(username="Ava", password="123456", session=Session()),
-            Waiter(username="Jack", password="123456", session=Session()),
-            Waiter(username="Sam", password="123456"),
-            Waiter(username="Lucy", password="123456"),
+            Waiter(username="Kate", password=hash_pwd("123456"), session=Session()),
+            Waiter(username="Ava", password=hash_pwd("123456"), session=Session()),
+            Waiter(username="Jack", password=hash_pwd("123456"), session=Session()),
+            Waiter(username="Sam", password=hash_pwd("123456")),
+            Waiter(username="Lucy", password=hash_pwd("123456")),
         ]
         kitchens = [
-            Kitchen(username="Jenny", password="123456", session=Session()),
-            Kitchen(username="Ben", password="123456"),
-            Kitchen(username="Zoe", password="123456"),
+            Kitchen(username="Jenny", password=hash_pwd("123456"), session=Session()),
+            Kitchen(username="Ben", password=hash_pwd("123456")),
+            Kitchen(username="Zoe", password=hash_pwd("123456")),
         ]
         db.session.add_all(waiters + kitchens)
 

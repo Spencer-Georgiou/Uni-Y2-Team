@@ -12,7 +12,7 @@ from src.models import User
 from src.models import Session
 from src.models import db
 from src.schema import UnassociatedUser
-
+from src.models.user import hash_pwd
 
 def create_session(username):
     # delete existing session 
@@ -51,8 +51,7 @@ class Login(MethodView):
 
         user_db = db.session.query(User).filter_by(username=username).first()
 
-        # need to create hash() for use here and for registration
-        if user_db is None or user_db.password != password:
+        if user_db is None or user_db.password != hash_pwd(password):
             abort(401, message=Login.MSG_INVALID_CREDS)
 
         return {"session_key": create_session(username), "role": user_db.__tablename__}, 200
