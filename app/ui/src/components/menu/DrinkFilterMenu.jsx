@@ -3,7 +3,7 @@
 
 import { Fragment, useState } from "react";
 
-const drinkMenu = [
+const Beer = [
   { name: "Corona Extra", description: "light, refreshing with wedge of lime", calorie: 300, price: 3, menugroup: "Beer", image_path: "corona-extra.jpg" },
   { name: "Modelo Especial", description: "balanced flavour profile, and smooth, crisp finish", calorie: 150, price: 2, menugroup: "Beer", image_path: "modelo-especial.jpg" },
   { name: "Pacifico", description: "crisp taste with a touch of malt sweetness", calorie: 150, price: 2.3, menugroup: "Beer", image_path: "pacifico.jpg" },
@@ -12,6 +12,10 @@ const drinkMenu = [
     calorie: 180, price: 3,
     menugroup: "beer", image_path: "dos-equis.jpg"
   },
+]
+
+const cocktail = [
+
   {
     name: "Margarita",
     description: "classic cocktail featuring tequila, lime juice, and orange liqueur served over ice and often rimmed with salt",
@@ -42,6 +46,33 @@ const drinkMenu = [
     calorie: 240, price: 10, menugroup: "cocktail",
     image_path: "mexican-mule.jpg"
   },
+]
+
+const softDrink = [
+  {
+    name: "Jarritos",
+    description: "fruit flavoured soda- available in lime, pineapple, and mandarin",
+    calorie: 200, price: 2, menugroup: "soft_drink"
+  },
+  {
+    name: "Peach Iced Tea", description: "Homemade with fresh Peaches", calorie: 150,
+    price: 3,
+    menugroup: "soft_drink"
+  },
+  {
+    name: "Horchata",
+    description: "creamy and sweet beverage made from rice, almonds, cinnamon,and sugar",
+    calorie: 220, price: 2.8, menugroup: "soft_drink"
+  },
+  {
+    name: "Mineral Water",
+    description: "naturally carbonated water sourced from underground springs",
+    calorie: 0, price: 2, menugroup: "soft_drink"
+  },
+]
+
+const hotDrink = [
+
   {
     name: "Mexican Hot Chocolate",
     description: "hot chocolate spiced with cinnamon and chili", calorie: 300,
@@ -103,116 +134,114 @@ const DrinkFilterMenu = () => {
 
   return (
     <div>
-      <div class="bg-cherry w-full h-96 border-gray-200 p-4 pl-48">
-        <div class="flex flex-wrap justify-between mx-auto">
-          <div class="my-2.5 p-1 w-full">
-            <span class="text-lemon line-height:1.25rem text-2xl ">
-              <b>Dietary Filter</b>
+      <div class="bg-cherry w-auto h-auto border-gray-200 p-4 pl-48">
+        <div class=" flex flex-wrap justify-between mx-auto p-1 w-full">
+          <span class="text-lemon line-height:1.25rem text-2xl ">
+            <b>Dietary Filter</b>
+          </span>
+        </div>
+        <div class="bg-lemon w-5/6 h-64 rounded-2xl pt-5 px-20">
+          <div class="pl-2 text-cherry w-1/2 inline float-left">
+            <span class="text-xl">
+              <b>Does Not Contain:</b>
             </span>
+            <div class="flex items-center my-4">
+              <input
+                id="default-checkbox"
+                type="checkbox"
+                value="fruit"
+                onChange={handleAllergy}
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              ></input>
+              <label
+                for="default-checkbox"
+                class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
+              >
+                <b>Fruit</b>
+              </label>
+            </div>
+            <div class="flex items-center mb-5">
+              <input
+                id="default-checkbox"
+                type="checkbox"
+                value="alcoholic"
+                onChange={handleAllergy}
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              ></input>
+              <label
+                for="default-checkbox"
+                class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
+              >
+                <b>Alcoholic</b>
+              </label>
+            </div>
+            <div class="flex items-center mb-5">
+              <input
+                id="default-checkbox"
+                type="checkbox"
+                value="nonAlcoholic"
+                onChange={handleAllergy}
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              ></input>
+              <label
+                for="default-checkbox"
+                class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
+              >
+                <b>Non-Alcoholic</b>
+              </label>
+            </div>
+            <div class="flex items-center mb-5">
+              <input
+                id="default-checkbox"
+                type="checkbox"
+                value="gluten"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                // once the checkbox is changed, run the function
+                onChange={handleAllergy}
+              ></input>
+              <label
+                for="default-checkbox"
+                class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
+              >
+                <b>Gluten</b>
+              </label>
+            </div>
           </div>
-          <div class="bg-lemon w-5/6 h-64 rounded-2xl pt-5 px-20">
-            <div class="pl-2 text-cherry w-1/2 inline float-left">
-              <span class="text-xl">
-                <b>Does Not Contain:</b>
-              </span>
-              <div class="flex items-center my-4">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="fruit"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Fruit</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="alcoholic"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Alcoholic</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="nonAlcoholic"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Non-Alcoholic</b>
-                </label>
-              </div>
-              <div class="flex items-center mb-5">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="gluten"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  // once the checkbox is changed, run the function
-                  onChange={handleAllergy}
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Gluten</b>
-                </label>
-              </div>
+          <div class="pl-2 text-cherry w-56 inline float-left">
+            <div class="flex items-center my-5 mt-11">
+              <input
+                id="default-checkbox"
+                type="checkbox"
+                value="dairy"
+                onChange={handleAllergy}
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              ></input>
+              <label
+                for="default-checkbox"
+                class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
+              >
+                <b>Dairy</b>
+              </label>
             </div>
-            <div class="pl-2 text-cherry w-56 inline float-left">
-              <div class="flex items-center my-5 mt-11">
-                <input
-                  id="default-checkbox"
-                  type="checkbox"
-                  value="dairy"
-                  onChange={handleAllergy}
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                ></input>
-                <label
-                  for="default-checkbox"
-                  class="ms-4 text-base font-medium text-cherry-900 dark:text-gray-300"
-                >
-                  <b>Dairy</b>
-                </label>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
-      <b className="ml-20 text-lg my-2">
-        This menu will display all drinks for reference only, subject to
-        availability.
-      </b>
-      <p className="ml-20">
-        If the menu item isn't display, click on the blue block
-      </p>
+      <div class="bg-lemon border-gray-200 dark:bg-gray-900">
+        <div class="flex flex-wrap justify-between my-auto mx-auto w-auto h-auto px-7">
+          <p className="ml-20 text-lg my-1">
+            This menu will display all drinks for reference only, subject to
+            availability.
+          </p>
+          <img
+            src="/menu/beers.jpg"
+            alt="picture"
+            class="w-1/2 h-16 ml-72 mt-4"
+          />
+          <div class="w-10/12 h-90 bg-amber ml-24 rounded-xl p-3 overflow-x-auto  rounded-xl my-4">
 
-      <div class="flex flex-wrap justify-between mx-auto w-full h-128 px-7 my-3">
-        <div
-
-          class="w-10/12 h-[450px] bg-ocean ml-24 overflow-x-auto round-xl border border-2 "
-        >
-          <div class="relative overflow-x-auto">
             <table class="w-full text-lg text-left text-lemon">
-              <thead class="text-xl text-lemon uppercase bg-ocean">
+              <thead class="text-xl text-lemon uppercase bg-amber">
                 <tr>
                   <th scope="col" class="px-6 py-3">
                     Name
@@ -221,41 +250,169 @@ const DrinkFilterMenu = () => {
                     Calories
                   </th>
                   <th scope="col" class="px-6 py-3">
-                    Category
+                    Allergens
                   </th>
                   <th scope="col" class="px-6 py-3">
                     Price
                   </th>
                 </tr>
               </thead>
-
               <tbody>
-                {drinkMenu.map((item) => (
-                  <Fragment>
-                    <tr class="bg-ocean">
-                      <th scope="row" class="px-6 h-5 font-medium text-lemon">
-                        <b>{item.name}</b>
-                        <p class="text-gray-900">
-                          <p>{item.description}</p>
-                        </p>
-                      </th>
-                      <td class="px-6 py-4 text-gray-900">{item.calorie}</td>
-                      <td class="px-6 py-4 text-gray-900">
-                        {item.menugroup}
-                      </td>
-                      <td class="px-6 py-4 text-gray-900">
-                        <b>￡{item.price}</b>
-                      </td>
-                    </tr>
-                    <br></br>
-                  </Fragment>
+                {Beer.map((item) => (
+                  <tr class="bg-amber">
+                    <th scope="row" class="px-6 h-5 font-medium text-lemon">
+                      <b>{item.name}</b>
+                      <p class="text-gray-900">
+                        {item.description}
+                      </p>
+                    </th>
+                    <td class="px-6 py-4 text-gray-900">{item.calorie} kcal</td>
+                    <td class="px-6 py-4 text-gray-900">{item.menugroup}</td>
+                    <td class="px-6 py-4 text-gray-900">
+                      <b>￡{item.price}</b>
+                    </td>
+                  </tr>
                 ))}
+
               </tbody>
             </table>
           </div>
+
+        </div>
+        <img
+          src="/menu/cocktails.jpg"
+          alt="picture"
+          class="w-1/2 h-16 ml-72 mt-5"
+        />
+        <div class=" w-[940px] h-90 bg-amber ml-32 rounded-xl p-3 overflow-x-auto rounded-xl">
+          <table class=" text-lg text-left text-lemon">
+            <thead class="text-xl text-lemon uppercase bg-amber">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Calories
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Allergens
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Price
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {cocktail.map((item) => (
+                <tr class="bg-amber">
+                  <th scope="row" class="px-6 h-5 font-medium text-lemon">
+                    <b>{item.name}</b>
+                    <p class="text-gray-900">
+                      {item.description}
+                    </p>
+                  </th>
+                  <td class="px-6 py-4 text-gray-900">{item.calorie} kcal</td>
+                  <td class="px-6 py-4 text-gray-900">{item.menugroup}</td>
+                  <td class="px-6 py-4 text-gray-900">
+                    <b>￡{item.price}</b>
+                  </td>
+                </tr>
+              ))}
+
+            </tbody>
+          </table>
+        </div>
+        <img
+          src="/menu/softDrinks.jpg"
+          alt="picture"
+          class="w-1/2 h-14 ml-72 mt-5"
+        />
+        <div class=" w-[940px] h-90 bg-amber ml-32 rounded-xl p-3 overflow-x-auto rounded-xl my-4">
+          <table class=" text-lg text-left text-lemon">
+            <thead class="text-xl text-lemon uppercase bg-amber">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Calories
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Allergens
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Price
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {softDrink.map((item) => (
+                <tr class="bg-amber">
+                  <th scope="row" class="px-6 h-5 font-medium text-lemon">
+                    <b>{item.name}</b>
+                    <p class="text-gray-900">
+                      {item.description}
+                    </p>
+                  </th>
+                  <td class="px-6 py-4 text-gray-900">{item.calorie} kcal</td>
+                  <td class="px-6 py-4 text-gray-900">{item.menugroup}</td>
+                  <td class="px-6 py-4 text-gray-900">
+                    <b>￡{item.price}</b>
+                  </td>
+                </tr>
+              ))}
+
+            </tbody>
+          </table>
+        </div>
+        <img
+          src="/menu/hotDrinks.jpg"
+          alt="picture"
+          class="w-1/2 h-14 ml-72 mt-5"
+        />
+        <div class=" w-[940px] h-90 bg-amber ml-32 rounded-xl p-3 overflow-x-auto rounded-xl my-4">
+          <table class=" text-lg text-left text-lemon">
+            <thead class="text-xl text-lemon uppercase bg-amber">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Calories
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Allergens
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Price
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {hotDrink.map((item) => (
+                <tr class="bg-amber">
+                  <th scope="row" class="px-6 h-5 font-medium text-lemon">
+                    <b>{item.name}</b>
+                    <p class="text-gray-900">
+                      {item.description}
+                    </p>
+                  </th>
+                  <td class="px-6 py-4 text-gray-900">{item.calorie} kcal</td>
+                  <td class="px-6 py-4 text-gray-900">{item.menugroup}</td>
+                  <td class="px-6 py-4 text-gray-900">
+                    <b>￡{item.price}</b>
+                  </td>
+                </tr>
+              ))}
+
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+
+
+
   );
 };
 
