@@ -198,7 +198,7 @@ const OrderMenu = () => {
                 <p className="text-xl">{food.description}</p>
                 <p className="mt-3">{food.calorie} calories</p>
                 <p className="mt-3">
-                  <b>Price: ￡{parseInt(food.price).toFixed(2)} each</b>
+                  <b>Price: ￡{parseFloat(food.price).toFixed(2)} each</b>
                 </p>
               </div>
             </div>
@@ -265,7 +265,7 @@ const OrderMenu = () => {
                   <td className="px-5 py-4">{item.calorie} kcl</td>
 
                   <td className="px-4 py-4">
-                    <p>￡{parseInt(item.price).toFixed(2)}</p>
+                    <p>￡{parseFloat(item.price).toFixed(2)}</p>
                   </td>
                   <td>
                     <button
