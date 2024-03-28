@@ -1,109 +1,122 @@
-//the combination of filter and starters
-//combine them is because they need a same state to control the content, will solve it later
-
 import { useState } from "react";
 
-//the menu items of cocktail
+{/*Component which displays the drink items and required information, and a filter that removes requested items from view*/}
+
+{/*Cocktail items*/}
 const cocktail = [
   {
     name: "Margarita",
-    description: "classic cocktail featuring tequila, lime juice, and orange liqueur served over ice and often rimmed with salt",
-    calorie: 290, price: 8, menugroup: "cocktail",
+    description: "Classic cocktail featuring tequila, lime juice, and orange liqueur served over ice and often rimmed with salt",
+    calorie: 290, price: "8.00", menugroup: "Cocktail",
     image_path: "margarita.jpg"
   },
   {
     name: "Paloma",
-    description: "refreshing Mexican cocktail made with tequila, grapefruit soda, lime juice, and a pinch of salt, served over ice",
-    calorie: 250, price: 9, menugroup: "cocktail",
+    description: "Refreshing Mexican cocktail made with tequila, grapefruit soda, lime juice, and a pinch of salt, served over ice",
+    calorie: 250, price: "9.00", menugroup: "Cocktail",
     image_path: "paloma.jpg"
   },
   {
     name: "Michelada",
-    description: "spicy and savory Mexican beer cocktail made with beer, lime juice, assorted sauces, spices, and chili peppers, served over ice with a salted rim",
-    calorie: 140, price: 11, menugroup: "cocktail",
+    description: "Spicy and savory Mexican beer cocktail made with beer, lime juice, assorted sauces, spices, and chili peppers, served over ice with a salted rim",
+    calorie: 140, price: "11.00", menugroup: "Cocktail",
     image_path: "michelada.jpg"
   },
   {
     name: "Tequila Sunrise",
-    description: "made with tequila, orange juice, and grenadine, creating a gradient of colors resembling a sunrise",
-    calorie: 300, price: 8, menugroup: "cocktail",
+    description: "Made with tequila, orange juice, and grenadine, creating a gradient of colours resembling a sunrise",
+    calorie: 300, price: "8.00", menugroup: "Cocktail",
     image_path: "tequila-sunrise.jpg"
   },
   {
     name: "Mexican Mule",
-    description: "variation of the classic Moscow Mule cocktail, made with tequila, lime juice, and ginger beer, served over ice with a wedge of lime",
-    calorie: 240, price: 10, menugroup: "cocktail",
+    description: "Variation of the classic Moscow Mule cocktail, made with tequila, lime juice, and ginger beer, served over ice with a wedge of lime",
+    calorie: 240, price: "10.00", menugroup: "Cocktail",
     image_path: "mexican-mule.jpg"
   },
 ]
 
-//the menu item of soft drink
+{/*Soft Drink items*/}
 const softDrink = [
   {
     name: "Jarritos",
-    description: "fruit flavoured soda- available in lime, pineapple, and mandarin",
-    calorie: 200, price: 2, menugroup: "soft_drink"
+    description: "Fruit flavoured soda- available in lime, pineapple, and mandarin",
+    calorie: 200, price: "2.00", menugroup: "Soft Drink"
   },
   {
-    name: "Peach Iced Tea", description: "Homemade with fresh Peaches", calorie: 150,
-    price: 3,
-    menugroup: "soft_drink"
+    name: "Peach Iced Tea", 
+    description: "Homemade with fresh peaches", calorie: 150, price: "3.00", menugroup: "Soft Drink"
   },
   {
     name: "Horchata",
-    description: "creamy and sweet beverage made from rice, almonds, cinnamon,and sugar",
-    calorie: 220, price: 2.8, menugroup: "soft_drink"
+    description: "Creamy and sweet beverage made from rice, almonds, cinnamon, and sugar",
+    calorie: 220, price: "2.80", menugroup: "Soft Drink"
   },
   {
     name: "Mineral Water",
-    description: "naturally carbonated water sourced from underground springs",
-    calorie: 0, price: 2, menugroup: "soft_drink"
+    description: "Naturally carbonated water sourced from underground springs",
+    calorie: 0, price: "2.00", menugroup: "Soft Drink"
   },
 ]
 
-//The menu items of hot drinks
+{/*Hot Drink items*/}
 const hotDrink = [
   {
     name: "Mexican Hot Chocolate",
-    description: "hot chocolate spiced with cinnamon and chili", calorie: 300,
-    price: 4.5, menugroup: "hot_drink",
+    description: "Hot chocolate spiced with cinnamon and chili", 
+    calorie: 300, price: "4.50", menugroup: "Hot Drink",
     image_path: "mexican-hot-chocolate.jpg"
   },
   {
     name: "Cafe de Olla",
-    description: "coffee brewed with cinnamon and piloncillo- unrefined cane sugar",
-    calorie: 180, price: 3, menugroup: "hot_drink",
+    description: "Coffee brewed with cinnamon and piloncillo, unrefined cane sugar",
+    calorie: 180, price: "3.00", menugroup: "Hot Drink",
     image_path: "cafe-de-olla.jpg"
   },
   {
     name: "Atole",
-    description: "comforting beverage made from masa harina (corn flour), water or milk, sweeteners, and spices",
-    calorie: 130, price: 2.5, menugroup: "hot_drink",
+    description: "Comforting beverage made from masa harina (corn flour), water or milk, sweeteners, and spices",
+    calorie: 130, price: "2.50", menugroup: "Hot Drink",
     image_path: "attole.jpg"
   },
   {
-    name: "Agua de Jamaica", description: "tangy and sweet hibiscus flower tea",
-    calorie: 90, price: 1.2,
-    menugroup: "hot_drink",
+    name: "Agua de Jamaica", 
+    description: "Tangy and sweet hibiscus flower tea",
+    calorie: 90, price: "1.20", menugroup: "Hot Drink",
     image_path: "agua-de-jamaica.jpg"
   },
 ]
 
 const DrinkFilterMenu = () => {
 
-  // The menu items of beer
+  {/*Beer items*/}
   const [Beer, setBeer] = useState([
-    { name: "Corona Extra", description: "light, refreshing with wedge of lime", calorie: 300, price: 3, menugroup: "Beer", image_path: "corona-extra.jpg" },
-    { name: "Modelo Especial", description: "balanced flavour profile, and smooth, crisp finish", calorie: 150, price: 2, menugroup: "Beer", image_path: "modelo-especial.jpg" },
-    { name: "Pacifico", description: "crisp taste with a touch of malt sweetness", calorie: 150, price: 2.3, menugroup: "Beer", image_path: "pacifico.jpg" },
+    { 
+      name: "Corona Extra", 
+      description: "Light, refreshing with wedge of lime", 
+      calorie: 300, price: "3.00", menugroup: "Beer", 
+      image_path: "corona-extra.jpg" 
+    },
+    { 
+      name: "Modelo Especial", 
+      description: "Balanced flavour profile, and smooth, crisp finish", 
+      calorie: 150, price: "2.00", menugroup: "Beer", 
+      image_path: "modelo-especial.jpg" 
+    },
+    { 
+      name: "Pacifico", 
+      description: "Crisp taste with a touch of malt sweetness", 
+      calorie: 150, price: "2.30", menugroup: "Beer", 
+      image_path: "pacifico.jpg" },
     {
-      name: "Dos Equis", description: "smooth flavour with hints of toasted malt",
-      calorie: 180, price: 3,
-      menugroup: "beer", image_path: "dos-equis.jpg"
+      name: "Dos Equis", 
+      description: "Smooth flavour with hints of toasted malt",
+      calorie: 180, price: "3.00", menugroup: "Beer", 
+      image_path: "dos-equis.jpg"
     },
   ])
 
-  //the state of allery list
+  {/*Allergy list for dietary filter*/}
   const [allergy, setAllergy] = useState({
     //if the state of nonspicy changed to be false, the spicy food won't show out
     fruit: true,
@@ -129,12 +142,12 @@ const DrinkFilterMenu = () => {
       //update the beer items to filter the item included fruit
       if (value === "fruit") {
         setBeer([
-          { name: "Modelo Especial", description: "balanced flavour profile, and smooth, crisp finish", calorie: 150, price: 2, menugroup: "Beer", image_path: "modelo-especial.jpg" },
-          { name: "Pacifico", description: "crisp taste with a touch of malt sweetness", calorie: 150, price: 2.3, menugroup: "Beer", image_path: "pacifico.jpg" },
+          { name: "Modelo Especial", description: "balanced flavour profile, and smooth, crisp finish", calorie: 150, price: "2.00", menugroup: "Beer", image_path: "modelo-especial.jpg" },
+          { name: "Pacifico", description: "crisp taste with a touch of malt sweetness", calorie: 150, price: "2.30", menugroup: "Beer", image_path: "pacifico.jpg" },
           {
             name: "Dos Equis", description: "smooth flavour with hints of toasted malt",
-            calorie: 180, price: 3,
-            menugroup: "beer", image_path: "dos-equis.jpg"
+            calorie: 180, price: "3.00",
+            menugroup: "Beer", image_path: "dos-equis.jpg"
           },
         ])
       }
@@ -146,12 +159,12 @@ const DrinkFilterMenu = () => {
       //to recover the original beer menu item
       if (value === "fruit") {
         setBeer([
-          { name: "Corona Extra", description: "light, refreshing with wedge of lime", calorie: 300, price: 3, menugroup: "Beer", image_path: "corona-extra.jpg" },
-          { name: "Modelo Especial", description: "balanced flavour profile, and smooth, crisp finish", calorie: 150, price: 2, menugroup: "Beer", image_path: "modelo-especial.jpg" },
-          { name: "Pacifico", description: "crisp taste with a touch of malt sweetness", calorie: 150, price: 2.3, menugroup: "Beer", image_path: "pacifico.jpg" },
+          { name: "Corona Extra", description: "light, refreshing with wedge of lime", calorie: 300, price: "3.00", menugroup: "Beer", image_path: "corona-extra.jpg" },
+          { name: "Modelo Especial", description: "balanced flavour profile, and smooth, crisp finish", calorie: 150, price: "2.00", menugroup: "Beer", image_path: "modelo-especial.jpg" },
+          { name: "Pacifico", description: "crisp taste with a touch of malt sweetness", calorie: 150, price: "2.30", menugroup: "Beer", image_path: "pacifico.jpg" },
           {
             name: "Dos Equis", description: "smooth flavour with hints of toasted malt",
-            calorie: 180, price: 3,
+            calorie: 180, price: "3.00",
             menugroup: "beer", image_path: "dos-equis.jpg"
           },
         ])

@@ -294,7 +294,7 @@ const FilterMenu = () => {
                         <b>Bean Tostadas</b>
 
                         <p class="text-gray-900">
-                          chickpeas, beans and peas with tomato salsa(V)
+                          Chickpeas, beans and peas with tomato salsa(V)
                         </p>
                       </th>
                       <td class="px-6 py-4 text-gray-900">300 kcal</td>
