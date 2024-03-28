@@ -23,7 +23,7 @@ const CallWaiter = () => {
         return table;
       })
       .catch((error) => {
-        alert(`Error fetching order ${tableNumber}:`, error);
+        alert(`Please call the waiter after placing an order`);
       });
   }
 
