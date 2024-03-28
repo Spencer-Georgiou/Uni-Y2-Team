@@ -12,15 +12,13 @@ function Foot() {
             src="/images/OaxacaLogo.png"
             name="Oaxaca"
           />
-          <Footer.LinkGroup className="text-black">
+          <Footer.LinkGroup className="text-lemon">
             <Footer.Link href="/AboutUs">About Us</Footer.Link>
-            <Footer.Link href="#">Privacy Policy</Footer.Link>
             <Footer.Link href="/FoodMenu">Menu</Footer.Link>
-            <Footer.Link href="#">Contact Us</Footer.Link>
           </Footer.LinkGroup>
         </div>
         <Footer.Divider />
-        <Footer.Copyright className="text-black" href="/" by="Oaxaca" year={2024} />
+        <Footer.Copyright className="text-lemon" href="/" by="Oaxaca" year={2024} />
       </div>
     </Footer>
   );

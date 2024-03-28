@@ -93,14 +93,6 @@ function DisplayHelp() {
         setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     };
 
-    const sortingOrderTimes = (orders) => {
-        return orders.sort((a, b) => { //this method takes a comparison function that contains orders, it will take each order and compare them with their times and returns a value for each pair of comparisons
-            const date_a = new Date(a.time_created);
-            const date_b = new Date(b.time_created);
-            return date_a - date_b; // if a is less than b then there will be a negative difference meaning a should come before b, if they are equal the difference is 0 so the order doesnt change and if the difference is positive then a should come after b
-        });
-    }
-
     return (
         <div className="flex flex-col space-y-2">
 

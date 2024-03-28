@@ -67,7 +67,7 @@ const AboutUs = () => {
                             <img className="h-32 w-90" src="/aboutUs/Team27.png" />
                         </div>
                         <div className="overflow-auto">
-                            <p class="font-sans text-base font-semibold text-center tracking-widest leading-relaxed"> <br /> Welcome to Oaxaca,
+                            <p class="font-sans text-cherry text-base font-semibold text-center tracking-widest leading-relaxed"> <br /> Welcome to Oaxaca,
                                 where passion for Mexican cuisine meets a commitment to
                                 sharing the vibrant flavours of Mexico with our community.
                                 Our journey began with a love affair with Mexican food that

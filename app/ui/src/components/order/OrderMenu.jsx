@@ -126,10 +126,10 @@ const OrderMenu = () => {
         <h3 class="my-2 text-xl text-cherry">
           <b>Dietary Filter</b>
         </h3>
-        <ul class="items-center w-full text-sm text-lemon bg-cherry border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <ul class="items-center w-full text-sm text-lemon bg-cherry border border-cherry rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
           {Object.keys(allergy).map((al) => (
             <li
-              class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+              class="w-full border-b border-cherry sm:border-b-0 sm:border-r dark:border-gray-600"
               key={allergy[al]}
             >
               <div class="flex items-center ps-3">
@@ -194,7 +194,7 @@ const OrderMenu = () => {
                 <p className="text-xl">{food.description}</p>
                 <p className="mt-3">{food.calorie} calories</p>
                 <p className="mt-3">
-                  <b>Price: ￡{food.price.toFixed(2)} each</b>
+                  <b>Price: ￡{parseInt(food.price).toFixed(2)} each</b>
                 </p>
               </div>
             </div>
@@ -265,7 +265,7 @@ const OrderMenu = () => {
 
                   <td className="px-5 py-4">{item.menugroup.category} </td>
                   <td className="px-4 py-4">
-                    <p>￡{item.price.toFixed(2)}</p>
+                    <p>￡{parseInt(food.price).toFixed(2)}</p>
                   </td>
                   <td>
                     <button

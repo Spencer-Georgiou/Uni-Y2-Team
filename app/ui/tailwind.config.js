@@ -20,7 +20,7 @@ module.exports = {
       }
     },
     fontFamily: {
-      'sans': ['Noto Sans, sans-serif'],
+      'sans': ['sans-serif'],
     }
   },
   plugins: [require('flowbite/plugin')],
