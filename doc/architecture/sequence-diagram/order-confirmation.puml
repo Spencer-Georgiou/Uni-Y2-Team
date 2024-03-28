@@ -28,7 +28,7 @@ end box
 database Database
 
 Waiter -> WaiterHub: confirms an order
-WaiterHub -> OrderAPI: PATCH with its order id, the waiter id and the status "Preparing"
+WaiterHub -> OrderAPI: PATCH with its order id, the waiter username and the status "Preparing"
 OrderAPI -> Database: update the order with given status and the waiter id
 Database -> OrderAPI: done
 OrderAPI -> WaiterHub: the order is updated
