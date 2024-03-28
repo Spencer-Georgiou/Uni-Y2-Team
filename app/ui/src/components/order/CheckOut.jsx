@@ -21,7 +21,7 @@ function CheckOut({ openModal, setOpenModal, setconfirm }) {
     //stores all the item name and quantity
     menuitem_associations: [],
   });
-  const [url, setUrl] = useState({});
+  const [url, setUrl] = useState("");
   const [openPay, setOpenPay] = useState(false);
 
   function handleCheckOut() {
@@ -105,7 +105,7 @@ function CheckOut({ openModal, setOpenModal, setconfirm }) {
       })
       .then((json) => {
         console.log(json.payment_url);
-        setUrl(json);
+        setUrl(json.payment_url);
       })
       .catch((error) => {
         console.error("there was an error", error);
@@ -177,7 +177,7 @@ function CheckOut({ openModal, setOpenModal, setconfirm }) {
       <Payment
         openPay={openPay}
         setOpenPay={setOpenPay}
-        url={url.payment_url}
+        url={url}
       />
     </>
   );

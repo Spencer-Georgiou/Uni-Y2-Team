@@ -1,10 +1,6 @@
-import hashlib
-import random
-import time
+from secrets import compare_digest
 
-from flask import request
 from flask.views import MethodView
-from sqlalchemy.exc import SQLAlchemyError
 from flask_smorest import abort
 
 from src.apidoc import apidoc
@@ -12,10 +8,11 @@ from src.models import User
 from src.models import Session
 from src.models import db
 from src.schema import UnassociatedUser
+from src.models.user import hash_pwd
 
 
 def create_session(username):
-    # delete existing session 
+    # delete existing session
     old_session = db.session.query(Session).filter_by(user_username=username).first()
     if old_session:
         db.session.delete(old_session)
@@ -51,8 +48,7 @@ class Login(MethodView):
 
         user_db = db.session.query(User).filter_by(username=username).first()
 
-        # need to create hash() for use here and for registration
-        if user_db is None or user_db.password != password:
+        if user_db is None or not compare_digest(user_db.password, hash_pwd(password)):
             abort(401, message=Login.MSG_INVALID_CREDS)
 
         return {"session_key": create_session(username), "role": user_db.__tablename__}, 200

@@ -13,6 +13,12 @@ from sqlalchemy.orm import relationship
 
 from src.models.base import db
 
+import hashlib
+
+def hash_pwd(pwd):
+    pwd_bytes = pwd.encode("utf-8")
+    salt_bytes = "4fb0da9de59b".encode("utf-8")
+    return hashlib.sha256(pwd_bytes + salt_bytes).hexdigest()
 
 class User(db.Model):
     """
