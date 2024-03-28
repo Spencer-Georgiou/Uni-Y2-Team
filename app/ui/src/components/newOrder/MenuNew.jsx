@@ -27,6 +27,7 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
   const [openModal, setOpenModal] = useState(true);
   const [tableNumber, setTableNumber] = useState(null);
 
+  //the state to know which category filter button is currently pressed
   const [activeButton, setActiveButton] = useState(null);
 
   // Fetches menu data from api and sets it in json format
@@ -179,7 +180,7 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
       {/* Dsiplaying all the menu catrgories as filter buttons */}
       {filterButtons.map((item, index) => (
         <button
-          className={`bg-${activeButton === item.name ? 'amber' : 'redder'} text-${activeButton === item.name ? 'lemon' : 'black'} text-black text-3xl font-sans font-bold py-5 px-5 my-2 mx-1 space-x-4 rounded-lg hover:bg-amber hover:text-lemon`}
+          className={`bg-${activeButton === item.name ? 'amber' : 'redder'} text-${activeButton === item.name ? 'lemon' : 'black'} text-3xl font-sans font-bold py-5 px-5 my-2 mx-1 space-x-4 rounded-lg hover:bg-amber hover:text-lemon`}
           key={index}
           value={item.name}
           onClick={() => filterMenu(item.name)}

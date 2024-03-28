@@ -61,7 +61,11 @@ class Migration:
             "dairy": Allergen(name="Dairy"),
             "nut": Allergen(name="Nut"),
             "egg": Allergen(name="Egg"),
-            "mollusc": Allergen(name="Mollusc")}
+            "mollusk": Allergen(name="Mollusk"),
+            "alcoholic": Allergen(name="Alcoholic"),
+            "non-alcoholic": Allergen(name="Non-Alcoholic"),
+        }
+
         db.session.add_all(allergens.values())
 
         # initialize menu items with provided allergens and menu groups
@@ -84,7 +88,7 @@ class Migration:
             MenuItem(name="Burrito",
                      description="Rice, beans and cheese wrapped up in a flour tortilla",
                      calorie=350,
-                     price=6.00, menugroup=menugroups["main"], allergens=[allergens["mollusc"]],
+                     price=6.00, menugroup=menugroups["main"], allergens=[allergens["mollusk"]],
                      image_path="burrito.jpg"),
             MenuItem(name="Chorizo Quesadilla",
                      description="Chorizo and cheese toasted in a flour tortilla", calorie=400,
@@ -103,7 +107,7 @@ class Migration:
                      image_path="churros.jpg"),
             MenuItem(name="Sweet Fried Plantains", description="Sugar coated fried plantains",
                      calorie=300, price=3.00, menugroup=menugroups["dessert"],
-                     allergens=[allergens["egg"], allergens["mollusc"]],
+                     allergens=[allergens["egg"], allergens["mollusk"]],
                      image_path="sweet-fried-plantains.jpg"),
             MenuItem(name="Ice Cream", description="2 scoops of vanilla ice cream,", calorie=300,
                      price=2.50,
