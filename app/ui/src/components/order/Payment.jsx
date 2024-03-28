@@ -23,8 +23,7 @@ const Payment = ({ openPay, setOpenPay, url }) => {
         return table;
       })
       .catch((error) => {
-        console.error(`Error fetching order ${tableNumber}:`, error);
-        return null;
+        alert(`Please call the waiter after placing an order`);
       });
   }
 
@@ -39,8 +38,10 @@ const Payment = ({ openPay, setOpenPay, url }) => {
   }
 
   const sendCall = () => {
+    const currentOrder = fetchTable(tableNumber);
+    
     const patchData = {
-      id: parseInt(tableNumber),
+      id: order.id,
       calling_waiter: true
     };
 
