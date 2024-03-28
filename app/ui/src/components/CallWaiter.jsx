@@ -4,11 +4,12 @@ import { useState } from "react";
 
 {/*Button that alerts the waiter that a customer needs assistance when pressed*/}
 const CallWaiter = () => {
-    const tableNumber = useSelector((state) => state.table);
-    //store the order information
-    const [order, setOrder] = useState({});
+  //Get current table number
+  const tableNumber = useSelector((state) => state.table);
+  //store the order information
+  const [order, setOrder] = useState({});
     
-    //using table number to fetch order id from the database
+  //using table number to fetch order id from the database
   async function fetchTable(tableNumber) {
     return fetch(`/api/table?number=${tableNumber}`)
       .then((response) => {
@@ -56,6 +57,7 @@ const CallWaiter = () => {
         if (!response.ok) {
           throw new Error('Failed to call a waiter');
         }
+        //If patch is successful then waiter will be notified
         alert("A waiter will be with you shortly")
       })
       .catch(error => {

@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
+{/*Payment component that allows the customer to either pay online, or call a waiter to pay in person*/}
 const Payment = ({ openPay, setOpenPay, url }) => {
+  //Get current table number
   const tableNumber = useSelector((state) => state.table);
   //store the order information
   const [order, setOrder] = useState({});
@@ -39,7 +41,7 @@ const Payment = ({ openPay, setOpenPay, url }) => {
 
   const sendCall = () => {
     const currentOrder = fetchTable(tableNumber);
-    
+
     const patchData = {
       id: order.id,
       calling_waiter: true
@@ -56,6 +58,7 @@ const Payment = ({ openPay, setOpenPay, url }) => {
         if (!response.ok) {
           throw new Error('Failed to call a waiter');
         }
+        //If patch is successful then waiter will be notified
         alert("A waiter will be with you shortly")
       })
       .catch(error => {

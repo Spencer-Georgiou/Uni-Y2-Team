@@ -194,7 +194,7 @@ const OrderMenu = () => {
                 <p className="text-xl">{food.description}</p>
                 <p className="mt-3">{food.calorie} calories</p>
                 <p className="mt-3">
-                  <b>Price: ￡{food.price} each</b>
+                  <b>Price: ￡{food.price.toFixed(2)} each</b>
                 </p>
               </div>
             </div>
@@ -265,7 +265,7 @@ const OrderMenu = () => {
 
                   <td className="px-5 py-4">{item.menugroup.category} </td>
                   <td className="px-4 py-4">
-                    <p>￡{item.price}</p>
+                    <p>￡{item.price.toFixed(2)}</p>
                   </td>
                   <td>
                     <button
