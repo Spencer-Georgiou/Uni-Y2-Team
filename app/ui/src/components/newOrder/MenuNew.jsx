@@ -27,6 +27,8 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
   const [openModal, setOpenModal] = useState(true);
   const [tableNumber, setTableNumber] = useState(null);
 
+  const [activeButton, setActiveButton] = useState(null);
+
   // Fetches menu data from api and sets it in json format
   useEffect(() => {
     fetch("/api/menu")
@@ -43,6 +45,7 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
 
   // Filter menu item
   const filterMenu = (filterType) => {
+    setActiveButton(filterType);
     if (filterType === "All") {
       // Filter the data to include only available items
       let filteredFood = data.filter(item => item.available === true);
@@ -176,7 +179,7 @@ const MenuNew = ({ orderNewItem, onSetTableNumber }) => {
       {/* Dsiplaying all the menu catrgories as filter buttons */}
       {filterButtons.map((item, index) => (
         <button
-          className="bg-redder text-black text-3xl  font-sans font-bold py-5 px-5 my-2 mx-1 space-x-4 rounded-lg hover:bg-amber hover:text-lemon"
+          className={`bg-${activeButton === item.name ? 'amber' : 'redder'} text-${activeButton === item.name ? 'lemon' : 'black'} text-black text-3xl font-sans font-bold py-5 px-5 my-2 mx-1 space-x-4 rounded-lg hover:bg-amber hover:text-lemon`}
           key={index}
           value={item.name}
           onClick={() => filterMenu(item.name)}
