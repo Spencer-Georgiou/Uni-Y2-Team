@@ -7,7 +7,7 @@ const Payment = ({ openPay, setOpenPay, url }) => {
 
   const sendCall = () => {
     const patchData = {
-      id: tableNumber,
+      id: parseInt(tableNumber),
       calling_waiter: true
     };
 
@@ -37,7 +37,7 @@ const Payment = ({ openPay, setOpenPay, url }) => {
         <Modal.Body>
           <div className="w-auto h-auto bg-teal-100 px-[30px] py-3">
             <p className="text-green-500">
-              <b>Pay Online (recommened)</b>
+              <b>Pay Online (recommended)</b>
             </p>
             <Link
               to={url}

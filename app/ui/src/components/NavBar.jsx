@@ -8,8 +8,11 @@ import CallWaiter from "./CallWaiter";
 }
 function NavBar() {
  
-  const sendCall = () => {
-    return <CallWaiter />
+  const sendCall = (value) => {
+    if (value === true){
+      return <CallWaiter />
+    }
+    
   }
 
   return (
@@ -69,7 +72,7 @@ function NavBar() {
       </div>
 
       <div className="flex gap-3 md:order-2 font-sans font-medium font-semibold text-lemon">
-        {sendCall()}
+        {sendCall(true)}
 
         <Dropdown label="Log In" inline className='text-lemon bg-lemon border-lemon' dismissOnClick={false}>
           <Dropdown.Item as={Link} to="/StaffLogin" className="focus:bg-amber">Staff Login</Dropdown.Item>

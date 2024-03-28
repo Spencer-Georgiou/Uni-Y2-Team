@@ -36,7 +36,7 @@ function SolvedButton({ orderId }) {
   };
 
   return (
-    <Button  style={{ backgroundColor: buttonColour, color: textColour, outline:'transparent' }} onClick={handleReady}>Problem solved</Button>
+    <Button  style={{ backgroundColor: buttonColour, color: textColour, outline:'transparent' }} onClick={handleReady}>Problem Solved</Button>
   );
 }
 

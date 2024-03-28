@@ -2,14 +2,14 @@
 import { useSelector } from "react-redux";
 
 {/*Button that alerts the waiter that a customer needs assistance when pressed*/}
-function CallWaiter() {
+const CallWaiter = () => {
     const tableNumber = useSelector((state) => state.table);
     
     const SendCall = () => {
         const patchData = {
         id: parseInt(tableNumber),
         calling_waiter: true
-    };
+        };
 
     fetch('/api/order', {
       method: 'PATCH',
