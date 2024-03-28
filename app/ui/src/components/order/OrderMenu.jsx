@@ -290,9 +290,9 @@ const OrderMenu = () => {
                   </td>
                 </tr>
               ))
-            ) : (
-              <p className="ml-6 text-xl ">please click on the menu buttons</p>
-            )}
+             ) : (
+               <p className="font-sans ml-6 font-semibold text-lemon text-2xl h-full">Please select a category!</p>
+             )}
           </tbody>
         </table>
       </div>
