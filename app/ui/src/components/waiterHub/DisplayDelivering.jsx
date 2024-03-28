@@ -82,7 +82,7 @@ function DisplayDelivering() {
             .then(response => response.json())
             .then(json => {
                 // Only add orders with status "Delivering"
-                if (json.status !== "Delivering" && fetchedOrderIds.has(json.id)) {
+                if (json.calling_waiter !== "Delivering" && fetchedOrderIds.has(json.id)) {
                     const newFetchedOrderIds = new Set(fetchedOrderIds);
                     newFetchedOrderIds.delete(json.id);
                     setFetchedOrderIds(newFetchedOrderIds);

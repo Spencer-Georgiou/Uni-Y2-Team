@@ -142,8 +142,6 @@ function DisplayDelivered() {
                     <div className="flex ml-6">
                         Quantity: {item.quantity}
                     </div>
-
-
                 </div>
             </div>
         ));

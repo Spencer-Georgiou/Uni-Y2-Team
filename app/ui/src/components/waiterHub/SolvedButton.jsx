@@ -1,6 +1,6 @@
 import { Button } from 'flowbite-react';
 
-function SolvedButton({ orderId, onProblemSolved }) {
+function SolvedButton({ orderId, onOrderDelivered }) {
   const handleReady = () => {
 
     const patchData = {
@@ -17,17 +17,18 @@ function SolvedButton({ orderId, onProblemSolved }) {
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error('Failed to mark order as ready');
+          throw new Error('Failed to mark table problem as solved');
         }
-        // Handle success, maybe display a success message
-        onProblemSolved(orderId);
+        onOrderDelivered(orderId);
+        
       })
       .catch(error => {
-        console.error('Error marking order as ready:', error);
+        console.error('Error marking table problem as solved:', error);
         // Handle error, display an error message to the user
       });
 
-      window.location.reload();
+      
+      
   };
 
   return (

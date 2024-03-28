@@ -1,8 +1,8 @@
 'use client'
 import SolvedButton from "../../components/waiterHub/SolvedButton";
 import { useState, useEffect, useRef } from "react";
-
 // This function is what fetches data at every interval.
+
 function useInterval(callback, delay) {
     const savedCallback = useRef();
 
@@ -25,6 +25,7 @@ function DisplayHelp() {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
     const [tables, setTables] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [fetchedOrderIds, setFetchedOrderIds] = useState(new Set());
 
     useEffect(() => {
         fetchTables();
@@ -68,18 +69,27 @@ function DisplayHelp() {
             });
     };
 
-
+    // Fetching the orders.
     const fetchOrder = (tableId) => {
         return fetch(`/api/order?id=${tableId}`)
             .then(response => response.json())
             .then(json => {
-                if (json.calling_waiter === true) {
+                // Only add orders with status "Delivering"
+                if (json.calling_waiter !== true && fetchedOrderIds.has(json.id)) {
+                    const newFetchedOrderIds = new Set(fetchedOrderIds);
+                    newFetchedOrderIds.delete(json.id);
+                    setFetchedOrderIds(newFetchedOrderIds);
+                    setOrders(prevOrders => prevOrders.filter(order => order.id !== json.id));
+                }
+                if (json.calling_waiter === true && !fetchedOrderIds.has(json.id)) {
+                    setFetchedOrderIds(prevIds => new Set([...prevIds, json.id]));
                     setOrders(prevOrders => [...prevOrders, json]);
+                    console.log(orders);
                 }
             })
     };
 
-    const handleProblemSolved = (orderId) => {
+    const handleOrderDelivered = (orderId) => {
         setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     };
 
@@ -94,7 +104,7 @@ function DisplayHelp() {
     return (
         <div className="flex flex-col space-y-2">
 
-            {sortingOrderTimes([...orders]).map((order) => (
+            {orders.map((order) => (
                 <div className="flex flex-row font-sans" key={order.id}>
                     <div className="flex flex-col w-full text-black mt-8 space-y-2">
                         <div className="flex ml-4 text-redder text-xl font-bold">
@@ -102,7 +112,7 @@ function DisplayHelp() {
                         </div>
 
                         <div className="flex ml-4">
-                            <SolvedButton orderId={order.id} onOrderDelivered={handleProblemSolved}/>
+                            <SolvedButton orderId={order.id} onOrderDelivered={handleOrderDelivered} />
                         </div>
 
                     </div>

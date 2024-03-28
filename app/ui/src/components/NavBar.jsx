@@ -9,10 +9,7 @@ import CallWaiter from "./CallWaiter";
 function NavBar() {
  
   const SendCall = (value) => {
-    if (value === true){
       return <CallWaiter />
-    }
-    
   }
 
   return (
