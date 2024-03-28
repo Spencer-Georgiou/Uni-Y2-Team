@@ -144,7 +144,7 @@ const DrinkFilterMenu = () => {
         <div class="bg-lemon w-5/6 h-[160px] rounded-2xl pt-5 px-20">
           <div class="pl-2 text-cherry w-1/2 inline float-left">
             <span class="text-xl">
-              <b>Does Not Contain:</b>
+              <b>Drink Type:</b>
             </span>
             <div class="flex items-center my-4">
               <input
@@ -194,16 +194,13 @@ const DrinkFilterMenu = () => {
               <table class=" text-lg text-left text-lemon">
                 <thead class="text-xl text-lemon uppercase bg-amber">
                   <tr>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-7 py-3">
                       Name
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-9 py-3">
                       Calories
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                      Allergens
-                    </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-7 py-3">
                       Price
                     </th>
                   </tr>
@@ -217,9 +214,9 @@ const DrinkFilterMenu = () => {
                           {item.description}
                         </p>
                       </th>
-                      <td class="px-6 py-4 text-gray-900">{item.calorie} kcal</td>
-                      <td class="px-6 py-4 text-gray-900">{item.menugroup}</td>
-                      <td class="px-6 py-4 text-gray-900">
+                      <td class="px-9 py-4 text-gray-900">{item.calorie} kcal</td>
+
+                      <td class="px-7 py-4 text-gray-900">
                         <b>￡{item.price}</b>
                       </td>
                     </tr>
@@ -245,9 +242,7 @@ const DrinkFilterMenu = () => {
                     <th scope="col" class="px-6 py-3">
                       Calories
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                      Allergens
-                    </th>
+
                     <th scope="col" class="px-6 py-3">
                       Price
                     </th>
@@ -263,7 +258,7 @@ const DrinkFilterMenu = () => {
                         </p>
                       </th>
                       <td class="px-6 py-4 text-gray-900">{item.calorie} kcal</td>
-                      <td class="px-6 py-4 text-gray-900">{item.menugroup}</td>
+
                       <td class="px-6 py-4 text-gray-900">
                         <b>￡{item.price}</b>
                       </td>
@@ -291,9 +286,7 @@ const DrinkFilterMenu = () => {
                     <th scope="col" class="px-6 py-3">
                       Calories
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                      Allergens
-                    </th>
+
                     <th scope="col" class="px-6 py-3">
                       Price
                     </th>
@@ -309,7 +302,7 @@ const DrinkFilterMenu = () => {
                         </p>
                       </th>
                       <td class="px-6 py-4 text-gray-900">{item.calorie} kcal</td>
-                      <td class="px-6 py-4 text-gray-900">{item.menugroup}</td>
+
                       <td class="px-6 py-4 text-gray-900">
                         <b>￡{item.price}</b>
                       </td>
@@ -334,9 +327,7 @@ const DrinkFilterMenu = () => {
                     <th scope="col" class="px-6 py-3">
                       Calories
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                      Allergens
-                    </th>
+
                     <th scope="col" class="px-6 py-3">
                       Price
                     </th>
@@ -352,7 +343,7 @@ const DrinkFilterMenu = () => {
                         </p>
                       </th>
                       <td class="px-6 py-4 text-gray-900">{item.calorie} kcal</td>
-                      <td class="px-6 py-4 text-gray-900">{item.menugroup}</td>
+
                       <td class="px-6 py-4 text-gray-900">
                         <b>￡{item.price}</b>
                       </td>
