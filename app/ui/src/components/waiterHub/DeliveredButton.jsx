@@ -5,8 +5,7 @@ import { Button } from 'flowbite-react';
 
 function DeliveredButton({ orderId, onOrderDelivered }) {
   const handleReady = () => {
-
-
+    
     const patchData = {
       id: orderId,
       status: 'Delivered',

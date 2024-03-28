@@ -1,13 +1,7 @@
 import { Button } from 'flowbite-react';
-import { useState } from 'react';
 
-function SolvedButton({ orderId }) {
-  const [buttonColour, setButtonColour] = useState('green');
-  const [textColour, setTextColour] = useState('white');
-  
+function SolvedButton({ orderId, onProblemSolved }) {
   const handleReady = () => {
-    setButtonColour('transparent');
-    setTextColour('transparent');
 
     const patchData = {
       id: orderId,
@@ -26,6 +20,7 @@ function SolvedButton({ orderId }) {
           throw new Error('Failed to mark order as ready');
         }
         // Handle success, maybe display a success message
+        onProblemSolved(orderId);
       })
       .catch(error => {
         console.error('Error marking order as ready:', error);
@@ -36,7 +31,7 @@ function SolvedButton({ orderId }) {
   };
 
   return (
-    <Button  style={{ backgroundColor: buttonColour, color: textColour, outline:'transparent' }} onClick={handleReady}>Problem Solved</Button>
+    <Button  color="success" onClick={handleReady}>Problem Solved</Button>
   );
 }
 

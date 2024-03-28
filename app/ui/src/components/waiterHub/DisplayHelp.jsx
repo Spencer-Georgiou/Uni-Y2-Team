@@ -1,7 +1,25 @@
 'use client'
-import { useState, useEffect } from "react";
 import SolvedButton from "../../components/waiterHub/SolvedButton";
+import { useState, useEffect, useRef } from "react";
 
+// This function is what fetches data at every interval.
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
 
 function DisplayHelp() {
     const tableNumbers = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -11,6 +29,10 @@ function DisplayHelp() {
     useEffect(() => {
         fetchTables();
     }, []);
+
+    useInterval(() => {
+        fetchTables();
+    }, 5000);
 
     const fetchTables = () => {
         tableNumbers.forEach(tableNumber => {
@@ -57,14 +79,8 @@ function DisplayHelp() {
             })
     };
 
-    const formatTime = (time) => {
-        const date = new Date(time);
-        return new Intl.DateTimeFormat('en-GB', {
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZone: 'UTC'
-        }).format(date);
-
+    const handleProblemSolved = (orderId) => {
+        setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     };
 
     const sortingOrderTimes = (orders) => {
@@ -74,25 +90,6 @@ function DisplayHelp() {
             return date_a - date_b; // if a is less than b then there will be a negative difference meaning a should come before b, if they are equal the difference is 0 so the order doesnt change and if the difference is positive then a should come after b
         });
     }
-
-    const showMenuItems = (menuItems) => {
-        return menuItems.map((item, index) => (
-            <div className="flex text-lg font-semibold">
-                <div className="flex flex-col ml-4 space-y-2">
-                    <div className="flex ml-4 text-amber">
-                        Item-Name: {item.menuitem_name}
-                        {/* <span className="text-black">  Quantity: {item.quantity}</span> */}
-                    </div>
-
-                    <div className="flex ml-6">
-                        Quantity: {item.quantity}
-                    </div>
-                </div>
-            </div>
-        ));
-    }
-
-
 
     return (
         <div className="flex flex-col space-y-2">
@@ -105,7 +102,7 @@ function DisplayHelp() {
                         </div>
 
                         <div className="flex ml-4">
-                            <SolvedButton orderId={order.id} />
+                            <SolvedButton orderId={order.id} onOrderDelivered={handleProblemSolved}/>
                         </div>
 
                     </div>
