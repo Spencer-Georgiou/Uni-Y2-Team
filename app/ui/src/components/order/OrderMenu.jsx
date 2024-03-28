@@ -39,6 +39,9 @@ const OrderMenu = () => {
   //the preious data before allergens filtered
   const [previous, setPrevious] = useState([]);
 
+  //the state to know which category filter button is currently pressed
+  const [activeButton, setActiveButton] = useState(null);
+
   //the first item user open the order page, Fetches menu data from api and sets it to data
   useEffect(() => {
     fetch("/api/menu")
@@ -49,6 +52,7 @@ const OrderMenu = () => {
 
   //this function is to control the display of menu item
   function hanldeMenu(name) {
+    setActiveButton(name);
     //only add the available items to filtered state
     const temp = data.filter((f) => f.available === true);
     setFiltered(temp);
@@ -74,7 +78,7 @@ const OrderMenu = () => {
   }
 
   //the state of allery list
-  const allergy = ["Gluten", "Dairy", "Nuts", "Egg", "Mollusk"];
+  const allergy = ["Gluten", "Dairy", "Nuts", "Egg", "Mollusc"];
   // the function to set the state to control menu display
   function handleAllergy(e) {
     //get the allergen name
@@ -126,10 +130,10 @@ const OrderMenu = () => {
         <h3 class="my-2 text-xl text-cherry">
           <b>Dietary Filter</b>
         </h3>
-        <ul class="items-center w-full text-sm text-lemon bg-cherry border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <ul class="items-center w-full text-sm text-lemon bg-cherry border border-cherry rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
           {Object.keys(allergy).map((al) => (
             <li
-              class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600"
+              class="w-full border-b border-cherry sm:border-b-0 sm:border-r dark:border-gray-600"
               key={allergy[al]}
             >
               <div class="flex items-center ps-3">
@@ -154,7 +158,8 @@ const OrderMenu = () => {
       {/* Menu buttons*/}
       <ul class="ml-20 my-4 flex flex-wrap text-lg font-medium text-center">
         {filterButtons.map((m, index) => (
-          <li class="me-2" key={index}>
+          
+          <li class={`bg-${activeButton === m.name ? 'gray-100' : 'amber'} text-${activeButton === m.name ? 'amber' : 'lemon'} my-1 mx-1 font-sans font-bold py-3 px-5 rounded-lg hover:bg-gray-100 hover:text-amber`} key={index}>
             <button
               onClick={() => {
                 hanldeMenu(m.name);
@@ -162,7 +167,6 @@ const OrderMenu = () => {
               value={m.value}
               type="button"
               href="#"
-              class="bg-amber inline-block px-5 py-3 rounded-lg hover:text-amber hover:bg-gray-100 text-lemon"
             >
               <b>{m.name}</b>
             </button>
@@ -194,7 +198,7 @@ const OrderMenu = () => {
                 <p className="text-xl">{food.description}</p>
                 <p className="mt-3">{food.calorie} calories</p>
                 <p className="mt-3">
-                  <b>Price: ￡{food.price} each</b>
+                  <b>Price: ￡{parseInt(food.price).toFixed(2)} each</b>
                 </p>
               </div>
             </div>
@@ -240,9 +244,6 @@ const OrderMenu = () => {
                 Calorie
               </th>
               <th scope="col" className="px-6 py-3">
-                Category
-              </th>
-              <th scope="col" className="px-6 py-3">
                 Price
               </th>
               <th></th>
@@ -263,9 +264,8 @@ const OrderMenu = () => {
                   </td>
                   <td className="px-5 py-4">{item.calorie} kcl</td>
 
-                  <td className="px-5 py-4">{item.menugroup.category} </td>
                   <td className="px-4 py-4">
-                    <p>￡{item.price}</p>
+                    <p>￡{parseInt(item.price).toFixed(2)}</p>
                   </td>
                   <td>
                     <button
@@ -290,9 +290,9 @@ const OrderMenu = () => {
                   </td>
                 </tr>
               ))
-            ) : (
-              <p className="ml-6 text-xl ">please click on the menu buttons</p>
-            )}
+             ) : (
+               <p className="font-sans ml-6 font-semibold text-lemon text-2xl h-full">Please select a category!</p>
+             )}
           </tbody>
         </table>
       </div>
